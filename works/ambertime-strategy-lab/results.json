@@ -1,0 +1,6158 @@
+{
+  "schema": "ambertime-strategy-lab-evidence/1",
+  "baseline": "036df63c7fcb47373bc66f44f8fda6a4d0c9872e",
+  "scope": "合成比較。現行本編の100年経営・実機検証ではない。",
+  "default": {
+    "config": {
+      "months": 60,
+      "total": 100,
+      "seed": 42,
+      "focus": "bar",
+      "smoke": 0.75,
+      "age": 24,
+      "continuityWeight": 0.5,
+      "target": 12,
+      "method": "carry"
+    },
+    "strategies": [
+      {
+        "id": "concentrated",
+        "sold": 100,
+        "revenue": 2200,
+        "targetMonth": 12,
+        "targetSnapshot": {
+          "month": 12,
+          "sold": 27,
+          "activeMonths": 12,
+          "revenue": 594,
+          "hand": 0,
+          "shelves": {
+            "town-liquor": 0,
+            "supermarket": 0,
+            "bar": 73
+          },
+          "score": 12.75
+        },
+        "hand": 0,
+        "shelves": {
+          "town-liquor": 0,
+          "supermarket": 0,
+          "bar": 0
+        },
+        "regions": [
+          {
+            "id": "near-local",
+            "sourceShopIds": [
+              "town-liquor",
+              "bar"
+            ],
+            "name": "周辺の食文化圏",
+            "reached": true,
+            "interest": true,
+            "inquiry": true,
+            "visit": true,
+            "offer": true,
+            "contract": false
+          },
+          {
+            "id": "near-wide",
+            "sourceShopIds": [
+              "supermarket"
+            ],
+            "name": "周辺の流通圏",
+            "reached": false,
+            "interest": false,
+            "inquiry": false,
+            "visit": false,
+            "offer": false,
+            "contract": false
+          }
+        ],
+        "shops": {
+          "town-liquor": {
+            "paid": 0,
+            "months": 0,
+            "score": 0,
+            "current": {
+              "root": 0,
+              "awareness": 0.119341550988,
+              "interest": 0.109355311537,
+              "inquiries": 1,
+              "visits": 0
+            },
+            "region": {
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          },
+          "supermarket": {
+            "paid": 0,
+            "months": 0,
+            "score": 0,
+            "current": {
+              "root": 0,
+              "awareness": 0.007417565894,
+              "interest": 0,
+              "inquiries": 0,
+              "visits": 0
+            },
+            "region": {
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          },
+          "bar": {
+            "paid": 100,
+            "months": 45,
+            "score": 47.5,
+            "current": {
+              "root": 0.135170034218,
+              "awareness": 0.577756868311,
+              "interest": 0.40403335616,
+              "inquiries": 2,
+              "visits": 3
+            },
+            "region": {
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          }
+        }
+      },
+      {
+        "id": "distributed",
+        "sold": 87,
+        "revenue": 1670,
+        "targetMonth": 12,
+        "targetSnapshot": {
+          "month": 12,
+          "sold": 27,
+          "activeMonths": 12,
+          "revenue": 1218,
+          "hand": 0,
+          "shelves": {
+            "town-liquor": 0,
+            "supermarket": 29,
+            "bar": 6
+          },
+          "score": 12.75
+        },
+        "hand": 0,
+        "shelves": {
+          "town-liquor": 0,
+          "supermarket": 13,
+          "bar": 0
+        },
+        "regions": [
+          {
+            "id": "near-local",
+            "sourceShopIds": [
+              "town-liquor",
+              "bar"
+            ],
+            "name": "周辺の食文化圏",
+            "reached": true,
+            "interest": true,
+            "inquiry": true,
+            "visit": true,
+            "offer": true,
+            "contract": false
+          },
+          {
+            "id": "near-wide",
+            "sourceShopIds": [
+              "supermarket"
+            ],
+            "name": "周辺の流通圏",
+            "reached": false,
+            "interest": false,
+            "inquiry": false,
+            "visit": false,
+            "offer": false,
+            "contract": false
+          }
+        ],
+        "shops": {
+          "town-liquor": {
+            "paid": 34,
+            "months": 7,
+            "score": 7.75,
+            "current": {
+              "root": 0.010784337431,
+              "awareness": 0.238605687934,
+              "interest": 0.187050850583,
+              "inquiries": 2,
+              "visits": 0
+            },
+            "region": {
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            }
+          },
+          "supermarket": {
+            "paid": 20,
+            "months": 20,
+            "score": 11.666666666666666,
+            "current": {
+              "root": 0.152282778875,
+              "awareness": 0.200662281391,
+              "interest": 0,
+              "inquiries": 0,
+              "visits": 0
+            },
+            "region": {
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          },
+          "bar": {
+            "paid": 33,
+            "months": 15,
+            "score": 15.75,
+            "current": {
+              "root": 0.028495579848,
+              "awareness": 0.263916578218,
+              "interest": 0.112925707844,
+              "inquiries": 0,
+              "visits": 0
+            },
+            "region": {
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          }
+        }
+      },
+      {
+        "id": "continuous",
+        "sold": 100,
+        "revenue": 2200,
+        "targetMonth": 13,
+        "targetSnapshot": {
+          "month": 13,
+          "sold": 25,
+          "activeMonths": 13,
+          "revenue": 550,
+          "hand": 74,
+          "shelves": {
+            "town-liquor": 0,
+            "supermarket": 0,
+            "bar": 1
+          },
+          "score": 12.75
+        },
+        "hand": 0,
+        "shelves": {
+          "town-liquor": 0,
+          "supermarket": 0,
+          "bar": 0
+        },
+        "regions": [
+          {
+            "id": "near-local",
+            "sourceShopIds": [
+              "town-liquor",
+              "bar"
+            ],
+            "name": "周辺の食文化圏",
+            "reached": true,
+            "interest": true,
+            "inquiry": true,
+            "visit": true,
+            "offer": true,
+            "contract": false
+          },
+          {
+            "id": "near-wide",
+            "sourceShopIds": [
+              "supermarket"
+            ],
+            "name": "周辺の流通圏",
+            "reached": false,
+            "interest": false,
+            "inquiry": false,
+            "visit": false,
+            "offer": false,
+            "contract": false
+          }
+        ],
+        "shops": {
+          "town-liquor": {
+            "paid": 0,
+            "months": 0,
+            "score": 0,
+            "current": {
+              "root": 0,
+              "awareness": 0.116004945191,
+              "interest": 0.272276968412,
+              "inquiries": 1,
+              "visits": 0
+            },
+            "region": {
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          },
+          "supermarket": {
+            "paid": 0,
+            "months": 0,
+            "score": 0,
+            "current": {
+              "root": 0,
+              "awareness": 0.006046347163,
+              "interest": 0,
+              "inquiries": 0,
+              "visits": 0
+            },
+            "region": {
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          },
+          "bar": {
+            "paid": 100,
+            "months": 51,
+            "score": 50.5,
+            "current": {
+              "root": 0.156049123161,
+              "awareness": 0.574581846115,
+              "interest": 0.284535648785,
+              "inquiries": 1,
+              "visits": 2
+            },
+            "region": {
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          }
+        }
+      }
+    ],
+    "goal": [
+      {
+        "id": "volume",
+        "sold": 100,
+        "revenue": 2200,
+        "targetMonth": 12,
+        "targetSnapshot": {
+          "month": 12,
+          "sold": 27,
+          "activeMonths": 12,
+          "revenue": 594,
+          "hand": 0,
+          "shelves": {
+            "town-liquor": 0,
+            "supermarket": 0,
+            "bar": 73
+          },
+          "score": 12.75
+        },
+        "score": 47.5,
+        "months": 45
+      },
+      {
+        "id": "duration",
+        "sold": 60,
+        "revenue": 1320,
+        "targetMonth": 19,
+        "targetSnapshot": {
+          "month": 19,
+          "sold": 18,
+          "activeMonths": 15,
+          "revenue": 396,
+          "hand": 81,
+          "shelves": {
+            "town-liquor": 0,
+            "supermarket": 0,
+            "bar": 1
+          },
+          "score": 12
+        },
+        "score": 39,
+        "months": 48
+      }
+    ],
+    "split": [
+      {
+        "id": "whole",
+        "label": "A 54本を一括",
+        "candidate": {
+          "sold": 54,
+          "activeMonths": 12,
+          "unlock": {
+            "town-liquor": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 0,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            },
+            "supermarket": {
+              "volumeReached": false,
+              "continuityReached": true,
+              "achievementReached": false,
+              "requiresProduct": {
+                "minAge": 12,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            },
+            "department": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 24,
+                "maxRoughness": 0.3,
+                "quantity": 5
+              },
+              "notAnOffer": true
+            },
+            "bar": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 0,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            }
+          },
+          "memoryCandidates": [
+            {
+              "identity": "cask1:24",
+              "age": 24,
+              "releaseId": 1,
+              "reason": "最初の酒"
+            }
+          ],
+          "historyBottlingCount": 1,
+          "currentHistoryBottlingCount": 1,
+          "historyCountBasis": "history-record.mjsは全releaseごとbottlingを追加し件数一致を検証。ここは式からの件数照合でcollector実行ではありません。",
+          "memoryPolicy": "候補のみ：同じ樽の最初の酒と最長熟成酒を保存。同じ年齢・風味は重複しない。全操作を記憶にしない。"
+        },
+        "releaseCount": 1,
+        "inventory": 0,
+        "sold": 54,
+        "bottled": 54,
+        "soldReleaseCount": 1,
+        "remainingLitres": 0,
+        "peakProducts": 1,
+        "tranches": 0,
+        "unlock": {
+          "town-liquor": {
+            "sold": 54,
+            "soldReleases": 1,
+            "age": 63,
+            "eligible": false
+          },
+          "supermarket": {
+            "sold": 54,
+            "soldReleases": 1,
+            "age": 63,
+            "eligible": false
+          },
+          "department": {
+            "sold": 54,
+            "soldReleases": 1,
+            "age": 63,
+            "eligible": false
+          },
+          "bar": {
+            "sold": 54,
+            "soldReleases": 1,
+            "age": 63,
+            "eligible": true
+          }
+        },
+        "brandReputation": {
+          "bonus": 0.01830508474576271,
+          "multiplier": 1.0183050847457626,
+          "label": "少しずつ知られている"
+        },
+        "town": {
+          "events": 113,
+          "packets": 0,
+          "attempts": 244,
+          "memoryCandidates": 9,
+          "root": 0.026707308071
+        },
+        "note": "初期37.8L（54本分）。8現役商品以内。待機中は実ageCaskで熟成・蒸発するため最終本数と風味は異なります。"
+      },
+      {
+        "id": "singles",
+        "label": "B 1本ずつ（空いた商品枠で続行）",
+        "candidate": {
+          "sold": 53,
+          "activeMonths": 12,
+          "unlock": {
+            "town-liquor": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 0,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            },
+            "supermarket": {
+              "volumeReached": false,
+              "continuityReached": true,
+              "achievementReached": false,
+              "requiresProduct": {
+                "minAge": 12,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            },
+            "department": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 24,
+                "maxRoughness": 0.3,
+                "quantity": 5
+              },
+              "notAnOffer": true
+            },
+            "bar": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 0,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            }
+          },
+          "memoryCandidates": [
+            {
+              "identity": "cask1:24",
+              "age": 24,
+              "releaseId": 1,
+              "reason": "最初の酒"
+            },
+            {
+              "identity": "cask1:34",
+              "age": 34,
+              "releaseId": 53,
+              "reason": "最も長く熟成した酒"
+            }
+          ],
+          "historyBottlingCount": 2,
+          "currentHistoryBottlingCount": 53,
+          "historyCountBasis": "history-record.mjsは全releaseごとbottlingを追加し件数一致を検証。ここは式からの件数照合でcollector実行ではありません。",
+          "memoryPolicy": "候補のみ：同じ樽の最初の酒と最長熟成酒を保存。同じ年齢・風味は重複しない。全操作を記憶にしない。"
+        },
+        "releaseCount": 53,
+        "inventory": 0,
+        "sold": 53,
+        "bottled": 53,
+        "soldReleaseCount": 53,
+        "remainingLitres": 0.3460522341335498,
+        "peakProducts": 8,
+        "tranches": 0,
+        "unlock": {
+          "town-liquor": {
+            "sold": 53,
+            "soldReleases": 53,
+            "age": 63,
+            "eligible": true
+          },
+          "supermarket": {
+            "sold": 53,
+            "soldReleases": 53,
+            "age": 63,
+            "eligible": false
+          },
+          "department": {
+            "sold": 53,
+            "soldReleases": 53,
+            "age": 63,
+            "eligible": true
+          },
+          "bar": {
+            "sold": 53,
+            "soldReleases": 53,
+            "age": 63,
+            "eligible": true
+          }
+        },
+        "brandReputation": {
+          "bonus": 0.018615827997838515,
+          "multiplier": 1.0186158279978386,
+          "label": "少しずつ知られている"
+        },
+        "town": {
+          "events": 394,
+          "packets": 1,
+          "attempts": 840,
+          "memoryCandidates": 9,
+          "root": 0.024135784427
+        },
+        "note": "初期37.8L（54本分）。8現役商品以内。待機中は実ageCaskで熟成・蒸発するため最終本数と風味は異なります。"
+      },
+      {
+        "id": "aged",
+        "label": "C 0・6・12か月で分割",
+        "candidate": {
+          "sold": 53,
+          "activeMonths": 15,
+          "unlock": {
+            "town-liquor": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 0,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            },
+            "supermarket": {
+              "volumeReached": false,
+              "continuityReached": true,
+              "achievementReached": false,
+              "requiresProduct": {
+                "minAge": 12,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            },
+            "department": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 24,
+                "maxRoughness": 0.3,
+                "quantity": 5
+              },
+              "notAnOffer": true
+            },
+            "bar": {
+              "volumeReached": true,
+              "continuityReached": true,
+              "achievementReached": true,
+              "requiresProduct": {
+                "minAge": 0,
+                "maxRoughness": null,
+                "quantity": 1
+              },
+              "notAnOffer": true
+            }
+          },
+          "memoryCandidates": [
+            {
+              "identity": "cask1:24",
+              "age": 24,
+              "releaseId": 1,
+              "reason": "最初の酒"
+            },
+            {
+              "identity": "cask1:36",
+              "age": 36,
+              "releaseId": 3,
+              "reason": "最も長く熟成した酒"
+            }
+          ],
+          "historyBottlingCount": 2,
+          "currentHistoryBottlingCount": 3,
+          "historyCountBasis": "history-record.mjsは全releaseごとbottlingを追加し件数一致を検証。ここは式からの件数照合でcollector実行ではありません。",
+          "memoryPolicy": "候補のみ：同じ樽の最初の酒と最長熟成酒を保存。同じ年齢・風味は重複しない。全操作を記憶にしない。"
+        },
+        "releaseCount": 3,
+        "inventory": 0,
+        "sold": 53,
+        "bottled": 53,
+        "soldReleaseCount": 3,
+        "remainingLitres": 0.25042894430324697,
+        "peakProducts": 1,
+        "tranches": 3,
+        "unlock": {
+          "town-liquor": {
+            "sold": 53,
+            "soldReleases": 3,
+            "age": 63,
+            "eligible": true
+          },
+          "supermarket": {
+            "sold": 53,
+            "soldReleases": 3,
+            "age": 63,
+            "eligible": false
+          },
+          "department": {
+            "sold": 53,
+            "soldReleases": 3,
+            "age": 63,
+            "eligible": true
+          },
+          "bar": {
+            "sold": 53,
+            "soldReleases": 3,
+            "age": 63,
+            "eligible": true
+          }
+        },
+        "brandReputation": {
+          "bonus": 0.01861582799783851,
+          "multiplier": 1.0186158279978386,
+          "label": "少しずつ知られている"
+        },
+        "town": {
+          "events": 117,
+          "packets": 0,
+          "attempts": 278,
+          "memoryCandidates": 5,
+          "root": 0.037058618775
+        },
+        "note": "初期37.8L（54本分）。8現役商品以内。待機中は実ageCaskで熟成・蒸発するため最終本数と風味は異なります。"
+      }
+    ],
+    "splitDiagnostic": {
+      "label": "発売IDだけを変える反実仮想（54商品同時瓶詰めの実行例ではありません）",
+      "schedule": [
+        {
+          "month": 1,
+          "sold": 5
+        },
+        {
+          "month": 2,
+          "sold": 5
+        },
+        {
+          "month": 3,
+          "sold": 5
+        },
+        {
+          "month": 4,
+          "sold": 5
+        },
+        {
+          "month": 5,
+          "sold": 5
+        },
+        {
+          "month": 6,
+          "sold": 5
+        },
+        {
+          "month": 7,
+          "sold": 5
+        },
+        {
+          "month": 8,
+          "sold": 5
+        },
+        {
+          "month": 9,
+          "sold": 5
+        },
+        {
+          "month": 10,
+          "sold": 5
+        },
+        {
+          "month": 11,
+          "sold": 3
+        },
+        {
+          "month": 12,
+          "sold": 1
+        },
+        {
+          "month": 13,
+          "sold": 0
+        },
+        {
+          "month": 14,
+          "sold": 0
+        },
+        {
+          "month": 15,
+          "sold": 0
+        },
+        {
+          "month": 16,
+          "sold": 0
+        },
+        {
+          "month": 17,
+          "sold": 0
+        },
+        {
+          "month": 18,
+          "sold": 0
+        },
+        {
+          "month": 19,
+          "sold": 0
+        },
+        {
+          "month": 20,
+          "sold": 0
+        },
+        {
+          "month": 21,
+          "sold": 0
+        },
+        {
+          "month": 22,
+          "sold": 0
+        },
+        {
+          "month": 23,
+          "sold": 0
+        },
+        {
+          "month": 24,
+          "sold": 0
+        },
+        {
+          "month": 25,
+          "sold": 0
+        },
+        {
+          "month": 26,
+          "sold": 0
+        },
+        {
+          "month": 27,
+          "sold": 0
+        },
+        {
+          "month": 28,
+          "sold": 0
+        },
+        {
+          "month": 29,
+          "sold": 0
+        },
+        {
+          "month": 30,
+          "sold": 0
+        },
+        {
+          "month": 31,
+          "sold": 0
+        },
+        {
+          "month": 32,
+          "sold": 0
+        },
+        {
+          "month": 33,
+          "sold": 0
+        },
+        {
+          "month": 34,
+          "sold": 0
+        },
+        {
+          "month": 35,
+          "sold": 0
+        },
+        {
+          "month": 36,
+          "sold": 0
+        },
+        {
+          "month": 37,
+          "sold": 0
+        },
+        {
+          "month": 38,
+          "sold": 0
+        },
+        {
+          "month": 39,
+          "sold": 0
+        },
+        {
+          "month": 40,
+          "sold": 0
+        },
+        {
+          "month": 41,
+          "sold": 0
+        },
+        {
+          "month": 42,
+          "sold": 0
+        },
+        {
+          "month": 43,
+          "sold": 0
+        },
+        {
+          "month": 44,
+          "sold": 0
+        },
+        {
+          "month": 45,
+          "sold": 0
+        },
+        {
+          "month": 46,
+          "sold": 0
+        },
+        {
+          "month": 47,
+          "sold": 0
+        },
+        {
+          "month": 48,
+          "sold": 0
+        },
+        {
+          "month": 49,
+          "sold": 0
+        },
+        {
+          "month": 50,
+          "sold": 0
+        },
+        {
+          "month": 51,
+          "sold": 0
+        },
+        {
+          "month": 52,
+          "sold": 0
+        },
+        {
+          "month": 53,
+          "sold": 0
+        },
+        {
+          "month": 54,
+          "sold": 0
+        },
+        {
+          "month": 55,
+          "sold": 0
+        },
+        {
+          "month": 56,
+          "sold": 0
+        },
+        {
+          "month": 57,
+          "sold": 0
+        },
+        {
+          "month": 58,
+          "sold": 0
+        },
+        {
+          "month": 59,
+          "sold": 0
+        },
+        {
+          "month": 60,
+          "sold": 0
+        }
+      ],
+      "cases": [
+        {
+          "id": "whole",
+          "candidate": {
+            "sold": 54,
+            "activeMonths": 12,
+            "unlock": {
+              "town-liquor": {
+                "volumeReached": true,
+                "continuityReached": true,
+                "achievementReached": true,
+                "requiresProduct": {
+                  "minAge": 0,
+                  "maxRoughness": null,
+                  "quantity": 1
+                },
+                "notAnOffer": true
+              },
+              "supermarket": {
+                "volumeReached": false,
+                "continuityReached": true,
+                "achievementReached": false,
+                "requiresProduct": {
+                  "minAge": 12,
+                  "maxRoughness": null,
+                  "quantity": 1
+                },
+                "notAnOffer": true
+              },
+              "department": {
+                "volumeReached": true,
+                "continuityReached": true,
+                "achievementReached": true,
+                "requiresProduct": {
+                  "minAge": 24,
+                  "maxRoughness": 0.3,
+                  "quantity": 5
+                },
+                "notAnOffer": true
+              },
+              "bar": {
+                "volumeReached": true,
+                "continuityReached": true,
+                "achievementReached": true,
+                "requiresProduct": {
+                  "minAge": 0,
+                  "maxRoughness": null,
+                  "quantity": 1
+                },
+                "notAnOffer": true
+              }
+            },
+            "memoryCandidates": [
+              {
+                "identity": "cask1:24",
+                "age": 24,
+                "releaseId": 1,
+                "reason": "最初の酒"
+              }
+            ],
+            "historyBottlingCount": 1,
+            "currentHistoryBottlingCount": 1,
+            "historyCountBasis": "history-record.mjsは全releaseごとbottlingを追加し件数一致を検証。ここは式からの件数照合でcollector実行ではありません。",
+            "memoryPolicy": "候補のみ：同じ樽の最初の酒と最長熟成酒を保存。同じ年齢・風味は重複しない。全操作を記憶にしない。"
+          },
+          "sold": 54,
+          "releaseCount": 1,
+          "soldReleaseCount": 1,
+          "unlock": {
+            "town-liquor": {
+              "sold": 54,
+              "soldReleases": 1,
+              "age": 63,
+              "eligible": false
+            },
+            "supermarket": {
+              "sold": 54,
+              "soldReleases": 1,
+              "age": 63,
+              "eligible": false
+            },
+            "department": {
+              "sold": 54,
+              "soldReleases": 1,
+              "age": 63,
+              "eligible": false
+            },
+            "bar": {
+              "sold": 54,
+              "soldReleases": 1,
+              "age": 63,
+              "eligible": true
+            }
+          },
+          "brandReputation": {
+            "bonus": 0.01830508474576271,
+            "multiplier": 1.0183050847457626,
+            "label": "少しずつ知られている"
+          },
+          "town": {
+            "events": 111,
+            "attempts": 253,
+            "memoryCandidates": 5,
+            "root": 0.025314862767,
+            "awareness": 0.302584589136
+          }
+        },
+        {
+          "id": "singles",
+          "candidate": {
+            "sold": 54,
+            "activeMonths": 12,
+            "unlock": {
+              "town-liquor": {
+                "volumeReached": true,
+                "continuityReached": true,
+                "achievementReached": true,
+                "requiresProduct": {
+                  "minAge": 0,
+                  "maxRoughness": null,
+                  "quantity": 1
+                },
+                "notAnOffer": true
+              },
+              "supermarket": {
+                "volumeReached": false,
+                "continuityReached": true,
+                "achievementReached": false,
+                "requiresProduct": {
+                  "minAge": 12,
+                  "maxRoughness": null,
+                  "quantity": 1
+                },
+                "notAnOffer": true
+              },
+              "department": {
+                "volumeReached": true,
+                "continuityReached": true,
+                "achievementReached": true,
+                "requiresProduct": {
+                  "minAge": 24,
+                  "maxRoughness": 0.3,
+                  "quantity": 5
+                },
+                "notAnOffer": true
+              },
+              "bar": {
+                "volumeReached": true,
+                "continuityReached": true,
+                "achievementReached": true,
+                "requiresProduct": {
+                  "minAge": 0,
+                  "maxRoughness": null,
+                  "quantity": 1
+                },
+                "notAnOffer": true
+              }
+            },
+            "memoryCandidates": [
+              {
+                "identity": "cask1:24",
+                "age": 24,
+                "releaseId": 1,
+                "reason": "最初の酒"
+              }
+            ],
+            "historyBottlingCount": 1,
+            "currentHistoryBottlingCount": 54,
+            "historyCountBasis": "history-record.mjsは全releaseごとbottlingを追加し件数一致を検証。ここは式からの件数照合でcollector実行ではありません。",
+            "memoryPolicy": "候補のみ：同じ樽の最初の酒と最長熟成酒を保存。同じ年齢・風味は重複しない。全操作を記憶にしない。"
+          },
+          "sold": 54,
+          "releaseCount": 54,
+          "soldReleaseCount": 54,
+          "unlock": {
+            "town-liquor": {
+              "sold": 54,
+              "soldReleases": 54,
+              "age": 63,
+              "eligible": true
+            },
+            "supermarket": {
+              "sold": 54,
+              "soldReleases": 54,
+              "age": 63,
+              "eligible": false
+            },
+            "department": {
+              "sold": 54,
+              "soldReleases": 54,
+              "age": 63,
+              "eligible": true
+            },
+            "bar": {
+              "sold": 54,
+              "soldReleases": 54,
+              "age": 63,
+              "eligible": true
+            }
+          },
+          "brandReputation": {
+            "bonus": 0.018936294564582117,
+            "multiplier": 1.0189362945645821,
+            "label": "少しずつ知られている"
+          },
+          "town": {
+            "events": 407,
+            "attempts": 868,
+            "memoryCandidates": 10,
+            "root": 0.025314862767,
+            "awareness": 0.417372469763
+          }
+        }
+      ]
+    }
+  },
+  "matrix": [
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 1,
+        "focus": "bar",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 8,
+          "revenue": 176,
+          "score": 6,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 6,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 7,
+          "revenue": 154,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 8,
+          "score": 6
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 6,
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 1,
+        "focus": "bar",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 40,
+          "revenue": 880,
+          "score": 30,
+          "targetMonth": 24,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 24.75,
+          "targetMonth": 24,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 40,
+          "revenue": 880,
+          "score": 30,
+          "targetMonth": 25,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 24,
+          "sold": 40,
+          "score": 30
+        },
+        {
+          "id": "duration",
+          "targetMonth": 26,
+          "sold": 39,
+          "score": 29.25
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 1,
+        "focus": "bar",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 27,
+          "revenue": 594,
+          "score": 12.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 12.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 22,
+          "revenue": 484,
+          "score": 11.5,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 12,
+          "sold": 27,
+          "score": 12.75
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 11,
+          "score": 7.25
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 1,
+        "focus": "bar",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2200,
+          "score": 47.5,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 15.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 2200,
+          "score": 50.5,
+          "targetMonth": 13,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 12,
+          "sold": 100,
+          "score": 47.5
+        },
+        {
+          "id": "duration",
+          "targetMonth": 19,
+          "sold": 60,
+          "score": 39
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 1,
+        "focus": "town-liquor",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 2,
+          "revenue": 32,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 2,
+          "revenue": 32,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 2,
+          "score": 1.25
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 1,
+          "score": 0.625
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 1,
+        "focus": "town-liquor",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 13,
+          "revenue": 208,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 13,
+          "revenue": 208,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 13,
+          "score": 8.125
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 7.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 1,
+        "focus": "town-liquor",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 72,
+          "revenue": 1152,
+          "score": 15,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 7.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 24,
+          "revenue": 384,
+          "score": 9,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 72,
+          "score": 15
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 1,
+        "focus": "town-liquor",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 1600,
+          "score": 21.5,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 7.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 1600,
+          "score": 38,
+          "targetMonth": 17,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 21.5
+        },
+        {
+          "id": "duration",
+          "targetMonth": 32,
+          "sold": 60,
+          "score": 22.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 1,
+        "focus": "supermarket",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 14.333333333333334,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 24,
+          "revenue": 480,
+          "score": 8,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 14.333333333333334
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 4
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 1,
+        "focus": "supermarket",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 14.333333333333334,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 33.833333333333336,
+          "targetMonth": 18,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 14.333333333333334
+        },
+        {
+          "id": "duration",
+          "targetMonth": 36,
+          "sold": 60,
+          "score": 20
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 1,
+        "focus": "supermarket",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 4,
+          "revenue": 80,
+          "score": 2.3333333333333335,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 2.3333333333333335,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 3,
+          "revenue": 60,
+          "score": 1.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 4,
+          "score": 2.3333333333333335
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 2,
+          "score": 1.1666666666666667
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 1,
+        "focus": "supermarket",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 20,
+          "revenue": 400,
+          "score": 11.666666666666666,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 11.666666666666666,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 19,
+          "revenue": 380,
+          "score": 11.083333333333334,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 20,
+          "score": 11.666666666666666
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 18,
+          "score": 10.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 42,
+        "focus": "bar",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 8,
+          "revenue": 176,
+          "score": 6,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 6,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 7,
+          "revenue": 154,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 8,
+          "score": 6
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 6,
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 42,
+        "focus": "bar",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 40,
+          "revenue": 880,
+          "score": 30,
+          "targetMonth": 24,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 24.75,
+          "targetMonth": 24,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 40,
+          "revenue": 880,
+          "score": 30,
+          "targetMonth": 25,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 24,
+          "sold": 40,
+          "score": 30
+        },
+        {
+          "id": "duration",
+          "targetMonth": 26,
+          "sold": 39,
+          "score": 29.25
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 42,
+        "focus": "bar",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 27,
+          "revenue": 594,
+          "score": 12.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 12.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 22,
+          "revenue": 484,
+          "score": 11.5,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 12,
+          "sold": 27,
+          "score": 12.75
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 11,
+          "score": 7.25
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 42,
+        "focus": "bar",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2200,
+          "score": 47.5,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 15.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 2200,
+          "score": 50.5,
+          "targetMonth": 13,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 12,
+          "sold": 100,
+          "score": 47.5
+        },
+        {
+          "id": "duration",
+          "targetMonth": 19,
+          "sold": 60,
+          "score": 39
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 42,
+        "focus": "town-liquor",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 2,
+          "revenue": 32,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 2,
+          "revenue": 32,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 2,
+          "score": 1.25
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 1,
+          "score": 0.625
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 42,
+        "focus": "town-liquor",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 13,
+          "revenue": 208,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 13,
+          "revenue": 208,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 13,
+          "score": 8.125
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 7.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 42,
+        "focus": "town-liquor",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 72,
+          "revenue": 1152,
+          "score": 15,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 7.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 24,
+          "revenue": 384,
+          "score": 9,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 72,
+          "score": 15
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 42,
+        "focus": "town-liquor",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 1600,
+          "score": 21.5,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 7.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 1600,
+          "score": 38,
+          "targetMonth": 17,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 21.5
+        },
+        {
+          "id": "duration",
+          "targetMonth": 32,
+          "sold": 60,
+          "score": 22.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 42,
+        "focus": "supermarket",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 14.333333333333334,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 24,
+          "revenue": 480,
+          "score": 8,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 14.333333333333334
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 4
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 42,
+        "focus": "supermarket",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 14.333333333333334,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 33.833333333333336,
+          "targetMonth": 18,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 14.333333333333334
+        },
+        {
+          "id": "duration",
+          "targetMonth": 36,
+          "sold": 60,
+          "score": 20
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 42,
+        "focus": "supermarket",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 4,
+          "revenue": 80,
+          "score": 2.3333333333333335,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 2.3333333333333335,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 3,
+          "revenue": 60,
+          "score": 1.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 4,
+          "score": 2.3333333333333335
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 2,
+          "score": 1.1666666666666667
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 42,
+        "focus": "supermarket",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 20,
+          "revenue": 400,
+          "score": 11.666666666666666,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 11.666666666666666,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 19,
+          "revenue": 380,
+          "score": 11.083333333333334,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 20,
+          "score": 11.666666666666666
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 18,
+          "score": 10.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "bar",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 8,
+          "revenue": 176,
+          "score": 6,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 6,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 7,
+          "revenue": 154,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 8,
+          "score": 6
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 6,
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "bar",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 40,
+          "revenue": 880,
+          "score": 30,
+          "targetMonth": 24,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 24.75,
+          "targetMonth": 24,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 40,
+          "revenue": 880,
+          "score": 30,
+          "targetMonth": 25,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 24,
+          "sold": 40,
+          "score": 30
+        },
+        {
+          "id": "duration",
+          "targetMonth": 26,
+          "sold": 39,
+          "score": 29.25
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "bar",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 27,
+          "revenue": 594,
+          "score": 12.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 12.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 22,
+          "revenue": 484,
+          "score": 11.5,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 12,
+          "sold": 27,
+          "score": 12.75
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 11,
+          "score": 7.25
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "bar",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2200,
+          "score": 47.5,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 15.75,
+          "targetMonth": 12,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 2200,
+          "score": 50.5,
+          "targetMonth": 13,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 12,
+          "sold": 100,
+          "score": 47.5
+        },
+        {
+          "id": "duration",
+          "targetMonth": 19,
+          "sold": 60,
+          "score": 39
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "town-liquor",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 2,
+          "revenue": 32,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 2,
+          "revenue": 32,
+          "score": 1.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 2,
+          "score": 1.25
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 1,
+          "score": 0.625
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "town-liquor",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 13,
+          "revenue": 208,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 13,
+          "revenue": 208,
+          "score": 8.125,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 13,
+          "score": 8.125
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 7.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "town-liquor",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 72,
+          "revenue": 1152,
+          "score": 15,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 7.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 24,
+          "revenue": 384,
+          "score": 9,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 72,
+          "score": 15
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 4.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "town-liquor",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 1600,
+          "score": 21.5,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 7.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 1600,
+          "score": 38,
+          "targetMonth": 17,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 21.5
+        },
+        {
+          "id": "duration",
+          "targetMonth": 32,
+          "sold": 60,
+          "score": 22.5
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "supermarket",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 14.333333333333334,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 43,
+          "revenue": 868,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 24,
+          "revenue": 480,
+          "score": 8,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 14.333333333333334
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 12,
+          "score": 4
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "supermarket",
+        "smoke": 0.25,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 14.333333333333334,
+          "targetMonth": 10,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 79,
+          "revenue": 1594,
+          "score": 5.25,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 100,
+          "revenue": 2000,
+          "score": 33.833333333333336,
+          "targetMonth": 18,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": 10,
+          "sold": 100,
+          "score": 14.333333333333334
+        },
+        {
+          "id": "duration",
+          "targetMonth": 36,
+          "sold": 60,
+          "score": 20
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 12,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "supermarket",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 4,
+          "revenue": 80,
+          "score": 2.3333333333333335,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 65,
+          "revenue": 1218,
+          "score": 2.3333333333333335,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 3,
+          "revenue": 60,
+          "score": 1.75,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 4,
+          "score": 2.3333333333333335
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 2,
+          "score": 1.1666666666666667
+        }
+      ]
+    },
+    {
+      "config": {
+        "months": 60,
+        "total": 100,
+        "seed": 20261021,
+        "focus": "supermarket",
+        "smoke": 0.75,
+        "age": 24,
+        "continuityWeight": 0.5,
+        "target": 12,
+        "method": "carry"
+      },
+      "strategies": [
+        {
+          "id": "concentrated",
+          "sold": 20,
+          "revenue": 400,
+          "score": 11.666666666666666,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "distributed",
+          "sold": 87,
+          "revenue": 1670,
+          "score": 11.666666666666666,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": true,
+              "interest": true,
+              "inquiry": true,
+              "visit": true,
+              "offer": true,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        },
+        {
+          "id": "continuous",
+          "sold": 19,
+          "revenue": 380,
+          "score": 11.083333333333334,
+          "targetMonth": null,
+          "regions": [
+            {
+              "id": "near-local",
+              "sourceShopIds": [
+                "town-liquor",
+                "bar"
+              ],
+              "name": "周辺の食文化圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            },
+            {
+              "id": "near-wide",
+              "sourceShopIds": [
+                "supermarket"
+              ],
+              "name": "周辺の流通圏",
+              "reached": false,
+              "interest": false,
+              "inquiry": false,
+              "visit": false,
+              "offer": false,
+              "contract": false
+            }
+          ]
+        }
+      ],
+      "goal": [
+        {
+          "id": "volume",
+          "targetMonth": null,
+          "sold": 20,
+          "score": 11.666666666666666
+        },
+        {
+          "id": "duration",
+          "targetMonth": null,
+          "sold": 18,
+          "score": 10.5
+        }
+      ]
+    }
+  ]
+}

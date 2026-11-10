@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="AmberTimeの経営攻略を、同じ資源と期間の合成条件で比較する独立Lab。">
+  <title>AmberTime 経営攻略比較Lab v0.1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <nav class="back" aria-label="戻る"><a href="../../lab/">LAB</a><a href="../../lab/ambertime-research.html">AmberTime研究記録</a></nav>
+  <h1>AmberTime 経営攻略比較Lab <small>v0.1</small></h1>
+  <p class="scope">合成データによる実験です。取扱開始済みの店へ同じ酒を届け、現行の販売計算と候補の関係・評判ルールを比べます。本編の保存には接続しません。</p>
+  <form id="conditions">
+    <div class="inputs">
+      <label>比較期間（月）<input name="months" type="number" min="1" max="120" step="1" required></label>
+      <label>総本数<input name="total" type="number" min="1" max="200" step="1" required></label>
+      <label>集中する店<select name="focus"></select></label>
+      <label>熟成（月）<input name="age" type="number" min="0" max="120" step="1" required></label>
+      <label>煙・厚みの割合<input name="smoke" type="number" min="0" max="1" step="0.05" required></label>
+      <label>seed<input name="seed" type="number" min="1" max="4294967295" step="1" required></label>
+    </div>
+    <details class="settings"><summary>候補ルールの数値</summary><div class="inputs">
+      <label>継続月の重み<input name="continuityWeight" type="number" min="0" max="2" step="0.25" required></label>
+      <label>関係の目標値<input name="target" type="number" min="1" max="100" step="1" required></label>
+      <label>販売の方式<select name="method"><option value="carry">現行：端数を翌月へ繰越</option><option value="seeded">研究用：seedで抽選</option></select></label>
+    </div></details>
+    <div class="actions"><button type="submit">比較する</button><button type="button" id="reset">初期条件</button><button type="button" id="repeat">同じ条件で再検証</button></div>
+  </form>
+  <p id="status" role="status" aria-live="polite">比較を準備しています。</p>
+  <p id="error" role="alert" hidden></p>
+  <nav class="views" aria-label="比較内容"><button type="button" data-view="strategies" aria-pressed="true">集中・分散・継続</button><button type="button" data-view="split" aria-pressed="false">54本の瓶詰め</button><button type="button" data-view="goal" aria-pressed="false">同じ目標への攻略</button></nav>
+  <div id="results"></div>
+  <details class="definitions"><summary>店の条件と計算の区別</summary><div id="shops"></div><p>棚へ置いた本数と、実際に売れた本数は別です。現行販売の月間機会・熟成条件を使い、関係の候補は確定した実売から計算します。製造費・維持費を含む利益や、本編全体の経営を再現する比較ではありません。</p></details>
+  <footer><a href="RULES.md">紙上ルール</a><a href="REPORT.md">結果・第2段階への引継ぎ</a><a href="AUDIT-RULES.md">販売・店舗の棚卸し</a><a href="AUDIT-MEMORY.md">酒造り・記憶・保存の棚卸し</a></footer>
+  <noscript>この比較にはJavaScriptが必要です。上の文書リンクから調査結果を確認できます。</noscript>
+</main>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

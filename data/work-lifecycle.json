@@ -592,6 +592,12 @@
       "path": "works/ambertime-small-memory-lab",
       "status": "active",
       "title": "AmberTime 小さな帳面 B案"
+    },
+    {
+      "id": "ambertime-strategy-lab",
+      "path": "works/ambertime-strategy-lab",
+      "title": "AmberTime 経営攻略比較Lab v0.1",
+      "status": "active"
     }
   ]
 }
