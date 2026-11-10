@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bf47103093994a4d639499e8601a40dff8c762e2692862f59742c68a50c7ede0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-breath-comparison-20261110",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "AmberTime M1-A Lab: replace rejected dimming and automatic map zoom with three looping breathing-scale treatments for two factually linked shops; compare same phase, staggered phase, and source-only. Keep actual map pixels crisp and preserve game logic.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8d83160f962b1394ad3a2dd2fa8939216bb19255",
+    "canonicalSources": [
+      "works/ambertime/experiments/map-relationship/v01/app.mjs",
+      "works/ambertime/experiments/map-relationship/v01/index.html",
+      "works/ambertime/experiments/map-relationship/v01/style.css",
+      "works/ambertime/experiments/map-relationship/v01/relationship-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/fixtures.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/AGENTS.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-breath-comparison-20261110/r0.lock.json",
+      "works/ambertime/experiments/map-relationship/v01/app.mjs",
+      "works/ambertime/experiments/map-relationship/v01/index.html",
+      "works/ambertime/experiments/map-relationship/v01/style.css",
+      "works/ambertime/experiments/map-relationship/v01/breath-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/breath-view.test.mjs",
+      "works/ambertime/experiments/map-relationship/v01/focus-view.test.mjs",
+      "works/ambertime/experiments/map-relationship/v01/pixel-reaction.test.mjs",
+      "works/ambertime/experiments/map-relationship/v01/README.md"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      ".github/**",
+      "tools/**",
+      "data/**",
+      "lab/**",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/model.mjs",
+      "works/ambertime/recall/**",
+      "works/ambertime/experiments/map-relationship/v01/relationship-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/fixtures.mjs",
+      "works/ambertime/experiments/world-map/v01/map.mjs",
+      "works/ambertime/experiments/map-relationship/v01/focus-view.mjs",
+      "works/ambertime/experiments/map-relationship/v01/pixel-reaction.mjs"
+    ],
+    "expectedChanges": [
+      "Replace the active M1-A relation-view UI with three clearly distinguishable breathing-scale patterns A synchronized, B 320ms stagger, C source-only. Ordinary town view has no breathing.",
+      "On authored town liquor and supermarket sprites, extract precisely the existing 144x144 map pixels (8x8 grid cells) and alpha-mask off the adjacent terrain. Pulse only this visual layer, centered at the native shop bounds; avoid interpolated blurry textures.",
+      "The alley bar has no authored sprite; pulse only its existing temporary corner selection visual, not a fictional building. Never alter interactive 44px hit targets or move whole map.",
+      "Use CSS reduced-motion static state, document-hidden pause, transition-safe view switch, pointer/touch/keyboard consistency; no line, dim overlay, auto zoom or extra permanent markers.",
+      "Retain deterministic fact-checked existing relation projection and existing scenario fixtures; no display on uncontracted or unreached cases.",
+      "Keep the old pixel and focus experimental functions/test assertions as research where valid, update only outdated active-UI assertions; add pure geometry/phase/visibility unit tests and browser tests where available."
+    ],
+    "ownerDecisions": [
+      "2026-11-10 author rejected A darkened map/C zoom after trying them; requested three simpler rhythmic scale treatments of the two connected stores, specifically synchronized breathing, delayed call-and-response, and related-source-only."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "At native iPhone width 320/360/375/390/430 confirm both related locations are discoverable even at map scale 1 and zoom 2-3.",
+      "Verify A same phase/B partner offset/C selected store remains fixed; switching while moving never leaves ghost overlays.",
+      "Verify pre-arrival, uncontracted, town-view, reduced motion, hidden background, keyboard and pointer interactions."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the lab UI, breath presentation, unit tests, README and this Plan Lock. Existing gameplay, saves, and past experiments remain byte-unchanged.",
+    "outOfScope": [
+      "AmberTime main M0, automatic notices, gameplay time, economy, RNG, formal save and historical recall.",
+      "Official bar building art, shop lifecycle, world map stages, additional relationships, and Production.",
+      "Publishing a new work, changing the works registry or generated lab list."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Final iPhone Safari visual comfort and user taste judgment, real gameplay M0 integration; these remain for author review."
+    ]
+  }
+}
