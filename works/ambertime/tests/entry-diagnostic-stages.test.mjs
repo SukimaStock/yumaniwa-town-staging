@@ -13,14 +13,14 @@ const encode=s=>serializeSession(s.game,s,options),raw=encode(createFreshSession
 const app=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
 const fn=(name,next)=>app.slice(app.indexOf('function '+name+'('),app.indexOf('\nfunction '+next+'(',app.indexOf('function '+name+'(')));
 const record=fn('recordEntryFailure','inspectEntry'),paint=fn('paintEntry','showTitle'),enter=app.slice(app.indexOf('async function enterSession('),app.indexOf("\n$('entry-new').addEventListener"));
-function harness(fault,{existingBackup=false,continueMode=false}={}){
+function harness(fault,{existingBackup=false,continueMode=false,quotaState=null}={}){
  const map=new Map([[FORMAL_SAVE_KEY,raw]]),writes=[];let formalWritten=false,backupReads=0;
  const error=()=>Object.assign(Error('Injected '+fault),{name:'Error',code:'fault-'+fault});
  const store={get length(){return map.size;},key:i=>[...map.keys()][i]??null,getItem(key){
   if(key.startsWith(prefix)&&++backupReads>=2&&fault==='backup-readback')return 'unverified backup';
   if(key===FORMAL_SAVE_KEY&&formalWritten&&fault==='formal-readback')return 'unverified formal';
   return map.get(key)??null;
- },setItem(key,value){if(fault==='backup-write'&&key.startsWith(prefix)||fault==='formal-write'&&key===FORMAL_SAVE_KEY)throw error();writes.push([key,value]);map.set(key,value);if(key===FORMAL_SAVE_KEY)formalWritten=true;}};
+ },setItem(key,value){if(quotaState&&key.startsWith(prefix)){if(quotaState==='uncertain')map.set(FORMAL_SAVE_KEY,'another-tab');if(quotaState==='unavailable')store.getItem=()=>{throw Error('access denied');};throw Object.assign(Error('The quota has been exceeded.'),{name:'QuotaExceededError',code:22});}if(fault==='backup-write'&&key.startsWith(prefix)||fault==='formal-write'&&key===FORMAL_SAVE_KEY)throw error();writes.push([key,value]);map.set(key,value);if(key===FORMAL_SAVE_KEY)formalWritten=true;}};
  if(existingBackup){const seedStore={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)};commitMarketRulesUpdate(seedStore,FORMAL_SAVE_KEY,raw,raw);}
  const expected=inspectStartRecord(store),nodes=new Map();const $=id=>{if(!nodes.has(id))nodes.set(id,{hidden:false,textContent:'',setAttribute(){}});return nodes.get(id);};
  const ctx={localStorage:store,entryVersions:{appBuild:'entry-diagnostics-20261111-r1'},makeEntryDiagnostic,formatEntryDiagnostic,entryDiagnostic:null,entryOperation:continueMode?'continue':'new-title',entrySnapshot:expected,entryView:'confirm',entryIntent:'new',entryReturn:null,entryMessage:'',sessionActive:false,canSave:false,runtimeHalted:false,stops:0,
@@ -66,4 +66,11 @@ test('verified candidate state is not claimed when another tab changes formal da
  const values=new Map([[FORMAL_SAVE_KEY,raw]]),store={getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};
  const entry=createSessionEntry({storage:()=>store,create:()=>createFreshSession(native,42),encode,read:text=>readSession(text,options),write:writeCandidate,replace:commitMarketRulesUpdate,install(){values.set(FORMAL_SAVE_KEY,'another-tab');throw Error('apply fault');},yieldTask:()=>Promise.resolve()});
  const result=await entry.start(inspectStartRecord(store));assert.equal(result.stage,'session-apply');assert.equal(result.writeVerified,true);assert.equal(result.formalState,'uncertain');assert.equal(values.get(FORMAL_SAVE_KEY),'another-tab');assert([...values].some(([key,value])=>key.startsWith(prefix)&&value===raw));
+});
+
+for(const state of ['unchanged','uncertain','unavailable'])test('actual quota screen preserves '+state+' formal-state distinction',async()=>{
+ const h=harness('quota',{quotaState:state});assert.equal(await h.run(),false);
+ assert.equal(h.ctx.entryDiagnostic.stage,'backup-write');assert.equal(h.ctx.entryDiagnostic.exception.name,'QuotaExceededError');assert.equal(h.ctx.entryDiagnostic.formalState,state);
+ if(state==='unchanged')assert.match(h.ctx.entryMessage,/保存容量が足りず/);
+ else assert.doesNotMatch(h.ctx.entryMessage,/原文は処理前と同じ/);
 });

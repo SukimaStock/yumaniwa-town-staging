@@ -34,6 +34,18 @@ function progressed(){
 }
 function fixture(scenario){
  const store=memory();if(scenario==='empty')return store;
+ if(scenario==='quota'){
+  // Supplied lengths, synthetic opaque bytes. This reproduces capacity refusal,
+  // not Safari's actual quota or acceptance of the author's previous record.
+  store.setItem(FORMAL_SAVE_KEY,'Q'.repeat(891435));
+  store.setItem('sukimastock.ambertime.wholesale.v20','L'.repeat(77280));
+  for(const [size,char] of [[400000,'A'],[200000,'B'],[92004,'C']]){
+   const raw=char.repeat(size);let hash=2166136261;
+   for(let i=0;i<raw.length;i++){hash^=raw.charCodeAt(i);hash=Math.imul(hash,16777619)>>>0;}
+   store.setItem(backupPrefix+raw.length+'.'+hash.toString(16),raw);
+  }
+  return store;
+ }
  const session=scenario==='normal'?createFreshSession(native,20261015):progressed();session.userPaused=true;
  const current=encode(session);store.setItem(FORMAL_SAVE_KEY,current);
  if(scenario==='backups'){
@@ -74,15 +86,18 @@ async function reset(){
  if(appBlob)URL.revokeObjectURL(appBlob);if(bootstrapBlob)URL.revokeObjectURL(bootstrapBlob);
  appBlob=URL.createObjectURL(new Blob([wrapper,instrumentApp()],{type:'text/javascript'}));
  const bootstrap=`const values=new Map(${JSON.stringify(entries)}),initial=${JSON.stringify(initial)},prefix=${JSON.stringify(backupPrefix)},formal=${JSON.stringify(FORMAL_SAVE_KEY)},fault=${JSON.stringify(fault)},scenario=${JSON.stringify(scenario)};
- let fired=false,formalWritten=false;const reads=new Map();
+ let fired=false,formalWritten=false,quotaRefusals=0,removedBackups=0;const reads=new Map();
  const qa={phase:'idle',inject(stage){if(!fired&&fault===stage){fired=true;throw Object.assign(Error('Injected entry failure: '+stage),{name:'InjectedEntryError',code:'QA_'+stage.toUpperCase().replaceAll('-','_')});}}};
  Object.defineProperty(window,'__amberEntryQA',{value:qa});
- const report=()=>parent.postMessage({amberEntryReport:{scenario,fault,fired,phase:qa.phase,formalSame:values.get(formal)===initial,formalCharacters:values.get(formal)?.length??0,backupCount:[...values.keys()].filter(k=>k.startsWith(prefix)).length,oldRawProtected:[...values].some(([k,v])=>k.startsWith(prefix)&&v===initial),detailVisible:!document.getElementById('entry-error-details')?.hidden}},location.origin==='null'?'*':location.origin);
+ const report=()=>parent.postMessage({amberEntryReport:{scenario,fault,fired,phase:qa.phase,formalSame:values.get(formal)===initial,formalCharacters:values.get(formal)?.length??0,quotaRefusals,removedBackups,totalCharacters:[...values.values()].reduce((n,v)=>n+v.length,0),legacySame:scenario!=='quota'||values.get('sukimastock.ambertime.wholesale.v20')==='L'.repeat(77280),backupCount:[...values.keys()].filter(k=>k.startsWith(prefix)).length,oldRawProtected:[...values].some(([k,v])=>k.startsWith(prefix)&&v===initial),detailVisible:!document.getElementById('entry-error-details')?.hidden}},location.origin==='null'?'*':location.origin);
  const storage={get length(){return values.size;},key:i=>[...values.keys()][i]??null,getItem(key){
   if(qa.phase==='writing'&&key.startsWith(prefix)){const n=(reads.get(key)??0)+1;reads.set(key,n);if(!fired&&fault==='backup-readback'&&n===2){fired=true;return 'qa-readback-mismatch';}}
   if(qa.phase==='writing'&&key===formal&&formalWritten&&!fired&&fault==='formal-readback'){fired=true;return 'qa-readback-mismatch';}
   return values.get(key)??null;
- },setItem(key,raw){if(qa.phase==='writing'&&key.startsWith(prefix))qa.inject('backup-write');if(qa.phase==='writing'&&key===formal)qa.inject('formal-write');values.set(key,String(raw));if(key===formal)formalWritten=true;queueMicrotask(report);},removeItem:key=>values.delete(key)};
+ },setItem(key,raw){if(qa.phase==='writing'&&key.startsWith(prefix))qa.inject('backup-write');if(qa.phase==='writing'&&key===formal)qa.inject('formal-write');if(scenario==='quota'){
+   const total=[...values].reduce((n,[k,v])=>n+(k===key?0:v.length),0)+String(raw).length;
+   if(total>2400000){quotaRefusals++;throw new DOMException('The quota has been exceeded.','QuotaExceededError');}
+  }values.set(key,String(raw));if(key===formal)formalWritten=true;queueMicrotask(report);},removeItem(key){const removed=values.delete(key);if(removed&&key.startsWith(prefix))removedBackups++;queueMicrotask(report);}};
  const sessionValues=new Map(),session={get length(){return sessionValues.size;},key:i=>[...sessionValues.keys()][i]??null,getItem:k=>sessionValues.get(k)??null,setItem:(k,v)=>sessionValues.set(k,String(v)),removeItem:k=>sessionValues.delete(k)};
  Object.defineProperty(window,'localStorage',{value:storage});Object.defineProperty(window,'sessionStorage',{value:session});
  window.addEventListener('message',event=>{if(event.source===parent&&event.data?.amberEntryMeasure)report();});

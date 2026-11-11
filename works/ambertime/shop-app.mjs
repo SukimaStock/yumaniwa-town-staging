@@ -18,7 +18,8 @@ import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-to
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r2';
-import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r2';
+import {appendVerifiedBackupCleanup} from './verified-backup-cleanup.mjs?v=entry-diagnostics-20261111-r3';
+import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r3';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
@@ -1634,7 +1635,7 @@ function installSession(session,{fresh=false}={}){
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }
 let newGameBackupKey=null;
-const ENTRY_APP_BUILD='entry-diagnostics-20261111-r2';
+const ENTRY_APP_BUILD='entry-diagnostics-20261111-r3';
 const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r2',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newWorldNetworkDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
 function clearEntryDiagnostic(){entryDiagnostic=null;const status=$('entry-copy-status');if(status)status.textContent='';const details=$('entry-error-details');if(details)details.open=false;}
 function recordEntryFailure(error,result={}){
@@ -1704,7 +1705,7 @@ async function enterSession(kind){
   // adopted/old game autosave over the verified candidate on pagehide.
   sessionActive=false;canSave=false;runtimeHalted=true;stopClock();countdown.cancel();
   recordEntryFailure(result.error,result);entryView='error';
-  entryMessage=result.stage==='session-apply'||result.stage==='completion-ui'?'記録の確認後、本編の表示で失敗しました。正式保存へ自動で戻す処理は行っていません。':result.error?.code==='conflict'?result.error.message:result.formalState==='unchanged'?'開始できませんでした。正式保存の原文は処理前と同じです。復元できることを確認した意味ではありません。':result.backupVerified?'正式保存の結果は確認できません。元の原文は「保護した記録」から書き出せます。':'記録を確認できません。保存領域を再確認してください。';
+  entryMessage=result.stage==='backup-write'&&result.error?.name==='QuotaExceededError'&&result.formalState==='unchanged'?'記録を保護するための保存容量が足りず、開始できませんでした。正式保存の原文は処理前と同じです。「保護した記録」で書出しファイルとの一致を確認した記録を整理してから、もう一度お試しください。':result.stage==='session-apply'||result.stage==='completion-ui'?'記録の確認後、本編の表示で失敗しました。正式保存へ自動で戻す処理は行っていません。':result.error?.code==='conflict'?result.error.message:result.formalState==='unchanged'?'開始できませんでした。正式保存の原文は処理前と同じです。復元できることを確認した意味ではありません。':result.backupVerified?'正式保存の結果は確認できません。元の原文は「保護した記録」から書き出せます。':'記録を確認できません。保存領域を再確認してください。';
   protectedRecordExports();paintEntry();
  }
  return result.ok;
@@ -1723,15 +1724,19 @@ $('entry-copy-diagnostic').addEventListener('click',async()=>{
 const backupExport=document.createElement('button');backupExport.type='button';backupExport.textContent='新規開始前の記録を書き出す';backupExport.hidden=true;$('aux-panel').append(backupExport);
 backupExport.addEventListener('click',()=>{try{const raw=newGameBackupKey&&localStorage.getItem(newGameBackupKey);if(typeof raw!=='string')throw Error('新規開始前の記録を確認できません。');exportRaw(raw,'ambertime-before-new-game.json');}catch(error){storageNotice(error.message);}});
 // Existing byte-for-byte backups remain reachable after reload, including
-// unreadable envelopes. Listing never parses, migrates, or removes their data.
+// unreadable envelopes. Listing never parses or migrates their data. Explicit
+// cleanup requires a matching external file, then a separate confirmation.
 function protectedRecordExports(){
  for(const parent of [$('aux-panel'),$('recovery'),$('entry-records')]){
   parent.querySelector('[data-protected-records]')?.remove();
   const list=document.createElement('details');list.dataset.protectedRecords='';const summary=document.createElement('summary');summary.textContent='保護した記録';list.append(summary);
   try{for(let i=0;i<localStorage.length;i++){
    const key=localStorage.key(i);const legacy=['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'].includes(key);if(!legacy&&!key?.startsWith(SAVE_KEY+'.before-market-rules.v1.'))continue;
+   const row=document.createElement('div');row.className='protected-record-row';
    const button=document.createElement('button');button.type='button';button.textContent=(legacy?'以前の開発版の記録 ':'記録 ')+(list.childElementCount)+'を書き出す';
-   button.addEventListener('click',()=>{try{const raw=localStorage.getItem(key);if(typeof raw!=='string')throw Error('保護した記録を確認できません。');exportRaw(raw,'ambertime-protected-'+(legacy?key.split('.').slice(-2).join('-'):key.slice((SAVE_KEY+'.before-market-rules.v1.').length))+'.json');}catch(error){storageNotice(error.message);}});list.append(button);
+   button.addEventListener('click',()=>{try{const raw=localStorage.getItem(key);if(typeof raw!=='string')throw Error('保護した記録を確認できません。');exportRaw(raw,'ambertime-protected-'+(legacy?key.split('.').slice(-2).join('-'):key.slice((SAVE_KEY+'.before-market-rules.v1.').length))+'.json');}catch(error){storageNotice(error.message);}});row.append(button);
+   if(!legacy&&entryDiagnostic?.stage==='backup-write'&&entryDiagnostic?.exception?.name==='QuotaExceededError')appendVerifiedBackupCleanup({document,parent:row,storage:localStorage,key,confirm:message=>confirm(message)});
+   list.append(row);
   }}catch{}if(list.childElementCount>1)parent.append(list);
  }
 }
