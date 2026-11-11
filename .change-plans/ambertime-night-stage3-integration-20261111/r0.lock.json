@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "095d679494d8463f3fd9b2ac1a37e11ae1886ff064ce0932704c3e37f83cb4f1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-night-stage3-integration-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate reviewed Stage3 map selection PR922 after Stage1 and Stage2; preserve same-layer peer visibility",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "637ac0bc09521aef3dab15382fc51856e34b1e33",
+    "canonicalSources": [
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/entry-diagnostics.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-night-stage3-integration-20261111/r0.lock.json",
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/night-stage3-map-20261111/**",
+      "works/ambertime/entry-diagnostics.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Keep all eligible trading partners on selected/current map layer visible in sales room; preserve existing empty-layer fallback and retail",
+      "Project selected map partner to row highlight and accessible aria-current on its existing details button; no added controls",
+      "Cache imports only in shop-app/index, no routing/offer/model changes",
+      "Tests protect stock cash receipts relationships pending offers formal serialization; record remaining queued-offer model boundary",
+      "Whitelist exactly the fixed mapSelection=night-stage3 app build query; preserve diagnostic redaction of arbitrary values and raw save data",
+      "Preserve Stage1/2 cache and diagnostic fixed identifiers while adding Stage3 map selection; leave offer model unchanged"
+    ],
+    "ownerDecisions": [
+      "Current night request explicitly authorizes Stage3 map selection highlighting and same-layer visibility; safe Staging integration only after tests CI review; partial draft until integrated with earlier stages",
+      "Current explicit user asks merge and takes over browser/iPhone verification; no production permission"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard prior Plan Lock; Scope Risk Impact",
+      "Expression audit: no decorative copy, only current-row highlight and accessible selection"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Native browser if available; iPhone remains unverified",
+      "Required CI and Pages exact SHA only after integration"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI-only partial stage3 PR; no formal data migration",
+    "outOfScope": [
+      "Production",
+      "Formal model/save/opcode changes",
+      "Offer queue and new store rules",
+      "Stage1 notification routing integration",
+      "Stage2 bottling implementation",
+      "No broad privacy whitelist or untrusted version values"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Native browser and physical iPhone Safari",
+      "Complete Stage3 offer workflow"
+    ]
+  }
+}

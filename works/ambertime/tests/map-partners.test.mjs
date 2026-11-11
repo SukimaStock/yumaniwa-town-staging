@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as D from '../partner-orders.mjs';
-import {mapPartnerProjection,mapPartnerDetail,marketPartnersForMap} from '../map-partners.mjs';
+import {mapPartnerProjection,mapPartnerDetail,marketPartnersForMap,marketPartnerScopeForMap} from '../map-partners.mjs';
 import {mapProgress,drawGameMap,mapObservationBounds} from '../world-map-view.mjs';
 import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from '../map-daily-view.mjs';
 import {availableMarketShops} from '../market-ui.mjs';
@@ -71,8 +71,8 @@ test('native town identities match authored bounds and department keeps its spec
  for(const pin of p.partners){assert.deepEqual(pin.bounds,mapObservationBounds(3)[pin.id]);assert.equal(pin.x,pin.bounds[0]+pin.bounds[2]/2);assert.equal(pin.y,pin.bounds[1]+pin.bounds[3]/2);}
  const department=p.partners.find(p=>p.id==='department');assert.equal(department.canTrade,false);assert.equal(department.tradeMethod,'department-project');
  const available=availableMarketShops(s);
- assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'supermarket'},available)),['retail','supermarket']);
- assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'department'},available)),['retail']);
+ assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'supermarket'},available)),['retail','town-liquor','supermarket','bar']);
+ assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'department'},available)),['retail','town-liquor','supermarket','bar']);
  assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'missing'},available)),['retail','town-liquor','supermarket','bar'],'a stale selection falls back to actual eligible partners');
 });
 
@@ -112,7 +112,7 @@ test('native customer purchases never become regional-style delivery activity',(
  const pin=mapPartnerProjection(s,3).partners.find(p=>p.id==='town-liquor');
  assert.equal(pin.activity.cumulativeDelivered,2);assert.equal(pin.activity.recentDelivered,2);assert.equal(pin.activity.customerSales,5);
  assert.equal(normalizeMapView({stage:3,selectedShop:'retail'},6,[]).selectedShop,'retail');
- assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'retail'},availableMarketShops(s))),['retail']);
+ assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'retail'},availableMarketShops(s))),['retail','town-liquor']);
 });
 
 test('multiple organic careers retain exact monthly progress through browsing and cold restore',()=>{
@@ -129,4 +129,13 @@ test('multiple organic careers retain exact monthly progress through browsing an
   }});
   assert.equal(s.core.month,180);assert.equal(samples,15);assert.equal(D.serializeDistillery(D.restoreDistillery(D.serializeDistillery(s))),D.serializeDistillery(s));
  }
+});
+
+// Current explicit Stage3 request replaces the earlier selected-only filter.
+test('selection emphasis is bounded to a visible real partner and preserves every same-layer peer',()=>{
+ const s=D.newRegionalDeliveryDistillery(3);s.shop.relations=['town-liquor','supermarket','bar'].map(shopId=>({shopId,brandId:1,startedMonth:0}));s.alleyBar={version:1};
+ const raw=JSON.stringify(s),available=availableMarketShops(s),expected=['retail','town-liquor','supermarket','bar'];
+ for(const selectedShop of ['retail','town-liquor','supermarket','bar']){const v=marketPartnerScopeForMap(s,{stage:3,selectedShop},available);assert.deepEqual(ids(v.shops),expected);assert.equal(v.selectedShop,selectedShop);assert.equal(v.stage,3);}
+ const overview=marketPartnerScopeForMap(s,{stage:2,selectedShop:'supermarket'},available);assert.equal(overview.stage,2);assert.deepEqual(ids(overview.shops),expected);
+ const unknown=marketPartnerScopeForMap(s,{stage:3,selectedShop:'missing'},available);assert.deepEqual(ids(unknown.shops),expected);assert.equal(unknown.selectedShop,null);assert.equal(JSON.stringify(s),raw);
 });

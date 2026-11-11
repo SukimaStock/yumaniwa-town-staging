@@ -50,16 +50,13 @@ const partnerStage=id=>({town:3,region:4,prefecture:5,country:6})[tradingPartner
 export function marketPartnerScopeForMap(game,view,available){
  const requestedStage=Number.isInteger(view?.stage)&&view.stage>=1&&view.stage<=6?view.stage:3;
  const retail=available.filter(p=>p.id==='retail');
- const result=(shops,stage=requestedStage)=>({shops,stage,requestedStage,fallback:stage!==requestedStage,label:stage!==requestedStage?scopeNames[stage]+'の取引先':''});
- if(view?.selectedShop==='retail')return result(retail);
+ const result=(shops,stage=requestedStage)=>({shops,stage,requestedStage,fallback:stage!==requestedStage,label:stage!==requestedStage?scopeNames[stage]+'の取引先':'',selectedShop:shops.some(p=>p.id===view?.selectedShop)?view.selectedShop:null});
  const selected=available.find(p=>p.id===view?.selectedShop&&p.id!=='retail');
- if(selected&&mapPartnerDetail(game,selected.id)?.canTrade){
-  const atRequested=mapPartnerProjection(game,requestedStage).partners.some(p=>p.id===selected.id);
-  return result([...retail,selected],atRequested?requestedStage:partnerStage(selected.id));
- }
- // The department keeps its dedicated project UI rather than joining a shelf.
- if(view?.selectedShop==='department'&&mapPartnerDetail(game,'department'))return result(retail);
- for(let stage=requestedStage;stage>=2;stage--){
+ const selectedStage=selected&&mapPartnerDetail(game,selected.id)?.canTrade?(mapPartnerProjection(game,requestedStage).partners.some(p=>p.id===selected.id)?requestedStage:partnerStage(selected.id)):null;
+ // Selection changes emphasis, never the set of peers in the same map layer.
+ // An explicit eligible target selects its own layer before the existing
+ // nearest-contracted-layer fallback is applied.
+ for(let stage=selectedStage??requestedStage;stage>=2;stage--){
   const ids=new Set(mapPartnerProjection(game,stage).partners.filter(p=>p.canTrade).map(p=>p.id));
   const shops=available.filter(p=>p.id!=='retail'&&ids.has(p.id));
   if(shops.length)return result([...retail,...shops],stage);
