@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0e7621f9130dc340ecd9f5747165571e6955af02989aff326fd873bfdb628079",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-targeted-offers-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Select exact native shop offer without changing legacy opcode semantics",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "542c923439d3b70867374d30f2cbbb20c8566f20",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-targeted-offers-20261111/r0.lock.json",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/offer-presentation.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/targeted-offers-20261111/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/**"
+    ],
+    "expectedChanges": [
+      "Explicit stockist-select with exact shopId and offerId; promote selected pending offer, retain former head; preserve old opcode semantics and all offer payloads",
+      "UI enables every native store invitation; persist selection before dialog and notice only after mounted",
+      "Prevent automatic cascading dialogs without silently acknowledging unseen offers",
+      "Regression tests cover exact replay, stale targets, decline cooldown, department and save failure; cache identifiers only"
+    ],
+    "ownerDecisions": [
+      "User Sentinel_d824deed88648191912c4bc3977a8747 (2026-11-11 23:04 UTC) explicitly requests targeted offer queue repair, preserving existing opcodes/history, independent stores and 12-month decline rule; permits Staging merge only after required checks/review; Production forbidden"
+    ],
+    "hqDecisions": [
+      "Current authority: partner-orders native queue and strict replay; shop-app saveCandidate transaction. Missing contract is choosing pending offer while legacy calls require head.",
+      "Minimal extension is explicit selection opcode, no overwrite of existing operation meaning. Existing inventory/cash/history/recall preserved; no other work/scene impact.",
+      "Compatibility: old histories replay unchanged; new records require new reader; never downgrade model after new opcode has been saved. Migration has no bulk old-save rewrite.",
+      "Tests: old and new cold roundtrip, exact targets and stale/tamper, department/progress, notification budget and failure atomicity. Independent preimplementation technical review by review_offer_design on main542c923 gave conditional design GO; not represented as CI or external write approval.",
+      "Rollback: stop feature entry, retain reader support for stockist-select and all saves; do not revert reader to incompatible old code. Author decision is scoped to latest explicit request, not general HQ authority."
+    ],
+    "rulesApplied": [
+      "WORK Standard prior Plan Lock; Scope Risk Impact",
+      "Expression audit: no decorative copy, only current-row highlight and accessible selection"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Native browser if available; iPhone remains unverified",
+      "Required CI and Pages exact SHA only after integration"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Disable new selection entry if necessary while retaining new opcode reader; never delete saves or deploy old reader over new histories.",
+    "outOfScope": [
+      "Production",
+      "Consignment and world expansion",
+      "Formal codec/validator changes",
+      "Economy rules",
+      "Legacy operation reinterpretation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and browser touch",
+      "30/100 year consignment, owned by later stage"
+    ],
+    "problem": "Pending native store offers are displayed but cannot be opened independently; head promotion causes automatic cascading.",
+    "currentContract": "Only shop.offer may be noticed/accepted/declined; pendingOffers retains remaining stores. Formal reader regenerates exact operation history.",
+    "whyExistingIsInsufficient": "Widening old opcode behavior would reinterpret past logs; UI alone cannot safely mutate authoritative queue.",
+    "design": "Add stockist-select only. Exact pending selected deterministically with former head retained. Selection is immutable, logs partial distillation progress, changes no notified or economy. UI transactional selection and separate mounted notice; automatic display opportunity is UI state only. Automatic opportunity resets only on session activation and explicit room navigation/time resume; never on render, save, close or response callbacks. Generation notice may proceed when auto-offer opportunity is consumed; model repeat gating remains unchanged.",
+    "migration": "No new save version or automatic rewrite. Existing saves accepted unchanged. First selection appends explicit operation.",
+    "compatibility": "Legacy head operations and historical boundaries unchanged. New opcode must remain supported in any rollback reader.",
+    "alternativesRejected": [
+      "Direct UI queue mutation bypasses formal replay",
+      "Changing old accept/notice opcode semantics risks historical reinterpretation",
+      "Marking unseen offers notified hides notifications"
+    ],
+    "boundaryCases": [
+      "Stale or mismatched shopId/offerId",
+      "Head no-op; pending noticed/unnoticed; department payload; partial distillation",
+      "Save failure, old save, cold restore, tampered selection",
+      "Manual selection after auto opportunity consumed; new session reset"
+    ],
+    "testPlan": [
+      "Run stockists and new targeted-offer tests with cold process serialization",
+      "Run shop-flow, market UI, formal-copy and market-rules baseline comparison",
+      "Scope Risk Impact, trusted syntax, independent candidate review and exact SHA CI"
+    ],
+    "promotionRisk": "Staging only; incompatible downgrade reader can reject new histories; no Production promotion."
+  }
+}
