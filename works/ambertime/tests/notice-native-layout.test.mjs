@@ -46,7 +46,7 @@ test('ambient downward travel stays above management controls; reduced motion ne
 });
 test('overflow alone permits scrolling and native cards no longer hide overflowing text',()=>{
  const css=readFileSync(new URL('../room-scene.css',import.meta.url),'utf8');
- assert.match(css,/\.automatic-news\{display:block;text-align:center/);
+ assert.match(css,/\.automatic-news\{display:block;text-align:left/);
  assert.match(css,/overflow:auto;overscroll-behavior:contain/);
  assert.match(css,/#automatic-news\[data-overflow="true"\]\{pointer-events:auto;cursor:auto;touch-action:pan-y\}/);
 });

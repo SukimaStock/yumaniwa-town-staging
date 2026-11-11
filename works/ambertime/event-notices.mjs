@@ -2,6 +2,11 @@ import {selectedTownEvents} from './player-news.mjs?v=adjust-a-r1';
 // Presentation only. Events are collected at saved transitions, never at render/reload.
 export function automaticEvents(before,after,caskLabel=()=>'',releaseLabel=()=>''){
  const events=selectedTownEvents(before,after);
+ // A reservation is not a delivery. Only new committed formal receipts count;
+ // this collector is called after the existing candidate save succeeds.
+ const knownDeliveries=new Set((before.shop?.deliveries??[]).map(d=>d.id));
+ const department=(after.shop?.deliveries??[]).filter(d=>!knownDeliveries.has(d.id)&&d.shopId==='department'&&d.month===after.core.month&&d.count>0);
+ for(const d of department)events.push({id:'department-delivery:'+d.id,kind:'department-delivered',count:d.count,month:d.month,shopId:d.shopId,receiptId:d.id,releaseId:d.releaseId,productId:d.productId,revenue:d.revenue});
  if(before.usual?.reservation?.status==='active'){
   const known=new Set(before.core.casks.map(c=>c.id));
   for(const c of after.core.casks)if(!known.has(c.id))events.push({id:'fill:'+c.id,kind:'filled',count:1});
@@ -30,13 +35,15 @@ export function automaticEvents(before,after,caskLabel=()=>'',releaseLabel=()=>'
   if(quiet){if(shipped>0)events.push({id:'shipping:'+after.core.month,kind:'shipping',count:shipped});}
   else if(orders.length)events.push({id:'orders:'+after.core.month,kind:'orders',count:orders.reduce((n,o)=>n+o.requested,0),shipped,unmet:orders.reduce((n,o)=>n+o.unmet,0)});
   const sales=after.core.lastMonth;
-  if(sales?.bottles>0)events.push({id:'sales:'+after.core.month,kind:'sales',count:sales.bottles,revenue:sales.revenue});
+  // The department's same receipt already has explicit feedback above.
+  const count=(sales?.bottles??0)-department.reduce((n,d)=>n+d.count,0),revenue=(sales?.revenue??0)-department.reduce((n,d)=>n+d.revenue,0);
+  if(count>0)events.push({id:'sales:'+after.core.month,kind:'sales',count,revenue:Math.max(0,revenue)});
  }
  return events;
 }
 export function noticeText(events){
  const total=kind=>events.filter(e=>e.kind===kind).reduce((a,e)=>({count:a.count+(e.count??0),revenue:a.revenue+(e.revenue??0),shipped:a.shipped+(e.shipped??0),unmet:a.unmet+(e.unmet??0)}),{count:0,revenue:0,shipped:0,unmet:0}),filled=total('filled'),bottled=total('bottled'),completed=events.filter(e=>e.kind==='bottled'&&e.mode==='age'),completionCount=completed.reduce((n,e)=>n+e.count,0),sales=total('sales'),orders=total('orders'),shipping=total('shipping');
- return [filled.count?'仕込み完了 '+filled.count+'たる':'',bottled.count>completionCount?'ビン詰め完了 '+(bottled.count-completionCount)+'本':'',...completed.map(e=>'ビン詰め完了 '+e.count+'本'+(Number.isFinite(e.remainingLitres)?' · '+(e.caskLabel?e.caskLabel+' ':'')+'残り '+e.remainingLitres.toFixed(1)+'L':'')),...events.filter(e=>e.kind==='sold-out').map(e=>(e.releaseLabel?e.releaseLabel+' ':Number.isInteger(e.releaseId)?'発売'+e.releaseId+' ':'')+'完売'),sales.count?'販売 '+sales.count+'本 · 入金 £'+sales.revenue.toLocaleString('en-GB',{maximumFractionDigits:0}):'',shipping.count?'発送 '+shipping.count+'本':'',events.some(e=>e.kind==='orders')?'注文 '+orders.count+'本 · 発送 '+orders.shipped+'本'+(orders.unmet?' · 未発送 '+orders.unmet+'本':''):'',events.filter(e=>e.kind==='message').reduce((best,e)=>(e.priority??0)>=(best?.priority??-1)?e:best,null)?.text??''].filter(Boolean).join(' / ');
+ return [...events.filter(e=>e.kind==='department-delivered').map(e=>'町のデパートへ'+e.count+'本納品しました。'),filled.count?'仕込み完了 '+filled.count+'たる':'',bottled.count>completionCount?'ビン詰め完了 '+(bottled.count-completionCount)+'本':'',...completed.map(e=>'ビン詰め完了 '+e.count+'本'+(Number.isFinite(e.remainingLitres)?' · '+(e.caskLabel?e.caskLabel+' ':'')+'残り '+e.remainingLitres.toFixed(1)+'L':'')),...events.filter(e=>e.kind==='sold-out').map(e=>(e.releaseLabel?e.releaseLabel+' ':Number.isInteger(e.releaseId)?'発売'+e.releaseId+' ':'')+'完売'),sales.count?'販売 '+sales.count+'本 · 入金 £'+sales.revenue.toLocaleString('en-GB',{maximumFractionDigits:0}):'',shipping.count?'発送 '+shipping.count+'本':'',events.some(e=>e.kind==='orders')?'注文 '+orders.count+'本 · 発送 '+orders.shipped+'本'+(orders.unmet?' · 未発送 '+orders.unmet+'本':''):'',events.filter(e=>e.kind==='message').reduce((best,e)=>(e.priority??0)>=(best?.priority??-1)?e:best,null)?.text??''].filter(Boolean).join(' / ');
 }
 export function transientNotices({show,hide,setTimer=setTimeout,clearTimer=clearTimeout,duration=3500,onExpire=()=>{}}){
  const seen=new Set();let visible=[],timer=null;
@@ -60,15 +67,18 @@ export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTime
    const old=current,visible=now()-old.started;stop();stats.interrupted++;
    // Below the reading threshold, retain the fact, not a running hidden timer.
    // Daily observations are deliberately disposable. Newer pending facts win.
-   if(old.kind!=='ambient'&&visible<3500)retain(old);else stats.discarded++;
+   if(old.kind==='world'){
+    old.remaining=Math.max(0,(old.remaining??old.duration)-visible);old.resuming=true;
+    if(old.remaining>0)retain(old);
+   }else if(old.kind!=='ambient'&&visible<3500)retain(old);else stats.discarded++;
   }
   if(current)return;
   const next=[...pending.values()].filter(allowed).sort((a,b)=>priority[a.kind]-priority[b.kind]||a.serial-b.serial)[0];
   if(!next)return;
-  pending.delete(key(next));current=next;next.started=now();stats.displayed++;
+  pending.delete(key(next));current=next;next.started=now();if(!next.resuming)stats.displayed++;
   const entries=next.kind==='world'?[{...next.events[0],id:'world-display:'+next.serial}]:next.kind==='ambient'?[{...next.events[0],kind:'message',id:'daily-display:'+next.serial}]:next.events;
-  show(noticeText(entries),entries,next.duration,next.kind);
-  timer=setTimer(()=>{stop();update();},next.duration);
+  const remaining=next.remaining??next.duration;show(noticeText(entries),entries,remaining,next.kind);
+  timer=setTimer(()=>{stop();update();},remaining);
  }
  function push(events){
   // Register this transition before choosing the next slot on becoming visible.
@@ -93,6 +103,7 @@ export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTime
  return {push,update,clear(){stop();update();},reset(){epoch++;stop();pending.clear();seen.clear();for(const k of Object.keys(stats))stats[k]=0;},
   get epoch(){return epoch;},
   get active(){return current?.kind??null;},
+  get worldPending(){return current?.kind==='world'||pending.has('world');},
   inspect(){return {active:current?.kind??null,pending:[...pending.values()].map(n=>({kind:n.kind,room:n.room})),seen:seen.size,...stats};}
  };
 }

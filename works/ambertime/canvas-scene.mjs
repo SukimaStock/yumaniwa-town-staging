@@ -312,7 +312,7 @@ export class CanvasScene{
   // The same normal scene font and wrapping apply to both transient notice paths.
   if(view.notice){const n=noticeLayout(view.notice,t=>this.measure(t),{step:noticeStep});this.window(n.x,n.y,n.w,n.h,NOTICE_WINDOW.fill,NOTICE_WINDOW.border);
    c.save();c.font=`400 ${metrics.pixels}px ${FONT_STACK}`;const bounds=c.measureText('国Ag');c.restore();const baseline=(bounds.actualBoundingBoxAscent-bounds.actualBoundingBoxDescent)/metrics.unit/2;
-   n.lines.forEach((line,i)=>this.text(line,n.x+n.w/2,n.y+n.padding+n.step*(i+.5)+baseline,BODY_SIZE,'center'));this.root.dataset.noticeLayout=JSON.stringify(n);
+   n.lines.forEach((line,i)=>this.text(line,n.x+n.padding,n.y+n.padding+n.step*(i+.5)+baseline,BODY_SIZE,'left'));this.root.dataset.noticeLayout=JSON.stringify(n);
   }else delete this.root.dataset.noticeLayout;
   const news=$('automatic-news');if(news&&!news.hidden)this.positionAutomaticNews(news,$('automatic-news-close'));
 
