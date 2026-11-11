@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "98385fbe8cb74522f1f59bdd5d4b65649a40853599c4f164c030ed13072343f1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-consignment-staging-20261112",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Formal bounded consignment after explicit replay boundary; old wholesale history unchanged",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0778bcf4555737ec45947a80aca8f761f39fa429",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/design/night-stage4-20261111/AUDIT.md"
+    ],
+    "allowedPaths": [
+      "works/ambertime/regional-consignment.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/regional-consignment.test.mjs",
+      "works/ambertime/tests/regional-consignment-long.mjs",
+      "works/ambertime/design/night-stage4-20261112/REPORT.md",
+      ".change-plans/ambertime-consignment-staging-20261112/r0.lock.json",
+      "works/ambertime/nearby-comparison.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/store-market.mjs",
+      "works/ambertime/ledger-view.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "sw.js",
+      "data/**",
+      ".github/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Explicit enable-regional-consignment and regional-consign operations, unchanged old opcodes",
+      "Max 24 desk/product unsold rows; only actual monthly sold bottles produce cash",
+      "Three deterministic bounded demand lanes and capped cumulative growth; no fee or pullback",
+      "Persist-before-apply existing save mechanism; 30/100year new mode and old replay regressions",
+      "Narrow UI pending versus entrusted stock, existing app migration and cache coupling",
+      "Cache closure pins native model and every actual placementInventory reader to the new version; baseline nearby native cache mismatch fixed as prerequisite.",
+      "Ledger includes distinct actual consignment aggregate, preserves completed release totals after core product pruning; no rewriting old facts.",
+      "Preserve merged PR926 targeted offer opcode, persisted UI selection and exact model URL while integrating consignment."
+    ],
+    "ownerDecisions": [
+      "User 2026-11-11 overnight v0.2 explicitly authorizes formal consignment rules 1-10, migration old receipts unchanged, safe Staging merge after required checks; no Production"
+    ],
+    "hqDecisions": [
+      "Current sources: partner-orders exact replay, regional-deliveries wholesale receipts, market-sales deterministic carry, existing formal generation writer.",
+      "Gap: regional procurement settles immediately and has no entrusted stock. Existing opcode cannot safely change old replay.",
+      "Minimum extension: explicit replay boundary plus new consign opcode; keep old operations byte-exact; dedicated bounded state only.",
+      "Other works/Engine/CI/Production unchanged. UI keeps same shelf but distinguishes unsubmitted and entrusted inventory.",
+      "Migration: zero entrusted stock at boundary; reservations unchanged; settled old receipts untouched; new writes use current save envelope and atomic candidate persistence.",
+      "Tests: genuine career transfer, cash/stock conservation, replay and cold formal v8, failure preservation, 360/1200 new-rule months, strategy comparison; iPhone unverified.",
+      "Rollback: before adoption revert complete feature; once saves contain new boundary preserve support/export new records rather than load with old reader.",
+      "Growth: three lanes, initial half customer acceptance increasing to full after 1200 actual sold; no additional remote shops persist. Compare local/single/diversified/low/high supply before acceptance.",
+      "Supersedes local86f8d3c scope after cache-closure regression identified nearby-comparison and all shared inventory reader dependency URL coupling. No prior lock rewritten. Fresh plan before extra files, no remote previous candidate.",
+      "Self-review found ledger-view must account for actual consignment alongside preserved procurement. Fresh plan before ledger-view modification; prior local candidate never pushed. Original regional customerSales:null remains unchanged; separately expose actual consignment totals.",
+      "PR926 is merged on latest main0778bcf. Fresh integration plan fixes this new base before implementation; preserve queue fix and both cache query keys."
+    ],
+    "problem": "Regional desk currently pays immediately; user requests only actual sales pay",
+    "currentContract": "Old operations restore exact game; accepted regional contracts and old settled receipts remain unchanged",
+    "whyExistingIsInsufficient": "Reinterpreting regional-deliver would invalidate historical money and exact replay",
+    "design": "New explicit boundary and consign transaction transfers pending allocation into bounded pooled entrusted stock; monthly actual sales use existing price system and market demand, stable rotating lanes, atomic draft; no side effects before existing save succeeds",
+    "alternativesRejected": [
+      "Reinterpret old delivery opcode",
+      "One persisted row per downstream shop",
+      "Unbounded consign receipt log beyond existing operation history"
+    ],
+    "migration": "Zero consignment inventory at recorded activation; retain all prior operations receipts pending reservations",
+    "compatibility": "Absent marker has exact old behavior; no formal validator weakening; new opcode needs new reader",
+    "boundaryCases": [
+      "same-month retry",
+      "stale allocation and duplicate consign ID",
+      "multiple desks/products",
+      "old paid receipt then boundary",
+      "capacity8/rows24",
+      "cold restoration",
+      "formal quota/revision failure",
+      "generation review"
+    ],
+    "testPlan": [
+      "New actual career model tests and formal v8 sidecars",
+      "Cold process restoration",
+      "360/1200 month new-rule cash/inventory conservation",
+      "existing regional world market bottling save tests",
+      "5 strategy comparison with prior baseline"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone Safari UI/save reload remains owner unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rulesApplied": [
+      "AGENTS and Full Plan before implementation",
+      "Owner v0.2 explicit Staging-only terms",
+      "Expression audit: reuse shelf, factual pending/entrusted label only"
+    ],
+    "rollback": "Revert before new mode saves; afterward preserve new-mode reader and exported snapshots, never discard entrusted stock to downgrade",
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari",
+      "new 30/100year actual results until tests run"
+    ],
+    "promotionRisk": "No Production; new opcodes need compatible reader; existing save originals must stay intact"
+  }
+}
