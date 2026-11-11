@@ -22,7 +22,7 @@ import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from '
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
-import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
+import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111&mapSelection=night-stage3';
 import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&repair=ui3-20261111';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
@@ -33,7 +33,7 @@ import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=s
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {mapSceneryButterflies,syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
-import {mapPartnerProjection,marketPartnerScopeForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
+import {mapPartnerProjection,marketPartnerScopeForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111&mapSelection=night-stage3';
 import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard,brewingPanelState} from './brewing-cards.mjs?v=confirmed-brewing-r1';
 import {playerMilestones} from './player-news.mjs?v=0.25.4';

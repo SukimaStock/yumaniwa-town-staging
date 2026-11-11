@@ -93,3 +93,10 @@ test('every instrumented stage has its own readable label and exception fields',
   const formatted=formatEntryDiagnostic(d);assert(formatted.includes('['+stage+']'));assert(formatted.includes('fault-'+stage));assert(!formatted.includes('失敗段階: 不明'));
  }
 });
+
+test('map selection cache marker permits only its exact fixed build value',()=>{
+ const base='https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/shop-app.mjs?mapSelection=';
+ const make=value=>makeEntryDiagnostic({operation:'new-menu',stage:'candidate-validation',error:new Error('test'),snapshot:{raw:null,legacy:[]},versions:{app:base+value}});
+ assert.equal(make('night-stage3').versions.app,base+'night-stage3');
+ for(const value of ['private-brand-name','night-stage4','night-stage3%26private%3Dsecret'])assert.equal(make(value).versions.app,undefined);
+});
