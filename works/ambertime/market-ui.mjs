@@ -231,7 +231,7 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   const origins=new Map();for(const sale of sales){const row=doc.getElementById(`market-stock-${sale.shopId}-${sale.productId}`),source=row?.querySelector('.market-count'),bottle=row?.querySelector('.market-bottle');if(source&&bottle)origins.set(`${sale.shopId}:${sale.productId}`,{sourceRect:source.getBoundingClientRect(),sprite:bottle.getBoundingClientRect(),art:bottle.innerHTML});}
   cancel();clearTimeout(feedbackTimer);feedback=sales;signature='';update({visible,sessionActive});
   const token=epoch;
-  announceSaved(sales.map(sale=>`${ordinary.find(shop=>shop.id===sale.shopId).name}で${sale.count}本売れました。`).join(''));
+  announceSaved(sales.map(sale=>`${shopsForState(after).find(shop=>shop.id===sale.shopId)?.name??'取扱店'}で${sale.count}本売れました。`).join(''));
   void sold(sales,token,origins);
   // Hold sold-out rows briefly for this shared presentation, never replay on render.
   feedbackTimer=setTimeout(()=>{cancel();feedback=[];signature='';update({visible,sessionActive});},1300);
