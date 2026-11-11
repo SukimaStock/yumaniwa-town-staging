@@ -83,7 +83,7 @@ test('actual scene keeps warehouse selection static and sales selection blink pa
 test('map reveal coalesces to the latest stage, records announcement separately and has no timer',()=>{
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),c=clock();
  const game={...make([arrived('overseas-craft')],[],[],[],[{type:'visit',from:'overseas-craft',to:'distillery'}]),releases:[{bottles:3}],tastingId:null,decisions:[],trade:{offer:null},still:{phase:'ready'}};
- const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'})};
+ const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'}),automaticNews:{active:null,worldPending:false},m0:{isOpen:false},$:()=>({hidden:true}),regionalPending:()=>[]};
  vm.runInNewContext('let mapShown=1,mapAnnounced=1,mapPending=0,worldMapStage=1,modal=null,runtimeHalted=false,preview=true,canSave=true;'+source.slice(source.indexOf('function noteMapReach('),source.indexOf('let modalReturnFocus'))+';globalThis.state=()=>({mapShown,mapAnnounced,worldMapStage,modal});globalThis.close=()=>{modal=null;};',sandbox);
  sandbox.noteMapReach();sandbox.document.hidden=true;assert.equal(sandbox.tryShowMapReveal(),false);assert.equal(c.jobs.size,0);
  sandbox.document.hidden=false;assert.equal(sandbox.tryShowMapReveal(),true);assert.equal(sandbox.state().worldMapStage,6);assert.equal(sandbox.state().modal.source,'unlock');assert.equal(sandbox.state().mapShown,1,'opening does not claim an undrawn stage');assert.equal(sandbox.state().mapAnnounced,6);assert.equal(c.jobs.size,0);
@@ -122,7 +122,7 @@ test('introduction captions distinguish rumor, delivery, inquiry and overseas vi
 test('first introduction also shows latest unlocked stage immediately and never changes game',()=>{
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),c=clock();
  const game={...make([arrived('overseas-craft')],[],[],[],[{type:'visit',from:'overseas-craft',to:'distillery'}]),releases:[{bottles:3}],tastingId:null,decisions:[],trade:{offer:null},still:{phase:'ready'}},before=JSON.stringify(game);
- const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'})};
+ const sandbox={game,document:{hidden:false},countdown:{active:false},mapProgress,newlyUnlocked,setTimeout:c.set,clearTimeout:c.clear,mapNoticeSave(){},stopClock(){},generationState:()=>({phase:'working'}),automaticNews:{active:null,worldPending:false},m0:{isOpen:false},$:()=>({hidden:true}),regionalPending:()=>[]};
  vm.runInNewContext('let mapShown=0,mapAnnounced=0,mapPending=0,worldMapStage=1,modal=null,runtimeHalted=false,preview=true,canSave=true;'+source.slice(source.indexOf('function noteMapReach('),source.indexOf('let modalReturnFocus'))+';globalThis.state=()=>({mapShown,mapAnnounced,worldMapStage,modal});',sandbox);
  sandbox.noteMapReach();assert.equal(sandbox.tryShowMapReveal(),true);assert.equal(sandbox.state().worldMapStage,6);assert.equal(sandbox.state().mapShown,0);assert.equal(sandbox.state().mapAnnounced,6);assert.equal(c.jobs.size,0);assert.equal(JSON.stringify(game),before);
 });

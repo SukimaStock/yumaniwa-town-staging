@@ -42,10 +42,10 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1&repair=ui1-20261110';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1&repair=ui2-20261111';
 import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
-import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1&repair=ui1-20261110';
+import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1&repair=ui2-20261111';
 import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
@@ -136,7 +136,7 @@ const automaticNews=scopedNotices({room:()=>room,safe:ordinaryNoticeSafe,
  eligible:n=>n.kind!=='shop'||(game.still.phase==='ready'&&!debugSkipJob&&!!scene.dialogueLayout(n.events[0].entry)),
  show:(text,entries,lifetime,kind)=>{
  if(kind==='shop'){
-  const entry=entries[0].entry;dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;
+  const entry=entries[0].entry;dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.style.setProperty('--notice-life',lifetime+'ms');
   dialogueElement.hidden=false;dialogueElement.style.animation='none';void dialogueElement.offsetWidth;dialogueElement.style.removeProperty('animation');scene.positionDialogue();
  }else{
   const el=$('automatic-news'),style=noticePresentation(entries),visibleText=style.heading?style.heading+'\n'+text:text;
@@ -243,13 +243,16 @@ function mapNoticeLoad(restored){
  const progress=mapProgress(game);let stored=null;
  if(!preview){try{stored=JSON.parse(localStorage.getItem(MAP_NOTICE_KEY));}catch{}}
  ({shown:mapShown,announced:mapAnnounced}=mapNoticeBaseline(progress,stored,restored,{consumeHistorical:true}));
+ // Transient reading is not persisted. A restored reach is history, including
+ // when an earlier session closed while its notice was still pending.
+ if(restored)mapAnnounced=Math.max(mapAnnounced,progress.bottled?progress.max:0);
  mapPending=0;mapNoticeSave();
 }
 const mapViewMax=()=>MAP_BROWSE_MAX;
 function mapNoticeSave(){if(preview)return;try{localStorage.setItem(MAP_NOTICE_KEY,JSON.stringify({version:3,shown:mapShown,announced:mapAnnounced}));}catch{}}
 function noteMapReach(){if(!game||!preview&&!canSave)return;const progress=mapProgress(game),max=progress.bottled?progress.max:0;if(newlyUnlocked(mapAnnounced,max))mapPending=Math.max(mapPending,max);}
 function tryShowMapReveal(){
- if(mapPending<=mapAnnounced||countdown.active||modal||document.hidden||runtimeHalted||!preview&&!canSave||game.tastingId!==null||game.decisions.length||game.trade.offer||game.shop.offer&&!game.shop.offer.notified||game.still.phase!=='ready'||generationState()?.phase!=='working')return false;
+ if(mapPending<=mapAnnounced||automaticNews.active!==null||automaticNews.worldPending||m0.isOpen||!$('storage-notice').hidden||regionalPending().some(o=>!o.notified)||countdown.active||modal||document.hidden||runtimeHalted||!preview&&!canSave||game.tastingId!==null||game.decisions.length||game.trade.offer||game.shop.offer&&!game.shop.offer.notified||game.still.phase!=='ready'||generationState()?.phase!=='working')return false;
  const target=mapProgress(game).max;mapPending=0;
  if(!newlyUnlocked(mapAnnounced,target))return false;
  stopClock();worldMapStage=target;modal={kind:'world-map',source:'unlock'};
@@ -1171,7 +1174,8 @@ function syncModal(){
 
  }
  if(kind==='product')body=shopStartedMarkup()+body;
- const activeCask=['decision','quote','contract-bottle'].includes(kind)?modal.id:null,waiting=game.decisions.filter(d=>d.caskId!==activeCask).length+(game.trade.offer&&kind!=='offer'?1:0)+shopOffers().filter(o=>!o.notified&&(kind!=='shop-offer'||o.id!==modal.offerId)).length+regionalPending().filter(o=>!o.notified&&(kind!=='shop-offer'||o.id!==modal.offerId)).length;$('dialog-context').textContent=waiting?'このあと判断 '+waiting+'件':'';$('dialog-context').hidden=!waiting||kind==='staff-opportunity';
+ // Decisions and offers are presented by their existing ordered modals.
+ $('dialog-context').textContent='';$('dialog-context').hidden=true;
  $('dialog-error').hidden=$('storage-notice').hidden;$('dialog-error').textContent=$('storage-notice').textContent;
  dialog.classList.toggle('daily-map',kind==='world-map'&&modal.source!=='unlock');
  $('dialog-title').textContent=title;

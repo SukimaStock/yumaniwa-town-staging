@@ -1,36 +1,50 @@
-/* Notice Motion Lab v0.2: presentation only, no game, save or clock changes. */
+/* Short stepped entry/exit; the existing notice lifetime owns a still reading interval. */
 .automatic-news[data-motion="ambient"],
 .automatic-news[data-motion="news"]{will-change:transform,opacity;}
 .automatic-news[data-motion="ambient"]{
  background:#30363a;border-color:#b9a177;
- animation:amber-day-rise var(--notice-life,6000ms) both;
+ animation:amber-day-rise 240ms steps(4,end) both,amber-day-leave 180ms steps(3,end) calc(var(--notice-life,6000ms) - 180ms) forwards;
 }
 .automatic-news[data-motion="news"]{
  background:#26333a;border-color:#8aabb5;
- animation:amber-news-pass var(--notice-life,6500ms) both;
+ animation:amber-news-pass 240ms steps(4,end) both,amber-news-leave 180ms steps(3,end) calc(var(--notice-life,6500ms) - 180ms) forwards;
 }
 .automatic-news[data-motion="ambient"]::first-line{color:#f0d58f;}
 .automatic-news[data-motion="news"]::first-line{color:#b3d6e0;}
 @keyframes amber-day-rise{
- 0%{transform:translateY(25px);opacity:0}
- 7%{transform:translateY(-3px);opacity:1}
- 13%,84%{transform:translateY(0);opacity:1}
- 100%{transform:translateY(20px);opacity:0}
+ from{transform:translateY(25px);opacity:0}
+ to{transform:translateY(0);opacity:1}
+}
+@keyframes amber-day-leave{
+ from{transform:translateY(0);opacity:1}
+ to{transform:translateY(20px);opacity:0}
 }
 @keyframes amber-news-pass{
- 0%{transform:translateX(calc(var(--view-width,100vw) + 24px));opacity:1}
- 11%,83%{transform:translateX(0);opacity:1}
- 100%{transform:translateX(calc(-1 * var(--view-width,100vw) - 24px));opacity:1}
+ from{transform:translateX(calc(var(--view-width,100vw) + 24px));opacity:1}
+ to{transform:translateX(0);opacity:1}
+}
+@keyframes amber-news-leave{
+ from{transform:translateX(0);opacity:1}
+ to{transform:translateX(calc(-1 * var(--view-width,100vw) - 24px));opacity:1}
+}
+.automatic-news[data-motion="operation"]{
+ animation:amber-top-appear 180ms steps(3,end) both,amber-operation-leave 180ms steps(3,end) calc(var(--notice-life,3500ms) - 180ms) forwards;
+}
+@keyframes amber-operation-leave{
+ from{transform:translateY(0);opacity:1}
+ to{transform:translateY(-14px);opacity:0}
 }
 /* The existing notice scheduler owns pause, display and dismissal. */
 #shop-dialogue-notice[data-motion="ambient"]{
- animation:amber-shop-rise 6500ms both;
+ animation:amber-shop-rise 180ms steps(3,end) both,amber-shop-leave 180ms steps(3,end) calc(var(--notice-life,6500ms) - 180ms) forwards;
 }
 @keyframes amber-shop-rise{
- 0%{transform:translateY(24px);opacity:0}
- 6%{transform:translateY(-3px);opacity:1}
- 12%,88%{transform:translateY(0);opacity:1}
- 100%{transform:translateY(16px);opacity:0}
+ from{transform:translateY(24px);opacity:0}
+ to{transform:translateY(0);opacity:1}
+}
+@keyframes amber-shop-leave{
+ from{transform:translateY(0);opacity:1}
+ to{transform:translateY(16px);opacity:0}
 }
 #important-top-notice{
  position:fixed;z-index:85;box-sizing:border-box;
@@ -38,7 +52,7 @@
  padding:7px 10px 9px;box-shadow:0 4px #151a1c;
  text-align:left;line-height:1.4;
  pointer-events:none;max-height:min(calc(90px * var(--notice-scale,1)),20dvh);overflow:hidden;
- animation:amber-top-appear 240ms ease-out both;
+ animation:amber-top-appear 240ms steps(4,end) both;
 }
 #important-top-notice[hidden]{display:none!important}
 #important-top-notice .important-top-heading{font-size:.75em;color:#f5d58d;border-bottom:1px solid #75675d;margin-bottom:4px;padding-bottom:3px;}
@@ -48,7 +62,7 @@
  100%{transform:translateY(0);opacity:1}
 }
 @media(prefers-reduced-motion:reduce){
- .automatic-news[data-motion="ambient"],.automatic-news[data-motion="news"],
+ .automatic-news[data-motion="ambient"],.automatic-news[data-motion="news"],.automatic-news[data-motion="operation"],
  #shop-dialogue-notice[data-motion="ambient"],#important-top-notice{
   animation:none!important;transform:none!important;opacity:1!important;
  }
