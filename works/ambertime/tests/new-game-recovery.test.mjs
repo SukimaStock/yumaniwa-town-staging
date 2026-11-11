@@ -9,6 +9,7 @@ import {initializeCaskSlots} from '../cask-slots.mjs';
 import {migrateRecentLedger} from '../recent-ledger.mjs';
 import {serializeSession,readSession,writeCandidate,FORMAL_SAVE_KEY} from '../development-save.mjs';
 import {commitMarketRulesUpdate} from '../market-ui.mjs';
+import {createFreshSession,inspectStartRecord,createSessionEntry} from '../session-entry.mjs';
 import {PARALLEL_PARAMETERS as P} from '../economy-parameters.mjs';
 const app=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
 const options={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
@@ -24,12 +25,6 @@ test('a fresh v8 session must use its own recall, never the loaded session or nu
  assert.throws(()=>encode({...session,recallRecord:priorRecall}),/Recall operation boundary mismatch/);
  assert.throws(()=>encode({...session,recallRecord:null}),/Wrong recall version or game/);
  assert.deepEqual(readSession(encode(session),options),session);
-});
-
-test('boot and explicit restart pass the newly initialized recall into formal validation',()=>{
- const start=app.slice(app.indexOf('function startNew(){'),app.indexOf("$('reset').addEventListener"));
- const boot=app.slice(app.indexOf('async function boot(){'),app.indexOf('window.amberPlacement='));
- for(const source of [start,boot])assert.match(source,/sessionText\(next,false,0,session\.caskSlots,session\.recentLedger,session\.historyRecord,session\.recallRecord\)/);
 });
 
 test('existing valid, old-version and unreadable raw records receive exact verified backups',()=>{
@@ -66,37 +61,163 @@ test('formal readback failure retains old backup and never returns a successful 
  assert.throws(()=>commitMarketRulesUpdate(store,FORMAL_SAVE_KEY,'old','second'));
 });
 
-function restartHarness({raw=encode(fresh()),accept=true,legacyRecord=null,store=storage(raw)}={}){
- const start=app.indexOf('function startNew(){'),source=app.slice(start,app.indexOf('\n}\n',start)+2);
- const installed=[],errors=[],exports=[],context={preview:false,confirm:()=>accept,newNativeGame,initializeCaskSlots,initializeLedger,initializeHistoryRecord,initializeRecall,
-  sessionText:(game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord)=>encode({game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord}),
-  localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,lastSavedText:raw,legacyRecord,writeCandidate,commitMarketRulesUpdate,
-  installSession:s=>installed.push(s),startShadow:()=>{},saveFailure:(e,phase)=>errors.push({e,phase}),exportRaw:raw=>exports.push(raw),
-  newGameBackupKey:null,backupExport:{hidden:true},protectedRecordExports:()=>{}};
- const execute=()=>runInNewContext(source+'\nstartNew()',context);return {execute,context,installed,errors,exports,store};
+function entryElement(){return {dataset:{},children:[],listeners:{},hidden:false,disabled:false,textContent:'',open:false,
+ get childElementCount(){return this.children.length;},append(child){child.parent=this;this.children.push(child);},
+ querySelector(){return this.children.find(child=>Object.hasOwn(child.dataset,'protectedRecords'));},
+ remove(){this.parent.children=this.parent.children.filter(child=>child!==this);},
+ addEventListener(type,fn){this.listeners[type]=fn;},setAttribute(){},focus(){},close(){this.open=false;}};}
+function restartHarness({raw=encode(fresh()),store=storage(raw),playing=false}={}){
+ const source=app.slice(app.indexOf('function inspectEntry(){'),app.indexOf("$('entry-new').addEventListener"));
+ const installed=[],errors=[],counts={created:0,read:0,encoded:0,stopped:0,rendered:0,scheduled:0,protected:0},nodes=new Map();
+ const node=id=>{if(!nodes.has(id))nodes.set(id,entryElement());return nodes.get(id);};
+ const old=fresh(),context={preview:false,nativeModel:D,seed:141,game:playing?old.game:null,modal:playing?{kind:'aux-panel'}:null,
+  userPaused:true,canSave:true,runtimeHalted:false,debugSkipJob:null,sessionActive:playing,entryView:playing?'playing':'title',entryIntent:null,entryMessage:'',entrySnapshot:null,entryReturn:null,
+  lastSavedText:raw,legacyRecord:null,newGameBackupKey:null,localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,sessionOptions:options,
+  $:node,document:{body:{dataset:{}}},inspectStartRecord,createSessionEntry,
+  createFreshSession:(...args)=>{counts.created++;return createFreshSession(...args);},
+  sessionText:(game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord)=>{counts.encoded++;return encode({game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord});},
+  readSession:(...args)=>{counts.read++;return readSession(...args);},writeCandidate,commitMarketRulesUpdate,
+  recordSaveError:(error,phase)=>errors.push({error,phase}),protectedRecordExports:()=>counts.protected++,
+  installSession:(session,{fresh})=>{installed.push({session,fresh});context.game=session.game;context.sessionActive=true;context.entryView='playing';context.entryReturn=null;},
+  startShadow:()=>{},stopClock:()=>counts.stopped++,countdown:{cancel(){}},automaticNews:{update(){}},marketUI:{update(){}},vaultPanels(){},
+  render:()=>counts.rendered++,schedule:()=>counts.scheduled++,confirm:()=>true,
+ };
+ runInNewContext(source+"\nglobalThis.entryApi={showTitle,startNew,cancelEntry,enterSession,inspectEntry,get controller(){return sessionEntry;}}",context);
+ return {api:context.entryApi,context,installed,errors,counts,nodes,store,old};
 }
 
-test('cancelling explicit restart changes neither memory nor storage',()=>{
- const h=restartHarness({accept:false});assert.equal(h.execute(),false);assert.equal(h.installed.length,0);assert.deepEqual(h.store.writes,[]);assert.equal(h.errors.length,0);
-});
-
-test('new and existing sessions install only a validated written record that survives reload',()=>{
- for(const raw of [null,encode(fresh()),'{"version":7}','{broken']){
-  const h=restartHarness({raw});assert.equal(h.execute(),true);assert.equal(h.errors.length,0);assert.equal(h.installed.length,1);
-  assert.deepEqual(readSession(h.store.getItem(FORMAL_SAVE_KEY),options),JSON.parse(JSON.stringify(h.installed[0])));
-  if(raw!==null)assert.equal(backups(h.store)[0][1],raw);
+test('title only inspects bytes; it does not restore, create, save or start a game',()=>{
+ for(const raw of [null,encode(fresh()),'{broken','{"version":7}']){
+  const h=restartHarness({raw});h.api.showTitle();
+  assert.equal(h.context.sessionActive,false);assert.equal(h.context.entryView,'title');assert.equal(h.context.game,null);
+  assert.equal(h.counts.created,0);assert.equal(h.counts.read,0);assert.equal(h.counts.encoded,0);assert.equal(h.counts.scheduled,0);
+  assert.deepEqual(h.store.writes,[]);assert.equal(h.nodes.get('entry-continue').hidden,raw===null||raw==='{broken'||raw==='{"version":7}');
  }
 });
 
-test('old separate-key source is preserved and its concurrent change blocks restart',()=>{
- const legacyRecord={key:'sukimastock.ambertime.wholesale.v20',raw:'old-development-raw'},store=storage();store.data.set(legacyRecord.key,legacyRecord.raw);
- const h=restartHarness({raw:null,legacyRecord,store});assert.equal(h.execute(),true);assert.equal(store.getItem(legacyRecord.key),legacyRecord.raw);assert(!store.writes.some(([key])=>key===legacyRecord.key));
- const changed=storage();changed.data.set(legacyRecord.key,'other-tab');const blocked=restartHarness({raw:null,legacyRecord,store:changed});assert.equal(blocked.execute(),false);assert.equal(blocked.installed.length,0);assert.deepEqual(changed.writes,[]);
+test('normal boot reaches the title without invoking creator, reader or persistence',async()=>{
+ const h=restartHarness();
+ Object.assign(h.context,{shadowObserver:null,distillRoom:{reset(){}},scene:{resetMotion(){}},newNativeGame(){throw Error('normal boot must not create');}});
+ const source=app.slice(app.indexOf('async function boot(){'),app.indexOf('window.amberPlacement='));
+ await runInNewContext(source+'\nboot()',h.context);
+ assert.equal(h.context.entryView,'title');assert.equal(h.context.sessionActive,false);
+ assert.equal(h.counts.created,0);assert.equal(h.counts.read,0);assert.equal(h.counts.encoded,0);assert.equal(h.counts.scheduled,0);assert.deepEqual(h.store.writes,[]);
 });
 
-test('restart write failure does not install a fresh game or update lastSavedText',()=>{
- const store=storage('old');store.setItem=()=>{throw Object.assign(Error('quota'),{name:'QuotaExceededError'});};const h=restartHarness({raw:'old',store});
- assert.equal(h.execute(),false);assert.equal(h.installed.length,0);assert.equal(h.context.lastSavedText,'old');assert.equal(store.getItem(FORMAL_SAVE_KEY),'old');assert.equal(h.errors[0].phase,'新規開始');
+test('unavailable storage is an error state rather than a save-free new game',()=>{
+ const h=restartHarness();h.store.getItem=()=>{throw Object.assign(Error('denied'),{name:'SecurityError'});};
+ h.api.showTitle();assert.equal(h.context.entrySnapshot,null);assert.equal(h.nodes.get('entry-new').disabled,true);
+ assert.match(h.context.entryMessage,/確認できません/);assert.equal(h.counts.created,0);assert.deepEqual(h.store.writes,[]);
+});
+
+test('title and in-game restart share confirmation and leave the old session untouched on back',()=>{
+ for(const playing of [false,true]){
+  const h=restartHarness({playing}),before=JSON.stringify(h.context.game),flags=[h.context.userPaused,h.context.canSave,h.context.runtimeHalted];
+  if(!playing)h.api.showTitle();assert.equal(h.api.startNew(),true);assert.equal(h.context.entryView,'confirm');assert.equal(h.context.sessionActive,false);
+  assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.counts.created,0);assert.deepEqual(h.store.writes,[]);
+  h.api.cancelEntry();assert.equal(JSON.stringify(h.context.game),before);assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);
+  assert.equal(h.context.sessionActive,playing);assert.deepEqual([h.context.userPaused,h.context.canSave,h.context.runtimeHalted],flags);
+  assert.equal(h.context.entryView,playing?'playing':'title');
+ }
+});
+
+test('actual title/menu entry installs only validated committed sessions that survive reload',async()=>{
+ for(const playing of [false,true])for(const raw of [null,encode(fresh()),'{"version":7}','{broken']){
+  const h=restartHarness({raw,playing});if(!playing)h.api.showTitle();h.api.startNew();
+  assert.equal(await h.api.enterSession('new'),true);assert.equal(h.errors.length,0);assert.equal(h.installed.length,1);
+  assert.deepEqual(readSession(h.store.getItem(FORMAL_SAVE_KEY),options),h.installed[0].session);
+  assert.equal(h.counts.created,1);assert.equal(h.counts.encoded,1);if(raw!==null)assert.equal(backups(h.store)[0][1],raw);
+ }
+});
+
+test('actual continue calls official reader and does not write or create a replacement',async()=>{
+ const h=restartHarness();h.api.showTitle();assert.equal(await h.api.enterSession('continue'),true);
+ assert.equal(h.counts.read,1);assert.equal(h.counts.created,0);assert.equal(h.installed[0].fresh,false);assert.deepEqual(h.store.writes,[]);
+ const broken=restartHarness({raw:'{broken'});broken.api.showTitle();assert.equal(await broken.api.enterSession('continue'),false);
+ assert.equal(broken.installed.length,0);assert.equal(broken.counts.created,0);assert.equal(broken.context.entryView,'error');assert.deepEqual(broken.store.writes,[]);
+});
+
+test('old separate-key source is preserved and concurrent changes block confirmed restart',async()=>{
+ const key='sukimastock.ambertime.wholesale.v20',store=storage();store.data.set(key,'old-development-raw');
+ const h=restartHarness({raw:null,store});h.api.showTitle();h.api.startNew();assert.equal(await h.api.enterSession('new'),true);
+ assert.equal(store.getItem(key),'old-development-raw');assert(!store.writes.some(([k])=>k===key));
+ const changed=storage();changed.data.set(key,'old-development-raw');const blocked=restartHarness({raw:null,store:changed});blocked.api.showTitle();blocked.api.startNew();changed.data.set(key,'other-tab');
+ assert.equal(await blocked.api.enterSession('new'),false);assert.equal(blocked.installed.length,0);assert.deepEqual(changed.writes,[]);
+});
+
+test('actual restart write failure does not install or change old memory/lastSavedText',async()=>{
+ const raw=encode(fresh()),store=storage(raw);store.setItem=()=>{throw Object.assign(Error('quota'),{name:'QuotaExceededError'});};
+ const h=restartHarness({raw,store,playing:true}),before=JSON.stringify(h.context.game);h.api.startNew();
+ assert.equal(await h.api.enterSession('new'),false);assert.equal(h.installed.length,0);assert.equal(h.context.lastSavedText,raw);assert.equal(store.getItem(FORMAL_SAVE_KEY),raw);
+ assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.context.entryView,'error');assert.equal(h.errors[0].phase,'開始');
+ h.api.cancelEntry();assert.equal(h.context.sessionActive,true);assert.equal(JSON.stringify(h.context.game),before);
+});
+
+test('inspecting a newer tab does not replace the active baseline or allow stale cancel-resume',()=>{
+ for(const timing of ['before-inspect','after-inspect']){
+  const h=restartHarness({playing:true}),old=h.context.lastSavedText,before=JSON.stringify(h.context.game);
+  if(timing==='before-inspect')h.store.data.set(FORMAL_SAVE_KEY,'newer tab');
+  h.api.startNew();assert.equal(h.context.lastSavedText,old);assert.equal(h.context.entryReturn.savedText,old);
+  if(timing==='after-inspect')h.store.data.set(FORMAL_SAVE_KEY,'newer tab');
+  h.api.cancelEntry();assert.equal(h.context.entryView,'error');assert.equal(h.context.sessionActive,false);
+  assert.match(h.context.entryMessage,/更新/);assert.equal(JSON.stringify(h.context.game),before);assert.deepEqual(h.store.writes,[]);assert.equal(h.counts.scheduled,0);
+ }
+});
+
+test('title or preparation visibility suspension never saves a game',async()=>{
+ const start=app.indexOf('function suspend(){'),end=app.indexOf("document.addEventListener('visibilitychange'",start),source=app.slice(start,end);
+ for(const preparing of [false,true]){
+  const h=restartHarness();h.api.showTitle();if(preparing){h.api.startNew();var pending=h.api.enterSession('new');}
+  let saves=0;h.context.scene={cancelDistillCompletion(){throw Error('active-only motion');}};h.context.save=()=>{saves++;};
+  runInNewContext(source+'\nsuspend();resume();',h.context);
+  if(preparing){assert.equal(await pending,false);assert.equal(h.context.entryView,'confirm');}
+  assert.equal(saves,0);assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);assert.equal(h.counts.scheduled,0);
+ }
+});
+
+test('suspending continue returns to title and never exposes a new-game confirmation',async()=>{
+ const h=restartHarness();h.api.showTitle();const pending=h.api.enterSession('continue');
+ const start=app.indexOf('function suspend(){'),end=app.indexOf("document.addEventListener('visibilitychange'",start);
+ runInNewContext(app.slice(start,end)+'\nsuspend()',h.context);
+ assert.equal(await pending,false);assert.equal(h.context.entryView,'title');
+ assert.equal(h.nodes.get('entry-confirm-copy').hidden,true);assert.equal(h.nodes.get('entry-begin').hidden,true);
+ assert.equal(h.installed.length,0);assert.deepEqual(h.store.writes,[]);
+});
+
+test('an old debug skip callback cannot progress while session entry is open',()=>{
+ const h=restartHarness({playing:true}),job={timer:7};let cleared;
+ h.context.debugSkipJob=job;h.context.clearTimeout=value=>{cleared=value;};h.api.startNew();
+ assert.equal(cleared,7);assert.equal(h.context.debugSkipJob,null);
+ const start=app.indexOf('function runDebugSkipChunk(job){'),end=app.indexOf('\nfunction ',start+1),source=app.slice(start,end);
+ h.context.staleJob=job;h.context.debugSkipMonth=()=>{throw Error('must not progress');};
+ runInNewContext(source+'\nrunDebugSkipChunk(staleJob)',h.context);
+ assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);
+});
+
+test('an import completed after entry or session replacement cannot read, save or install',async()=>{
+ const start=app.indexOf('async function importRecord(file){'),end=app.indexOf("$('restore-file').addEventListener",start),source=app.slice(start,end);
+ for(const change of ['entry','epoch']){
+  const h=restartHarness({playing:true});Object.assign(h.context,{debugEnabled:true,sessionEpoch:1});
+  let resolve;h.context.pendingFile={text:()=>new Promise(done=>{resolve=done;})};
+  const promise=runInNewContext(source+'\nimportRecord(pendingFile)',h.context);
+  if(change==='entry')h.api.startNew();else h.context.sessionEpoch++;
+  resolve(encode(fresh()));assert.equal(await promise,false);
+  assert.equal(h.counts.read,0);assert.equal(h.installed.length,0);assert.deepEqual(h.store.writes,[]);
+ }
+});
+
+test('pagehide, hidden visibility and BFCache pageshow use guarded suspension/resumption',()=>{
+ const h=restartHarness();h.api.showTitle();let saves=0;
+ const docListeners={},winListeners={};
+ Object.assign(h.context.document,{hidden:true,addEventListener:(name,fn)=>{docListeners[name]=fn;}});
+ h.context.window={addEventListener:(name,fn)=>{winListeners[name]=fn;}};
+ h.context.scene={cancelDistillCompletion(){throw Error('title must not call scene progression');}};
+ h.context.save=()=>saves++;
+ const start=app.indexOf('function suspend(){'),end=app.indexOf("window.addEventListener('storage'",start);
+ runInNewContext(app.slice(start,end),h.context);
+ docListeners.visibilitychange();winListeners.pagehide();winListeners.pageshow({persisted:true});
+ h.context.document.hidden=false;docListeners.visibilitychange();
+ assert.equal(saves,0);assert.equal(h.counts.scheduled,0);assert.deepEqual(h.store.writes,[]);
 });
 
 test('protected raw backups and legacy originals remain exportable after reload from menu and recovery',()=>{
@@ -104,7 +225,7 @@ test('protected raw backups and legacy originals remain exportable after reload 
  store.data.set(one,'old raw');store.data.set(two,'{broken');store.data.set('sukimastock.ambertime.placement-trial.v1',' legacy trial raw \n');store.data.set('sukimastock.ambertime.wholesale.v20','{unreadable wholesale');store.data.set('sukimastock.ambertime.wholesale.v200','ignore similar key');store.data.set('unrelated','private');store.data.set(FORMAL_SAVE_KEY+'.before-market-rules.v2.ignored','ignore');
  Object.defineProperty(store,'length',{get:()=>store.data.size});store.key=i=>[...store.data.keys()][i]??null;
  function element(){return {dataset:{},children:[],listeners:{},get childElementCount(){return this.children.length;},append(child){child.parent=this;this.children.push(child);},querySelector(){return this.children.find(child=>Object.hasOwn(child.dataset,'protectedRecords'));},remove(){this.parent.children=this.parent.children.filter(child=>child!==this);},addEventListener(type,fn){this.listeners[type]=fn;}};}
- const parents={'aux-panel':element(),recovery:element()},exports=[],errors=[],context={localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,$:id=>parents[id],document:{createElement:()=>element()},exportRaw:(raw,name)=>exports.push({raw,name}),storageNotice:e=>errors.push(e)};
+ const parents={'aux-panel':element(),recovery:element(),'entry-records':element()},exports=[],errors=[],context={localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,$:id=>parents[id],document:{createElement:()=>element()},exportRaw:(raw,name)=>exports.push({raw,name}),storageNotice:e=>errors.push(e)};
  const start=app.indexOf('function protectedRecordExports(){'),source=app.slice(start,app.indexOf('\n}\n',start)+2);
  // A second invocation models rediscovery after the DOM/session has changed.
  for(let i=0;i<2;i++)runInNewContext(source+'\nprotectedRecordExports()',context);
@@ -112,5 +233,5 @@ test('protected raw backups and legacy originals remain exportable after reload 
   assert.equal(parent.children.length,1);const list=parent.children[0];assert.equal(list.children.length,5);
   for(const button of list.children.slice(1))button.listeners.click();
  }
- assert.deepEqual(exports.map(x=>x.raw),['old raw','{broken',' legacy trial raw \n','{unreadable wholesale','old raw','{broken',' legacy trial raw \n','{unreadable wholesale']);assert(exports.every(x=>x.name.startsWith('ambertime-protected-')));assert.deepEqual(errors,[]);assert.deepEqual(store.writes,[]);
+ assert.deepEqual(exports.map(x=>x.raw),Array(3).fill(['old raw','{broken',' legacy trial raw \n','{unreadable wholesale']).flat());assert(exports.every(x=>x.name.startsWith('ambertime-protected-')));assert.deepEqual(errors,[]);assert.deepEqual(store.writes,[]);
 });

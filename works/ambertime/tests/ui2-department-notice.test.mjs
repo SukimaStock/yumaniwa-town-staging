@@ -81,7 +81,7 @@ test('actual saved-action branch publishes department completion only after succ
  const start=source.indexOf('function act(fn,'),end=source.indexOf('\nfunction actMarket(',start);
  assert(start>=0&&end>start);
  for(const saved of [false,true]){
-  const pushed=[],context={game:states.pending,preview:false,canSave:true,userPaused:false,elapsed:0,runtimeHalted:false,
+  const pushed=[],context={sessionActive:true,game:states.pending,preview:false,canSave:true,userPaused:false,elapsed:0,runtimeHalted:false,
    countdown:{cancel(){}},stopClock(){},saveCandidate:()=>saved,render(){},schedule(){},restoreCommitted(){},storageNotice(){},
    automaticNews:{push:events=>pushed.push(...events)},automaticEvents,caskName:()=>'',soldOutLabel:()=>'',noteMapReach(){},
    next:states.settled};
