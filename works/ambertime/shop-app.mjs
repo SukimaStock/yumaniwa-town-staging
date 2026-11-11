@@ -19,12 +19,12 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
-import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01';
-import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01';
+import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01&consignment=night-stage4-v01';
+import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01&consignment=night-stage4-v01';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
-import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111&night=stage1&mapSelection=night-stage3';
+import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?consignment=night-stage4-v01&v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111&night=stage1&mapSelection=night-stage3';
 import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&repair=ui3-20261111&night=stage1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
@@ -41,16 +41,16 @@ import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseMa
 import {playerMilestones} from './player-news.mjs?v=0.25.4';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
 import {buildShopLedger} from './shop-ledger.mjs?v=bar-v01-1';
-import {buildReleaseLedger} from './ledger-view.mjs?v=0.63-ledger&delivery=regional-delivery-v01';
+import {buildReleaseLedger} from './ledger-view.mjs?consignment=night-stage4-v01&v=0.63-ledger&delivery=regional-delivery-v01';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,releasePriceTier} from './brand-identity.mjs?v=0.58-first-brand';
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel,bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber} from './ui-details.mjs?v=stage4-r2&repair=ui3-20261111&night=stage1';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=night-stage1-20261111&assignment=night-stage2-v01';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=night-stage1-20261111&assignment=night-stage2-v01&consignment=night-stage4-v01';
 import {noticePresentation} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1&repair=ui2-20261111&night=stage1';
-import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01&assignment=night-stage2-v01&offers=targeted-v01';
+import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01&assignment=night-stage2-v01&offers=targeted-v01&consignment=night-stage4-v01';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
 import {createRecallPlayer as createRecallDebugPreview} from './recall/player.mjs?v=h4-2-1';
@@ -117,7 +117,7 @@ let sessionActive=false,entryView='title',entrySnapshot=null,entryReturn=null,en
 let entryDiagnostic=null,entryOperation='title-inspect';
 let debugSkipJob=null,debugSkipFeedback='';
 // Never route candidate initialization through the old session's observer.
-const newNativeGame=()=>nativeModel.enableBottlingAssignment(nativeModel.newWorldNetworkDistillery(seed));
+const newNativeGame=()=>nativeModel.newConsignmentDistillery(seed);
 let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
@@ -1630,11 +1630,15 @@ function installSession(session,{fresh=false}={}){
   try{const next=D.enableBottlingAssignment(game);if(saveCandidate(next,userPaused,elapsed,commitMarketRulesUpdate)){game=next;}else barMigrationFailed=true;}
   catch(error){barMigrationFailed=true;saveFailure(error,'ビン詰め担当の更新');}
  }
+ if(!barMigrationFailed&&D.bottlingAssignmentMode(game)&&!D.consignmentMode(game)){
+  try{const next=D.enableConsignment(game);if(saveCandidate(next,userPaused,elapsed,commitMarketRulesUpdate)){game=next;}else barMigrationFailed=true;}
+  catch(error){barMigrationFailed=true;saveFailure(error,'委託販売の更新');}
+ }
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }
 let newGameBackupKey=null;
 const ENTRY_APP_BUILD='entry-diagnostics-20261111-r4';
-const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newBottlingAssignmentDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01&assignment=night-stage2-v01&offers=targeted-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
+const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01&consignment=night-stage4-v01',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newConsignmentDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01&assignment=night-stage2-v01&offers=targeted-v01&consignment=night-stage4-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
 function clearEntryDiagnostic(){entryDiagnostic=null;const status=$('entry-copy-status');if(status)status.textContent='';const details=$('entry-error-details');if(details)details.open=false;}
 function recordEntryFailure(error,result={}){
  const status=$('entry-copy-status');if(status)status.textContent='';
