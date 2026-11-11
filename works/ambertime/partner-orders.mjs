@@ -174,6 +174,26 @@ function enableWorldNetworkTransaction(s,value=null){
 }
 export function enableWorldNetwork(s){validateDistillery(s);const j=enableWorldNetworkTransaction(s);if(j!==s)validateDistillery(j);return j;}
 export const newWorldNetworkDistillery=seed=>enableWorldNetwork(newRegionalDeliveryDistillery(seed));
+// Future assignment is explicit: historical hire/fill operations replay unchanged.
+export const bottlingAssignmentMode=s=>bottlingRolesMode(s)&&s.bottlingAssignment?.version===1;
+function enableBottlingAssignmentTransaction(s,value=null){
+ if(bottlingAssignmentMode(s)){assert(value===null,'ビン詰め担当の切替記録が重複しています。');return s;}
+ assert(bottlingRolesMode(s)&&s.bottlingAssignment===undefined,'ビン詰めの記録を確認してください。');
+ assert(s.operations.length<P.maxOperations,'帳面がいっぱいです。');
+ const boundary={version:1,month:s.core.month,progress:shopProgress(s),tastingId:s.tastingId};
+ if(value!==null)assert(JSON.stringify(value)===JSON.stringify(boundary),'ビン詰め担当の切替記録が一致しません。');
+ const j=clone(s);j.bottlingAssignment={version:1};
+ // Existing reservations, including manual/paused/completed choices, stay exact.
+ if(!j.workPreferences.bottlingPolicy){j.workPreferences.bottlingPolicy={mode:'age',count:10,age:12};j.workPreferences.policyRevision++;rememberAuto(j.workPreferences.last,j.workPreferences.bottlingPolicy);}
+ j.operations.push({key:'enable-bottling-assignment',value:boundary});return j;
+}
+export function enableBottlingAssignment(s){validateDistillery(s);const j=enableBottlingAssignmentTransaction(s);if(j!==s)validateDistillery(j);return j;}
+export const newBottlingAssignmentDistillery=seed=>enableBottlingAssignment(newWorldNetworkDistillery(seed));
+function assignNewBottlingCask(s,caskId){
+ if(!bottlingAssignmentMode(s)||!s.staffProgression.bottling.hired||s.automation.reservations.some(r=>r.caskId===caskId))return s;
+ const j=delegateBottling(s,caskId);j.operations.pop();return j;
+}
+
 function regionalDeliveryTransaction(s,key,value,expectedReceipt=null){
  assert(regionalDeliveryMode(s)&&!bottleActionBlocked(s),'先に試飲・卸売の申し出を確認します。');
  const j=clone(s),changed=key==='regional-assign'?reserveRegionalInto(j,value):key==='regional-return'?returnRegionalInto(j,value):deliverRegionalInto(j,value);
@@ -613,7 +633,8 @@ export function staffOpportunities(s){
  return ['distill','bottling'].filter(kind=>(kind==='distill'?distillerDiscovered(s):s.staffProgression[kind].unlocked)&&!s.staffProgression[kind].noticed&&!(kind==='distill'?s.staff.hired:s.staffProgression.bottling.hired)).map(kind=>({kind,...(kind==='distill'?staffStatus(s):bottlingStaffStatus(s))}));
 }
 export function hireBottlingStaff(s){
- const q=bottlingStaffStatus(s);assert(q.canHire,q.reason);const j=clone(s);Object.assign(j.staffProgression.bottling,{hired:true,hiredMonth:j.core.month,noticed:true});j.core.cash=round(j.core.cash-BOTTLING_STAFF.hireCost);j.core.totals.costs=round(j.core.totals.costs+BOTTLING_STAFF.hireCost);
+ const q=bottlingStaffStatus(s);assert(q.canHire,q.reason);let j=clone(s);Object.assign(j.staffProgression.bottling,{hired:true,hiredMonth:j.core.month,noticed:true});j.core.cash=round(j.core.cash-BOTTLING_STAFF.hireCost);j.core.totals.costs=round(j.core.totals.costs+BOTTLING_STAFF.hireCost);
+ if(bottlingAssignmentMode(j))for(const c of j.core.casks)j=assignNewBottlingCask(j,c.id);
  return action(j,'bottling-staff-hire',{progress:shopProgress(s)});
 }
 export const bottlingReservation=(s,caskId)=>delegationMode(s)?clone(s.automation.reservations.find(r=>r.caskId===caskId)??null):null;
@@ -1076,6 +1097,7 @@ function completeUsual(s){
  const r=s.usual?.reservation;
  assert(usualMode(s)&&r?.status==='active'&&!blocked(s)&&s.still.phase==='distilling'&&s.still.distillation.progress===r.recipe.stopAt,'いつもの仕込みはまだ抽出中です。');
  let j=stopWithModel(s);j.operations.pop();j=E.fillBarrel(prepareFlavorFill(j,r.recipe.type),r.recipe.type);j.operations.pop();
+ j=assignNewBottlingCask(j,j.core.casks.at(-1).id);
  for(const n of Object.values(j.notesById))n.observations??=[];
  j.usual.reservation=r.mode&&!r.stopAfter&&(r.mode==='continuous'||r.remaining>1)?{...clone(r),status:'queued',...(r.mode==='three'?{remaining:r.remaining-1}:{})}:null;return action(j,'complete-usual');
 }
@@ -1189,7 +1211,7 @@ export function startRangeDistillation(s){
 }
 export function distillStep(s){if(s.still.distillation?.labChoice&&s.still.distillation.collectStart===null&&s.still.distillation.progress>=(s.still.distillation.collectionVersion===2?88:90))return s;if(generationMode(s)&&s.generations.active.phase==='review')return s;const j=s.trade.offer?s:E.distillStep(s);return usualMode(j)&&j.usual.reservation?.status==='active'&&!blocked(j)&&j.still.distillation.progress===j.usual.reservation.recipe.stopAt?completeUsual(j):j;}
 export function stopDistillation(s){assert(!generationMode(s)||s.generations.active.phase!=='review','次の世代へ引き継ぎます。');assert(!usualMode(s)||s.usual.reservation?.status!=='active','いつもの仕込みは抽出の終了まで任せます。');assert(!s.trade.offer,'申し出を確認します。');const j=stopWithModel(s);if(bottlingPolicyMode(j))j.workPreferences.last.stopAt=s.still.distillation.progress;return j;}
-export function fillBarrel(s,type){assert(!generationMode(s)||s.generations.active.phase!=='review','次の世代へ引き継ぎます。');assert(!usualMode(s)||!s.usual.reservation||(generationMode(s)&&s.generations.active.phase==='last-batch'&&s.usual.reservation.status==='queued'),'いつもの仕込みが進行中です。');assert(!s.trade.offer,'申し出を確認します。');const j=E.fillBarrel(prepareFlavorFill(s,type),type);if(staffExperienceMode(j)){j.staffExperience.manualFills++;j.staffProgression.distill.unlocked||=j.staffExperience.manualFills>=STAFF_EXPERIENCE.manualFillThreshold;}else if(staffProgressionMode(j))j.staffProgression.distill.unlocked=true;for(const n of Object.values(j.notesById))n.observations??=[];if(usualMode(j))j.usual.recipe={stopAt:s.still.distillation.progress,type,...flavorRecipe(j.core.casks.at(-1)?.flavor?{flavorChoice:j.core.casks.at(-1).flavor.choice}:null)};if(bottlingPolicyMode(j))j.workPreferences.last.caskType=type;return advanceGeneration(j,'fill',type);}
+export function fillBarrel(s,type){assert(!generationMode(s)||s.generations.active.phase!=='review','次の世代へ引き継ぎます。');assert(!usualMode(s)||!s.usual.reservation||(generationMode(s)&&s.generations.active.phase==='last-batch'&&s.usual.reservation.status==='queued'),'いつもの仕込みが進行中です。');assert(!s.trade.offer,'申し出を確認します。');let j=E.fillBarrel(prepareFlavorFill(s,type),type);j=assignNewBottlingCask(j,j.core.casks.at(-1).id);if(staffExperienceMode(j)){j.staffExperience.manualFills++;j.staffProgression.distill.unlocked||=j.staffExperience.manualFills>=STAFF_EXPERIENCE.manualFillThreshold;}else if(staffProgressionMode(j))j.staffProgression.distill.unlocked=true;for(const n of Object.values(j.notesById))n.observations??=[];if(usualMode(j))j.usual.recipe={stopAt:s.still.distillation.progress,type,...flavorRecipe(j.core.casks.at(-1)?.flavor?{flavorChoice:j.core.casks.at(-1).flavor.choice}:null)};if(bottlingPolicyMode(j))j.workPreferences.last.caskType=type;return advanceGeneration(j,'fill',type);}
 export function sampleDistillery(s,id){assert(!s.trade.offer,'申し出を確認してから試飲します。');return E.sampleDistillery(s,id);}
 export function chooseDistillery(s,id,key){assert(!s.trade.offer,'申し出を確認します。');if(s.notesById[id]?.pending?.id==='order-unmet')return resolveUnmet(s,id,key);return E.chooseDistillery(s,id,key);}
 const cFlavor=(s,id)=>!!E.currentCask(s,id)?.flavor;
@@ -1347,7 +1369,11 @@ function progress(s,value){assert(s.still.distillation?.collectionVersion!==2||s
  while(j.still.distillation.progress<value){const next=E.distillStep(j);assert(next!==j,'停止中の蒸留です。');j=next;}
  // Preserve every other field, canonical property order and detached ownership.
  return Object.assign(clone(s),{core:j.core,still:j.still});}
-function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-world-network':
+function applyOperation(s,o,context){s=E.endTasting(s);switch(o.key){case 'enable-bottling-assignment':
+ if(o.value?.progress!==null)s=progress(s,o.value?.progress);
+ if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
+ return enableBottlingAssignmentTransaction(s,o.value);
+ case 'enable-world-network':
  if(o.value?.progress!==null)s=progress(s,o.value?.progress);
  if(o.value?.tastingId!==null){const id=o.value?.tastingId;assert(Number.isInteger(id)&&s.notesById[id]?.samples.at(-1)?.age===E.currentCask(s,id)?.age,'引きつぐ試飲の記録を確認してください。');s=sampleDistillery(s,id);}
  return enableWorldNetworkTransaction(s,o.value);
