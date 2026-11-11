@@ -1,0 +1,32 @@
+{
+  "metadataMilliseconds": 107428.58264000001,
+  "formalGenerationMilliseconds": 20298.10057899999,
+  "formalBytes": 1289728,
+  "formalCodeUnits": 1203858,
+  "prefixes": [
+    {
+      "month": 12,
+      "operations": 49,
+      "sha256": "5e6bd9131da36aea293e3bed478cce27fd257e69e385cef6b9d69c55478fa809"
+    },
+    {
+      "month": 120,
+      "operations": 188,
+      "sha256": "c07df2682bd152f9ee503510951d80fc66413a95b9e147e822e91b0b4dbbbbec"
+    },
+    {
+      "month": 360,
+      "operations": 551,
+      "sha256": "db42af480e3144adb243af1df9989ddbfd8704b2d59169f5402013c3dc0c1f56"
+    },
+    {
+      "month": 1200,
+      "operations": 1955,
+      "sha256": "4d2f688b3b87adb16adc6bc3510ddc696e2aec10f710c67c823c5aedde296274"
+    }
+  ],
+  "tradePrefix": {
+    "month": 1374,
+    "operations": 2252
+  }
+}
