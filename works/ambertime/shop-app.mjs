@@ -17,6 +17,7 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
+import {createFreshSession,inspectStartRecord,createSessionEntry} from './session-entry.mjs?v=ui4-20261111';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
@@ -109,10 +110,10 @@ const recallScenePlayer=createRecallDebugPreview({document,window});
 const recallSceneDebug=debugEnabled?recallScenePlayer:null;
 let game=null,room='distill',selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,playbackRate=1,canSave=!preview,lastSavedText=null;
 let committedSession=null,lastSaveError=null,legacyRecord=null;
+let sessionActive=false,entryView='title',entrySnapshot=null,entryReturn=null,entryMessage='',entryIntent=null,sessionEpoch=0;
 let debugSkipJob=null,debugSkipFeedback='';
-// Keep the existing native creator, then apply the same explicit world boundary
-// used when upgrading a restored game. Neither path reinterprets older operations.
-const newNativeGame=()=>D.enableWorldNetwork(D.newRegionalDeliveryDistillery(seed));
+// Never route candidate initialization through the old session's observer.
+const newNativeGame=()=>nativeModel.newWorldNetworkDistillery(seed);
 let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
@@ -126,12 +127,12 @@ const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt
 });
 const distillRoom=createDistillRoomController();
 const warehouseRoom=createWarehouseRoomController();
-const countdown=new StartCountdown({canRun:()=>!!game&&!document.hidden&&room==='distill'&&!modal&&(preview||canSave)&&D.canStart(game).ok,onChange:value=>{if(value!==null){if(game)render();}else queueMicrotask(()=>{if(game&&!countdown.active)render();});}});
+const countdown=new StartCountdown({canRun:()=>sessionActive&&!!game&&!document.hidden&&room==='distill'&&!modal&&(preview||canSave)&&D.canStart(game).ok,onChange:value=>{if(value!==null){if(game)render();}else queueMicrotask(()=>{if(game&&!countdown.active)render();});}});
 function prepareDistillation(start){
  if(countdown.active||!game||document.hidden||room!=='distill'||!D.canStart(game).ok||modal&&modal.kind!=='flavor-cards')return;
  stopClock();modal=null;countdown.start(()=>act(start,()=>distillRoom.clearPrepared(),null,{paused:false}));
 }
-function ordinaryNoticeSafe(){return !!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&!marketEditing&&!countdown.active&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&generationState()?.phase!=='review'&&$('storage-notice').hidden&&$('generation-notice').hidden&&!m0.isOpen;}
+function ordinaryNoticeSafe(){return sessionActive&&!!game&&!modal&&!document.hidden&&!runtimeHalted&&(preview||canSave)&&!marketEditing&&!countdown.active&&game.tastingId===null&&!game.decisions.length&&!game.trade.offer&&generationState()?.phase!=='review'&&$('storage-notice').hidden&&$('generation-notice').hidden&&!m0.isOpen;}
 const automaticNews=scopedNotices({room:()=>room,safe:ordinaryNoticeSafe,
  eligible:n=>n.kind!=='shop'||(game.still.phase==='ready'&&!debugSkipJob&&!!scene.dialogueLayout(n.events[0].entry)),
  show:(text,entries,lifetime,kind)=>{
@@ -681,12 +682,13 @@ function sessionText(next,paused=userPaused,time=elapsed,slots=reconcileCaskSlot
 function saveCandidate(next,paused=userPaused,time=elapsed,writer=writeCandidate,ledgerOverride=null){
  const dialogueBefore=committedSession?.game;
  if(preview){recallRecord=pendingRecall;historyRecord=candidateHistory(next);recentLedger=ledgerOverride??candidateLedger(next);caskSlots=reconcileCaskSlots(next,caskSlots);committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...caskSlots],recentLedger,historyRecord,recallRecord};noteDialogueCommit(dialogueBefore,next);return true;}
- if(!canSave)return false;
+ if(!sessionActive||!canSave)return false;
  let phase='帳面';
  try{const slots=reconcileCaskSlots(next,caskSlots),ledger=ledgerOverride??candidateLedger(next);phase='歩み';const history= candidateHistory(next);phase='保存検証';const text=sessionText(next,paused,time,slots,ledger,history);phase='書込み・読戻し';writer(localStorage,SAVE_KEY,lastSavedText,text);lastSavedText=text;caskSlots=slots;recentLedger=ledger;historyRecord=history;recallRecord=pendingRecall;committedSession={game:next,userPaused:paused,elapsed:time,caskSlots:[...slots],recentLedger,historyRecord,recallRecord};lastSaveError=null;$('save-status').textContent='保存済み';const committedDialogue=noteDialogueCommit(dialogueBefore,next);observeShadow(dialogueBefore,next,committedDialogue);return true;}
  catch(error){saveFailure(error,phase);return false;}
 }
 function save(){
+ if(!sessionActive)return false;
  if(preview){saveCandidate(game);$('save-status').textContent='試遊中 · 保存しません';return true;}
  if(!game)return false;
  if(!canSave){restoreCommitted();return false;}
@@ -711,7 +713,7 @@ function finishDebugSkip(reason,{needsAction=false}={}){
  if(needsAction)schedule();
 }
 function runDebugSkipChunk(job){
- if(job!==debugSkipJob)return;
+ if(!sessionActive||job!==debugSkipJob)return;
  if(document.hidden||modal?.kind!=='settings'){finishDebugSkip('中断しました。');return;}
  try{
   for(let i=0;i<2&&job===debugSkipJob;i++){
@@ -733,7 +735,7 @@ function runDebugSkipChunk(job){
  }catch(error){debugSkipJob=null;saveFailure(error,'デバッグ年送り');if(game)render();}
 }
 function startDebugSkip(years){
- if(!debugEnabled||preview||!game||!canSave||modal?.kind!=='settings'||debugSkipJob||!DEBUG_SKIP_YEARS.includes(years))return false;
+ if(!sessionActive||!debugEnabled||preview||!game||!canSave||modal?.kind!=='settings'||debugSkipJob||!DEBUG_SKIP_YEARS.includes(years))return false;
  if(!confirm(years+'年進めます。現在の記録に毎月保存され、元には戻せません。重要な判断、蒸留、世代交代、資金不足の際には途中で停止します。実行しますか？'))return false;
  stopClock();countdown.cancel();
  debugSkipFeedback='';debugSkipJob={startMonth:game.core.month,targetMonth:game.core.month+monthsForDebugSkip(years),years,timer:null};
@@ -746,7 +748,7 @@ function placementShelfRelease(p){const r=releaseFor(p.id);return game.releases.
 const productSaleState=p=>placementEnabled?(D.placementInventory(game,p.id).retail>0?'自家販売 '+D.placementInventory(game,p.id).retail+'本':'手元 '+D.placementInventory(game,p.id).hand+'本'):(game.productsById[p.id]?.listed?'販売中':'保管中');
 const bottleStock=()=>game.core.products.reduce((sum,p)=>sum+p.stock,0);
 const hasMonthlyWork=()=>game&&(game.core.casks.length>0||game.core.products.some(p=>p.stock>0)||game.still.phase==='distilling'||D.usualNeedsClock(game)||D.generationNeedsClock(game));
-const blocked=()=>!game||countdown.active||generationState()?.phase==='review'||(!preview&&!canSave)||userPaused||runtimeHalted||heldRange()||manualDistilling()&&room!=='distill'||document.hidden||scene.isDistillCompletion(game.core.spirit?.id)||marketEditing||modal!==null||game.tastingId!==null||game.decisions.length>0||game.trade.offer!==null;
+const blocked=()=>!sessionActive||!game||countdown.active||generationState()?.phase==='review'||(!preview&&!canSave)||userPaused||runtimeHalted||heldRange()||manualDistilling()&&room!=='distill'||document.hidden||scene.isDistillCompletion(game.core.spirit?.id)||marketEditing||modal!==null||game.tastingId!==null||game.decisions.length>0||game.trade.offer!==null;
 function schedule(continuing=false){
  stopClock(!continuing);if(blocked()||!hasMonthlyWork())return;const token=generation,expectedMonth=game.core.month;
  timer=setTimeout(()=>{
@@ -783,7 +785,7 @@ function schedule(continuing=false){
 }
 function act(fn,after,afterSave,options){
  const paused=options?.paused??userPaused,time=options?.time??elapsed;
- if(!game||!preview&&!canSave)return false;
+ if(!sessionActive||!game||!preview&&!canSave)return false;
  countdown.cancel();stopClock();try{const before=game,next=fn(before);if(!saveCandidate(next,paused,time)){render();schedule();return false;}game=next;userPaused=paused;elapsed=time;runtimeHalted=false;if(after)after();automaticNews.push(automaticEvents(before,game,caskName,id=>soldOutLabel(game,id,before)));noteMapReach();if(afterSave)afterSave();render();schedule();return true;}catch(e){restoreCommitted();storageNotice(e.message);render();schedule();return false;}
 }
 function actMarket(fn){
@@ -1247,6 +1249,7 @@ function renderProgress(){
  scene.updateProgress(elapsed/T.monthMs);
 }
 function render(){
+ if(!sessionActive)return;
  if(countdown.active&&(modal||room!=='distill'||document.hidden))countdown.cancel();
  if(!game)return;
  distillRoom.invalidate(game.still.phase,game.core.lastDistillation);
@@ -1576,15 +1579,18 @@ function handleModal(e){
   if(!ok&&modal===quoteState){quoteState.committing=false;updateBottleSelection();}return;
  }
 }
-function suspend(){scene.cancelDistillCompletion();marketUI.cancel();placementUI?.cancel();countdown.cancel();stopClock();if(manualDistilling())userPaused=true;save();if(game)render();}
-function resume(){if(game){render();schedule();}}
+function suspend(){if(!sessionActive){if(sessionEntry.busy&&!sessionEntry.writing){sessionEntry.cancel();entryView=entryIntent==='new'?'confirm':'title';entryMessage='開始を中断しました。';paintEntry();}return;}scene.cancelDistillCompletion();marketUI.cancel();placementUI?.cancel();countdown.cancel();stopClock();if(manualDistilling())userPaused=true;save();if(game)render();}
+function resume(){if(sessionActive&&game){render();schedule();}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(debugSkipJob)finishDebugSkip('タブが非表示になったため中断しました。');suspend();}else resume();});window.addEventListener('pagehide',()=>{if(debugSkipJob)finishDebugSkip('ページを離れたため中断しました。');suspend();});window.addEventListener('pageshow',e=>{if(e.persisted)resume();});
-window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){saveFailure(Object.assign(Error('別の画面で保存が変わりました。'),{code:'conflict'}),'別タブ');if(game)render();}});
+window.addEventListener('storage',e=>{if(!preview&&e.key===SAVE_KEY){if(!sessionActive){sessionEntry.cancel();entryView='error';entryMessage='別の画面で記録が変わりました。記録を再確認してください。';paintEntry();return;}saveFailure(Object.assign(Error('別の画面で保存が変わりました。'),{code:'conflict'}),'別タブ');if(game)render();}});
 const sessionOptions={restore:D.restoreDistillery,monthMs:T.monthMs,stepMs:T.distillStepMs};
 function exportRaw(text,name='ambertime-save.json'){
  const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
 }
 function installSession(session,{fresh=false}={}){
+ sessionEpoch++;sessionActive=true;entryView='playing';entryReturn=null;entryIntent=null;recallScenePlayer.close();paintEntry();
+ if(debugSkipJob){clearTimeout(debugSkipJob.timer);debugSkipJob=null;}debugSkipFeedback='';
+ historyData=null;historySnapshot=null;historyFactsSnapshot=null;deliveryNotice='';roomFeedback=null;selectedProductId=null;rackKey=shelfKey=barrelKey='';
  try{shadowObserver?.reset();}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}
  dialogueNotice.reset();dialogueProjection.reset();
  countdown.cancel();stopClock();game=session.game;caskSlots=session.caskSlots;recentLedger=session.recentLedger;historyRecord=session.historyRecord;pendingRecall=recallRecord=session.recallRecord;recallPreview=null;userPaused=session.userPaused;elapsed=session.elapsed;
@@ -1626,21 +1632,72 @@ function installSession(session,{fresh=false}={}){
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }
 let newGameBackupKey=null;
-function startNew(){
- if(!confirm(preview?'試遊を最初からやり直しますか？':'新しく始めますか？現在の記録は置き換わります。'))return false;
- try{
-  const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:initializeHistoryRecord(next),recallRecord:initializeRecall(next)};
-  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);
-  if(!preview){if(legacyRecord&&localStorage.getItem(legacyRecord.key)!==legacyRecord.raw)throw Object.assign(Error('別の画面で保存が変わりました。'),{code:'conflict'});const result=lastSavedText===null?writeCandidate(localStorage,SAVE_KEY,null,text):commitMarketRulesUpdate(localStorage,SAVE_KEY,lastSavedText,text);if(result?.backupKey){newGameBackupKey=result.backupKey;backupExport.hidden=false;}lastSavedText=text;legacyRecord=null;protectedRecordExports();}
-  installSession(session,{fresh:true});if(!preview)startShadow(next);return true;
- }catch(error){saveFailure(error,'新規開始');return false;}
+function inspectEntry(){
+ try{entrySnapshot=inspectStartRecord(localStorage);return true;}
+ catch(error){entrySnapshot=null;recordSaveError(error,'記録の確認');entryMessage='保存領域を確認できません。記録がないとは判断できません。';return false;}
 }
+function paintEntry(){
+ const visible=entryView!=='playing',busy=sessionEntry?.busy??false;
+ $('entry-screen').hidden=!visible;$('scene-root').inert=visible;$('scene-root').setAttribute('aria-hidden',String(visible));
+ document.body.dataset.entry=visible?'true':'false';
+ if(!visible)return;
+ $('entry-status').textContent=entryMessage;
+ const confirmView=entryIntent==='new'&&['confirm','preparing','writing'].includes(entryView);
+ $('entry-confirm-copy').hidden=!confirmView;
+ $('entry-new').hidden=confirmView;$('entry-new').disabled=!entrySnapshot||busy;
+ $('entry-continue').hidden=confirmView||entrySnapshot?.kind!=='current';$('entry-continue').disabled=busy;
+ $('entry-begin').hidden=!confirmView;$('entry-begin').disabled=busy||!entrySnapshot;
+ $('entry-back').hidden=!confirmView&&!entryReturn;$('entry-back').disabled=sessionEntry?.writing??false;
+ $('entry-recheck').hidden=confirmView||(!entryMessage&&entrySnapshot?.kind!=='unreadable'&&entrySnapshot?.kind!=='legacy');$('entry-recheck').disabled=busy;
+ $('entry-export').hidden=entrySnapshot?.raw==null&&!entrySnapshot?.legacy.length;
+ $('entry-confirm-copy').textContent=entrySnapshot?.raw!==null||entrySnapshot?.legacy.length?'今の記録を保護して、新しい蒸留所で始めます。開始後の「つづきから」は、新しい記録になります。':'新しい蒸留所を始めます。';
+}
+function showTitle(){
+ sessionActive=false;stopClock();entryView='title';entryMessage='';entryReturn=null;entryIntent=null;
+ if(inspectEntry())entryMessage=entrySnapshot.kind==='unreadable'?'読み込めない記録があります。原文を書き出すか、保護して新しく始められます。':entrySnapshot.kind==='legacy'?'以前の開発版の記録があります。原文を残して新しく始められます。':'';
+ protectedRecordExports();paintEntry();
+}
+function startNew(){
+ if(sessionEntry.busy)return false;
+ if(preview){if(!confirm('試遊を最初からやり直しますか？'))return false;const session=createFreshSession(nativeModel,seed);installSession(session,{fresh:true});return true;}
+ if(sessionActive){entryReturn={modal,userPaused,canSave,runtimeHalted,savedText:lastSavedText};sessionActive=false;stopClock();if(debugSkipJob){clearTimeout(debugSkipJob.timer);debugSkipJob=null;}countdown.cancel();automaticNews.update();marketUI.update({visible:false,sessionActive:false});vaultPanels();if($('action-dialog').open)$('action-dialog').close();}
+ entryMessage='';if(!inspectEntry()){entryView='error';paintEntry();return false;}
+ entryIntent='new';entryView='confirm';paintEntry();$('entry-back').focus({preventScroll:true});return true;
+}
+function cancelEntry(){
+ if(!sessionEntry.cancel())return;
+ if(entryReturn){
+  try{if(localStorage.getItem(SAVE_KEY)!==entryReturn.savedText)throw Error('記録が更新されています。再確認してください。');}
+  catch(error){entryView='error';entryMessage=error.message;paintEntry();return;}
+  const previous=entryReturn;entryReturn=null;sessionActive=true;entryView='playing';modal=previous.modal;userPaused=previous.userPaused;canSave=previous.canSave;runtimeHalted=previous.runtimeHalted;paintEntry();render();schedule();
+ }else showTitle();
+}
+const sessionEntry=createSessionEntry({storage:()=>localStorage,create:()=>createFreshSession(nativeModel,seed),
+ encode:session=>sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord),
+ read:raw=>readSession(raw,{...sessionOptions,enabled:true}),write:writeCandidate,replace:commitMarketRulesUpdate,
+ phase:phase=>{if(phase!=='idle'){entryView=phase;entryMessage=phase==='writing'?'記録を保護して保存しています。':'記録を確認しています。';}paintEntry();},
+ install:(session,{fresh,text,backupKey})=>{lastSavedText=text;legacyRecord=null;if(backupKey)newGameBackupKey=backupKey;installSession(session,{fresh});protectedRecordExports();if(fresh)startShadow(session.game);}
+});
+async function enterSession(kind){
+ if(!entrySnapshot||sessionEntry.busy)return false;
+ entryIntent=kind;
+ const result=await (kind==='new'?sessionEntry.start(entrySnapshot):sessionEntry.continue(entrySnapshot));
+ if(result.cancelled||result.duplicate)return false;
+ if(!result.ok){recordSaveError(result.error,'開始');entryView='error';entryMessage=result.error?.code==='conflict'?result.error.message:result.formalState==='unchanged'?'開始できませんでした。元の記録は正式保存に残っています。':result.backupKey?'正式保存の結果は確認できません。元の原文は「保護した記録」から書き出せます。':'記録を確認できません。保存領域を再確認してください。';protectedRecordExports();paintEntry();}
+ return result.ok;
+}
+$('entry-new').addEventListener('click',startNew);
+$('entry-begin').addEventListener('click',()=>enterSession('new'));
+$('entry-continue').addEventListener('click',()=>enterSession('continue'));
+$('entry-back').addEventListener('click',cancelEntry);
+$('entry-recheck').addEventListener('click',()=>{sessionEntry.cancel();showTitle();});
+$('entry-export').addEventListener('click',()=>{const raw=entrySnapshot?.raw??entrySnapshot?.legacy[0]?.raw;if(raw!=null)exportRaw(raw);});
 const backupExport=document.createElement('button');backupExport.type='button';backupExport.textContent='新規開始前の記録を書き出す';backupExport.hidden=true;$('aux-panel').append(backupExport);
 backupExport.addEventListener('click',()=>{try{const raw=newGameBackupKey&&localStorage.getItem(newGameBackupKey);if(typeof raw!=='string')throw Error('新規開始前の記録を確認できません。');exportRaw(raw,'ambertime-before-new-game.json');}catch(error){storageNotice(error.message);}});
 // Existing byte-for-byte backups remain reachable after reload, including
 // unreadable envelopes. Listing never parses, migrates, or removes their data.
 function protectedRecordExports(){
- for(const parent of [$('aux-panel'),$('recovery')]){
+ for(const parent of [$('aux-panel'),$('recovery'),$('entry-records')]){
   parent.querySelector('[data-protected-records]')?.remove();
   const list=document.createElement('details');list.dataset.protectedRecords='';const summary=document.createElement('summary');summary.textContent='保護した記録';list.append(summary);
   try{for(let i=0;i<localStorage.length;i++){
@@ -1653,14 +1710,14 @@ function protectedRecordExports(){
 $('reset').addEventListener('click',startNew);
 $('recovery-new').addEventListener('click',startNew);
 $('recovery-export').addEventListener('click',()=>{const raw=lastSavedText??legacyRecord?.raw;if(raw!=null)exportRaw(raw);});
-$('retry-save').addEventListener('click',()=>{if(!game||!isCurrentSession(lastSavedText)){boot();return;}canSave=true;if(save()){runtimeHalted=false;storageNotice('');$('recovery').hidden=true;}if(game){render();schedule();}});
+$('retry-save').addEventListener('click',()=>{if(!sessionActive){showTitle();return;}if(!game||!isCurrentSession(lastSavedText)){boot();return;}canSave=true;if(save()){runtimeHalted=false;storageNotice('');$('recovery').hidden=true;}if(game){render();schedule();}});
 $('recovery-import').addEventListener('click',()=>{if(debugEnabled)$('restore-file').click();});
 async function importRecord(file){
- if(!file||preview||!debugEnabled)return false;const expected=lastSavedText;
+ if(!file||preview||!debugEnabled||!sessionActive)return false;const expected=lastSavedText,epoch=sessionEpoch;
  let session,text;
- try{session=readSession(await file.text(),{...sessionOptions,enabled:true});text=sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);}
+ try{const raw=await file.text();if(!sessionActive||epoch!==sessionEpoch)return false;session=readSession(raw,{...sessionOptions,enabled:true});text=sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);}
  catch(error){recordSaveError(error,'ファイル検証');storageNotice('このファイルは読み込めません。現在の進行は変更していません。');return false;}
- if(!confirm('この記録を読み込みますか？現在の記録は置き換わります。'))return false;
+ if(!sessionActive||epoch!==sessionEpoch||!confirm('この記録を読み込みますか？現在の記録は置き換わります。')||!sessionActive||epoch!==sessionEpoch)return false;
  try{writeCandidate(localStorage,SAVE_KEY,expected,text);lastSavedText=text;installSession(session,{fresh:true});return true;}
  catch(error){saveFailure(error,'ファイル保存');return false;}
 }
@@ -1678,19 +1735,10 @@ async function boot(){
    installSession({game:next,userPaused:query.get('market-fixture')==='established',elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:query.get('market-fixture')==='established'?null:initializeHistoryRecord(next),recallRecord:query.get('market-fixture')==='established'?null:initializeRecall(next)},{fresh:true});
   }catch(error){game=null;saveFailure(error,'試遊開始');$('game').hidden=true;}return;
  }
- try{
-  protectedRecordExports();legacyRecord=null;lastSavedText=localStorage.getItem(SAVE_KEY);
-  if(lastSavedText!==null){installSession(readSession(lastSavedText,{...sessionOptions,enabled:true}));return;}
-  for(const key of ['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20']){const raw=localStorage.getItem(key);if(raw!==null){legacyRecord={key,raw};throw Object.assign(Error('以前の開発版の記録です。'),{code:'unsupported-version'});}}
-  const next=newNativeGame(),session={game:next,userPaused:false,elapsed:0,caskSlots:initializeCaskSlots(next),recentLedger:initializeLedger(next),historyRecord:initializeHistoryRecord(next),recallRecord:initializeRecall(next)};
-  const text=sessionText(next,false,0,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord);writeCandidate(localStorage,SAVE_KEY,null,text);lastSavedText=text;installSession(session,{fresh:true});startShadow(next);
- }catch(error){
-  game=null;recordSaveError(error,'起動');canSave=false;runtimeHalted=true;stopClock();$('game').hidden=true;recoveryAccess();$('save-status').textContent='未保存';
-  storageNotice(error?.code==='unsupported-version'?'以前の開発版の記録です。新しく始めてください。':'この記録は開けません。新しく始めることができます。');
- }
+ showTitle();
 }
 
-window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({placement:true,saveKey:SAVE_KEY,clockPending:timer!==null,playbackRate,canSave,lastSaveError:debugEnabled?lastSaveError:null,caskSlots:[...caskSlots],saveVersion:isCurrentSession(lastSavedText)?DEVELOPMENT_SAVE_VERSION:null,ui:placementUI.diagnostics(),market:marketUI.diagnostics()} )};
+window.amberPlacement={snapshot:()=>structuredClone(game),diagnostics:()=>({placement:true,saveKey:SAVE_KEY,clockPending:timer!==null,entryView,sessionActive,playbackRate,canSave,lastSaveError:debugEnabled?lastSaveError:null,caskSlots:[...caskSlots],saveVersion:isCurrentSession(lastSavedText)?DEVELOPMENT_SAVE_VERSION:null,ui:placementUI.diagnostics(),market:marketUI.diagnostics()} )};
 const scene=new CanvasScene();
 const m0=createM0Observation({document,state:()=>game,model:D,room:()=>room,modal:()=>modal,view:currentMapBrowse,onViewChange:view=>{setMapBrowse(view);if(game)render();},onInspect:id=>inspectMapPartner(id),onTrade:tradeMapPartner,onModeChange:active=>{$('open-world-map').setAttribute('aria-pressed',String(active));scene.queue();queueMicrotask(()=>{automaticNews.update();if(game)render();});}});
 for(const [id,label] of [['distill-lever','レバーを下に引く'],['distill-glass','グラス']]){const node=document.createElement('button');node.type='button';node.id=id;node.className='distill-tool-hit';node.setAttribute('aria-label',label);node.setAttribute('aria-describedby','distill-tool-guide');scene.controlRoot.append(node);}

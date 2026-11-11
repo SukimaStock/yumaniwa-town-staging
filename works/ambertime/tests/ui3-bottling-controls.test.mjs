@@ -15,7 +15,7 @@ function harness(game=fresh(),{saveOK=true}={}){
  const buttonNode=action=>node(action),body=node('dialog-body'),dialog=node('action-dialog');
  body.querySelector=selector=>selector.startsWith('label')?node('condition-label'):buttonNode(selector.match(/data-action=["']?([^\]"']+)/)?.[1]);
  dialog.querySelector=body.querySelector;
- const ctx={P,D,game,modal:{kind:'bottler-panel',editPolicy:true},bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber,
+ const ctx={sessionActive:true,P,D,game,modal:{kind:'bottler-panel',editPolicy:true},bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber,
   $:node,button:(label,action,id='',extra='')=>`<button data-action="${action}" ${extra}>${label}</button>`,render(){throw Error('draft interaction must not rerender dialog');},message(){},preview:true,canSave:true,userPaused:false,elapsed:0,
   countdown:{cancel(){}},stopClock(){},automaticNews:{push(){}},automaticEvents:()=>[],caskName:String,soldOutLabel:()=>'',noteMapReach(){},schedule(){},runtimeHalted:false,
   saveCandidate:()=>saveOK,restoreCommitted(){},storageNotice(){}};

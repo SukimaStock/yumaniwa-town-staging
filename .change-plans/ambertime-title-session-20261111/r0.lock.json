@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "6690e7f7a5b16e68f62a8372f398a5afd1665642c260d9f172a0a5b9c8f90976",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-title-session-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Title selection and isolated, verified, recoverable native session switching",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b75c359d07bed9615a6dc51a169a04576e0e6a42",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/recall/operations.mjs",
+      "works/ambertime/recall/collector.mjs",
+      "works/ambertime/market-ui.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-title-session-20261111/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Inspect storage without restoring/writing on title; explicit continue uses official reader and checks exact raw before install",
+      "Create fresh full session via unobserved native creator; explicit all session auxiliaries; no old pendingRecall mutation",
+      "Shared title/menu restart with confirm, cancellable preparation epoch, duplicate guard, verified raw backup and conditional formal write/readback before install",
+      "Pause gameplay/lifecycle autosave during entry; retain old session on cancel/failure; uncertain write never auto rollback; durable backups exportable on title/recovery",
+      "Preserve preview non-saving path; reset session-owned transient state only after committed switch",
+      "Use existing font/palette/buttons; title only name/actions and necessary recovery copy; retain batch1-3 UI"
+    ],
+    "ownerDecisions": [
+      "Current user UI batch4 explicitly authorizes title, safe new/continue and Staging merge; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Shared Chrome actual main title/continue/new/menu at four sizes where possible",
+      "Required CI, Pages exact SHA and deployed content"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI4 PR; formal v8 and raw backups remain readable",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901 checkpoint/tail/load",
+      "Formal v8 schema",
+      "Game calculations/recall content",
+      "Multiple save slots",
+      "Batch3 redesign"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}

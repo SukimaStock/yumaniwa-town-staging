@@ -438,3 +438,15 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 #action-dialog .bottling-condition-controls>button,#action-dialog .bottling-condition-controls>input{width:100%;min-width:0;height:48px;min-height:48px;margin:0;box-sizing:border-box}
 #action-dialog .bottling-condition-controls>#bottling-condition{grid-column:2;text-align:center}
 #action-dialog .bottling-plan .bottling-condition>#bottling-condition-unit{grid-column:1/-1}
+/* The entry owns input and lifecycle until a verified session is selected. */
+#entry-screen{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:auto;background:#191622;color:#eadfba;padding:20px;box-sizing:border-box}
+#entry-screen[hidden]{display:none}
+.entry-panel{width:min(100%,336px);box-sizing:border-box;padding:18px;border:3px solid #7f7c89;background:#2c3040;max-height:100%;overflow:auto}
+.entry-panel h1{text-align:center;margin:8px 0 28px;font-size:30px}
+.entry-panel p{font-size:16px;line-height:1.6;overflow-wrap:anywhere}
+.entry-panel p:empty{display:none}
+.entry-panel button{display:block;width:100%;min-height:48px;margin:10px 0;font:inherit;white-space:normal}
+.entry-panel button[hidden]{display:none}
+.entry-panel details{margin-top:14px;font-size:14px}
+body[data-entry="true"] #scene-root{visibility:hidden}
+body[data-entry="true"] :is(#market-board,#m0-observation,#automatic-news,#automatic-news-close,#shop-dialogue-notice,#important-top-notice){visibility:hidden}
