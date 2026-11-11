@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5cba7b440a0d89e8d9c00c4e6320dc3bdca982c367b8a1f478418c9b8af482eb",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-entry-diagnostics-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Expose privacy-safe exact startup failure stages on iPhone and halt failed application without rollback",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b402b2a014703c8c13eea2e0b5291af3fb2fd889",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/market-ui.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-entry-diagnostics-20261111/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Record executed operation/stage and actual exception before replacing UI message, with build/module references and byte-state/verified-backup distinctions",
+      "Display error details only after failure, readable/selectable without clipboard; diagnostics never include save plaintext/player names/other-work data and never write formal save",
+      "Instrument existing writer via storage adapter without bypassing backup/compare/readback or changing v8/model/recall",
+      "Fence all gameplay/lifecycle saves after failed installation; preserve verified formal candidate/old raw backup, no stale automatic rollback",
+      "Fault injection through actual entry/controller/app functions for creator/validation/reader/backupwrite/readback/formalwrite/readback/install and cancellation/concurrency",
+      "Isolated test storage for browser fault injection and progressed records with multiple backups; no author data mutation",
+      "Check actual deployed import URLs/content where environment permits; keep unconfirmed iPhone cause explicitly unresolved"
+    ],
+    "ownerDecisions": [
+      "Current user followup authorizes diagnostics-first small Staging PR, fault tests, independent review and confirmed startup failure fixes; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Chrome isolated test-storage normal/progressed/multiple backups and fault details at four sizes",
+      "Required CI and Pages deployed entry/import matching; distinguish inaccessible bytes",
+      "Author iPhone failure diagnostic remains required before declaring root cause resolved"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert diagnostic UI PR; leave all formal and protected raw bytes readable",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901 persistence",
+      "Formal v8/model/economy/normal recall contract",
+      "Title redesign",
+      "Save cleanup/removal",
+      "Declaring iPhone fixed without exception evidence"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}
