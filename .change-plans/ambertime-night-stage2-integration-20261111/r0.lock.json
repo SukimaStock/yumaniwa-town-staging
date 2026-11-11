@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "dfdbe17f4e9bb6139282e17cbd35e95968a3f60422c75b596c9681275bf265e3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-night-stage2-integration-20261111",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate reviewed Stage2 PR921 after merged Stage1 PR919; preserve both changes",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Owner Decision",
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "e0dfbad6a8f6c8486b13510e3394c865b310f0b7",
+    "canonicalSources": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/event-notices.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/night-stage2-bottling.test.mjs",
+      "works/ambertime/design/night-stage2-20261111/REPORT.md",
+      "works/ambertime/entry-diagnostics.mjs",
+      ".change-plans/ambertime-night-stage2-integration-20261111/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "style.css",
+      "sw.js",
+      "data/**",
+      ".github/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "New opt-in recorded assignment boundary leaves historical replay unchanged",
+      "New hire and future manual/usual fill assignments use policy snapshots",
+      "Default age12 count10 and explicit manual cancellation; pause/resume unchanged",
+      "Saved completion notification excludes stock waiting; expose reservation conditions",
+      "Add only exact code-controlled assignment cache query value to diagnostic whitelist",
+      "Resolve Stage1/2 overlapping event-notices, app, cache identifiers and diagnostic whitelist without dropping either feature; no unrelated cleanup"
+    ],
+    "ownerDecisions": [
+      "2026-11-11 user night implementation stage2 permits technical design and Staging integration; Production excluded",
+      "Current user explicitly requests Staging merge and takes over actual browser/iPhone checks. Unverified remains unverified."
+    ],
+    "hqDecisions": [
+      "Current replay requires exact full state match. New boundary marker and opcode gates all changed hire/fill/manual behavior. Enable preserves existing reservations and manual casks. No formal envelope/key changes.",
+      "Existing stock algorithm retained. Default policy installed only if missing at boundary. Manual reset uses existing cancellation opcode under new marker. New factory extends existing world network factory.",
+      "Supersedes abandoned preimplementation lock28aac2c: exact diagnostic cache query whitelist dependency identified; new branch and lock created before applying implementation",
+      "Supersedes plan-only11c7b27: locked scope must explicitly allow its own exact lock path; implementation reapplied only after new lock commit"
+    ],
+    "problem": "Bottling worker starts with no assignments and manual switch resumes stale policy",
+    "currentContract": "Exact operation replay of v8 sessions and partner model snapshots; old fixtures byte exact",
+    "whyExistingIsInsufficient": "Unconditional hire/fill/default edits invalidate old replay",
+    "design": "Recorded opt-in marker bottlingAssignment version1; no old-state reinterpretation; assignment after future hire/fill only",
+    "alternativesRejected": [
+      "Unconditional defaults or replay behavior change",
+      "Mutating existing reservation snapshots on common edit"
+    ],
+    "migration": "Boundary marker plus default common policy only when missing; preserve all existing reservation entries; candidate saved before state application",
+    "compatibility": "Historical states without marker preserve exact old behavior; stock month guard unchanged",
+    "boundaryCases": [
+      "hired/unhired old saves",
+      "existing paused/completed reservations",
+      "manual and usual future fills",
+      "stock waiting",
+      "save failure",
+      "cold replay"
+    ],
+    "testPlan": [
+      "night-stage2-bottling",
+      "existing bottling policy roles staff economy and formal save tests"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "staff controls browser",
+      "iPhone owner unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rulesApplied": [
+      "CHANGE-PLAN v0.2 recorded boundary before implementation",
+      "User stage2 and existing AGENTS sales protections"
+    ],
+    "rollback": "Revert this stage as a unit before playing its new boundary; preserve exported new-boundary saves when reverting",
+    "promotion": "none",
+    "unverified": [
+      "iPhone Safari",
+      "30year and 100year full app sessions"
+    ],
+    "promotionRisk": "Staging only; new recorded opcode requires retaining branch when testing new saves; no Production migration"
+  }
+}
