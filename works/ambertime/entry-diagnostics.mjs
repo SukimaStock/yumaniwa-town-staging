@@ -1,5 +1,5 @@
 // A failure-only projection. Never serialize a session or expose its raw fields.
-export const ENTRY_DIAGNOSTIC_BUILD='entry-diagnostics-20261111-r1';
+export const ENTRY_DIAGNOSTIC_BUILD='entry-diagnostics-20261111-r2';
 const formalKey='sukimastock.ambertime.main.v1';
 const legacyKeys=['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'];
 const backupPrefix=formalKey+'.before-market-rules.v1.';
@@ -20,12 +20,12 @@ const moduleFiles={app:'shop-app.mjs',sessionEntry:'session-entry.mjs',diagnosti
 // Keep them exact even if a player's name happens to be "age" or "stage7".
 const queryValues={
  reactions:['s1-1'],dialogue:['a6-1'],hiring:['s2-1'],staff:['s3-1'],package:['c1l-1'],'h4-2':['1'],'h3-3a':['1'],
- v:['market-layout-r1','all-stores-s2-1','bar-v01-1','entry-diagnostics-20261111-r1'],rooms:['stage3-r1'],touch:['1'],status:['1'],aging:['1'],
+ v:['market-layout-r1','all-stores-s2-1','bar-v01-1','entry-diagnostics-20261111-r1','entry-diagnostics-20261111-r2'],rooms:['stage3-r1'],touch:['1'],status:['1'],aging:['1'],
  readout:['r1-1'],geometry:['r2-1'],preparation:['r3-1'],warehouse:['r4-1'],history:['r5-1'],experience:['a2-2'],quantity:['a3-1'],
  save:['h1-b2-2'],startup:['s1-slots-1'],ledger:['s2-1'],saveDev:['s4-1'],debug:['a4-2'],firstBottle:['a5-1','a5-1\\'],bar:['1'],scroll:['s1-1'],
  'dialogue-s2':['1'],fix:['ui-dialogue-notices-20261108'],m0:['m09-corners-r1'],m07:['map-stability-r1'],daily:['v01'],motion:['v02'],traffic:['1'],
  regional:['regional-v01'],delivery:['regional-delivery-v01'],map:['map-partners-v01'],scenery:['map-scenery-v01'],world:['world-network-v01'],restore:['stage7-v01'],
- repair:['ui4-20261111','entry-diagnostics-20261111-r1'],
+ repair:['ui4-20261111','entry-diagnostics-20261111-r1','entry-diagnostics-20261111-r2'],
 };
 function safeVersion(key,value){
  if(key==='formalFormat')return Number.isInteger(value)&&value>=1&&value<=99?value:undefined;
@@ -114,7 +114,7 @@ export function formatEntryDiagnostic(diagnostic){
   '失敗段階: '+(stages[d.stage]??'不明')+' ['+d.stage+']',
   '例外 name: '+e.name,'例外 code: '+(e.code||'なし'),'例外 message: '+e.message,
   '保存状態: '+stateLabels[d.formalState],
-  '正式readerの検証完了: '+(d.restoreValidated?'はい':'いいえ'),
+  (d.operation==='continue'?'継続記録の正式reader検証完了: ':'新規候補の正式保存検証完了: ')+(d.restoreValidated?'はい':'いいえ'),
   '候補の正式書込み・読戻し一致: '+(d.writeVerified?'確認済み':'未確認'),
   '原文バックアップ: '+(d.protection.backupPresent?'あり':'未確認'),
   'バックアップ読戻し一致: '+(d.protection.readbackMatched?'確認済み':'未確認'),
