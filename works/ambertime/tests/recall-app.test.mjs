@@ -64,9 +64,9 @@ test('rendering both barrel choices only probes native operations and leaves liv
  game=D.startRangeDistillation(game);for(let i=0;i<24;i++)game=D.distillStep(game);
  game=D.beginCollection(game);for(let i=0;i<12;i++)game=D.distillStep(game);game=D.stopDistillation(game);
  const before=JSON.stringify({game,recall}),count=observations;
- const expression=slice("choices=['bourbon','refill'].map(",',selected=');
+ const expression=slice("choices=['refill','bourbon'].map(",',selected=');
  const context=vm.createContext({game,D,nativeModel,displayReason:x=>x});
  const choices=vm.runInContext('const '+expression+'; choices;',context);
- assert.deepEqual(Array.from(choices,row=>row.type),['bourbon','refill']);assert(choices.every(row=>row.reason===''));
+ assert.deepEqual(Array.from(choices,row=>row.type),['refill','bourbon']);assert(choices.every(row=>row.reason===''));
  assert.equal(observations,count);assert.equal(JSON.stringify({game,recall}),before);
 });

@@ -176,25 +176,14 @@ export function createMarketUI({document:doc,model:D,state,art,icon='',act,openP
   if(anchor.bottom<bounds.top||anchor.top>bounds.bottom||anchor.right<bounds.left||anchor.left>bounds.right)return;
   const el=doc.createElement('span');el.className='market-delta';el.setAttribute('aria-hidden','true');el.textContent=(count>0?'+':'−')+Math.abs(count);
   el.dataset.kind=kind;if(productId!==undefined)el.dataset.productId=String(productId);if(shopId)el.dataset.shopId=shopId;
-  const slot=kind==='sale'?element?.closest?.('.market-stock')?.querySelector('.market-sale-slot'):null;
+  const slot=element?.closest?.('.market-stock')?.querySelector('.market-sale-slot');
   if(slot){
-   // The fixed upper-row slot makes this a quantity change, never a date change.
+   // Both signs share the quantity baseline, to the right of the real remainder.
    slot.append(el);el.classList.add('market-sale-delta');
   }else{
    Object.assign(el.style,{left:(anchor.right+4)+'px',top:anchor.top+'px'});root.append(el);
-   const size=el.getBoundingClientRect(),fitsRight=anchor.right+4+size.width<=bounds.right-2;
-   el.style.left=Math.max(bounds.left+2,Math.min(fitsRight?anchor.right+4:anchor.left,bounds.right-size.width-2))+'px';
-   if(!fitsRight)el.style.top=Math.max(bounds.top+2,anchor.top-size.height-2)+'px';
   }
-  if(!reduced.matches){
-   const frames=slot?[{opacity:1},{opacity:1,offset:.65},{opacity:0}]:[
-    {transform:'translateY(0)',opacity:1,easing:'step-end'},
-    {transform:'translateY(-3px)',opacity:1,offset:.35,easing:'step-end'},
-    {transform:'translateY(-6px)',opacity:1,offset:.65},
-    {transform:'translateY(-6px)',opacity:0}
-   ];
-   void animate(el,frames,{duration:650});
-  }
+  if(!reduced.matches)void animate(el,[{opacity:1},{opacity:1,offset:.65},{opacity:0}],{duration:650});
   return new Promise(resolve=>{const finish=()=>{clearTimeout(timer);deltaTimers.delete(timer);el.remove();resolve();},timer=setTimeout(finish,650);deltaTimers.set(timer,finish);});
  }
  async function placed(shopId,count,productId,origin){
