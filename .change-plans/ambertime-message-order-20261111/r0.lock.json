@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "f72025d99baf8d63fd6f825ad98c3796e40c6e3e689ec419f089847a38dd1dec",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-message-order-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Align transient messages, step their motion, sequence rumor before map, report formal department deliveries and remove vague decision count",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "f8d38103627bb6cad3ad45e9e47d5a188cb7fc32",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/department-projects.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-message-order-20261111/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/notice-motion.mjs",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/shop-dialogue.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/shadow/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Left align transient body only; native height, scroll and dismiss preserved",
+      "Fixed short stepped enter/exit and stable reading hold; reduced motion static",
+      "Use existing scopedNotices state to defer automatic map until world notice completed or explicitly closed; pause remaining world reading across occlusion; coalesce existing slots and suppress restored historical backlog",
+      "Detect new actual department receipt after saved monthly progression; no notice on acceptance/reservation/cancel/failedsave, deduplicate old monthly sales aggregate",
+      "Remove vague combined decision preview; retain existing decision/offer queues and block conditions",
+      "Regression and browser attempt; independent review, CI and Staging merge+Pages"
+    ],
+    "ownerDecisions": [
+      "Current user UI second-batch request explicitly specifies alignment, stepped motion, order, completed-delivery feedback, removal of vague decision count; authorizes tests/review and safe Staging merge only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Change OS normal WORK Standard locked Plan",
+      "No simulation/save/rumor rules changes; no Stage5 persistence",
+      "Existing transient queue and authoritative receipts only"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Browser four phone geometries and motion when available; explicitly distinguish Node and actual iPhone",
+      "Required CI and Pages exact SHA"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this message UI PR; saved v8 and game model byte behavior unchanged",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901",
+      "Economic/manufacturing/rumor conditions",
+      "M0 layout and map browse bounds",
+      "UI first-batch save and label ceremony code"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}
