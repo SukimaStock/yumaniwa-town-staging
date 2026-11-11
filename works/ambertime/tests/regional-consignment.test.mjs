@@ -50,3 +50,19 @@ test('each actual sale publishes record and release mirrors immediately, includi
  for(let n=0;n<180&&!last;n++){g=months(g,1);const p=g.core.products.find(x=>x.id===productId),r=g.releases.find(x=>x.productId===productId),actual=g.regionalConsignment.totalsByProduct[productId];if(!actual?.count)continue;first=true;assert.equal(r.consigned,actual.count);assert.equal(r.consignmentRevenue,actual.revenueCents/100);assert.equal(r.delivered,actual.count);assert.equal(r.sold,0);assert.equal(r.status,p.stock?'selling':'sold-out');const record=g.records.find(x=>x.productId===productId);assert.equal(record.consigned,r.consigned);assert.equal(record.delivered,r.delivered);const ledger=buildReleaseLedger(g,{facts:D.nearbyComparisonFacts(g,{productIds:[productId]})}).entries.find(e=>e.productId===productId);assert.equal(ledger.deliveryComplete,true);assert.equal(ledger.deliveries.count,actual.count);if(!p.stock){last=true;assert.equal(ledger.stock,0);assert.equal(ledger.status,'sold-out');}}
  assert(first&&last);const raw=D.serializeDistillery(g);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
 });
+
+test('lawful regional/national/overseas contracts sell entrusted bottles without duplicating shared stock',async()=>{
+ const {naturalWorldCraftFixture,naturalWorldNationalFixture,worldMonths}=await import('./world-network-helpers.mjs');
+ const seen=new Set();
+ for(const kind of ['national','overseas']){
+  let s=kind==='national'?naturalWorldNationalFixture(3):naturalWorldCraftFixture(27);
+  for(const o of D.regionalOffers(s))s=D.acceptRegionalOffer(s,o.partnerId,o.id);
+  s=D.enableConsignment(s);const pid=s.result.productId,retail=D.storeMarketInventory(s,pid).retail;if(retail)s=D.setMarketRetail(s,{productId:pid,count:0});
+  const desks=D.regionalDeliveryPartners(s).filter(d=>D.regionalDeliveryQuote(s,pid,d.id).ok);assert(desks.length>=1);
+  for(let i=0;i<desks.length;i++){const desk=desks[i],q=D.regionalDeliveryQuote(s,pid,desk.id),count=Math.max(1,Math.floor(q.maxCount/(desks.length-i)));s=D.assignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationId:q.nextAllocationId,count});s=D.consignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationIds:D.regionalDeliveryQuote(s,pid,desk.id).allocationIds,consignmentId:D.nextConsignmentId(s)});}
+  const old=structuredClone(s.regionalDeliveries.totalsByPartner);s=worldMonths(s,24);
+  for(const desk of desks){assert.ok(s.regionalConsignment.totalsByPartner[desk.id]?.count>0,desk.id);seen.add(desk.id);}
+  assert.deepEqual(s.regionalDeliveries.totalsByPartner,old);conservation(s);const raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
+ }
+ assert.deepEqual([...seen].sort(),['national-specialist-desk','overseas-import-desk','trial-region-desk'].sort());
+});
