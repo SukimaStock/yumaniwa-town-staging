@@ -1,0 +1,79 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "864e2abc37455645d4073171e48848eaa1aaa7b175f9c6e3b9c0d8725b6b0256",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-ui3-qa-bootstrap",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Repair isolated UI3 QA iframe module closing tag",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b75c359d07bed9615a6dc51a169a04576e0e6a42",
+    "canonicalSources": [
+      "works/ambertime/tests/ui3-browser.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-ui3-qa-bootstrap/r0.lock.json",
+      "works/ambertime/tests/ui3-browser.html",
+      "works/ambertime/tests/ui3-browser-bootstrap.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Fix escaped script closing tag in QA srcdoc only; add regression executing parent bootstrap and inspecting resulting iframe HTML"
+    ],
+    "ownerDecisions": [
+      "Current user third-batch request explicitly defines header, nearest smaller sales scope and policy input behavior, authorizes required tests/review and safe Staging merge only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Shared Chrome QA after Pages"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert QA bootstrap fix",
+    "outOfScope": [
+      "Game UI/model/storage",
+      "Production",
+      "PR901"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}
