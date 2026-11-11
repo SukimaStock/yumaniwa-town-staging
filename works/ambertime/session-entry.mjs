@@ -4,7 +4,7 @@ import {initializeHistoryRecord} from './history-record.mjs?v=s4-1';
 import {initializeRecall} from './recall/collector.mjs?v=bar-v01-1';
 import {FORMAL_SAVE_KEY,isCurrentSession} from './development-save.mjs?v=bar-v01-1';
 
-export const SESSION_ENTRY_BUILD='entry-diagnostics-20261111-r2';
+export const SESSION_ENTRY_BUILD='entry-diagnostics-20261111-r4';
 export const LEGACY_SAVE_KEYS=['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'];
 // Initialization is deliberately outside the current session's observed model.
 export function createFreshSession(native,seed){
@@ -21,9 +21,9 @@ export function assertStartRecord(storage,expected){
  if(actual.raw!==expected.raw||JSON.stringify(actual.legacy)!==JSON.stringify(expected.legacy))throw conflict();
  return actual;
 }
-// Only preparation yields. The final compare/backup/compare/write/readback uses
+// Only preparation yields. The final compare/write/readback uses
 // the existing synchronous writers; cancellation never crosses that boundary.
-export function createSessionEntry({storage,create,encode,read,write,replace,install,phase=()=>{},yieldTask=()=>new Promise(resolve=>setTimeout(resolve,0))}){
+export function createSessionEntry({storage,create,encode,read,write,install,phase=()=>{},yieldTask=()=>new Promise(resolve=>setTimeout(resolve,0))}){
  let token=0,busy=false,writing=false;
  const cancel=()=>{if(writing)return false;token++;busy=false;return true;};
  async function run(kind,expected,{operation=kind}={}){
@@ -47,28 +47,23 @@ export function createSessionEntry({storage,create,encode,read,write,replace,ins
    if(kind==='new'){candidateText=text;restoreValidated=true;}
    await yieldTask();if(!current())return outcome={ok:false,cancelled:true};
    stage='record-recheck';assertStartRecord(store,expected);
-   let result;
    if(kind==='new'){
     writing=true;stage='writing-ui';phase('writing');writeAttempted=true;
-    let formalWritten=false;const backupReads=new Map();
-    // Observe the existing synchronous writer's actual storage calls. No new
-    // writer, deleted data, bypassed compare or inferred exception stage.
-    const protectedStore={getItem:key=>{
-     const backup=key.startsWith(FORMAL_SAVE_KEY+'.before-market-rules.v1.');
-     const reads=backup?(backupReads.get(key)??0):0;
-     stage=backup?(reads?'backup-readback':'backup-check'):(formalWritten?'formal-readback':'record-recheck');
+    let formalWritten=false;
+    // Normal one-slot replacement deliberately adds no browser backup. The
+    // existing writer compares the exact raw again, sets once, and reads back.
+    const formalStore={getItem:key=>{
+     stage=formalWritten?'formal-readback':'record-recheck';
      const raw=store.getItem(key);
-     if(backup){backupReads.set(key,reads+1);if(raw!==null)backupPresent=true;if(reads&&raw===expected.raw&&raw!==null){backupKey=key;backupVerified=true;}}
-     if(!backup&&formalWritten&&raw===text)writeVerified=true;
+     if(formalWritten&&raw===text)writeVerified=true;
      return raw;
     },setItem:(key,raw)=>{
-     stage=key===FORMAL_SAVE_KEY?'formal-write':'backup-write';
-     store.setItem(key,raw);if(key===FORMAL_SAVE_KEY)formalWritten=true;
+     stage='formal-write';store.setItem(key,raw);formalWritten=true;
     }};
-    // Legacy raw remains at its original durable key and is never removed.
-    result=expected.raw===null?write(protectedStore,FORMAL_SAVE_KEY,null,text):replace(protectedStore,FORMAL_SAVE_KEY,expected.raw,text);
+    // Existing legacy and protected-record keys are not touched.
+    write(formalStore,FORMAL_SAVE_KEY,expected.raw,text);
    }
-   stage='session-apply';install(session,{fresh:kind==='new',text,backupKey:result?.backupKey});
+   stage='session-apply';install(session,{fresh:kind==='new',text,backupKey:null});
    return outcome={ok:true};
   }catch(error){return outcome=failure(error);}
   finally{

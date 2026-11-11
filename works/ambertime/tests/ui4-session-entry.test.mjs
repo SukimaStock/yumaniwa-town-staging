@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import * as native from '../partner-orders.mjs';
 import {createFreshSession,inspectStartRecord,assertStartRecord,createSessionEntry,LEGACY_SAVE_KEYS} from '../session-entry.mjs';
 import {readSession,serializeSession,writeCandidate,FORMAL_SAVE_KEY} from '../development-save.mjs';
-import {commitMarketRulesUpdate} from '../market-ui.mjs';
 import {PARALLEL_PARAMETERS as T} from '../economy-parameters.mjs';
 
 const options={enabled:true,serialize:native.serializeDistillery,restore:native.restoreDistillery,monthMs:T.monthMs,stepMs:T.distillStepMs};
@@ -17,7 +16,7 @@ function memory(raw=original){
 const backups=store=>[...store.values].filter(([key])=>key.startsWith(backupPrefix));
 function harness({store=memory(),create=()=>createFreshSession(native,43),encodeCandidate=encode,read=raw=>readSession(raw,options),yieldTask=()=>Promise.resolve(),phase=()=>{}}={}){
  const installed=[];
- const entry=createSessionEntry({storage:()=>store,create,encode:encodeCandidate,read,write:writeCandidate,replace:commitMarketRulesUpdate,install:(session,details)=>installed.push({session,details}),yieldTask,phase});
+ const entry=createSessionEntry({storage:()=>store,create,encode:encodeCandidate,read,write:writeCandidate,replace:()=>assert.fail('normal new start must not call backup writer'),install:(session,details)=>installed.push({session,details}),yieldTask,phase});
  return {store,installed,entry,expected:inspectStartRecord(store)};
 }
 
@@ -64,17 +63,15 @@ test('continue rejects another tab before reader and after reader before install
  }
 });
 
-test('new session is fully encoded and readback before install, with exact durable old raw',async()=>{
- for(const raw of [original,'{"version":7,"old":"bytes"}','{broken','']){
+test('new session is validated and read back before install without creating a backup',async()=>{
+ for(const raw of [null,original,'{"version":7,"old":"bytes"}','{broken','']){
   const h=harness({store:memory(raw)});assert.deepEqual(await h.entry.start(h.expected),{ok:true});
   assert.equal(h.installed.length,1);assert.equal(h.installed[0].details.fresh,true);
   assert.equal(h.installed[0].session.game.seed,43);
   assert.deepEqual(readSession(h.store.getItem(FORMAL_SAVE_KEY),options),h.installed[0].session);
-  assert.equal(backups(h.store).length,1);assert.equal(backups(h.store)[0][1],raw);
-  assert.equal(h.installed[0].details.backupKey,backups(h.store)[0][0]);
-  // A separate post-reload view can still find and export the exact original.
-  const cold=memory(null);for(const [key,value] of h.store.values)cold.values.set(key,value);
-  assert.equal(cold.getItem(backups(cold)[0][0]),raw);
+  assert.equal(backups(h.store).length,0);
+  assert.equal(h.installed[0].details.backupKey,null);
+  assert.deepEqual(h.store.writes.map(([key])=>key),[FORMAL_SAVE_KEY]);
  }
 });
 
@@ -94,41 +91,33 @@ test('candidate creation and validation failures leave old session and all bytes
  }
 });
 
-test('backup quota, backup mismatch and formal quota never report successful start',async()=>{
- for(const failure of ['backup-quota','backup-mismatch','formal-quota']){
-  const store=memory(),set=store.setItem;
-  store.setItem=(key,value)=>{
-   if(failure==='backup-quota'||failure==='formal-quota'&&key===FORMAL_SAVE_KEY)throw Object.assign(Error('full'),{name:'QuotaExceededError'});
-   if(failure==='backup-mismatch'&&key.startsWith(backupPrefix)){store.values.set(key,'wrong');return;}
-   set(key,value);
-  };
-  const h=harness({store}),result=await h.entry.start(h.expected);
-  assert.equal(result.ok,false);assert(result.error);assert.equal(h.installed.length,0);assert.equal(store.getItem(FORMAL_SAVE_KEY),original);
-  assert.equal(result.formalState,'unchanged');
-  assert.deepEqual(readSession(store.getItem(FORMAL_SAVE_KEY),options),originalSession);
-  if(failure==='formal-quota'){assert.equal(backups(store)[0][1],original);assert.equal(result.backupKey,backups(store)[0][0]);}
- }
+test('formal quota failure never reports successful start and keeps original bytes',async()=>{
+ const store=memory();store.setItem=()=>{throw Object.assign(Error('full'),{name:'QuotaExceededError'});};
+ const h=harness({store}),result=await h.entry.start(h.expected);
+ assert.equal(result.ok,false);assert.equal(result.error.name,'QuotaExceededError');assert.equal(result.stage,'formal-write');
+ assert.equal(h.installed.length,0);assert.equal(store.getItem(FORMAL_SAVE_KEY),original);assert.equal(result.formalState,'unchanged');
+ assert.equal(backups(store).length,0);assert.deepEqual(readSession(store.getItem(FORMAL_SAVE_KEY),options),originalSession);
 });
 
-test('formal readback mismatch protects raw without rolling back uncertain formal state',async()=>{
+test('formal readback mismatch does not roll back or adopt uncertain formal state',async()=>{
  const store=memory(),set=store.setItem;
  store.setItem=(key,value)=>{set(key,value);if(key===FORMAL_SAVE_KEY)store.values.set(key,'other tab after write');};
  const h=harness({store}),result=await h.entry.start(h.expected);
  assert.equal(result.ok,false);assert.equal(result.writeAttempted,true);assert.equal(h.installed.length,0);
- assert.equal(result.formalState,'uncertain');assert.equal(result.backupKey,backups(store)[0][0]);
- assert.equal(store.getItem(FORMAL_SAVE_KEY),'other tab after write');assert.equal(backups(store)[0][1],original);
+ assert.equal(result.formalState,'uncertain');assert.equal(backups(store).length,0);
+ assert.equal(store.getItem(FORMAL_SAVE_KEY),'other tab after write');
  assert.equal(store.writes.filter(([key])=>key===FORMAL_SAVE_KEY).length,1);
- assert.deepEqual(readSession(backups(store)[0][1],options),originalSession);
 });
 
-test('concurrent updates during preparation or backup are never overwritten',async()=>{
- for(const checkpoint of ['before-create','after-encode','during-backup']){
-  const store=memory(),set=store.setItem;let yields=0;
-  if(checkpoint==='during-backup')store.setItem=(key,value)=>{set(key,value);if(key.startsWith(backupPrefix))store.values.set(FORMAL_SAVE_KEY,'other tab');};
+test('concurrent updates during preparation and immediately before writer compare are never overwritten',async()=>{
+ for(const checkpoint of ['before-create','after-encode','writer-compare']){
+  const store=memory(),get=store.getItem;let yields=0,formalReads=0;
+  // inspectStartRecord in harness reads once, entry reads twice, writer reads fourth.
+  if(checkpoint==='writer-compare')store.getItem=key=>{if(key===FORMAL_SAVE_KEY&&++formalReads===4)store.values.set(key,'other tab');return get(key);};
   const h=harness({store,yieldTask:async()=>{yields++;if(checkpoint==='before-create'&&yields===1||checkpoint==='after-encode'&&yields===2)store.values.set(FORMAL_SAVE_KEY,'other tab');}});
   const result=await h.entry.start(h.expected);assert.equal(result.ok,false);assert.equal(h.installed.length,0);
   assert.equal(store.getItem(FORMAL_SAVE_KEY),'other tab');assert(!store.writes.some(([key])=>key===FORMAL_SAVE_KEY));
-  if(checkpoint==='during-backup')assert.equal(backups(store)[0][1],original);
+  assert.equal(backups(store).length,0);
  }
 });
 

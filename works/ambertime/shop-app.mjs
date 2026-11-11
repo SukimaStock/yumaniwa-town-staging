@@ -17,8 +17,8 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
-import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r2';
-import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r2';
+import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r4';
+import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r4';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
@@ -1634,8 +1634,8 @@ function installSession(session,{fresh=false}={}){
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }
 let newGameBackupKey=null;
-const ENTRY_APP_BUILD='entry-diagnostics-20261111-r2';
-const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r2',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newWorldNetworkDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
+const ENTRY_APP_BUILD='entry-diagnostics-20261111-r4';
+const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r4',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newWorldNetworkDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
 function clearEntryDiagnostic(){entryDiagnostic=null;const status=$('entry-copy-status');if(status)status.textContent='';const details=$('entry-error-details');if(details)details.open=false;}
 function recordEntryFailure(error,result={}){
  const status=$('entry-copy-status');if(status)status.textContent='';
@@ -1662,12 +1662,12 @@ function paintEntry(){
  $('entry-begin').hidden=!confirmView;$('entry-begin').disabled=busy||!entrySnapshot;
  $('entry-back').hidden=!confirmView&&!entryReturn;$('entry-back').disabled=sessionEntry?.writing??false;
  $('entry-recheck').hidden=confirmView||(!entryMessage&&entrySnapshot?.kind!=='unreadable'&&entrySnapshot?.kind!=='legacy');$('entry-recheck').disabled=busy;
- $('entry-export').hidden=entrySnapshot?.raw==null&&!entrySnapshot?.legacy.length;
- $('entry-confirm-copy').textContent=entrySnapshot?.raw!==null||entrySnapshot?.legacy.length?'今の記録を保護して、新しい蒸留所で始めます。開始後の「つづきから」は、新しい記録になります。':'新しい蒸留所を始めます。';
+ $('entry-export').hidden=(!debugEnabled&&!entryDiagnostic&&entrySnapshot?.kind==='current')||(entrySnapshot?.raw==null&&!entrySnapshot?.legacy.length);
+ $('entry-confirm-copy').textContent=entrySnapshot?.raw!==null||entrySnapshot?.legacy.length?'今の記録を消して、はじめから遊びますか？':'新しい蒸留所を始めます。';
 }
 function showTitle(){
  entryOperation='title-inspect';sessionActive=false;stopClock();entryView='title';entryMessage='';entryReturn=null;entryIntent=null;
- if(inspectEntry())entryMessage=entrySnapshot.kind==='unreadable'?'読み込めない記録があります。原文を書き出すか、保護して新しく始められます。':entrySnapshot.kind==='legacy'?'以前の開発版の記録があります。原文を残して新しく始められます。':'';
+ if(inspectEntry())entryMessage=entrySnapshot.kind==='unreadable'?'読み込めない記録があります。復旧用に原文を書き出せます。「はじめから」では、この記録を置き換えます。':entrySnapshot.kind==='legacy'?'以前の開発版の記録があります。原文を残して新しく始められます。':'';
  protectedRecordExports();paintEntry();
 }
 function startNew(){
@@ -1676,7 +1676,7 @@ function startNew(){
  if(preview){if(!confirm('試遊を最初からやり直しますか？'))return false;const session=createFreshSession(nativeModel,seed);installSession(session,{fresh:true});return true;}
  if(sessionActive){entryReturn={modal,userPaused,canSave,runtimeHalted,savedText:lastSavedText};sessionActive=false;stopClock();if(debugSkipJob){clearTimeout(debugSkipJob.timer);debugSkipJob=null;}countdown.cancel();automaticNews.update();marketUI.update({visible:false,sessionActive:false});vaultPanels();if($('action-dialog').open)$('action-dialog').close();}
  entryMessage='';if(!inspectEntry()){entryView='error';paintEntry();return false;}
- entryIntent='new';entryView='confirm';paintEntry();$('entry-back').focus({preventScroll:true});return true;
+ entryIntent='new';if(entrySnapshot.kind==='empty')return enterSession('new');entryView='confirm';paintEntry();$('entry-back').focus({preventScroll:true});return true;
 }
 function cancelEntry(){
  if(!sessionEntry.cancel())return;
@@ -1689,8 +1689,8 @@ function cancelEntry(){
 }
 const sessionEntry=createSessionEntry({storage:()=>localStorage,create:()=>createFreshSession(nativeModel,seed),
  encode:session=>sessionText(session.game,session.userPaused,session.elapsed,session.caskSlots,session.recentLedger,session.historyRecord,session.recallRecord),
- read:raw=>readSession(raw,{...sessionOptions,enabled:true}),write:writeCandidate,replace:commitMarketRulesUpdate,
- phase:phase=>{if(phase!=='idle'){entryView=phase;entryMessage=phase==='writing'?'記録を保護して保存しています。':'記録を確認しています。';}paintEntry();},
+ read:raw=>readSession(raw,{...sessionOptions,enabled:true}),write:writeCandidate,
+ phase:phase=>{if(phase!=='idle'){entryView=phase;entryMessage=phase==='writing'?'新しい記録を保存しています。':'記録を確認しています。';}paintEntry();},
  install:(session,{fresh,text,backupKey})=>{lastSavedText=text;legacyRecord=null;if(backupKey)newGameBackupKey=backupKey;installSession(session,{fresh});protectedRecordExports();if(fresh)startShadow(session.game);}
 });
 async function enterSession(kind){
@@ -1727,6 +1727,7 @@ backupExport.addEventListener('click',()=>{try{const raw=newGameBackupKey&&local
 function protectedRecordExports(){
  for(const parent of [$('aux-panel'),$('recovery'),$('entry-records')]){
   parent.querySelector('[data-protected-records]')?.remove();
+  if(parent===$('entry-records')&&!debugEnabled&&!entryDiagnostic&&entryView!=='error')continue;
   const list=document.createElement('details');list.dataset.protectedRecords='';const summary=document.createElement('summary');summary.textContent='保護した記録';list.append(summary);
   try{for(let i=0;i<localStorage.length;i++){
    const key=localStorage.key(i);const legacy=['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'].includes(key);if(!legacy&&!key?.startsWith(SAVE_KEY+'.before-market-rules.v1.'))continue;
