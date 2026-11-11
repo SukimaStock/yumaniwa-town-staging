@@ -1,0 +1,98 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7ea41cdb83c98768867b5691f91f4a3d3a4fff1473aa6f321a481c11529f89d4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-night-stage1-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Stage 1: initial choices, stock deltas and actionable retained stepped notices",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "ebc507df0ece98dadab0673e9d27e39a69424467",
+    "canonicalSources": [
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/canvas-scene.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-night-stage1-20261111/r0.lock.json",
+      "works/ambertime/brewing-cards.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/event-notices.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/notice-motion.css",
+      "works/ambertime/canvas-scene.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**",
+      "works/ambertime/design/night-stage1-20261111/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Unlock long fermentation card from start; refill left bourbon right; no flavor or age calculations",
+      "Stock plus and minus right of current quantity; remove upper reserved line",
+      "Maintain horizontal travel duration with more discrete steps and viewport clipping",
+      "Tap routed notices to existing cask/store; tap other notices to dismiss; preserve interrupted remaining lifetime on room transitions without inbox or completed replay",
+      "Audit final generation distillation notice, retain content and recall and use main notification presentation"
+    ],
+    "ownerDecisions": [
+      "Explicit current night implementation request authorizes stage1 UI decisions and safe Staging merge after CI and independent review; Production excluded"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard prior Plan Lock; Scope Risk Impact; no formal save/model changes",
+      "Expression audit: no added decorative copy; retain accessible actions"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Desktop and mobile browser checks when executable available",
+      "Required CI and Pages exact SHA; physical iPhone unverified"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert stage1 implementation; no persistent schema or saved model changes",
+    "outOfScope": [
+      "Production",
+      "Formal save codec, game economics or historical replay",
+      "Other open Draft branches",
+      "Inbox"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari"
+    ]
+  }
+}
