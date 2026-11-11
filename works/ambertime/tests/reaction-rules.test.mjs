@@ -12,12 +12,13 @@ test('sales dialogue retains only unseen latest, leaving consumes shown, reload 
  room='sales';n.update();assert.deepEqual(shown,[24]);room='warehouse';n.update();assert.equal(visible,false);room='sales';n.update();c.advance(7000);assert.deepEqual(shown,[24]);
  commit(36);c.advance(0);n.dismiss();n.update();assert.deepEqual(shown,[24,36]);n.reset();n.update();assert.equal(visible,false);
 });
-test('operation result dismiss/room boundary; world latest remains distinct and lasts 6.5 seconds',()=>{
+test('room changes retain the active result; latest world fact follows once for 6.5 seconds',()=>{
  const c=clock(),shown=[];let room='distill',safe=true,visible='';
  const n=scopedNotices({...c,room:()=>room,safe:()=>safe,show:t=>{visible=t;shown.push(t)},hide:()=>visible=''});
  n.push([{id:'bottle:1',kind:'bottled',count:3},{id:'town:1',kind:'message',text:'町へ届いた'}]);assert.equal(visible,'ビン詰め完了 3本');
- n.push([{id:'town:2',kind:'message',text:'海外へ届いた'}]);room='sales';n.update();assert.equal(visible,'海外へ届いた');assert(!shown.includes('町へ届いた'));
- c.advance(3500);assert.equal(visible,'海外へ届いた');c.advance(3000);assert.equal(visible,'');room='warehouse';n.update();room='sales';n.update();assert.equal(visible,'');
+ n.push([{id:'town:2',kind:'message',text:'海外へ届いた'}]);room='sales';n.update();assert.equal(visible,'ビン詰め完了 3本');assert(!shown.includes('町へ届いた'));
+ c.advance(3499);assert.equal(visible,'ビン詰め完了 3本');c.advance(1);assert.equal(visible,'海外へ届いた');assert.equal(shown.filter(t=>t==='ビン詰め完了 3本').length,1);
+ c.advance(6499);assert.equal(visible,'海外へ届いた');c.advance(1);assert.equal(visible,'');room='warehouse';n.update();room='sales';n.update();assert.equal(visible,'');
  n.push([{id:'result:1',kind:'message',text:'配置できません'}]);n.clear();n.push([{id:'result:1',kind:'message',text:'配置できません'}]);assert.equal(visible,'');
  n.push([{id:'result:2',kind:'message',text:'結果'}]);safe=false;n.update();assert.equal(visible,'');safe=true;n.update();assert.equal(visible,'結果');
 });

@@ -4,7 +4,7 @@ import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
 import {roomStaffAccess} from './staff-access-view.mjs?v=staff-access-s3-1';
 import {staffEncounterMarkup} from './staff-encounter-view.mjs?v=hiring-s2-1';
 import {createDialogueProjection,dialogueShopName} from './shop-dialogue.mjs?v=all-stores-s2-1';
-import {dialogueMarkup} from './shop-dialogue-view.mjs?v=all-stores-s2-1&fix=room-resume';
+import {dialogueMarkup,installDialogueDismissal} from './shop-dialogue-view.mjs?v=all-stores-s2-1&fix=room-resume';
 import {releasePackageArt} from './release-package.mjs?v=package-c1l-1';
 import {migrateRecentLedger,advanceRecentLedger,recentLedgerView} from './recent-ledger.mjs?v=s3-1';
 import {ledgerProfile,caskTimeline,recordTimeline,recordText} from './ledger-history-view.mjs?v=refactor-r5-1';
@@ -22,8 +22,8 @@ import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from '
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
-import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
-import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&repair=ui3-20261111';
+import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111&night=stage1';
+import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&repair=ui3-20261111&night=stage1';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
@@ -33,21 +33,21 @@ import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=s
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {mapSceneryButterflies,syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
-import {mapPartnerProjection,marketPartnerScopeForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
+import {mapPartnerProjection,marketPartnerScopeForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111&night=stage1';
 import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
-import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard,brewingPanelState} from './brewing-cards.mjs?v=confirmed-brewing-r1';
+import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard,brewingPanelState} from './brewing-cards.mjs?v=night-stage1-20261111';
 import {playerMilestones} from './player-news.mjs?v=0.25.4';
 import {flavorSummary} from './lab-flavor.mjs?v=stage4-r2';
 import {buildShopLedger} from './shop-ledger.mjs?v=bar-v01-1';
 import {buildReleaseLedger} from './ledger-view.mjs?v=0.63-ledger&delivery=regional-delivery-v01';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,releasePriceTier} from './brand-identity.mjs?v=0.58-first-brand';
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
-import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel,bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber} from './ui-details.mjs?v=stage4-r2&repair=ui3-20261111';
+import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel,bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber} from './ui-details.mjs?v=stage4-r2&repair=ui3-20261111&night=stage1';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1&repair=ui2-20261111';
-import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=night-stage1-20261111';
+import {noticePresentation} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
-import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1&repair=ui2-20261111';
+import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1&repair=ui2-20261111&night=stage1';
 import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
@@ -140,53 +140,40 @@ const automaticNews=scopedNotices({room:()=>room,safe:ordinaryNoticeSafe,
  show:(text,entries,lifetime,kind)=>{
  if(kind==='shop'){
   const entry=entries[0].entry;dialogueElement.innerHTML=dialogueMarkup(entry,committedSession?.game??game,{heading:true});dialogueElement.dataset.text=entry.text;dialogueElement.style.setProperty('--notice-life',lifetime+'ms');
+  if(noticeTarget(entries)){const mark=document.createElement('span');mark.textContent=' ›';mark.setAttribute('aria-hidden','true');dialogueElement.querySelector('.shop-dialogue-store')?.append(mark);}
   dialogueElement.hidden=false;dialogueElement.style.animation='none';void dialogueElement.offsetWidth;dialogueElement.style.removeProperty('animation');scene.positionDialogue();
  }else{
   const el=$('automatic-news'),style=noticePresentation(entries),visibleText=style.heading?style.heading+'\n'+text:text;
-  el.dataset.motion=style.motion;el.style.setProperty('--notice-life',lifetime+'ms');el.textContent=visibleText;el.hidden=false;
+  el.dataset.motion=style.motion;el.style.setProperty('--notice-life',lifetime+'ms');el.textContent=visibleText+(noticeTarget(entries)?' ›':'');el.hidden=false;
   el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');
  }
  queueMicrotask(()=>{if(game)render();});
 },hide:()=>{$('automatic-news-close').hidden=true;$('automatic-news').hidden=true;$('automatic-news').textContent='';dialogueElement.hidden=true;dialogueElement.innerHTML='';queueMicrotask(()=>{if(game)render();});}});
 $('automatic-news-close').addEventListener('click',()=>automaticNews.clear());
 // Keep transient notices above the body-mounted sales board.
-document.body.append($('automatic-news'),$('market-action-status'));document.body.append($('automatic-news-close'));
+const newsViewport=document.createElement('div');newsViewport.id='news-viewport';Object.assign(newsViewport.style,{position:'fixed',inset:'0',pointerEvents:'none',zIndex:'15'});document.body.append(newsViewport);newsViewport.append($('automatic-news'));document.body.append($('market-action-status'),$('automatic-news-close'));
 const dialogueProjection=createDialogueProjection();
 const dialogueElement=document.createElement('aside');dialogueElement.id='shop-dialogue-notice';dialogueElement.dataset.motion='ambient';dialogueElement.hidden=true;dialogueElement.setAttribute('role','status');dialogueElement.setAttribute('aria-atomic','true');dialogueElement.setAttribute('aria-live','polite');document.body.append(dialogueElement);
-// Non-interactive top notice derives entirely from the already committed
-// generation state. Neither its display nor the map's reserved headroom is saved.
-const importantTop=document.createElement('aside');
-importantTop.id='important-top-notice';importantTop.hidden=true;importantTop.setAttribute('role','status');importantTop.setAttribute('aria-live','polite');importantTop.setAttribute('aria-atomic','true');
-importantTop.innerHTML='<div class="important-top-heading"></div><div class="important-top-text"></div>';
-document.body.append(importantTop);
-function positionImportantTop(){
- if(importantTop.hidden||!scene.viewport)return;
- const v=scene.viewport;
- Object.assign(importantTop.style,{
-  left:(v.left+v.offsetX+12*v.scale)+'px',
-  top:(v.top+v.offsetY+103*v.scale)+'px',
-  width:336*v.scale+'px',
-  fontSize:Math.max(12,Math.round(15*v.scale))+'px'
- });
- importantTop.style.setProperty('--notice-scale',String(v.scale));
-}
-function updateImportantTop(gen){
- const notice=topGenerationNotice({generation:gen?{id:gen.id,phase:gen.phase,deadlineLabel:monthLabel(gen.fixedMonth+12)}:null,modal,canSave,preview,runtimeHalted,documentHidden:document.hidden});
- document.body.dataset.topImportant=notice?'true':'false';
- if(!notice){importantTop.hidden=true;return false;}
- const nextKey=notice.heading+'|'+notice.text;
- if(importantTop.dataset.key!==nextKey){
-  importantTop.querySelector('.important-top-heading').textContent=notice.heading;
-  importantTop.querySelector('.important-top-text').textContent=notice.text;
-  importantTop.dataset.key=nextKey;
+// The last-batch message uses the existing scene notification window.
+// Its text and the saved generation acknowledgement remain unchanged.
+function updateImportantTop(){document.body.dataset.topImportant='false';return false;}
+function noticeTarget(events){
+ for(const e of events){
+  const caskId=e.caskId;if(Number.isInteger(caskId)&&D.currentCask(game,caskId))return {kind:'cask',id:caskId};
+  const shopId=e.shopId??e.entry?.shopId;
+  if(shopId){for(let stage=1;stage<=MAP_BROWSE_MAX;stage++)if(mapPartnerProjection(game,stage).pins.some(p=>p.id===shopId))return {kind:'shop',id:shopId,stage};}
  }
- importantTop.hidden=false;positionImportantTop();return true;
+ return null;
 }
-window.addEventListener('resize',()=>requestAnimationFrame(positionImportantTop));
-window.visualViewport?.addEventListener('resize',()=>requestAnimationFrame(positionImportantTop));
-window.visualViewport?.addEventListener('scroll',()=>requestAnimationFrame(positionImportantTop));
-// The existing projection supplies one latest letter; all ordinary messages use
-// the same lane. No persisted dialogue eligibility or history is changed.
+function activateNotice(){
+ const target=noticeTarget(automaticNews.events);automaticNews.clear();
+ if(!target||modal)return;
+ if(target.kind==='cask'){stopClock();warehouseRoom.select(target.id);room='warehouse';modal={kind:'inspect',id:target.id};render();return;}
+ setMapBrowse({...currentMapBrowse(),stage:target.stage,selectedShop:target.id});room='sales';m0.close();inspectMapPartner(target.id);render();schedule();
+}
+for(const el of [$('automatic-news'),dialogueElement]){
+ el.tabIndex=0;el.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();automaticNews.clear();}},true);installDialogueDismissal(el,activateNotice);
+}
 const dialogueNotice={update:()=>automaticNews.update(),reset:()=>{},commit(before,next,entry){
  if(!before||next.core.month<=before.core.month||!(entry?.month>before.core.month))return;
  const epoch=automaticNews.epoch;
@@ -1140,7 +1127,7 @@ function syncModal(){
   actions+=button('試す','trial',d.caskId);
  }else if(kind==='fill'){
   modal.fillType??=D.operationDefaults(game).caskType;
-  const profile=spiritProfile(game.core.spirit),tint=game.core.spirit?.flavor?.version===1?glassColor(game.core.spirit.flavor.profile).color:null,choices=['bourbon','refill'].map(type=>{let reason='';try{nativeModel.fillBarrel(game,type);}catch(error){reason=displayReason(error.message);}return {type,reason};}),selected=choices.find(x=>x.type===modal.fillType);
+  const profile=spiritProfile(game.core.spirit),tint=game.core.spirit?.flavor?.version===1?glassColor(game.core.spirit.flavor.profile).color:null,choices=['refill','bourbon'].map(type=>{let reason='';try{nativeModel.fillBarrel(game,type);}catch(error){reason=displayReason(error.message);}return {type,reason};}),selected=choices.find(x=>x.type===modal.fillType);
   title='蒸留結果';body='<section class="fill-result" aria-label="蒸留結果"><p class="fill-volume">原酒 '+game.core.spirit.litres.toFixed(1)+' L</p>'+(profile?.axes??[]).map(axis=>'<div class="fill-result-axis"><span>'+esc(uiText(axis.label))+'</span><span class="fill-result-meter" role="meter" aria-label="'+esc(uiText(axis.label))+'" aria-valuemin="0" aria-valuemax="1" aria-valuenow="'+axis.value+'"><i style="width:'+axis.ratio*100+'%"></i></span></div>').join('')+(profile?.phrase?'<p class="fill-result-phrase">'+(tint?'<span class="fill-flavor-mark" aria-hidden="true" style="background:'+tint+'"></span>':'')+esc(uiText(profile.phrase))+'</p>':'')+'</section><h3 class="fill-heading">たるを選ぶ</h3><div class="bottling-modes" role="group" aria-label="たるの種類">'+choices.map(({type,reason})=>'<div class="fill-choice">'+button('<span class="fill-art choice-art" aria-hidden="true">'+barrel(type)+'</span><span class="choice-name">'+esc(uiText(P.casks[type].short))+'</span><span class="choice-price">'+money(P.casks[type].cost)+'</span>','fill-select',type,'aria-pressed="'+(modal.fillType===type)+'"'+(reason?' disabled':''))+(reason?'<p class="fill-choice-reason">'+esc(reason)+'</p>':'')+'</div>').join('')+'</div>';
   actions=button('たる詰め','fill',modal.fillType??'',selected&&!selected.reason&&(preview||canSave)?'':'disabled')+button('戻る','cancel');
  }else if(kind==='quote'&&c){

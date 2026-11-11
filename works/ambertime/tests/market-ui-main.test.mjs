@@ -168,7 +168,7 @@ test('hand heading avoids duplicate aggregate and successful saved placement use
 test('normal placement targets stay neutral and the saved status has a dedicated hidden live region',()=>{
  const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),css=read('market.css'),app=read('shop-app.mjs'),html=read('index.html');
  const targetRule=css.match(/#market-board \.market-target\{([^}]+)\}/)[1];assert.doesNotMatch(targetRule,/#e4bc66|#57472e/);assert.match(css,/button\[aria-pressed=true\][^}]+#e4bc66/);assert.match(css,/market-shop[^}]+border:[^}]+#858995/);
- assert.match(html,/id="market-action-status" class="sr-only" role="status" aria-live="polite"/);assert.match(app,/announceSaved:text=>/);assert.match(app,/document.body.append\(\$\('automatic-news'\),\$\('market-action-status'\)\)/);
+ assert.match(html,/id="market-action-status" class="sr-only" role="status" aria-live="polite"/);assert.match(app,/announceSaved:text=>/);assert.match(app,/document.body.append\(\$\('market-action-status'\)[,)]/);assert.match(app,/newsViewport.append\(\$\('automatic-news'\)\)/);
 });
 
 
@@ -254,4 +254,14 @@ test('bar sale receipts join ordinary saved sales without changing the selected 
  h.ui.consume(before,after);assert.deepEqual(h.ui.diagnostics().order,['retail','town-liquor','supermarket','bar']);assert.deepEqual(h.savedNotices,['路地裏のバーで1本売れました。']);
  assert.match(h.root.innerHTML,/data-market-shop="bar"/);
  await Promise.resolve();await Promise.resolve();t.mock.timers.tick(1400);assert.equal(h.ui.diagnostics().feedback.length,0);
+});
+
+test('both signed quantity changes keep the right-side baseline and shelves no longer reserve an upper delta row',()=>{
+ const ui=fs.readFileSync(new URL('../market-ui.mjs',import.meta.url),'utf8');
+ const css=fs.readFileSync(new URL('../market.css',import.meta.url),'utf8');
+ assert.match(ui,/const slot=element\?\.closest\?\.\('\.market-stock'\)\?\.querySelector\('\.market-sale-slot'\)/);
+ assert.doesNotMatch(ui,/anchor\.top-size\.height|translateY\(-[36]px\)/);
+ assert.match(css,/\.market-sale-slot\{grid-column:3;grid-row:1/);
+ assert.doesNotMatch(css,/\.market-sale-slot\{position:absolute|margin-top:var\(--uniform-line-height/);
+ assert.match(css,/\.market-stock-row\{position:relative;margin-top:0\}/);
 });

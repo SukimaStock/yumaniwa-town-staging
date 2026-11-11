@@ -59,23 +59,21 @@ export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTime
  const stats={received:0,displayed:0,discarded:0,interrupted:0};
  const priority={operation:0,world:1,shop:2,ambient:3};
  const key=n=>n.kind==='operation'?'operation:'+n.room:n.kind;
- const allowed=n=>safe()&&(n.kind==='world'||n.kind==='shop'?room()==='sales':room()===n.room)&&eligible(n);
+ const allowed=n=>safe()&&(n.startedOnce||(n.kind==='world'||n.kind==='shop'?room()==='sales':room()===n.room))&&eligible(n);
  function stop(){if(timer!==null)clearTimer(timer);timer=null;current=null;hide();}
  function retain(n){const k=key(n),old=pending.get(k);if(old){if(old.serial>n.serial){stats.discarded++;return;}stats.discarded++;}pending.set(k,n);}
  function update(){
   if(current&&!allowed(current)){
    const old=current,visible=now()-old.started;stop();stats.interrupted++;
-   // Below the reading threshold, retain the fact, not a running hidden timer.
-   // Daily observations are deliberately disposable. Newer pending facts win.
-   if(old.kind==='world'){
-    old.remaining=Math.max(0,(old.remaining??old.duration)-visible);old.resuming=true;
-    if(old.remaining>0)retain(old);
-   }else if(old.kind!=='ambient'&&visible<3500)retain(old);else stats.discarded++;
+   // A displayed fact follows the player. Occlusion pauses its remaining
+   // lifetime; it never starts a second full reading interval.
+   old.remaining=Math.max(0,(old.remaining??old.duration)-visible);old.resuming=true;
+   if(old.remaining>0)retain(old);else stats.discarded++;
   }
   if(current)return;
   const next=[...pending.values()].filter(allowed).sort((a,b)=>priority[a.kind]-priority[b.kind]||a.serial-b.serial)[0];
   if(!next)return;
-  pending.delete(key(next));current=next;next.started=now();if(!next.resuming)stats.displayed++;
+  pending.delete(key(next));current=next;next.started=now();next.startedOnce=true;if(!next.resuming)stats.displayed++;
   const entries=next.kind==='world'?[{...next.events[0],id:'world-display:'+next.serial}]:next.kind==='ambient'?[{...next.events[0],kind:'message',id:'daily-display:'+next.serial}]:next.events;
   const remaining=next.remaining??next.duration;show(noticeText(entries),entries,remaining,next.kind);
   timer=setTimer(()=>{stop();update();},remaining);
@@ -101,6 +99,7 @@ export function scopedNotices({room,safe,show,hide,setTimer=setTimeout,clearTime
   }
  }
  return {push,update,clear(){stop();update();},reset(){epoch++;stop();pending.clear();seen.clear();for(const k of Object.keys(stats))stats[k]=0;},
+  get events(){return current?.events??[];},
   get epoch(){return epoch;},
   get active(){return current?.kind??null;},
   get worldPending(){return current?.kind==='world'||pending.has('world');},

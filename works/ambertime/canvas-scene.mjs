@@ -1,4 +1,4 @@
-import{BREWING_CARDS}from'./brewing-cards.mjs?v=confirmed-brewing-r1';
+import{BREWING_CARDS}from'./brewing-cards.mjs?v=night-stage1-20261111';
 import{drawCutBar}from'./cut-bar.mjs?v=cut-range-r1';
 import{drawDistillTools,TOOL_GEOMETRY,leverGuideOffset,leverReturnStep}from'./distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import{installUniformTypography}from'./font-uniform.mjs?v=uniform-messages-r1';
@@ -200,6 +200,7 @@ export class CanvasScene{
  // downward travel above the management controls as well.
  positionAutomaticNews(news,close=null){
   const v=this.viewport,metrics=this.textMetrics(),step=this.uniformTypography?.metrics.lineLogical??Math.max(26,metrics.logical+4);
+  const clip=news.parentElement;if(clip?.id==='news-viewport')clip.style.clipPath=`inset(${Math.max(0,v.top+v.offsetY)}px ${Math.max(0,innerWidth-v.left-v.offsetX-360*v.scale)}px ${Math.max(0,innerHeight-v.top-v.offsetY-640*v.scale)}px ${Math.max(0,v.left+v.offsetX)}px)`;
   const n=noticeLayout(news.textContent,t=>this.measure(t),{step}),r=projectRect(v,n),border=parseFloat(getComputedStyle(news).borderLeftWidth)||0;
   const travel=news.dataset.motion==='ambient'&&!this.reducedMotion.matches?25:0;
   const bottom=v.offsetY+514*v.scale-travel,top=v.offsetY+250*v.scale,maxHeight=Math.max(1,bottom-top);
@@ -212,7 +213,7 @@ export class CanvasScene{
   news.dataset.overflow=String(overflow);
   if(close){close.hidden=!overflow;if(overflow)Object.assign(close.style,{left:(r.x+r.width-84)+'px',top:(parseFloat(news.style.top)-44)+'px'});}
   if(overflow){news.tabIndex=0;news.setAttribute('aria-label','町の知らせ。スクロールして全文を読めます。');}
-  else{news.removeAttribute('tabindex');news.removeAttribute('aria-label');news.scrollTop=0;}
+  else{news.tabIndex=0;news.removeAttribute('aria-label');news.scrollTop=0;}
   news.dataset.noticeLayout=JSON.stringify({...n,nativeHeight:height,overflow});
  }
  // Text is rasterized at integral physical dots, independently of the room scale.

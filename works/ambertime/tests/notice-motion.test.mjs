@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {noticePresentation,generationCaption,topGenerationNotice} from '../notice-motion.mjs';
 
 test('daily event has a generation speaker while operations stay unstyled',()=>{
@@ -18,4 +19,11 @@ test('generation top banner is a projection only when safe and not modal',()=>{
 });
 test('original generational display names do not require storage',()=>{
  assert.equal(generationCaption(1),'初代');assert.equal(generationCaption(2),'二代');assert.equal(generationCaption(11),'11代');
+});
+
+test('horizontal news keeps its duration and stepped motion with slightly more frames',()=>{
+ const css=readFileSync(new URL('../notice-motion.css',import.meta.url),'utf8');
+ assert.match(css,/amber-news-pass 240ms steps\(6,end\)/);
+ assert.match(css,/amber-news-leave 180ms steps\(5,end\)/);
+ assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
 });

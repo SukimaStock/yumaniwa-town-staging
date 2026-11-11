@@ -33,7 +33,8 @@ test('Canvas fallback notices paint each line from the same padded left edge',()
 test('each timed lane has brief stepped edges and no moving animation during reading',()=>{
  const lanes=[['.automatic-news[data-motion="ambient"]','amber-day-rise','amber-day-leave',240,6000],['.automatic-news[data-motion="news"]','amber-news-pass','amber-news-leave',240,6500],['.automatic-news[data-motion="operation"]','amber-top-appear','amber-operation-leave',180,3500],['#shop-dialogue-notice[data-motion="ambient"]','amber-shop-rise','amber-shop-leave',180,6500]];
  for(const [selector,enter,leave,entryMs,lifetime] of lanes){
-  const body=rule(selector);assert.match(body,new RegExp('animation:'+enter+' '+entryMs+'ms steps\\([34],end\\) both,'+leave+' 180ms steps\\(3,end\\) calc\\(var\\(--notice-life,'+lifetime+'ms\\) - 180ms\\) forwards;'));
+  const enterSteps=enter==='amber-news-pass'?'6':'[34]',leaveSteps=leave==='amber-news-leave'?'5':'3';
+  const body=rule(selector);assert.match(body,new RegExp('animation:'+enter+' '+entryMs+'ms steps\\('+enterSteps+',end\\) both,'+leave+' 180ms steps\\('+leaveSteps+',end\\) calc\\(var\\(--notice-life,'+lifetime+'ms\\) - 180ms\\) forwards;'));
   // The entry finishes within 240ms and the exit cannot start until the final
   // 180ms; the entire intervening reading interval keeps the final entry pose.
   assert(entryMs<=240);assert(lifetime-180-entryMs>=3000);

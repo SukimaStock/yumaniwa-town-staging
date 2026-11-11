@@ -22,30 +22,32 @@ test('four exact 16x16 icons draw native integer pixels, ear silhouette and liqu
  assert(short.rows.join('').split('3').length>long.rows.join('').split('3').length);
 });
 
-test('first manual UI is short without mutating default/old save; three usable cards and locked request rejected',()=>{
+test('all four manual choices are available initially without mutating model defaults or old saves',()=>{
  const s=D.newConnectedDistillery(42),raw=D.serializeDistillery(s);
  assert.equal(s.labConnection.cards.ferment,'long','legacy model default is untouched');
- assert.equal(longFermentationUnlocked(s),false);assert.deepEqual(manualCards(s),{malt:'plain',ferment:'short'});
- assert.deepEqual(chooseManualCard(s,'malt','peat'),{malt:'peat',ferment:'short'});assert(chooseManualCard(s,'ferment','short'));
- assert.equal(chooseManualCard(s,'ferment','long'),null);assert.equal(chooseManualCard(s,'other','long'),null);
- const html=brewingCardsMarkup(s);assert.equal((html.match(/<button /g)||[]).length,4);assert.equal((html.match(/ disabled /g)||[]).length,1);assert.match(html,/card-lock/);assert.match(html,/data-id="short" aria-pressed="true"/);assert.match(html,/初めて自分でたる詰めすると解放/);
+ assert.equal(longFermentationUnlocked(s),true);assert.deepEqual(manualCards(s),{malt:'plain',ferment:'long'});
+ assert.deepEqual(chooseManualCard(s,'malt','peat'),{malt:'peat',ferment:'long'});
+ assert.deepEqual(chooseManualCard(s,'ferment','short'),{malt:'plain',ferment:'short'});
+ assert.deepEqual(chooseManualCard(s,'ferment','long'),{malt:'plain',ferment:'long'});
+ assert.equal(chooseManualCard(s,'other','long'),null);
+ const html=brewingCardsMarkup(s);assert.equal((html.match(/<button /g)||[]).length,4);
+ assert.doesNotMatch(html,/ disabled |card-lock|初めて自分でたる詰めすると解放/);
  for(const label of ['ふつう','ピート','短め','長め'])assert.ok(html.includes('<span class="brewing-name">'+label+'</span>'));
- assert.deepEqual(BREWING_CARDS.map(c=>c.label),['ふつうの麦芽','ピート麦芽','短い発酵','長い発酵']);
  assert.equal(D.serializeDistillery(s),raw);assert.equal(D.serializeDistillery(cold(s)),raw);
- const started=start(s);assert.equal(started.still.distillation.labChoice.ferment,'short');assert.equal(longFermentationUnlocked(started),false);
+ const started=start(s);assert.equal(started.still.distillation.labChoice.ferment,'long');
 });
 
-test('successful manual fill unlocks next selection, persists through cold replay, no unlock field added',()=>{
- const initial=D.newConnectedDistillery(42),stopped=stop(start(initial));assert.equal(longFermentationUnlocked(stopped),false);
+test('manual choices survive a fill and cold replay without an unlock field',()=>{
+ const initial=D.newConnectedDistillery(42),stopped=stop(start(initial));
  const filled=D.fillBarrel(stopped,'refill'),raw=D.serializeDistillery(filled),loaded=cold(filled);
  assert.equal(longFermentationUnlocked(filled),true);assert.equal(longFermentationUnlocked(loaded),true);
  assert.deepEqual(Object.keys(filled.labConnection).sort(),Object.keys(initial.labConnection).sort());
- const selected=D.selectFlavorCards(loaded,chooseManualCard(loaded,'ferment','long'));
- assert.equal(cold(selected).labConnection.cards.ferment,'long');assert.doesNotMatch(brewingCardsMarkup(selected),/ disabled |card-lock/);
+ for(const ferment of ['short','long']){
+  const selected=D.selectFlavorCards(loaded,chooseManualCard(loaded,'ferment',ferment));
+  assert.equal(cold(selected).labConnection.cards.ferment,ferment);
+  assert.doesNotMatch(brewingCardsMarkup(selected),/ disabled |card-lock/);
+ }
  assert.equal(D.serializeDistillery(filled),raw);
- assert.equal(longFermentationUnlocked({operations:[{key:'complete-usual'}]}),false);
- assert.equal(longFermentationUnlocked({operations:[],origin:{operations:[],origin:{operations:[{key:'fill'}]}}}),true);
- assert.equal(longFermentationUnlocked({staffExperience:{manualFills:1},operations:[]}),true);
 });
 
 test('real legacy filled saves unlock without writing or reinterpreting their records',()=>{
@@ -58,7 +60,7 @@ test('real legacy filled saves unlock without writing or reinterpreting their re
 test('four existing combinations still use the unchanged Lab calculation at the chosen range',()=>{
  const results=[];
  for(const malt of ['plain','peat'])for(const ferment of ['short','long']){
-  // Model/recipe path deliberately accepts historical long before the manual UI unlock.
+  // Model/recipe path deliberately accepts historical long from the first manual batch.
   const s=D.selectFlavorCards(D.newConnectedDistillery(42),{malt,ferment});
   let run=D.beginCollection(D.startRangeDistillation(s));run=stop(run);
   const f=run.core.spirit.flavor;assert.equal(f.choice.malt,malt);assert.equal(f.choice.ferment,ferment);
