@@ -1,0 +1,37 @@
+✔ real seed3/6 inquiry, unchanged contract, new6month release and1/5/all procurement complete without customer sales (7410.548758ms)
+✔ allocation and cancellation IDs make retries harmless and protect new reservations from stale cancellation (838.654718ms)
+✔ wrong/unaccepted partner, wrong contract/oldofferID, age and counts fail closed without changing stock (2392.573319ms)
+✔ regional reservations share physical inventory with retail/town/dept, and remain protected through months (2212.119307ms)
+✔ recent receipt cache stays at8 while older IDs and cumulative counts remain exact without town ledger slots (1509.632648ms)
+✔ ledger and comparison retain exact regional payments, native retail and stock after replay (1280.038677ms)
+✔ new enable boundary keeps disabled old save bytes and3seed180month native progress unchanged (13738.558634ms)
+✔ officialv8 pending/cancel/deliver, cold subprocess and failed writes protect committed state; tampering fails replay (15911.668288ms)
+✔ real360month generation handover preserves regional contract, delivered IDs and pending allocations (16347.756009ms)
+✔ new transaction cache closure protects every active allocation reader without changing legacy code (1.648177ms)
+✔ replay extraction equals original full-state steps in both collection modes and at boundaries (914.709234ms)
+✔ invalid targets and stopped extraction preserve original errors and no-op behavior (39.8239ms)
+✔ successful projected progress retains and detaches the complete unrelated state (15.02703ms)
+✔ cold and warm partial restores remain exact and caller mutation cannot corrupt validation cache (61.247733ms)
+✔ tampered facts or operations still reject and do not poison a following valid restore (165.272281ms)
+✔ same-seed equal-length divergent operation prefixes cannot reuse each other’s cache (73.160312ms)
+✔ four-cask boundary remains enforceable after exact restoration (228.898236ms)
+✔ 6A definitions use stable regional/national/overseas IDs with different terms but no automatic contract (44.060296ms)
+✔ 6A explicit enable retains old trial IDs, allocations, receipts and pending rumor queues without historical backfill (4799.554679ms)
+✔ 6A disabled regional games and legacy v8 readers do not silently opt into the new network (60.811988ms)
+✔ 6B real overseas inquiry can precede every remote contract and accept creates a contract without stock or cash movement (2044.129655ms)
+✔ 6B pending contacts stay independent while deferring or declining another offer (732.436554ms)
+✔ 6B two genuine contracts share one finite stock with partner-specific allocation IDs and independent cancellation (839.400172ms)
+✔ 6B actual remote receipt enters town once with exact release and source identity and never becomes consumer sales (752.310188ms)
+✔ 6B qualifications fail closed for foreign contract, missing product, brand and age without changing committed state (725.452796ms)
+✔ 6B pending propagation and seeded future events survive cold restore and formal v8 exactly (13104.512106ms)
+✔ 6B accepted world contract and receipt IDs survive real thirty-year handover without rewriting old native scenery (3765.582227ms)
+✔ 6B actual regional receipts cause national inquiries and national contracts deliver through the same API (13576.167834ms)
+✔ 6B the same real receipt strategy can fail to generate a national inquiry without altered probabilities (5254.399046ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 61989.014813
