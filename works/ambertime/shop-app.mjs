@@ -17,7 +17,8 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
-import {createFreshSession,inspectStartRecord,createSessionEntry} from './session-entry.mjs?v=ui4-20261111';
+import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r1';
+import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r1';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
@@ -111,6 +112,7 @@ const recallSceneDebug=debugEnabled?recallScenePlayer:null;
 let game=null,room='distill',selectedProductId=null,userPaused=false,runtimeHalted=false,modal=null,timer=null,generation=0,elapsed=0,playbackRate=1,canSave=!preview,lastSavedText=null;
 let committedSession=null,lastSaveError=null,legacyRecord=null;
 let sessionActive=false,entryView='title',entrySnapshot=null,entryReturn=null,entryMessage='',entryIntent=null,sessionEpoch=0;
+let entryDiagnostic=null,entryOperation='title-inspect';
 let debugSkipJob=null,debugSkipFeedback='';
 // Never route candidate initialization through the old session's observer.
 const newNativeGame=()=>nativeModel.newWorldNetworkDistillery(seed);
@@ -1588,7 +1590,7 @@ function exportRaw(text,name='ambertime-save.json'){
  const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
 }
 function installSession(session,{fresh=false}={}){
- sessionEpoch++;sessionActive=true;entryView='playing';entryReturn=null;entryIntent=null;recallScenePlayer.close();paintEntry();
+ clearEntryDiagnostic();sessionEpoch++;sessionActive=true;entryView='playing';entryReturn=null;entryIntent=null;recallScenePlayer.close();paintEntry();
  if(debugSkipJob){clearTimeout(debugSkipJob.timer);debugSkipJob=null;}debugSkipFeedback='';
  historyData=null;historySnapshot=null;historyFactsSnapshot=null;deliveryNotice='';roomFeedback=null;selectedProductId=null;rackKey=shelfKey=barrelKey='';
  try{shadowObserver?.reset();}catch(error){shadowObserver=null;shadowLoadError=String(error?.message??error);}
@@ -1632,9 +1634,19 @@ function installSession(session,{fresh=false}={}){
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }
 let newGameBackupKey=null;
+const ENTRY_APP_BUILD='entry-diagnostics-20261111-r1';
+const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r1',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newWorldNetworkDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
+function clearEntryDiagnostic(){entryDiagnostic=null;const status=$('entry-copy-status');if(status)status.textContent='';const details=$('entry-error-details');if(details)details.open=false;}
+function recordEntryFailure(error,result={}){
+ const status=$('entry-copy-status');if(status)status.textContent='';
+ let storage=null;try{storage=localStorage;}catch{}
+ entryDiagnostic=makeEntryDiagnostic({operation:result.operation??entryOperation,stage:result.stage??'record-check',error,formalState:result.formalState??'unavailable',backupPresent:result.backupPresent??false,backupVerified:result.backupVerified??false,writeVerified:result.writeVerified??false,restoreValidated:result.restoreValidated??false,versions:entryVersions,snapshot:entrySnapshot,candidateText:result.candidateText??null,storage});
+ // Keep the original exception private; the visible/copyable record is filtered.
+ recordSaveError(error,result.stage??'record-check');
+}
 function inspectEntry(){
  try{entrySnapshot=inspectStartRecord(localStorage);return true;}
- catch(error){entrySnapshot=null;recordSaveError(error,'記録の確認');entryMessage='保存領域を確認できません。記録がないとは判断できません。';return false;}
+ catch(error){entrySnapshot=null;recordEntryFailure(error,{stage:'record-check'});entryMessage='保存領域を確認できません。記録がないとは判断できません。';return false;}
 }
 function paintEntry(){
  const visible=entryView!=='playing',busy=sessionEntry?.busy??false;
@@ -1642,6 +1654,7 @@ function paintEntry(){
  document.body.dataset.entry=visible?'true':'false';
  if(!visible)return;
  $('entry-status').textContent=entryMessage;
+ const details=$('entry-error-details');if(details){details.hidden=!entryDiagnostic;$('entry-diagnostic-text').textContent=entryDiagnostic?formatEntryDiagnostic(entryDiagnostic):'';}
  const confirmView=entryIntent==='new'&&['confirm','preparing','writing'].includes(entryView);
  $('entry-confirm-copy').hidden=!confirmView;
  $('entry-new').hidden=confirmView;$('entry-new').disabled=!entrySnapshot||busy;
@@ -1653,12 +1666,13 @@ function paintEntry(){
  $('entry-confirm-copy').textContent=entrySnapshot?.raw!==null||entrySnapshot?.legacy.length?'今の記録を保護して、新しい蒸留所で始めます。開始後の「つづきから」は、新しい記録になります。':'新しい蒸留所を始めます。';
 }
 function showTitle(){
- sessionActive=false;stopClock();entryView='title';entryMessage='';entryReturn=null;entryIntent=null;
+ entryOperation='title-inspect';sessionActive=false;stopClock();entryView='title';entryMessage='';entryReturn=null;entryIntent=null;
  if(inspectEntry())entryMessage=entrySnapshot.kind==='unreadable'?'読み込めない記録があります。原文を書き出すか、保護して新しく始められます。':entrySnapshot.kind==='legacy'?'以前の開発版の記録があります。原文を残して新しく始められます。':'';
  protectedRecordExports();paintEntry();
 }
 function startNew(){
  if(sessionEntry.busy)return false;
+ entryOperation=sessionActive?'new-menu':'new-title';
  if(preview){if(!confirm('試遊を最初からやり直しますか？'))return false;const session=createFreshSession(nativeModel,seed);installSession(session,{fresh:true});return true;}
  if(sessionActive){entryReturn={modal,userPaused,canSave,runtimeHalted,savedText:lastSavedText};sessionActive=false;stopClock();if(debugSkipJob){clearTimeout(debugSkipJob.timer);debugSkipJob=null;}countdown.cancel();automaticNews.update();marketUI.update({visible:false,sessionActive:false});vaultPanels();if($('action-dialog').open)$('action-dialog').close();}
  entryMessage='';if(!inspectEntry()){entryView='error';paintEntry();return false;}
@@ -1667,8 +1681,9 @@ function startNew(){
 function cancelEntry(){
  if(!sessionEntry.cancel())return;
  if(entryReturn){
-  try{if(localStorage.getItem(SAVE_KEY)!==entryReturn.savedText)throw Error('記録が更新されています。再確認してください。');}
-  catch(error){entryView='error';entryMessage=error.message;paintEntry();return;}
+  let compared=false;
+  try{const raw=localStorage.getItem(SAVE_KEY);compared=true;if(raw!==entryReturn.savedText)throw Object.assign(Error('記録が更新されています。再確認してください。'),{code:'conflict'});}
+  catch(error){recordEntryFailure(error,{stage:'record-recheck',formalState:compared?'uncertain':'unavailable'});entryView='error';entryMessage=error.message;paintEntry();return;}
   const previous=entryReturn;entryReturn=null;sessionActive=true;entryView='playing';modal=previous.modal;userPaused=previous.userPaused;canSave=previous.canSave;runtimeHalted=previous.runtimeHalted;paintEntry();render();schedule();
  }else showTitle();
 }
@@ -1680,10 +1695,18 @@ const sessionEntry=createSessionEntry({storage:()=>localStorage,create:()=>creat
 });
 async function enterSession(kind){
  if(!entrySnapshot||sessionEntry.busy)return false;
- entryIntent=kind;
- const result=await (kind==='new'?sessionEntry.start(entrySnapshot):sessionEntry.continue(entrySnapshot));
+ if(kind==='continue')entryOperation='continue';
+ clearEntryDiagnostic();entryIntent=kind;
+ const result=await (kind==='new'?sessionEntry.start(entrySnapshot,{operation:entryOperation}):sessionEntry.continue(entrySnapshot,{operation:entryOperation}));
  if(result.cancelled||result.duplicate)return false;
- if(!result.ok){recordSaveError(result.error,'開始');entryView='error';entryMessage=result.error?.code==='conflict'?result.error.message:result.formalState==='unchanged'?'開始できませんでした。元の記録は正式保存に残っています。':result.backupKey?'正式保存の結果は確認できません。元の原文は「保護した記録」から書き出せます。':'記録を確認できません。保存領域を再確認してください。';protectedRecordExports();paintEntry();}
+ if(!result.ok){
+  // Application may have thrown after the formal write. Never let a partially
+  // adopted/old game autosave over the verified candidate on pagehide.
+  sessionActive=false;canSave=false;runtimeHalted=true;stopClock();countdown.cancel();
+  recordEntryFailure(result.error,result);entryView='error';
+  entryMessage=result.stage==='session-apply'||result.stage==='completion-ui'?'記録の確認後、本編の表示で失敗しました。正式保存へ自動で戻す処理は行っていません。':result.error?.code==='conflict'?result.error.message:result.formalState==='unchanged'?'開始できませんでした。正式保存の原文は処理前と同じです。復元できることを確認した意味ではありません。':result.backupVerified?'正式保存の結果は確認できません。元の原文は「保護した記録」から書き出せます。':'記録を確認できません。保存領域を再確認してください。';
+  protectedRecordExports();paintEntry();
+ }
  return result.ok;
 }
 $('entry-new').addEventListener('click',startNew);
@@ -1692,6 +1715,11 @@ $('entry-continue').addEventListener('click',()=>enterSession('continue'));
 $('entry-back').addEventListener('click',cancelEntry);
 $('entry-recheck').addEventListener('click',()=>{sessionEntry.cancel();showTitle();});
 $('entry-export').addEventListener('click',()=>{const raw=entrySnapshot?.raw??entrySnapshot?.legacy[0]?.raw;if(raw!=null)exportRaw(raw);});
+$('entry-copy-diagnostic').addEventListener('click',async()=>{
+ const diagnostic=entryDiagnostic;if(!diagnostic)return;const text=formatEntryDiagnostic(diagnostic);
+ try{if(!navigator.clipboard?.writeText)throw Error('clipboard unavailable');await navigator.clipboard.writeText(text);if(entryDiagnostic===diagnostic)$('entry-copy-status').textContent='コピーしました。';}
+ catch{if(entryDiagnostic===diagnostic)$('entry-copy-status').textContent='コピーできません。下の詳細を長押しして選択できます。';}
+});
 const backupExport=document.createElement('button');backupExport.type='button';backupExport.textContent='新規開始前の記録を書き出す';backupExport.hidden=true;$('aux-panel').append(backupExport);
 backupExport.addEventListener('click',()=>{try{const raw=newGameBackupKey&&localStorage.getItem(newGameBackupKey);if(typeof raw!=='string')throw Error('新規開始前の記録を確認できません。');exportRaw(raw,'ambertime-before-new-game.json');}catch(error){storageNotice(error.message);}});
 // Existing byte-for-byte backups remain reachable after reload, including

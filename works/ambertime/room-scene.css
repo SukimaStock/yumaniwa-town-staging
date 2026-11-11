@@ -448,5 +448,6 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 .entry-panel button{display:block;width:100%;min-height:48px;margin:10px 0;font:inherit;white-space:normal}
 .entry-panel button[hidden]{display:none}
 .entry-panel details{margin-top:14px;font-size:14px}
+.entry-panel #entry-diagnostic-text{font:14px/1.5 monospace;white-space:pre-wrap;overflow-wrap:anywhere;user-select:text;-webkit-user-select:text;max-height:48dvh;overflow:auto;margin:12px 0}
 body[data-entry="true"] #scene-root{visibility:hidden}
 body[data-entry="true"] :is(#market-board,#m0-observation,#automatic-news,#automatic-news-close,#shop-dialogue-notice,#important-top-notice){visibility:hidden}
