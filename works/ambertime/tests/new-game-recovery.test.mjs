@@ -9,7 +9,8 @@ import {initializeCaskSlots} from '../cask-slots.mjs';
 import {migrateRecentLedger} from '../recent-ledger.mjs';
 import {serializeSession,readSession,writeCandidate,FORMAL_SAVE_KEY} from '../development-save.mjs';
 import {commitMarketRulesUpdate} from '../market-ui.mjs';
-import {createFreshSession,inspectStartRecord,createSessionEntry} from '../session-entry.mjs';
+import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from '../session-entry.mjs';
+import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from '../entry-diagnostics.mjs';
 import {PARALLEL_PARAMETERS as P} from '../economy-parameters.mjs';
 const app=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
 const options={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
@@ -67,13 +68,14 @@ function entryElement(){return {dataset:{},children:[],listeners:{},hidden:false
  remove(){this.parent.children=this.parent.children.filter(child=>child!==this);},
  addEventListener(type,fn){this.listeners[type]=fn;},setAttribute(){},focus(){},close(){this.open=false;}};}
 function restartHarness({raw=encode(fresh()),store=storage(raw),playing=false}={}){
- const source=app.slice(app.indexOf('function inspectEntry(){'),app.indexOf("$('entry-new').addEventListener"));
+ const source=app.slice(app.indexOf('function clearEntryDiagnostic(){'),app.indexOf("$('entry-new').addEventListener"));
  const installed=[],errors=[],counts={created:0,read:0,encoded:0,stopped:0,rendered:0,scheduled:0,protected:0},nodes=new Map();
  const node=id=>{if(!nodes.has(id))nodes.set(id,entryElement());return nodes.get(id);};
  const old=fresh(),context={preview:false,nativeModel:D,seed:141,game:playing?old.game:null,modal:playing?{kind:'aux-panel'}:null,
-  userPaused:true,canSave:true,runtimeHalted:false,debugSkipJob:null,sessionActive:playing,entryView:playing?'playing':'title',entryIntent:null,entryMessage:'',entrySnapshot:null,entryReturn:null,
+  userPaused:true,canSave:true,runtimeHalted:false,debugSkipJob:null,sessionActive:playing,entryView:playing?'playing':'title',entryIntent:null,entryMessage:'',entrySnapshot:null,entryReturn:null,entryDiagnostic:null,entryOperation:'title-inspect',
   lastSavedText:raw,legacyRecord:null,newGameBackupKey:null,localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,sessionOptions:options,
-  $:node,document:{body:{dataset:{}}},inspectStartRecord,createSessionEntry,
+  $:node,document:{body:{dataset:{}}},inspectStartRecord,createSessionEntry,makeEntryDiagnostic,formatEntryDiagnostic,
+  entryVersions:{appBuild:SESSION_ENTRY_BUILD,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:8},
   createFreshSession:(...args)=>{counts.created++;return createFreshSession(...args);},
   sessionText:(game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord)=>{counts.encoded++;return encode({game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord});},
   readSession:(...args)=>{counts.read++;return readSession(...args);},writeCandidate,commitMarketRulesUpdate,
@@ -149,7 +151,10 @@ test('actual restart write failure does not install or change old memory/lastSav
  const raw=encode(fresh()),store=storage(raw);store.setItem=()=>{throw Object.assign(Error('quota'),{name:'QuotaExceededError'});};
  const h=restartHarness({raw,store,playing:true}),before=JSON.stringify(h.context.game);h.api.startNew();
  assert.equal(await h.api.enterSession('new'),false);assert.equal(h.installed.length,0);assert.equal(h.context.lastSavedText,raw);assert.equal(store.getItem(FORMAL_SAVE_KEY),raw);
- assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.context.entryView,'error');assert.equal(h.errors[0].phase,'開始');
+ assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.context.entryView,'error');assert.equal(h.errors[0].phase,'backup-write');
+ assert.equal(h.context.entryDiagnostic.operation,'new-menu');assert.equal(h.context.entryDiagnostic.stage,'backup-write');
+ assert.equal(h.context.entryDiagnostic.exception.name,'QuotaExceededError');assert.equal(h.context.entryDiagnostic.formalState,'unchanged');
+ assert.equal(h.nodes.get('entry-error-details').hidden,false);assert.match(h.nodes.get('entry-diagnostic-text').textContent,/バックアップ書込み/);
  h.api.cancelEntry();assert.equal(h.context.sessionActive,true);assert.equal(JSON.stringify(h.context.game),before);
 });
 
