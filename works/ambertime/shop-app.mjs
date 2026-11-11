@@ -17,8 +17,8 @@ import {DistillToolInput} from './distill-tool-input.mjs?v=lever-glass-r1&geomet
 import {distillToolsView,rangeRestartAvailable,TOOL_GEOMETRY} from './distill-tools-view.mjs?v=rooms-stage2-r1&geometry=r2-1';
 import {glassColor} from './flavor-color.mjs?v=cut-pixel-r1';
 import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
-import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r4';
-import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r4';
+import {createFreshSession,inspectStartRecord,createSessionEntry,SESSION_ENTRY_BUILD} from './session-entry.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01';
+import {makeEntryDiagnostic,formatEntryDiagnostic,ENTRY_DIAGNOSTIC_BUILD} from './entry-diagnostics.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
@@ -44,11 +44,11 @@ import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,release
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
 import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel,bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber} from './ui-details.mjs?v=stage4-r2&repair=ui3-20261111';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1&repair=ui2-20261111';
+import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1&repair=ui2-20261111&assignment=night-stage2-v01';
 import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
 import {addDailyEvent} from './daily-events.mjs?v=daily-v01';
 import {CanvasScene} from './canvas-scene.mjs?a6=1&s1=1&tools=rooms-stage3-r1&touch=1&status=1&v=market-rules-r1&daily=1&aging=1&geometry=r2-1&completion=a13-1&m09=map-button-state-r1&repair=ui2-20261111';
-import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01';
+import * as nativeModel from './partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01&assignment=night-stage2-v01';
 import {createObservedModel} from './recall/operations.mjs?v=bar-v01-1';
 import {DEBUG_SKIP_YEARS,monthsForDebugSkip,debugSkipMonth} from './recall/debug-time-skip.mjs?v=debug-years-1';
 import {createRecallPlayer as createRecallDebugPreview} from './recall/player.mjs?v=h4-2-1';
@@ -115,7 +115,7 @@ let sessionActive=false,entryView='title',entrySnapshot=null,entryReturn=null,en
 let entryDiagnostic=null,entryOperation='title-inspect';
 let debugSkipJob=null,debugSkipFeedback='';
 // Never route candidate initialization through the old session's observer.
-const newNativeGame=()=>nativeModel.newWorldNetworkDistillery(seed);
+const newNativeGame=()=>nativeModel.enableBottlingAssignment(nativeModel.newWorldNetworkDistillery(seed));
 let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
@@ -343,7 +343,7 @@ function bottlerManagerView(){
  const status=D.bottlingStaffStatus(game);if(!status.hired)return staffCostView('bottling');
  const policy=D.commonBottlingPolicy(game),editing=modal.editPolicy||!policy;
  const common=editing?bottlingPolicyView():'<p>'+esc(policyLabel(policy))+'</p>'+button('変更','bottling-policy-edit');
- return '<p>給与 '+money(status.salary)+'／回</p>'+common+'<p class="quiet">次の予約から</p>'+(game.core.casks.length?'<div class="staff-casks">'+game.core.casks.map(c=>{const r=D.bottlingReservation(game,c.id),active=r?.status==='active';return '<div class="staff-cask-row"><p>'+esc(caskName(c.id))+' · '+ageLabel(c.age)+'</p>'+button('<span class="switch-track" aria-hidden="true"></span><span>'+(active?'任せる':'自分で行う')+'</span>','bottling-toggle',c.id,'role="switch" aria-checked="'+active+'" aria-label="'+esc(caskName(c.id))+' ビン詰めを任せる"')+(modal.policyNoticeId===c.id?'<p class="bottling-policy-notice" role="status">先に共通設定を保存してください</p>':'')+(r&&r.status!=='completed'?'<p class="quiet">'+esc(reservationLabel(c.id))+'</p>'+button('予約取消','bottling-cancel',c.id):'')+'</div>';}).join('')+'</div>':'<p>たるなし</p>');
+ return '<p>給与 '+money(status.salary)+'／回</p>'+common+'<p class="quiet">次の予約から</p>'+(game.core.casks.length?'<div class="staff-casks">'+game.core.casks.map(c=>{const r=D.bottlingReservation(game,c.id),active=r?.status==='active';return '<div class="staff-cask-row"><p>'+esc(caskName(c.id))+' · '+ageLabel(c.age)+'</p>'+button('<span class="switch-track" aria-hidden="true"></span><span>'+(active?'任せる':'自分で行う')+'</span>','bottling-toggle',c.id,'role="switch" aria-checked="'+active+'" aria-label="'+esc(caskName(c.id))+' ビン詰めを任せる"')+(modal.policyNoticeId===c.id?'<p class="bottling-policy-notice" role="status">先に共通設定を保存してください</p>':'')+(r&&(r.status!=='completed'||D.bottlingAssignmentMode(game))?'<p class="quiet">'+esc(reservationLabel(c.id))+'</p>'+(D.bottlingAssignmentMode(game)&&r.status!=='completed'?button(r.status==='paused'?'再開':'一時停止',r.status==='paused'?'bottling-resume':'bottling-pause',c.id):'')+button('予約取消','bottling-cancel',c.id):'')+'</div>';}).join('')+'</div>':'<p>たるなし</p>');
 }
 function staffRequestView(){
  const q=D.staffQuote(game,modal.caskId===null?undefined:modal.caskId),status=D.staffStatus(game);if(!q)return '<p>抽出位置・たるが不明です。</p>';
@@ -953,10 +953,10 @@ function mapSalesReport(data,id){
 }
 function closeModal(){if(debugSkipJob&&modal?.kind==='settings')finishDebugSkip('中止しました。');if(modal?.kind==='first-bottle-complete')return;if(modal?.kind==='flavor-cards'){const confirmed=brewingPanelState(game,distillRoom.confirmation),draft=manualCards(game);distillRoom.cancelEdit(modal.preparedAtOpen,confirmed,draft);}if(modal?.mapParent){modal=modal.mapParent;render();return;}if(modal?.kind==='world-map'&&modal.source==='direct'){rememberMapBrowse();modal=null;render();schedule();$('open-world-map').focus({preventScroll:true});return;}placementUI?.reset();if(modal?.kind==='world-map'){if(modal.source==='unlock')worldMapStage=currentMapBrowse().stage;const fromMenu=modal.source==='menu';modal=fromMenu?modal.parent??{kind:'aux-panel'}:null;render();if(fromMenu)$('open-world-map').focus({preventScroll:true});else schedule();return;}if(modal?.kind==='staff-opportunity'){modal=modal.returnModal??null;render();schedule();return;}if(modal?.kind==='inspect'&&modal.ledgerParent){finishLedgerTasting();return;}if(modal?.kind==='inspect'&&game.tastingId!==null){act(D.endTasting,()=>{modal=null;});return;}if(modal?.kind==='staff-request'){closeComparison();return;}if(comparisonKinds.includes(modal?.kind)){closeComparison();return;}if(modal?.kind==='generation-review')return;if(['history','history-brand','history-shop'].includes(modal?.kind)){if(modal.parent){closeComparison();return;}}if(modal?.kind==='decision')return;modal=modal?.kind==='shop-offer'&&modal.returnProductId!==null?{kind:'product',id:modal.returnProductId}:null;render();schedule();}
 function trial(id){if(!game||!D.currentCask(game,id))return;stopClock();if(game.tastingId!==null&&game.tastingId!==id&&!endTaste())return;warehouseRoom.select(id);room='warehouse';modal={kind:'inspect',id};act(s=>D.sampleDistillery(s,id));}
-function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();if(D.bottlingReservation(game,id)?.status==='active')act(s=>D.pauseBottling(D.endTasting(s),id,true),()=>{modal={kind:'quote',id};});else{modal={kind:'quote',id};render();}}
+function quoteModal(id){if(!D.currentCask(game,id))return;stopClock();if(D.bottlingAssignmentMode(game)&&D.bottlingReservation(game,id))act(s=>D.cancelBottling(D.endTasting(s),id),()=>{modal={kind:'quote',id};});else if(D.bottlingReservation(game,id)?.status==='active')act(s=>D.pauseBottling(D.endTasting(s),id,true),()=>{modal={kind:'quote',id};});else{modal={kind:'quote',id};render();}}
 function reservationLabel(id){
  const r=D.bottlingReservation(game,id);if(!r)return '';
- if(r.status==='completed')return '自分で行う'+(r.mode==='age'?' · 完了':'');
+ if(r.status==='completed')return '自分で行う'+(r.mode==='age'?' · 完了':'')+(D.bottlingAssignmentMode(game)?' · '+policyLabel(r):'');
  const state=r.status==='active'&&!D.bottlingStaffStatus(game).hired?'採用待ち':({active:'任せる',paused:'停止'}[r.status]??r.status);
  return state+' · '+policyLabel(r)+(r.lastError?' · '+r.lastError:'');
 }
@@ -1449,8 +1449,9 @@ function handleModal(e){
  }
  if(a==='bottling-toggle'&&kind==='bottler-panel'&&D.bottlingStaffStatus(game).hired&&D.currentCask(game,id)){
   const r=D.bottlingReservation(game,id);if((!r||r.status==='completed')&&!D.commonBottlingPolicy(game)){modal.policyNoticeId=id;render();$('action-dialog').querySelector('.bottling-policy-notice')?.scrollIntoView({block:'nearest'});return;}
-  act(s=>r?.status==='active'?D.pauseBottling(D.endTasting(s),id,true):r?.status==='paused'?D.pauseBottling(D.endTasting(s),id,false):D.delegateBottling(D.endTasting(s),id),()=>{modal.policyNoticeId=null;});return;
+  act(s=>r?.status==='active'?(D.bottlingAssignmentMode(s)?D.cancelBottling(D.endTasting(s),id):D.pauseBottling(D.endTasting(s),id,true)):r?.status==='paused'?D.pauseBottling(D.endTasting(s),id,false):D.delegateBottling(D.endTasting(s),id),()=>{modal.policyNoticeId=null;});return;
  }
+ if(['bottling-pause','bottling-resume'].includes(a)&&kind==='bottler-panel'&&D.bottlingAssignmentMode(game)&&D.bottlingReservation(game,id)){act(s=>D.pauseBottling(D.endTasting(s),id,a==='bottling-pause'));return;}
  if(a==='bottling-cancel'&&kind==='bottler-panel'&&D.bottlingStaffStatus(game).hired&&D.bottlingReservation(game,id)){act(s=>D.cancelBottling(D.endTasting(s),id));return;}
  if(a==='staff-bottle-plan'&&kind==='bottler-panel'&&D.bottlingStaffStatus(game).hired&&D.currentCask(game,id)){modal={kind:'bottling-plan',id,staffContext:true};render();return;}
  if(a==='bottling-manual'&&['inspect','bottling-plan'].includes(kind)&&D.currentCask(game,id)){quoteModal(id);return;}
@@ -1631,11 +1632,16 @@ function installSession(session,{fresh=false}={}){
   try{const next=D.enableWorldNetwork(game);if(saveCandidate(next,userPaused,elapsed,commitMarketRulesUpdate)){game=next;}else barMigrationFailed=true;}
   catch(error){barMigrationFailed=true;saveFailure(error,'取引網の更新');}
  }
+ // Assignments start only after the migration candidate is formally saved.
+ if(!barMigrationFailed&&D.worldNetworkMode(game)&&!D.bottlingAssignmentMode(game)){
+  try{const next=D.enableBottlingAssignment(game);if(saveCandidate(next,userPaused,elapsed,commitMarketRulesUpdate)){game=next;}else barMigrationFailed=true;}
+  catch(error){barMigrationFailed=true;saveFailure(error,'ビン詰め担当の更新');}
+ }
  $('game').hidden=false;if(!barMigrationFailed)$('recovery').hidden=true;if(!barMigrationFailed){storageNotice('');$('save-status').textContent=preview?'試遊中 · 保存しません':'保存済み';}render();schedule();
 }
 let newGameBackupKey=null;
 const ENTRY_APP_BUILD='entry-diagnostics-20261111-r4';
-const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r4',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newWorldNetworkDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
+const entryVersions={app:import.meta.url,appBuild:ENTRY_APP_BUILD,sessionEntry:new URL('./session-entry.mjs?v=entry-diagnostics-20261111-r4&assignment=night-stage2-v01',import.meta.url).href,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:DEVELOPMENT_SAVE_VERSION,worldCreatorPresent:typeof nativeModel.newBottlingAssignmentDistillery==='function',model:new URL('./partner-orders.mjs?v=all-stores-s2-1&regional=regional-v01&delivery=regional-delivery-v01&world=world-network-v01&restore=stage7-v01&assignment=night-stage2-v01',import.meta.url).href,save:new URL('./development-save.mjs?v=bar-v01-1',import.meta.url).href,recallOperations:new URL('./recall/operations.mjs?v=bar-v01-1',import.meta.url).href,recallCollector:new URL('./recall/collector.mjs?v=bar-v01-1',import.meta.url).href};
 function clearEntryDiagnostic(){entryDiagnostic=null;const status=$('entry-copy-status');if(status)status.textContent='';const details=$('entry-error-details');if(details)details.open=false;}
 function recordEntryFailure(error,result={}){
  const status=$('entry-copy-status');if(status)status.textContent='';

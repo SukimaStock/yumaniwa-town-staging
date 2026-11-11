@@ -8,7 +8,7 @@ export const SESSION_ENTRY_BUILD='entry-diagnostics-20261111-r4';
 export const LEGACY_SAVE_KEYS=['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'];
 // Initialization is deliberately outside the current session's observed model.
 export function createFreshSession(native,seed){
- const game=native.newWorldNetworkDistillery(seed);
+ const game=native.newBottlingAssignmentDistillery(seed);
  return {game,caskSlots:initializeCaskSlots(game),recentLedger:migrateRecentLedger(game,{replay:observer=>native.replayDistilleryOperations(game,observer)}),historyRecord:initializeHistoryRecord(game),recallRecord:initializeRecall(game),userPaused:false,elapsed:0};
 }
 export function inspectStartRecord(storage){
