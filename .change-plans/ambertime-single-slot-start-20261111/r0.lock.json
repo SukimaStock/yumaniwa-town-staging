@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "146488300f220caa1fbf51256e6325a8b5b50b339315dd884593099b88c59494",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-single-slot-start-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Replace normal new-game formal slot without mandatory backup after explicit confirmation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "66b8d898153ac07d460a489da530577ef1bf1051",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/market-ui.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-single-slot-start-20261111/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Normal new start uses existing writeCandidate with original raw CAS and readback, no mandatory backup and no removal of old backups/legacy",
+      "Preserve independent creator, explicit all sidecars, cancellation, duplicate prevention, no install before successful formal readback",
+      "Short existing-save replacement confirmation; normal title only new/continue. Exports and backups retained only development/recovery without obstructing play",
+      "Preserve migration/development backup writer unchanged; close superseded unmerged PR916 and replace with fresh locked plan",
+      "Real formal v8 near900k and memory quota tests including original with recall, existing backups, cancel, validation failure, formal quota/readback/conflict/cold continue",
+      "Browser isolated tests only, four sizes where possible, author Safari final unverified"
+    ],
+    "ownerDecisions": [
+      "Current explicit user design instruction: one-slot normal new start replaces confirmed formal raw without browser backup; prior backup-required requirement superseded. User authorizes staging merge/Pages after checks, never Production."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Actual browser if environment permits, isolated memory storage only; iPhone author final",
+      "Required CI and Pages byte match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this PR restores mandatory backup start behavior; overwritten normal prior record is deliberately not retained by this feature",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901",
+      "Formal v8/model/reader/normal recall/writer changes",
+      "Deleting existing backups/legacy/other-work data",
+      "Backup cleanup UI",
+      "New slots/storage migration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}

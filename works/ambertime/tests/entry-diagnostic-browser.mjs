@@ -14,11 +14,11 @@ const frame=document.getElementById('frame'),status=document.getElementById('sta
 const options={enabled:true,serialize:native.serializeDistillery,restore:native.restoreDistillery,monthMs:T.monthMs,stepMs:T.distillStepMs};
 const encode=session=>serializeSession(session.game,session,options);
 let epoch=0,appBlob=null,bootstrapBlob=null;
-const [indexResponse]=await Promise.all([fetch(new URL('index.html',base))]);
+const [indexResponse]=await Promise.all([fetch(new URL('index.html',base),{cache:'no-store'})]);
 if(!indexResponse.ok)throw Error('本編HTMLを開けません。');
 const index=await indexResponse.text(),documentCopy=new DOMParser().parseFromString(index,'text/html'),script=documentCopy.querySelector('script[src*="shop-app.mjs"]');
 if(!script)throw Error('本編入口を確認できません。');
-const appURL=new URL(script.getAttribute('src'),base),sourceResponse=await fetch(appURL);
+const appURL=new URL(script.getAttribute('src'),base),sourceResponse=await fetch(appURL,{cache:'no-store'});
 if(!sourceResponse.ok)throw Error('本編スクリプトを開けません。');
 const source=await sourceResponse.text();
 function memory(){const values=new Map();return {values,getItem:key=>values.get(key)??null,setItem:(key,raw)=>values.set(key,String(raw)),removeItem:key=>values.delete(key),key:index=>[...values.keys()][index]??null,get length(){return values.size;}};}
@@ -36,11 +36,19 @@ function fixture(scenario){
  const store=memory();if(scenario==='empty')return store;
  const session=scenario==='normal'?createFreshSession(native,20261015):progressed();session.userPaused=true;
  const current=encode(session);store.setItem(FORMAL_SAVE_KEY,current);
- if(scenario==='backups'){
+ if(scenario==='backups'||scenario==='quota'){
   const first=encode(createFreshSession(native,20261016)),second=encode(createFreshSession(native,20261017));
   commitMarketRulesUpdate(store,FORMAL_SAVE_KEY,current,first);
   commitMarketRulesUpdate(store,FORMAL_SAVE_KEY,first,second);
   commitMarketRulesUpdate(store,FORMAL_SAVE_KEY,second,current);
+  if(scenario==='quota'){
+   // Three unrelated pre-existing backups; current is not already protected.
+   const oldKeys=[...store.values.keys()].filter(k=>k.startsWith(backupPrefix));
+   const unrelated=memory(),a=encode(createFreshSession(native,20261018)),b=encode(createFreshSession(native,20261019)),c=encode(createFreshSession(native,20261020));unrelated.setItem(FORMAL_SAVE_KEY,a);
+   commitMarketRulesUpdate(unrelated,FORMAL_SAVE_KEY,a,b);commitMarketRulesUpdate(unrelated,FORMAL_SAVE_KEY,b,c);commitMarketRulesUpdate(unrelated,FORMAL_SAVE_KEY,c,current);
+   for(const k of oldKeys)store.values.delete(k);
+   for(const [k,v] of unrelated.values)if(k.startsWith(backupPrefix))store.values.set(k,v);
+  }
  }
  return store;
 }
@@ -75,14 +83,15 @@ async function reset(){
  appBlob=URL.createObjectURL(new Blob([wrapper,instrumentApp()],{type:'text/javascript'}));
  const bootstrap=`const values=new Map(${JSON.stringify(entries)}),initial=${JSON.stringify(initial)},prefix=${JSON.stringify(backupPrefix)},formal=${JSON.stringify(FORMAL_SAVE_KEY)},fault=${JSON.stringify(fault)},scenario=${JSON.stringify(scenario)};
  let fired=false,formalWritten=false;const reads=new Map();
+ const budget=scenario==='quota'?[...values.values()].reduce((n,v)=>n+v.length,0):Infinity;const initialProtected=[...values].filter(([k])=>k.startsWith(prefix));
  const qa={phase:'idle',inject(stage){if(!fired&&fault===stage){fired=true;throw Object.assign(Error('Injected entry failure: '+stage),{name:'InjectedEntryError',code:'QA_'+stage.toUpperCase().replaceAll('-','_')});}}};
  Object.defineProperty(window,'__amberEntryQA',{value:qa});
- const report=()=>parent.postMessage({amberEntryReport:{scenario,fault,fired,phase:qa.phase,formalSame:values.get(formal)===initial,formalCharacters:values.get(formal)?.length??0,backupCount:[...values.keys()].filter(k=>k.startsWith(prefix)).length,oldRawProtected:[...values].some(([k,v])=>k.startsWith(prefix)&&v===initial),detailVisible:!document.getElementById('entry-error-details')?.hidden}},location.origin==='null'?'*':location.origin);
+ const report=()=>parent.postMessage({amberEntryReport:{scenario,fault,fired,phase:qa.phase,formalSame:values.get(formal)===initial,formalCharacters:values.get(formal)?.length??0,backupCount:[...values.keys()].filter(k=>k.startsWith(prefix)).length,protectedUnchanged:initialProtected.every(([k,v])=>values.get(k)===v),oldRawProtected:[...values].some(([k,v])=>k.startsWith(prefix)&&v===initial),detailVisible:!document.getElementById('entry-error-details')?.hidden}},location.origin==='null'?'*':location.origin);
  const storage={get length(){return values.size;},key:i=>[...values.keys()][i]??null,getItem(key){
   if(qa.phase==='writing'&&key.startsWith(prefix)){const n=(reads.get(key)??0)+1;reads.set(key,n);if(!fired&&fault==='backup-readback'&&n===2){fired=true;return 'qa-readback-mismatch';}}
   if(qa.phase==='writing'&&key===formal&&formalWritten&&!fired&&fault==='formal-readback'){fired=true;return 'qa-readback-mismatch';}
   return values.get(key)??null;
- },setItem(key,raw){if(qa.phase==='writing'&&key.startsWith(prefix))qa.inject('backup-write');if(qa.phase==='writing'&&key===formal)qa.inject('formal-write');values.set(key,String(raw));if(key===formal)formalWritten=true;queueMicrotask(report);},removeItem:key=>values.delete(key)};
+ },setItem(key,raw){if([...values].reduce((n,[k,v])=>n+(k===key?0:v.length),0)+String(raw).length>budget)throw new DOMException('The quota has been exceeded.','QuotaExceededError');if(qa.phase==='writing'&&key.startsWith(prefix))qa.inject('backup-write');if(qa.phase==='writing'&&key===formal)qa.inject('formal-write');values.set(key,String(raw));if(key===formal)formalWritten=true;queueMicrotask(report);},removeItem:key=>values.delete(key)};
  const sessionValues=new Map(),session={get length(){return sessionValues.size;},key:i=>[...sessionValues.keys()][i]??null,getItem:k=>sessionValues.get(k)??null,setItem:(k,v)=>sessionValues.set(k,String(v)),removeItem:k=>sessionValues.delete(k)};
  Object.defineProperty(window,'localStorage',{value:storage});Object.defineProperty(window,'sessionStorage',{value:session});
  window.addEventListener('message',event=>{if(event.source===parent&&event.data?.amberEntryMeasure)report();});

@@ -28,7 +28,7 @@ test('a fresh v8 session must use its own recall, never the loaded session or nu
  assert.deepEqual(readSession(encode(session),options),session);
 });
 
-test('existing valid, old-version and unreadable raw records receive exact verified backups',()=>{
+test('development migration still gives valid, old-version and unreadable raw records exact verified backups',()=>{
  for(const raw of [encode(fresh()),'{"version":2,"game":{"old":true}}','{unreadable','']){
   const store=storage(raw),text=encode(fresh()),result=commitMarketRulesUpdate(store,FORMAL_SAVE_KEY,raw,text);
   assert.equal(store.getItem(result.backupKey),raw);assert.equal(store.getItem(FORMAL_SAVE_KEY),text);
@@ -71,7 +71,7 @@ function restartHarness({raw=encode(fresh()),store=storage(raw),playing=false}={
  const source=app.slice(app.indexOf('function clearEntryDiagnostic(){'),app.indexOf("$('entry-new').addEventListener"));
  const installed=[],errors=[],counts={created:0,read:0,encoded:0,stopped:0,rendered:0,scheduled:0,protected:0},nodes=new Map();
  const node=id=>{if(!nodes.has(id))nodes.set(id,entryElement());return nodes.get(id);};
- const old=fresh(),context={preview:false,nativeModel:D,seed:141,game:playing?old.game:null,modal:playing?{kind:'aux-panel'}:null,
+ const old=fresh(),context={preview:false,debugEnabled:false,nativeModel:D,seed:141,game:playing?old.game:null,modal:playing?{kind:'aux-panel'}:null,
   userPaused:true,canSave:true,runtimeHalted:false,debugSkipJob:null,sessionActive:playing,entryView:playing?'playing':'title',entryIntent:null,entryMessage:'',entrySnapshot:null,entryReturn:null,entryDiagnostic:null,entryOperation:'title-inspect',
   lastSavedText:raw,legacyRecord:null,newGameBackupKey:null,localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,sessionOptions:options,
   $:node,document:{body:{dataset:{}}},inspectStartRecord,createSessionEntry,makeEntryDiagnostic,formatEntryDiagnostic,
@@ -125,10 +125,10 @@ test('title and in-game restart share confirmation and leave the old session unt
 
 test('actual title/menu entry installs only validated committed sessions that survive reload',async()=>{
  for(const playing of [false,true])for(const raw of [null,encode(fresh()),'{"version":7}','{broken']){
-  const h=restartHarness({raw,playing});if(!playing)h.api.showTitle();h.api.startNew();
-  assert.equal(await h.api.enterSession('new'),true);assert.equal(h.errors.length,0);assert.equal(h.installed.length,1);
+  const h=restartHarness({raw,playing});if(!playing)h.api.showTitle();const started=h.api.startNew();
+  assert.equal(await (raw===null?started:h.api.enterSession('new')),true);assert.equal(h.errors.length,0);assert.equal(h.installed.length,1);
   assert.deepEqual(readSession(h.store.getItem(FORMAL_SAVE_KEY),options),h.installed[0].session);
-  assert.equal(h.counts.created,1);assert.equal(h.counts.encoded,1);if(raw!==null)assert.equal(backups(h.store)[0][1],raw);
+  assert.equal(h.counts.created,1);assert.equal(h.counts.encoded,1);assert.equal(backups(h.store).length,0);
  }
 });
 
@@ -151,10 +151,10 @@ test('actual restart write failure does not install or change old memory/lastSav
  const raw=encode(fresh()),store=storage(raw);store.setItem=()=>{throw Object.assign(Error('quota'),{name:'QuotaExceededError'});};
  const h=restartHarness({raw,store,playing:true}),before=JSON.stringify(h.context.game);h.api.startNew();
  assert.equal(await h.api.enterSession('new'),false);assert.equal(h.installed.length,0);assert.equal(h.context.lastSavedText,raw);assert.equal(store.getItem(FORMAL_SAVE_KEY),raw);
- assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.context.entryView,'error');assert.equal(h.errors[0].phase,'backup-write');
- assert.equal(h.context.entryDiagnostic.operation,'new-menu');assert.equal(h.context.entryDiagnostic.stage,'backup-write');
+ assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.context.entryView,'error');assert.equal(h.errors[0].phase,'formal-write');
+ assert.equal(h.context.entryDiagnostic.operation,'new-menu');assert.equal(h.context.entryDiagnostic.stage,'formal-write');
  assert.equal(h.context.entryDiagnostic.exception.name,'QuotaExceededError');assert.equal(h.context.entryDiagnostic.formalState,'unchanged');
- assert.equal(h.nodes.get('entry-error-details').hidden,false);assert.match(h.nodes.get('entry-diagnostic-text').textContent,/バックアップ書込み/);
+ assert.equal(h.nodes.get('entry-error-details').hidden,false);assert.match(h.nodes.get('entry-diagnostic-text').textContent,/正式書込み/);
  h.api.cancelEntry();assert.equal(h.context.sessionActive,true);assert.equal(JSON.stringify(h.context.game),before);
 });
 
@@ -230,7 +230,7 @@ test('protected raw backups and legacy originals remain exportable after reload 
  store.data.set(one,'old raw');store.data.set(two,'{broken');store.data.set('sukimastock.ambertime.placement-trial.v1',' legacy trial raw \n');store.data.set('sukimastock.ambertime.wholesale.v20','{unreadable wholesale');store.data.set('sukimastock.ambertime.wholesale.v200','ignore similar key');store.data.set('unrelated','private');store.data.set(FORMAL_SAVE_KEY+'.before-market-rules.v2.ignored','ignore');
  Object.defineProperty(store,'length',{get:()=>store.data.size});store.key=i=>[...store.data.keys()][i]??null;
  function element(){return {dataset:{},children:[],listeners:{},get childElementCount(){return this.children.length;},append(child){child.parent=this;this.children.push(child);},querySelector(){return this.children.find(child=>Object.hasOwn(child.dataset,'protectedRecords'));},remove(){this.parent.children=this.parent.children.filter(child=>child!==this);},addEventListener(type,fn){this.listeners[type]=fn;}};}
- const parents={'aux-panel':element(),recovery:element(),'entry-records':element()},exports=[],errors=[],context={localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,$:id=>parents[id],document:{createElement:()=>element()},exportRaw:(raw,name)=>exports.push({raw,name}),storageNotice:e=>errors.push(e)};
+ const parents={'aux-panel':element(),recovery:element(),'entry-records':element()},exports=[],errors=[],context={debugEnabled:true,entryDiagnostic:null,entryView:'title',localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,$:id=>parents[id],document:{createElement:()=>element()},exportRaw:(raw,name)=>exports.push({raw,name}),storageNotice:e=>errors.push(e)};
  const start=app.indexOf('function protectedRecordExports(){'),source=app.slice(start,app.indexOf('\n}\n',start)+2);
  // A second invocation models rediscovery after the DOM/session has changed.
  for(let i=0;i<2;i++)runInNewContext(source+'\nprotectedRecordExports()',context);
@@ -239,4 +239,11 @@ test('protected raw backups and legacy originals remain exportable after reload 
   for(const button of list.children.slice(1))button.listeners.click();
  }
  assert.deepEqual(exports.map(x=>x.raw),Array(3).fill(['old raw','{broken',' legacy trial raw \n','{unreadable wholesale']).flat());assert(exports.every(x=>x.name.startsWith('ambertime-protected-')));assert.deepEqual(errors,[]);assert.deepEqual(store.writes,[]);
+});
+
+test('normal title keeps export and protected-record tools outside ordinary current-save entry',()=>{
+ const h=restartHarness();h.api.showTitle();assert.equal(h.nodes.get('entry-export').hidden,true);
+ h.api.startNew();assert.equal(h.nodes.get('entry-confirm-copy').textContent,'今の記録を消して、はじめから遊びますか？');
+ assert.equal(h.nodes.get('entry-export').hidden,true);
+ h.context.debugEnabled=true;h.api.cancelEntry();assert.equal(h.nodes.get('entry-export').hidden,false);
 });

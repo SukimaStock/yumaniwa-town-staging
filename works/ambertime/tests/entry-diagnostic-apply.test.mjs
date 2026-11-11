@@ -56,13 +56,13 @@ test('actual continue application failure stays on title and cannot autosave an 
  assert.equal(h.diagnostics.length,1);assert.equal(h.diagnostics[0][1].stage,'session-apply');assert.equal(h.diagnostics[0][0].code,'apply-before-game');
 });
 
-for(const failure of ['before-game','after-game'])test(`actual new-game application ${failure} failure preserves committed candidate and exact old backup without lifecycle rollback`,async()=>{
+for(const failure of ['before-game','after-game'])test(`actual new-game application ${failure} failure preserves committed candidate without lifecycle rollback or mandatory backup`,async()=>{
  const h=harness({failure}),old=JSON.stringify(h.old),oldRecall=JSON.stringify(h.context.pendingRecall);
  assert.equal(await h.enter(),false);
  const candidateRaw=h.storage.getItem(FORMAL_SAVE_KEY),candidate=readSession(candidateRaw,options);
  assert.notEqual(candidateRaw,h.oldRaw);assert.equal(candidate.game.seed,42);
  const backupRows=[...h.values].filter(([key])=>key.startsWith(FORMAL_SAVE_KEY+'.before-market-rules.v1.'));
- assert.equal(backupRows.length,1);assert.equal(backupRows[0][1],h.oldRaw);
+ assert.equal(backupRows.length,0);
  assert.equal(h.context.entryView,'error');assert.equal(h.context.sessionActive,false);assert.equal(h.context.canSave,false);assert.equal(h.context.runtimeHalted,true);
  assert.equal(h.diagnostics.length,1);assert.equal(h.diagnostics[0][1].stage,'session-apply');assert.equal(h.diagnostics[0][0].code,'apply-'+failure);
  assert.equal(JSON.stringify(h.old),old);
@@ -70,9 +70,8 @@ for(const failure of ['before-game','after-game'])test(`actual new-game applicat
  else assert.equal(h.context.pendingRecall.seed,42);
  const writesBefore=h.writes.length;h.suspend();h.suspend();
  assert.equal(h.counters.save,0);assert.equal(h.writes.length,writesBefore);assert.equal(h.storage.getItem(FORMAL_SAVE_KEY),candidateRaw);
- // A reload can use the committed candidate, or export/recover the old raw;
+ // A reload can use the committed candidate; old raw is intentionally replaced.
  // no failed-UI rollback may decide which record wins after the error.
- assert.equal(readSession(backupRows[0][1],options).game.seed,41);
  assert.equal(readSession(h.storage.getItem(FORMAL_SAVE_KEY),options).game.seed,42);
 });
 
