@@ -26,6 +26,7 @@ const queryValues={
  'dialogue-s2':['1'],fix:['ui-dialogue-notices-20261108'],m0:['m09-corners-r1'],m07:['map-stability-r1'],daily:['v01'],motion:['v02'],traffic:['1'],
  regional:['regional-v01'],delivery:['regional-delivery-v01'],map:['map-partners-v01'],scenery:['map-scenery-v01'],world:['world-network-v01'],restore:['stage7-v01'],
  mapSelection:['night-stage3'],
+ offers:['targeted-v01'],
  repair:['ui4-20261111','entry-diagnostics-20261111-r1','entry-diagnostics-20261111-r2','entry-diagnostics-20261111-r4'],
 };
 function safeVersion(key,value){
