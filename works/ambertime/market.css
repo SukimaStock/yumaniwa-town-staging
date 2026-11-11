@@ -111,3 +111,6 @@
 #market-board [data-market-shop="retail"] .market-stock-list{display:flex;overflow-x:auto;overflow-y:hidden;touch-action:pan-x pinch-zoom;padding-bottom:2px}
 #market-board [data-market-shop="retail"] .market-stock-row{flex:none}
 #market-board .market-partners button{touch-action:pan-y pinch-zoom}
+
+/* A fallback scope describes the rows, never the map's geographic pins. */
+#market-board .market-scope-heading{font:inherit;margin:0;padding:calc(2px * var(--market-scale,1)) calc(6px * var(--market-scale,1));color:#c5b99a;text-align:left}

@@ -26,7 +26,8 @@ test('map selection filters real sales room by scope without mutating stock, con
  const h=harness(),raw=D.serializeDistillery(h.state());
  assert(!h.ui.diagnostics().order.includes(partner));assert(h.ui.diagnostics().order.includes('supermarket'));
  h.select(4,partner);assert.deepEqual(h.ui.diagnostics().order,['retail',partner]);assert.match(h.root.innerHTML,/地域窓口/);
- for(const stage of [1,5,6]){h.select(stage);assert.deepEqual(h.ui.diagnostics().order,['retail']);assert.doesNotMatch(h.root.innerHTML,/data-market-place="trial-region-desk"/);}
+ h.select(1);assert.deepEqual(h.ui.diagnostics().order,['retail']);assert.doesNotMatch(h.root.innerHTML,/data-market-place="trial-region-desk"/);
+ for(const stage of [5,6]){h.select(stage);assert.deepEqual(h.ui.diagnostics().order,['retail',partner],'empty wider scales supplement the nearest contracted range');assert.match(h.root.innerHTML,/data-market-place="trial-region-desk"/);}
  h.select(3,'supermarket');assert.deepEqual(h.ui.diagnostics().order,['retail','supermarket']);
  h.select(4,partner);assert.equal(h.view().selectedShop,partner);assert.equal(D.serializeDistillery(h.state()),raw);
 });

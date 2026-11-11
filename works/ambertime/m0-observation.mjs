@@ -1,8 +1,8 @@
 // M0.7: view-only map drawer. All inputs are projections of native game state.
-import {savedMarketSales,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&map=map-partners-v01&world=world-network-v01';
+import {savedMarketSales,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
 import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01';
 import {syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
-import {mapPartnerProjection,mapPartnerDetail} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
+import {mapPartnerProjection,mapPartnerDetail,marketPartnerScopeForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
 import {drawGameMap,mapProgress,mapObservationBounds,STAGES} from './world-map-view.mjs?v=m07-observation&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {retailSalePlan,ordinarySaleGroups} from './retail-sale-motion.mjs?v=count-linked-r1';
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
@@ -49,7 +49,7 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
  const outer=doc.createElement('section');outer.id='m0-observation';outer.hidden=true;
  outer.setAttribute('aria-label','地図');
  outer.innerHTML=`<div class="m0-top"><div class="m0-rows" aria-label="注目する取扱店"></div></div>
- <div class="m0-drawer"><div class="m0-handle"><span class="m0-grip" aria-hidden="true"><i></i></span><select class="m0-stage" aria-label="地図の視点">${STAGES.map((name,i)=>`<option value="${i+1}">${esc(typeof name==='string'?name:name.name??name.label??String(i+1))}</option>`).join('')}</select><button type="button" data-m0="advance" aria-label="地図を全画面にする"><span class="m0-window-icon" aria-hidden="true"></span></button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div>
+ <div class="m0-drawer"><div class="m0-handle"><select class="m0-stage" aria-label="地図の視点">${STAGES.map((name,i)=>`<option value="${i+1}">${esc(typeof name==='string'?name:name.name??name.label??String(i+1))}</option>`).join('')}</select><div class="m0-header-actions"><button type="button" data-m0="advance" aria-label="地図を全画面にする"><span class="m0-window-icon" aria-hidden="true"></span></button><button type="button" data-m0="close" aria-label="地図を閉じる">×</button></div></div>
  <div class="m0-map"><div class="m0-map-window" tabindex="0" aria-label="地図。全画面では指や矢印キーで移動、拡大ボタンで拡大できます"><div class="m0-map-layer"><canvas width="144" height="144" role="img" aria-label="地図"></canvas><div class="map-scenery-butterflies" aria-hidden="true"></div><div class="m0-pins"></div></div></div>
  <div class="m0-zoom" hidden><button type="button" data-m0="zoom-in" aria-label="地図を拡大">＋</button><button type="button" data-m0="zoom-out" aria-label="地図を縮小">−</button></div>
  <div class="m0-report" role="status" aria-live="polite"></div></div></div>`;
@@ -65,7 +65,7 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
  function publish(patch){localView={...readView(),...patch};onViewChange(localView);}
  function rememberCamera(){publish({transforms:{...(readView().transforms??{}),[stage]:{zoom,panX:pan.x,panY:pan.y}}});}
  function selectPartner(id){selected=id;publish({stage,selectedShop:id});update();}
- function partnerName(id){return mapPartnerProjection(state(),stage).partners.find(p=>p.id===id)?.name??shopNames.get(id)??id;}
+ function partnerName(id){return mapPartnerProjection(state(),stage).partners.find(p=>p.id===id)?.name??mapPartnerDetail(state(),id)?.name??shopNames.get(id)??id;}
  const DRAWER_TWEEN_MS=240;
  const drawer=outer.querySelector('.m0-drawer');
  let opening=false,closing=false,hideTimer=null,suspendedMode=null,reportedOpen=null;
@@ -98,6 +98,8 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
   node.querySelectorAll('.market-stock-row[id]').forEach(el=>{el.dataset.m0Product=el.id.split('-').at(-1);});
   node.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
   node.querySelectorAll('button').forEach(el=>{const span=doc.createElement('span');span.className=el.className;span.innerHTML=el.innerHTML;el.replaceWith(span);});
+  // The source row's details chevron is not an action in this read-only clone.
+  node.querySelectorAll('.market-shop-name > span[aria-hidden="true"]').forEach(el=>{if(el.querySelector('[data-symbol="chevronRight"]'))el.remove();});
   const name=node.querySelector('.market-shop-title');if(name)name.textContent=partnerName(id);
   const icon=node.querySelector('.market-store-icon');if(icon)icon.innerHTML=m0ShopGlyph(id);
   node.setAttribute('aria-label',partnerName(id));
@@ -106,7 +108,7 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
  function syncRows(){
   const sales=room()==='sales';outer.dataset.originRoom=sales?'sales':'other';
   if(!sales){rows.replaceChildren();rowKeys.clear();return;}
-  const ids=availableMarketShops(state()).map(p=>p.id).filter(id=>available(state()).includes(id));if(!ids.includes(lastStore))lastStore=ids.find(id=>id!=='retail')??null;
+  const scope=marketPartnerScopeForMap(state(),readView(),availableMarketShops(state())),ids=scope.shops.map(p=>p.id);rows.dataset.displayStage=String(scope.stage);if(!ids.includes(lastStore))lastStore=ids.find(id=>id!=='retail')??null;
   if(selected!=='retail'&&ids.includes(selected))lastStore=selected;
   const store=selected==='retail'||selected===null?lastStore:ids.includes(selected)?selected:null;
   const wanted=['retail',store].filter((id,i,a)=>id&&a.indexOf(id)===i);
@@ -115,7 +117,12 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
    const original=source.querySelector('[data-market-shop="'+id+'"]');const markup=original?.innerHTML??'';
    let existing=rows.querySelector('[data-m0-shop="'+id+'"]');
    if(rowKeys.get(id)!==markup||!existing){const fresh=staticShelf(id);if(!fresh)continue;existing=fresh;rowKeys.set(id,markup);}
-   existing.classList.toggle('m0-selected',selected===id);next.append(existing);seen.add(id);
+   existing.classList.toggle('m0-selected',selected===id);
+   existing.querySelector('.m0-scope-caption')?.remove();
+   const supplemented=scope.fallback&&id!=='retail';existing.classList.toggle('m0-scope-store',supplemented);
+   existing.setAttribute('aria-label',partnerName(id)+(supplemented?' · '+scope.label:''));
+   if(supplemented){const caption=doc.createElement('span');caption.className='m0-scope-caption';caption.textContent=scope.label.replace(/の取引先$/,'');caption.setAttribute('aria-label',scope.label);existing.querySelector('.market-shop-name')?.append(caption);}
+   next.append(existing);seen.add(id);
   }
   rows.replaceChildren(next);rows.dataset.shopCount=String(seen.size);for(const id of [...rowKeys.keys()])if(!seen.has(id))rowKeys.delete(id);
  }
@@ -270,7 +277,7 @@ export function createM0Observation({document:doc,state,room,modal,onModeChange=
  });
  stageControl.addEventListener('change',()=>{const nextStage=clamp(Number(stageControl.value),1,6);rememberCamera();publish({stage:nextStage,selectedShop:null});update();});
  const handle=outer.querySelector('.m0-handle');
- handle.addEventListener('pointerdown',e=>{suppressAdvance=false;if(e.target.closest('[data-m0="close"],select'))return;drag={id:e.pointerId,y:e.clientY,action:e.target.closest('[data-m0]')?.dataset.m0};handle.setPointerCapture(e.pointerId);});
+ handle.addEventListener('pointerdown',e=>{suppressAdvance=false;if(e.target.closest('button,select'))return;drag={id:e.pointerId,y:e.clientY,action:e.target.closest('[data-m0]')?.dataset.m0};handle.setPointerCapture(e.pointerId);});
  handle.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const d=drag,dy=e.clientY-d.y;drag=null;if(Math.abs(dy)>28){suppressAdvance=true;e.preventDefault();setMode(dy<0?'full':'half');}else if(d.action==='advance'){suppressAdvance=true;setMode(mode==='half'?'full':'half');}});
  handle.addEventListener('pointercancel',()=>{drag=null;});
  // The map and hit targets belong to one transform layer; no independent pin drift.

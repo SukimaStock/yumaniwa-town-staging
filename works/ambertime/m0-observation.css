@@ -26,9 +26,8 @@
 #m0-observation .m0-drawer{position:absolute;inset:32% 0 0;background:#879b77;display:flex;flex-direction:column;min-height:0;pointer-events:auto;border-top:3px solid #858995;transition:top 240ms steps(4,end)}
 #m0-observation[data-mode=closed] .m0-drawer{top:100%}
 #m0-observation[data-mode=full] .m0-drawer{top:0}
-#m0-observation .m0-handle{height:42px;flex:none;background:#3f3e45;display:flex;align-items:stretch;border-bottom:3px solid #252630;touch-action:none}
-#m0-observation .m0-grip{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-#m0-observation .m0-grip i{width:30px;height:4px;display:block;background:#a9a6a4}
+#m0-observation .m0-handle{height:42px;flex:none;background:#3f3e45;display:grid;grid-template-columns:minmax(0,1fr) minmax(76px,112px) minmax(0,1fr);align-items:stretch;border-bottom:3px solid #252630;touch-action:none}
+#m0-observation .m0-header-actions{grid-column:3;justify-self:end;display:flex;min-width:88px}
 #m0-observation .m0-handle button{font:inherit;color:inherit;background:none;border:0;border-left:2px solid #252630;min-width:44px;min-height:38px;padding:0;display:flex;align-items:center;justify-content:center;touch-action:manipulation;box-shadow:none}
 #m0-observation .m0-handle [data-m0=advance]{flex:0 0 44px}
 #m0-observation .m0-handle [data-m0=close]{flex:0 0 44px;font-size:20px}
@@ -64,7 +63,7 @@ linear-gradient(currentColor,currentColor) right bottom/3px 9px no-repeat}
 .m0-flight{position:fixed;z-index:50;pointer-events:none;display:block;image-rendering:pixelated}
 .m0-flight svg{display:block;width:100%;height:100%}
 @media(prefers-reduced-motion:reduce){#m0-observation *,#m0-observation *::before,#m0-observation *::after{animation:none!important;transition:none!important}}
-#m0-observation .m0-stage{flex:0 1 112px;max-width:40%;min-width:76px;min-height:38px;font:inherit;color:#f0e6c8;background:#3f3e45;border:0;border-left:2px solid #252630;border-radius:0;padding:0 6px;touch-action:manipulation}
+#m0-observation .m0-stage{grid-column:2;width:100%;min-width:0;min-height:38px;font:inherit;color:#f0e6c8;background-color:#3f3e45;border:0;border-radius:0;padding:0 15px;text-align:center;text-align-last:center;appearance:none;touch-action:manipulation;background-image:linear-gradient(45deg,transparent 50%,#f0e6c8 50%),linear-gradient(135deg,#f0e6c8 50%,transparent 50%);background-position:calc(100% - 9px) 50%,calc(100% - 5px) 50%;background-size:4px 4px;background-repeat:no-repeat}
 #m0-observation .m0-stage:focus-visible{outline:2px dotted #f7cd58;outline-offset:-3px}
 #m0-observation .m0-report-actions{display:flex;gap:8px;justify-content:flex-end}
 #m0-observation .m0-report-actions button{font:inherit;color:#f0e6c8;background:none;border:0;text-decoration:underline;min-height:44px;padding:2px 5px}
@@ -81,3 +80,8 @@ html[data-scenery-hidden=true] .map-scenery-butterflies .map-scenery-drift,html[
 @keyframes map-scenery-drift{from{transform:translate(0,0)}to{transform:translate(2px,2px)}}
 @keyframes map-scenery-wings{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.5)}}
 @media(prefers-reduced-motion:reduce){.map-scenery-drift,.map-scenery-wings{animation:none!important;transform:none!important}}
+
+/* A supplemented scope is a caption in the existing icon footprint, never a
+   new map pin or another row that would crowd the read-only bottle summary. */
+#m0-observation .m0-scope-store .market-shop-name{flex-direction:column;gap:0}
+#m0-observation .m0-scope-caption{display:block;font-size:12px;line-height:12px;white-space:nowrap}

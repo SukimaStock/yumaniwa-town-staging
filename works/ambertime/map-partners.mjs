@@ -43,8 +43,27 @@ export function mapPartnerProjection(game,stage){
  return {stage,scope,month:count(game?.core?.month),period:retail.period,partners,pins:partners,retail};
 }
 // The existing market UI still owns order, bottles, quantities and transactions.
-export function marketPartnersForMap(game,view,available){
- const pins=mapPartnerProjection(game,view?.stage??3).partners;
- const ids=new Set(pins.filter(p=>p.canTrade&&(!view?.selectedShop||p.id===view.selectedShop)).map(p=>p.id));
- return available.filter(p=>p.id==='retail'||ids.has(p.id));
+// This is a display scope only: a smaller scope never creates a pin in the
+// map being browsed, a contract, or an allocation.
+const scopeNames={2:'町',3:'町',4:'地方',5:'全国',6:'海外'};
+const partnerStage=id=>({town:3,region:4,prefecture:5,country:6})[tradingPartner(id)?.mapScale]??null;
+export function marketPartnerScopeForMap(game,view,available){
+ const requestedStage=Number.isInteger(view?.stage)&&view.stage>=1&&view.stage<=6?view.stage:3;
+ const retail=available.filter(p=>p.id==='retail');
+ const result=(shops,stage=requestedStage)=>({shops,stage,requestedStage,fallback:stage!==requestedStage,label:stage!==requestedStage?scopeNames[stage]+'の取引先':''});
+ if(view?.selectedShop==='retail')return result(retail);
+ const selected=available.find(p=>p.id===view?.selectedShop&&p.id!=='retail');
+ if(selected&&mapPartnerDetail(game,selected.id)?.canTrade){
+  const atRequested=mapPartnerProjection(game,requestedStage).partners.some(p=>p.id===selected.id);
+  return result([...retail,selected],atRequested?requestedStage:partnerStage(selected.id));
+ }
+ // The department keeps its dedicated project UI rather than joining a shelf.
+ if(view?.selectedShop==='department'&&mapPartnerDetail(game,'department'))return result(retail);
+ for(let stage=requestedStage;stage>=2;stage--){
+  const ids=new Set(mapPartnerProjection(game,stage).partners.filter(p=>p.canTrade).map(p=>p.id));
+  const shops=available.filter(p=>p.id!=='retail'&&ids.has(p.id));
+  if(shops.length)return result([...retail,...shops],stage);
+ }
+ return result(retail);
 }
+export function marketPartnersForMap(game,view,available){return marketPartnerScopeForMap(game,view,available).shops;}
