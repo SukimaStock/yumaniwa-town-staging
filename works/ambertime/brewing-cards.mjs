@@ -24,16 +24,13 @@ export const BREWING_CARDS=Object.freeze([
  Object.freeze({group:'ferment',value:'short',label:'短い発酵',icon:icon(active,{'1':'#b88243','2':'#e4b55e','3':'#f0e6c8'})}),
  Object.freeze({group:'ferment',value:'long',label:'長い発酵',icon:icon(calm,{'1':'#684632','2':'#b88243','3':'#f0e6c8'})})
 ]);
-export function longFermentationUnlocked(state){
- for(let s=state;s;s=s.origin){
-  if(s.staffExperience?.manualFills>0||s.operations?.some(o=>o.key==='fill'))return true;
- }
- return false;
-}
+// Both existing fermentation choices are available from the first manual batch.
+// This is a presentation rule; journals, recipes and flavor calculation stay unchanged.
+export function longFermentationUnlocked(){return true;}
 // UI only: never rewrite old journals, active runs or saved recipes.
 export function manualCards(state){
  const cards=state.labConnection.cards;
- return {...cards,ferment:longFermentationUnlocked(state)?cards.ferment:'short'};
+ return {...cards};
 }
 export function chooseManualCard(state,group,value){
  const card=BREWING_CARDS.find(c=>c.group===group&&c.value===value);

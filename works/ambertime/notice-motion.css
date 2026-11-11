@@ -7,7 +7,7 @@
 }
 .automatic-news[data-motion="news"]{
  background:#26333a;border-color:#8aabb5;
- animation:amber-news-pass 240ms steps(4,end) both,amber-news-leave 180ms steps(3,end) calc(var(--notice-life,6500ms) - 180ms) forwards;
+ animation:amber-news-pass 240ms steps(6,end) both,amber-news-leave 180ms steps(5,end) calc(var(--notice-life,6500ms) - 180ms) forwards;
 }
 .automatic-news[data-motion="ambient"]::first-line{color:#f0d58f;}
 .automatic-news[data-motion="news"]::first-line{color:#b3d6e0;}
@@ -67,5 +67,5 @@
   animation:none!important;transform:none!important;opacity:1!important;
  }
 }
-/* Passive messages do not capture taps, swipes, focus, or map gestures. */
-#automatic-news,#shop-dialogue-notice{pointer-events:none;cursor:default;}
+/* Cards handle their own tap; native long-message scrolling stays available. */
+#automatic-news,#shop-dialogue-notice{pointer-events:auto;cursor:pointer;}

@@ -90,15 +90,11 @@
 #market-board .market-sale-slot{grid-column:3;grid-row:1;display:flex;align-items:center;min-width:0;margin-left:calc(2px * var(--market-scale,1));white-space:nowrap}
 #market-board .market-sale-slot .market-sale-delta{position:static;display:inline-block;line-height:inherit}
 
-#market-board .market-shop .market-stock-list{padding-top:calc(12px * var(--market-scale,1))}
-
-/* Leave a finger-wide placing lane beside individually tappable bottles.
-   Each wrapped row reserves a quantity-change line above its count, separate
-   from the previous date. Keep only a small inset above that reserved line. */
-#market-board .market-shop .market-stock-list{grid-template-columns:repeat(2,max-content);justify-content:start;padding-top:calc(8px * var(--market-scale,1));padding-right:44px}
-#market-board .market-stock-row{position:relative;margin-top:var(--uniform-line-height,24px)}
-#market-board .market-stock{grid-template-columns:calc(24px * var(--market-scale,1)) max-content;min-width:44px;min-height:44px;position:relative}
-#market-board .market-sale-slot{position:absolute;grid-column:1/-1;top:calc(-1 * var(--uniform-line-height,24px));left:calc(26px * var(--market-scale,1));margin:0;width:0;min-width:0}
+/* Leave a finger-wide placing lane; quantity changes use the right-hand slot,
+   so the old empty row above each release is unnecessary. */
+#market-board .market-shop .market-stock-list{grid-template-columns:repeat(2,max-content);justify-content:start;padding-top:0;padding-right:44px}
+#market-board .market-stock-row{position:relative;margin-top:0}
+#market-board .market-stock{min-width:44px;min-height:44px;position:relative}
 
 /* Only partner shops scroll. Natural height leaves the room visible for few shops. */
 #market-board{overflow:hidden}
