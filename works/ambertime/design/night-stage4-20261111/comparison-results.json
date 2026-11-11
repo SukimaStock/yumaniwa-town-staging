@@ -1,0 +1,513 @@
+{
+  "source": "actual unchanged market-sales.mjs planSales carry",
+  "conditions": "synthetic pure item, age24, price=reference20, 1200 monthly plans, seed42; no native saves or model mutation; multi-lane is provisional comparison, no growth implemented",
+  "results": [
+    {
+      "name": "smoky",
+      "lanes": [
+        "town-liquor"
+      ],
+      "affinity": {
+        "town-liquor": 1
+      },
+      "acceptance": {
+        "town-liquor": 0.9500000000000001
+      },
+      "plentiful": {
+        "sold": 9120,
+        "perMonth": 7.6,
+        "emptyMonth": null,
+        "remaining": 90880,
+        "ledgerBytes": 616,
+        "year1": 91,
+        "year30": 2736,
+        "year100": 9120
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 8,
+        "remaining": 0,
+        "ledgerBytes": 302,
+        "year1": 54,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "smoky",
+      "lanes": [
+        "supermarket"
+      ],
+      "affinity": {
+        "supermarket": 0
+      },
+      "acceptance": {
+        "supermarket": 0.025
+      },
+      "plentiful": {
+        "sold": 360,
+        "perMonth": 0.3,
+        "emptyMonth": null,
+        "remaining": 99640,
+        "ledgerBytes": 608,
+        "year1": 3,
+        "year30": 108,
+        "year100": 360
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 263,
+        "remaining": 0,
+        "ledgerBytes": 302,
+        "year1": 3,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "smoky",
+      "lanes": [
+        "bar"
+      ],
+      "affinity": {
+        "bar": 0.875
+      },
+      "acceptance": {
+        "bar": 0.7325
+      },
+      "plentiful": {
+        "sold": 3516,
+        "perMonth": 2.93,
+        "emptyMonth": null,
+        "remaining": 96484,
+        "ledgerBytes": 586,
+        "year1": 35,
+        "year30": 1054,
+        "year100": 3516
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 19,
+        "remaining": 0,
+        "ledgerBytes": 278,
+        "year1": 35,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "smoky",
+      "lanes": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "affinity": {
+        "town-liquor": 1,
+        "supermarket": 0
+      },
+      "acceptance": {
+        "town-liquor": 0.9500000000000001,
+        "supermarket": 0.025
+      },
+      "plentiful": {
+        "sold": 9480,
+        "perMonth": 7.9,
+        "emptyMonth": null,
+        "remaining": 90520,
+        "ledgerBytes": 1223,
+        "year1": 94,
+        "year30": 2844,
+        "year100": 9480
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 7,
+        "remaining": 0,
+        "ledgerBytes": 603,
+        "year1": 54,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "smoky",
+      "lanes": [
+        "town-liquor",
+        "supermarket",
+        "bar"
+      ],
+      "affinity": {
+        "town-liquor": 1,
+        "supermarket": 0,
+        "bar": 0.875
+      },
+      "acceptance": {
+        "town-liquor": 0.9500000000000001,
+        "supermarket": 0.025,
+        "bar": 0.7325
+      },
+      "plentiful": {
+        "sold": 12996,
+        "perMonth": 10.83,
+        "emptyMonth": null,
+        "remaining": 87004,
+        "ledgerBytes": 1808,
+        "year1": 129,
+        "year30": 3898,
+        "year100": 12996
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 6,
+        "remaining": 0,
+        "ledgerBytes": 880,
+        "year1": 54,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "balanced",
+      "lanes": [
+        "town-liquor"
+      ],
+      "affinity": {
+        "town-liquor": 0.5384615384615384
+      },
+      "acceptance": {
+        "town-liquor": 0.16941283568502502
+      },
+      "plentiful": {
+        "sold": 1626,
+        "perMonth": 1.355,
+        "emptyMonth": null,
+        "remaining": 98374,
+        "ledgerBytes": 646,
+        "year1": 16,
+        "year30": 487,
+        "year100": 1626
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 49,
+        "remaining": 0,
+        "ledgerBytes": 306,
+        "year1": 16,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "balanced",
+      "lanes": [
+        "supermarket"
+      ],
+      "affinity": {
+        "supermarket": 0.5384615384615384
+      },
+      "acceptance": {
+        "supermarket": 0.16941283568502502
+      },
+      "plentiful": {
+        "sold": 2439,
+        "perMonth": 2.0325,
+        "emptyMonth": null,
+        "remaining": 97561,
+        "ledgerBytes": 647,
+        "year1": 24,
+        "year30": 731,
+        "year100": 2439
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 38,
+        "remaining": 0,
+        "ledgerBytes": 306,
+        "year1": 24,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "balanced",
+      "lanes": [
+        "bar"
+      ],
+      "affinity": {
+        "bar": 0.5
+      },
+      "acceptance": {
+        "bar": 0.32
+      },
+      "plentiful": {
+        "sold": 1536,
+        "perMonth": 1.28,
+        "emptyMonth": null,
+        "remaining": 98464,
+        "ledgerBytes": 502,
+        "year1": 15,
+        "year30": 460,
+        "year100": 1536
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 45,
+        "remaining": 0,
+        "ledgerBytes": 282,
+        "year1": 15,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "balanced",
+      "lanes": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "affinity": {
+        "town-liquor": 0.5384615384615384,
+        "supermarket": 0.5384615384615384
+      },
+      "acceptance": {
+        "town-liquor": 0.16941283568502502,
+        "supermarket": 0.16941283568502502
+      },
+      "plentiful": {
+        "sold": 4065,
+        "perMonth": 3.3875,
+        "emptyMonth": null,
+        "remaining": 95935,
+        "ledgerBytes": 1292,
+        "year1": 40,
+        "year30": 1218,
+        "year100": 4065
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 24,
+        "remaining": 0,
+        "ledgerBytes": 611,
+        "year1": 40,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "balanced",
+      "lanes": [
+        "town-liquor",
+        "supermarket",
+        "bar"
+      ],
+      "affinity": {
+        "town-liquor": 0.5384615384615384,
+        "supermarket": 0.5384615384615384,
+        "bar": 0.5
+      },
+      "acceptance": {
+        "town-liquor": 0.16941283568502502,
+        "supermarket": 0.16941283568502502,
+        "bar": 0.32
+      },
+      "plentiful": {
+        "sold": 5601,
+        "perMonth": 4.6675,
+        "emptyMonth": null,
+        "remaining": 94399,
+        "ledgerBytes": 1793,
+        "year1": 55,
+        "year30": 1678,
+        "year100": 5601
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 14,
+        "remaining": 0,
+        "ledgerBytes": 892,
+        "year1": 52,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "grain",
+      "lanes": [
+        "town-liquor"
+      ],
+      "affinity": {
+        "town-liquor": 0.07692307692307698
+      },
+      "acceptance": {
+        "town-liquor": 0.02542102867546655
+      },
+      "plentiful": {
+        "sold": 244,
+        "perMonth": 0.20333333333333334,
+        "emptyMonth": null,
+        "remaining": 99756,
+        "ledgerBytes": 633,
+        "year1": 2,
+        "year30": 73,
+        "year100": 244
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 333,
+        "remaining": 0,
+        "ledgerBytes": 302,
+        "year1": 2,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "grain",
+      "lanes": [
+        "supermarket"
+      ],
+      "affinity": {
+        "supermarket": 0.9999999999999998
+      },
+      "acceptance": {
+        "supermarket": 0.9499999999999994
+      },
+      "plentiful": {
+        "sold": 13680,
+        "perMonth": 11.4,
+        "emptyMonth": null,
+        "remaining": 86320,
+        "ledgerBytes": 549,
+        "year1": 136,
+        "year30": 4104,
+        "year100": 13680
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 5,
+        "remaining": 0,
+        "ledgerBytes": 302,
+        "year1": 54,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "grain",
+      "lanes": [
+        "bar"
+      ],
+      "affinity": {
+        "bar": 0.20000000000000004
+      },
+      "acceptance": {
+        "bar": 0.15200000000000002
+      },
+      "plentiful": {
+        "sold": 729,
+        "perMonth": 0.6075,
+        "emptyMonth": null,
+        "remaining": 99271,
+        "ledgerBytes": 605,
+        "year1": 7,
+        "year30": 218,
+        "year100": 729
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 96,
+        "remaining": 0,
+        "ledgerBytes": 278,
+        "year1": 7,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "grain",
+      "lanes": [
+        "town-liquor",
+        "supermarket"
+      ],
+      "affinity": {
+        "town-liquor": 0.07692307692307698,
+        "supermarket": 0.9999999999999998
+      },
+      "acceptance": {
+        "town-liquor": 0.02542102867546655,
+        "supermarket": 0.9499999999999994
+      },
+      "plentiful": {
+        "sold": 13924,
+        "perMonth": 11.603333333333333,
+        "emptyMonth": null,
+        "remaining": 86076,
+        "ledgerBytes": 1181,
+        "year1": 138,
+        "year30": 4177,
+        "year100": 13924
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 5,
+        "remaining": 0,
+        "ledgerBytes": 603,
+        "year1": 54,
+        "year30": 54,
+        "year100": 54
+      }
+    },
+    {
+      "name": "grain",
+      "lanes": [
+        "town-liquor",
+        "supermarket",
+        "bar"
+      ],
+      "affinity": {
+        "town-liquor": 0.07692307692307698,
+        "supermarket": 0.9999999999999998,
+        "bar": 0.20000000000000004
+      },
+      "acceptance": {
+        "town-liquor": 0.02542102867546655,
+        "supermarket": 0.9499999999999994,
+        "bar": 0.15200000000000002
+      },
+      "plentiful": {
+        "sold": 14653,
+        "perMonth": 12.210833333333333,
+        "emptyMonth": null,
+        "remaining": 85347,
+        "ledgerBytes": 1785,
+        "year1": 145,
+        "year30": 4395,
+        "year100": 14653
+      },
+      "single54": {
+        "sold": 54,
+        "perMonth": 0.045,
+        "emptyMonth": 5,
+        "remaining": 0,
+        "ledgerBytes": 880,
+        "year1": 54,
+        "year30": 54,
+        "year100": 54
+      }
+    }
+  ]
+}

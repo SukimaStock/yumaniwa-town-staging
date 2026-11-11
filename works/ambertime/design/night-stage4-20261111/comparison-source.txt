@@ -1,0 +1,19 @@
+import {planSales,affinity,acceptance,VENUES} from './works/ambertime/market-sales.mjs';
+const profiles={smoky:{fruit:.1,grain:.1,smoke:.7,body:.7},balanced:{fruit:.25,grain:.25,smoke:.25,body:.25},grain:{fruit:.5,grain:.7,smoke:.1,body:.2}};
+const base={id:1,age:24,roughness:.2,character:.6,wood:.4,price:20,referencePrice:20};
+function run(profile,lanes,months=1200,supply='plentiful'){
+ let stock=supply==='54'?54:100000,ledgers={},sold=0,emptyMonth=null;const yearly=[];
+ for(let month=1;month<=months;month++){
+  if(supply==='annual'&&month%12===1)stock+=54;
+  const order=lanes.slice(month%lanes.length).concat(lanes.slice(0,month%lanes.length));
+  for(const venue of order){const result=planSales([{...base,flavor:profile,count:stock}],venue,ledgers[venue],{month,seed:42});ledgers[venue]=result.ledger;stock-=result.sold;sold+=result.sold;}
+  if(stock===0&&emptyMonth===null)emptyMonth=month;
+  if(month%12===0)yearly.push(sold);
+ }
+ return {sold,perMonth:sold/months,emptyMonth,remaining:stock,ledgerBytes:Buffer.byteLength(JSON.stringify(ledgers)),year1:yearly[0],year30:yearly[29],year100:yearly[99]};
+}
+const results=[];
+for(const [name,flavor]of Object.entries(profiles))for(const lanes of [['town-liquor'],['supermarket'],['bar'],['town-liquor','supermarket'],['town-liquor','supermarket','bar']]){
+ results.push({name,lanes,affinity:Object.fromEntries(lanes.map(v=>[v,affinity(v,{...base,flavor})])),acceptance:Object.fromEntries(lanes.map(v=>[v,acceptance(v,{...base,flavor})])),plentiful:run(flavor,lanes),single54:run(flavor,lanes,1200,'54')});
+}
+process.stdout.write(JSON.stringify({source:'actual unchanged market-sales.mjs planSales carry',conditions:'synthetic pure item, age24, price=reference20, 1200 monthly plans, seed42; no native saves or model mutation; multi-lane is provisional comparison, no growth implemented',results},null,2));

@@ -1,0 +1,88 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c43fceb342f9ce032a94590126397ff917440a4fcb0d19726e219b1850d9176b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-night-stage4-integration-20261111",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate reviewed Stage4 audit documents after Stage1/2/3; no runtime economics",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "7b31abbfa5eb2233990b115014d359fb731fa2a6",
+    "canonicalSources": [
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-night-stage4-integration-20261111/r0.lock.json",
+      "works/ambertime/design/night-stage4-20261111/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/placement-mode.mjs",
+      "works/ambertime/market-sales.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Read-only transaction and save/replay audit",
+      "Preserve old settled receipts; proposed opt-in boundary and empty initial consignment inventory",
+      "Publish pure unchanged town-sales comparison source as inert text plus exact conditions/results",
+      "Record fresh existing-model regressions and measured long restore status without passing new mode"
+    ],
+    "ownerDecisions": [
+      "Current explicit night task authorizes comparison, technical research and Draft PR; no Production and no unverified economic merge",
+      "Current user requests merge of reviewed results; this branch integrates only consignment audit evidence, never the unimplemented economic rules"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Prior Plan Lock and docs-only scope",
+      "No new executable path: comparison source is inert text, not imported by app or CI",
+      "Expression audit: factual technical record, no new game UI",
+      "Fresh plan after abandoned unpushed audit scope failed evidence JSON/log work-runtime impact declarations; no old lock rewritten"
+    ],
+    "staticChecks": [],
+    "manualChecks": [
+      "Independent review of audit and simulation boundary",
+      "Exact diff confirms no runtime/model/save modifications"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove this documentation-only research commit; no save data affected",
+    "outOfScope": [
+      "Formal save/model/economy changes",
+      "Runtime implementation of consignment or growth",
+      "Staging integration claim",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "New consignment implementation and migration",
+      "New economy30/100-year validation",
+      "iPhone Safari"
+    ],
+    "staticCheckExemptionReason": "Documentation, JSON results and inert text only; no executable or runtime path changes. Check JSON syntax and exact source replay in recorded local verification."
+  }
+}
