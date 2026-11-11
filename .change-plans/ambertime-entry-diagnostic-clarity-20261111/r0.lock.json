@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "bef7e81abd1c39aaed78f23c31ab98c28be19de9ffb36dbd32a851febb92234d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-entry-diagnostic-clarity-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Make startup diagnostic validation target and verified candidate state explicit",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "2cdc807f362c6a8eb8db3a5da524d8d6acbc644a",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/market-ui.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-entry-diagnostic-clarity-20261111/r0.lock.json",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/entry-diagnostics.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/entry-diagnostic-privacy.test.mjs",
+      "works/ambertime/tests/entry-diagnostic-stages.test.mjs",
+      "works/ambertime/tests/entry-diagnostic-apply.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Name new candidate validation separately from continued-record reader validation",
+      "When failed apply follows verified write and formal key still equals verified candidate, report candidate-verified instead of uncertain",
+      "Refresh changed diagnostic import/build URLs to r2 and preserve strict privacy version allowlist",
+      "No change to model/writer/backup/cancel/selection behavior"
+    ],
+    "ownerDecisions": [
+      "Current user followup authorizes diagnostics-first small Staging PR, fault tests, independent review and confirmed startup failure fixes; no Production"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Focused diagnostic tests",
+      "Repeat shared Chrome verified apply state and four-size display",
+      "Required CI and deployed byte match"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert diagnostic UI PR; leave all formal and protected raw bytes readable",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901 persistence",
+      "Formal v8/model/economy/normal recall contract",
+      "Title redesign",
+      "Save cleanup/removal",
+      "Declaring iPhone fixed without exception evidence"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}
