@@ -31,7 +31,7 @@ test('an organically emitted near-wide inquiry appears as an offer but cannot be
  const offer=D.regionalOffers(s)[0],before=D.serializeDistillery(s),pin=mapPartnerProjection(deepFreeze(s),4).partners[0];
  assert(offer);assert.equal(pin.id,id);assert.equal(pin.status,'offer');assert.equal(pin.canTrade,false);assert.equal(pin.detail.offer.eventId,offer.eventId);
  assert(s.labConnection.town.events.some(e=>e.id===offer.eventId&&e.type==='inquiry'&&e.to==='near-wide'));
- assert.deepEqual(ids(marketPartnersForMap(s,{stage:4,selectedShop:id},availableMarketShops(s))),['retail']);
+ assert(!ids(marketPartnersForMap(s,{stage:4,selectedShop:id},availableMarketShops(s))).includes(id),'an offer does not grant a shelf; contracted town shops may supplement it');
  assert.equal(D.serializeDistillery(s),before);
  s=D.declineRegionalOffer(s,id,offer.id);assert.deepEqual(mapPartnerProjection(s,4).partners,[]);
  assert.equal(normalizeMapView({stage:4,selectedShop:id},6,ids(mapPartnerProjection(s,4).partners)).selectedShop,null);
@@ -51,7 +51,7 @@ test('natural seed3/6 contracts select regional scope and preserve native alloca
   assert(!ids(marketPartnersForMap(s,{stage:3},available)).includes(id));
   for(const stage of [1,5,6]){
    assert.deepEqual(mapPartnerProjection(s,stage).partners,[]);
-   assert.deepEqual(ids(marketPartnersForMap(s,{stage,selectedShop:id},available)),['retail']);
+   assert.deepEqual(ids(marketPartnersForMap(s,{stage,selectedShop:id},available)),['retail',id],'an explicit eligible target remains selected independently of the viewed scale');
   }
   assert.equal(D.serializeDistillery(s),before);assert.deepEqual(mapProgress(s),progress);
   s=reserve(s,5);let detail=mapPartnerDetail(s,id);assert.equal(detail.pendingCount,5);assert.equal(detail.totalDelivered,0);assert.equal(detail.customerSales,null);
@@ -73,7 +73,7 @@ test('native town identities match authored bounds and department keeps its spec
  const available=availableMarketShops(s);
  assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'supermarket'},available)),['retail','supermarket']);
  assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'department'},available)),['retail']);
- assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'missing'},available)),['retail']);
+ assert.deepEqual(ids(marketPartnersForMap(s,{stage:3,selectedShop:'missing'},available)),['retail','town-liquor','supermarket','bar'],'a stale selection falls back to actual eligible partners');
 });
 
 test('display-only v2 storage keeps stage4 selection and separate camera memories; stale targets normalize to no selection',()=>{

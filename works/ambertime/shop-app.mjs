@@ -20,8 +20,8 @@ import {soldOutLabel,LIVE_MESSAGE} from './message-view.mjs?v=visual14-r1';
 import {readSession,serializeSession,isCurrentSession,writeCandidate,FORMAL_SAVE_KEY,DEVELOPMENT_SAVE_VERSION} from './development-save.mjs?v=bar-v01-1';
 import {initializeHistoryRecord,advanceHistoryRecord,historyRecordView} from './history-record.mjs?v=s4-1';
 import {NODES as HISTORY_REGIONS} from './town-connection.mjs?v=stage4-r2';
-import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01';
-import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
+import {createMarketUI,commitMarketRulesUpdate,availableMarketShops} from './market-ui.mjs?v=sales-scroll-s1-1&delivery=regional-delivery-v01&map=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
+import {createM0Observation} from './m0-observation.mjs?v=m09-map-corners-r1&motion=v02&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&repair=ui3-20261111';
 import {createPlacementUI} from './placement-ui.mjs?v=visual14-r1&quantity=a3-1';
 import {symbolMarkup} from './pixel-symbols.mjs?v=rooms-stage2-r1';
 import {createFeedbackComments,recentCustomerFeedback,commentExcerpt,caskFeedback,warehouseFeedback,warehouseFeedbackPreview} from './flavor-feedback-view.mjs?v=reactions-s1-1&rooms=stage3-r1&status=1&aging=1';
@@ -31,7 +31,7 @@ import {caskDetailProfile} from './cask-detail-view.mjs?v=formal-copy-r1&rooms=s
 import {StartCountdown} from './start-countdown.mjs?v=native-timer-r2';
 import {mapProgress,mapStep,drawGameMap,newlyUnlocked,mapIntroduction,mapNoticeBaseline,MAP_BROWSE_MAX,mapObservationBounds,STAGES as MAP_STAGES} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {mapSceneryButterflies,syncSceneryLayer,installSceneryMotion} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
-import {mapPartnerProjection,marketPartnersForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
+import {mapPartnerProjection,marketPartnerScopeForMap} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111';
 import {dailyMapProjection,normalizeMapView,loadMapView,saveMapView} from './map-daily-view.mjs?v=bar-v01-1&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
 import {BREWING_CARDS,brewingCardsMarkup,renderBrewingIcons,manualCards,chooseManualCard,brewingPanelState} from './brewing-cards.mjs?v=confirmed-brewing-r1';
 import {playerMilestones} from './player-news.mjs?v=0.25.4';
@@ -40,7 +40,7 @@ import {buildShopLedger} from './shop-ledger.mjs?v=bar-v01-1';
 import {buildReleaseLedger} from './ledger-view.mjs?v=0.63-ledger&delivery=regional-delivery-v01';
 import {IDENTITY_BOTTLES,IDENTITY_LABELS,identityDefaults,brandNameError,releasePriceTier} from './brand-identity.mjs?v=0.58-first-brand';
 import {firstBrandEditor,firstBottleCompletion} from './first-bottle-view.mjs?v=package-c1l-1';
-import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel} from './ui-details.mjs?v=stage4-r2';
+import {extractionMaximum,bottleChoices,defaultBottleCount,releaseLabel,bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber} from './ui-details.mjs?v=stage4-r2&repair=ui3-20261111';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
 import {automaticEvents,scopedNotices} from './event-notices.mjs?v=traffic-1&repair=ui2-20261111';
 import {noticePresentation,topGenerationNotice} from './notice-motion.mjs?v=motion-v02';
@@ -116,7 +116,7 @@ const newNativeGame=()=>D.enableWorldNetwork(D.newRegionalDeliveryDistillery(see
 let marketEditing=false,marketMessageId=0;
 const placementUI=placementEnabled?createPlacementUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),commit:commitPlacement,render:()=>{render();schedule();}}):null;
 const marketUI=createMarketUI({document,model:D,state:()=>game,art:p=>productArt(p),icon:symbolMarkup('store'),act:actMarket,
- shopsForState:s=>marketPartnersForMap(s,currentMapBrowse(),availableMarketShops(s)),
+ scopeForState:s=>marketPartnerScopeForMap(s,currentMapBrowse(),availableMarketShops(s)),
  openProduct:id=>{selectedProductId=id;openModal('product',id);},
  openRetailInfo:id=>{selectedProductId=id;openModal('market-retail-info',id);},
  openStockist:shopId=>{if(!game||modal)return;marketUI.cancel();stopClock();modal={kind:'stockist',shopId,...(D.regionalDeliveryPartners(game).some(p=>p.id===shopId)?{regional:true}:{})};render();schedule();},
@@ -959,9 +959,20 @@ function reservationLabel(id){
 function reservationSymbol(id){const r=D.bottlingReservation(game,id);return r?.status==='paused'||r?.status==='active'&&!D.bottlingStaffStatus(game).hired?'pause':r?.status==='active'?(r.mode==='age'?'clock':'stock'):null;}
 function validPlanDraft(d){return !!d&&['age','stock'].includes(d.mode)&&Number.isInteger(d.count)&&d.count>=1&&d.count<=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)&&Number.isInteger(d[d.mode==='age'?'age':'threshold'])&&d[d.mode==='age'?'age':'threshold']>=0&&d[d.mode==='age'?'age':'threshold']<=(d.mode==='age'?1200:999);}
 const policyLabel=r=>r.mode==='age'?'熟成'+r.age+'か月以上で一度 · '+r.count+'本':'販売登録済みのビン全体 '+r.threshold+'本以下で'+r.count+'本';
+const bottlingPolicyMax=()=>Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres);
 function bottlingPolicyView(){
- const draft=modal.planDraft??(modal.planDraft={...D.operationDefaults(game).auto,...D.commonBottlingPolicy(game)});
- return '<div class="bottling-plan"><label for="bottling-mode">共通設定</label><select id="bottling-mode"><option value="age"'+(draft.mode==='age'?' selected':'')+'>時期指定</option><option value="stock"'+(draft.mode==='stock'?' selected':'')+'>在庫連動</option></select><div class="bottling-plan-fields"><label for="bottling-condition">'+(draft.mode==='age'?'熟成':'販売登録済みのビンが')+'</label><input id="bottling-condition" data-policy-field="'+(draft.mode==='age'?'age':'threshold')+'" type="number" inputmode="numeric" min="0" max="'+(draft.mode==='age'?1200:999)+'" step="1" value="'+(draft.mode==='age'?draft.age:draft.threshold)+'"><span>'+(draft.mode==='age'?'か月以上になったら':'本以下になったら')+'</span></div><div class="bottling-plan-fields bottling-quantity"><label for="bottling-quantity">ビン詰め</label>'+button('−','policy-count-less','','aria-label="ビン詰め本数を減らす"'+(draft.count<=1?' disabled':''))+'<select id="bottling-quantity">'+Array.from({length:Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)},(_,i)=>i+1).map(n=>'<option value="'+n+'"'+(n===draft.count?' selected':'')+'>'+n+'本</option>').join('')+'</select>'+button('＋','policy-count-more','','aria-label="ビン詰め本数を増やす"'+(draft.count>=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres)?' disabled':''))+'</div><p class="quiet">ふつうの価格でビン詰め。行き先はあとで配分</p>'+button('保存','bottling-policy-save','',validPlanDraft(draft)?'':'disabled')+'</div>';
+ const draft=modal.planDraft??(modal.planDraft={...D.operationDefaults(game).auto,...D.commonBottlingPolicy(game)}),key=draft.mode==='age'?'age':'threshold',max=key==='age'?1200:999,countMax=bottlingPolicyMax();
+ const conditionButton=direction=>button(direction==='less'?'−':'＋','policy-condition-'+direction,'','aria-label="'+(key==='age'?'熟成月数':'在庫条件')+'を'+(direction==='less'?'減らす':'増やす')+'"'+(stepBottlingCondition(draft[key],direction,max)===null?' disabled':''));
+ return '<div class="bottling-plan"><label for="bottling-mode">共通設定</label><select id="bottling-mode"><option value="age"'+(draft.mode==='age'?' selected':'')+'>時期指定</option><option value="stock"'+(draft.mode==='stock'?' selected':'')+'>在庫連動</option></select><div class="bottling-plan-fields bottling-condition"><label for="bottling-condition">'+(key==='age'?'熟成':'販売登録済みのビンが')+'</label><div class="bottling-condition-controls">'+conditionButton('less')+'<input id="bottling-condition" data-policy-field="'+key+'" type="number" inputmode="numeric" min="0" max="'+max+'" step="1" value="'+(draft[key]??'')+'">'+conditionButton('more')+'</div><span id="bottling-condition-unit">'+(key==='age'?'か月以上になったら':'本以下になったら')+'</span></div><div class="bottling-plan-fields bottling-quantity"><label for="bottling-quantity">ビン詰め</label>'+button('−','policy-count-less','','aria-label="ビン詰め本数を減らす"'+(stepBottlingPolicyCount(draft.count,'less',countMax)===null?' disabled':''))+'<select id="bottling-quantity">'+bottlingPolicyCountChoices(draft.count,countMax).map(n=>'<option value="'+n+'"'+(n===draft.count?' selected':'')+'>'+n+'本</option>').join('')+'</select>'+button('＋','policy-count-more','','aria-label="ビン詰め本数を増やす"'+(stepBottlingPolicyCount(draft.count,'more',countMax)===null?' disabled':''))+'</div><p class="quiet">ふつうの価格でビン詰め。行き先はあとで配分</p>'+button('保存','bottling-policy-save','',validPlanDraft(draft)?'':'disabled')+'</div>';
+}
+function syncBottlingPolicyInputs({conditionValue=true}={}){
+ const draft=modal?.planDraft;if(!draft||modal.kind!=='bottler-panel')return;
+ const key=draft.mode==='age'?'age':'threshold',max=key==='age'?1200:999,input=$('bottling-condition'),body=$('dialog-body');
+ input.dataset.policyField=key;input.max=String(max);if(conditionValue)input.value=draft[key]??'';
+ body.querySelector('label[for="bottling-condition"]').textContent=key==='age'?'熟成':'販売登録済みのビンが';$('bottling-condition-unit').textContent=key==='age'?'か月以上になったら':'本以下になったら';
+ for(const direction of ['less','more']){const button=body.querySelector('[data-action="policy-condition-'+direction+'"]');button.disabled=stepBottlingCondition(draft[key],direction,max)===null;button.setAttribute('aria-label',(key==='age'?'熟成月数':'在庫条件')+'を'+(direction==='less'?'減らす':'増やす'));body.querySelector('[data-action="policy-count-'+direction+'"]').disabled=stepBottlingPolicyCount(draft.count,direction,bottlingPolicyMax())===null;}
+ const quantity=$('bottling-quantity');quantity.innerHTML=bottlingPolicyCountChoices(draft.count,bottlingPolicyMax()).map(n=>'<option value="'+n+'">'+n+'本</option>').join('');quantity.value=draft.count??'';
+ const save=$('action-dialog').querySelector('[data-action="bottling-policy-save"]');if(save)save.disabled=!validPlanDraft(draft);
 }
 function bottlingChoiceView(id){
  const r=D.bottlingReservation(game,id),policy=D.commonBottlingPolicy(game);
@@ -1389,11 +1400,10 @@ $('dialog-actions').addEventListener('click',e=>handleModal(e));$('dialog-body')
 function updateBottleDraft(e){
  if(modal?.kind==='bottler-panel'&&modal.planDraft){
   const draft=modal.planDraft;
-  if(e.target.id==='bottling-mode'){draft.mode=e.target.value;render();}
-  if(e.target.id==='bottling-condition'&&['age','threshold'].includes(e.target.dataset.policyField))draft[e.target.dataset.policyField]=e.target.value===''?null:Number(e.target.value);
-  if(e.target.id==='bottling-condition'&&draft.mode==='age')$('dialog-body').querySelector('label[for="bottling-condition"]').textContent=(draft.age??'')+'か月で一度だけ';
-  if(e.target.id==='bottling-quantity'){draft.count=e.target.value===''?null:Number(e.target.value);const max=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres);$('dialog-body').querySelector('[data-action=policy-count-less]').disabled=draft.count<=1;$('dialog-body').querySelector('[data-action=policy-count-more]').disabled=draft.count>=max;}
-  const reserve=$('action-dialog').querySelector('[data-action="bottling-policy-save"]');if(reserve)reserve.disabled=!validPlanDraft(draft);
+  if(e.target.id==='bottling-mode')draft.mode=e.target.value;
+  if(e.target.id==='bottling-condition'&&['age','threshold'].includes(e.target.dataset.policyField))draft[e.target.dataset.policyField]=policyNumber(e.target.value);
+  if(e.target.id==='bottling-quantity')draft.count=policyNumber(e.target.value);
+  syncBottlingPolicyInputs({conditionValue:e.target.id!=='bottling-condition'});
   return;
  }
  if(modal?.kind==='product'&&e.target.id==='sales-destination-choice'){modal.destination=e.target.value;if(placementEnabled&&e.target.value==='shelf')modal.placementLegacy=false;render();return;}
@@ -1428,7 +1438,10 @@ function handleModal(e){
  if(a==='staff-job-hire'&&kind==='staff-manager'&&['distill','bottling'].includes(b.dataset.id)&&jobStatus(b.dataset.id).canHire){modal={kind:'staff-opportunity',job:b.dataset.id,returnModal:modal};render();return;}
  if(a==='staff-job-open'&&kind==='staff-manager'){if(b.dataset.id==='distill'&&D.staffStatus(game).hired){modal={kind:'staff-panel'};render();}else if(b.dataset.id==='bottling'&&D.bottlingStaffStatus(game).hired){modal={kind:'bottler-panel'};render();}return;}
  if(a==='staff-manage-back'&&['staff-panel','bottler-panel'].includes(kind)){closeModal();return;}
- if(['policy-count-less','policy-count-more'].includes(a)&&kind==='bottler-panel'&&modal.planDraft){const max=Math.floor((P.baseLitres+P.extraLitres)/P.bottleLitres);modal.planDraft.count=Math.max(1,Math.min(max,(modal.planDraft.count??1)+(a==='policy-count-more'?1:-1)));render();return;}
+ if(['policy-count-less','policy-count-more','policy-condition-less','policy-condition-more'].includes(a)&&kind==='bottler-panel'&&modal.planDraft){
+  const draft=modal.planDraft,direction=a.endsWith('more')?'more':'less',key=draft.mode==='age'?'age':'threshold',count=a.startsWith('policy-count-'),next=count?stepBottlingPolicyCount(draft.count,direction,bottlingPolicyMax()):stepBottlingCondition(draft[key],direction,key==='age'?1200:999);
+  if(next===null)return;if(count)draft.count=next;else draft[key]=next;syncBottlingPolicyInputs();return;
+ }
  if(a==='bottling-toggle'&&kind==='bottler-panel'&&D.bottlingStaffStatus(game).hired&&D.currentCask(game,id)){
   const r=D.bottlingReservation(game,id);if((!r||r.status==='completed')&&!D.commonBottlingPolicy(game)){modal.policyNoticeId=id;render();$('action-dialog').querySelector('.bottling-policy-notice')?.scrollIntoView({block:'nearest'});return;}
   act(s=>r?.status==='active'?D.pauseBottling(D.endTasting(s),id,true):r?.status==='paused'?D.pauseBottling(D.endTasting(s),id,false):D.delegateBottling(D.endTasting(s),id),()=>{modal.policyNoticeId=null;});return;

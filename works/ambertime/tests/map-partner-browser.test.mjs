@@ -9,6 +9,15 @@ import path from 'node:path';
 import {naturalDeliveryFixture} from './regional-delivery-helpers.mjs';
 const enabled=!!process.env.AMBER_BROWSER_MODULE;
 const sizes=[[360,568],[375,620],[390,680],[430,740]];
+async function assertHeader(page){
+ const g=await page.locator('.m0-handle').evaluate(el=>{const box=e=>e.getBoundingClientRect().toJSON(),select=el.querySelector('.m0-stage'),actions=el.querySelector('.m0-header-actions');return {header:box(el),select:box(select),actions:box(actions),buttons:[...actions.querySelectorAll('button')].map(box),grips:el.querySelectorAll('.m0-grip').length,align:getComputedStyle(select).textAlign,appearance:getComputedStyle(select).appearance,mode:el.closest('#m0-observation').dataset.mode,iconHeight:getComputedStyle(el.querySelector('.m0-window-icon')).height};});
+ assert.equal(g.grips,0);assert.equal(g.align,'center');assert.equal(g.appearance,'none');
+ assert(Math.abs((g.select.left+g.select.right)-(g.header.left+g.header.right))<1.1,JSON.stringify(g));
+ assert(g.select.right<=g.actions.left+.5&&g.buttons.length===2&&g.buttons.every(b=>b.width>=44&&b.left>=g.header.left&&b.right<=g.header.right+.5),JSON.stringify(g));
+ if(g.mode==='full')assert.equal(g.iconHeight,'2px','real minimize line remains');
+ return g;
+}
+
 const html=`<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/works/ambertime/shop.css"><link rel="stylesheet" href="/works/ambertime/room-scene.css"><link rel="stylesheet" href="/works/ambertime/font-uniform.css"><link rel="stylesheet" href="/works/ambertime/market.css"><link rel="stylesheet" href="/works/ambertime/m0-observation.css"></head><body data-room="sales"><div id="scene-root"></div><div id="market-board"></div><button id="open-world-map">地図</button><script type="module">
 import * as D from '/works/ambertime/partner-orders.mjs';
 import {createMarketUI,availableMarketShops} from '/works/ambertime/market-ui.mjs';
@@ -51,11 +60,15 @@ test('actual M0 and market components: six viewpoints, natural regional selectio
     for(let stage=1;stage<=6;stage++){
      await page.locator('.m0-stage').selectOption(String(stage));
      const g=await page.locator('#m0-observation').evaluate(e=>{const r=e.getBoundingClientRect(),map=e.querySelector('.m0-map-window').getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom,mapWidth:map.width,mapHeight:map.height,pins:[...e.querySelectorAll('.m0-pin')].map(b=>b.dataset.m0Shop)};});
-     assert(g.left>=0&&g.right<=width+1&&g.top>=0&&g.bottom<=height+1,JSON.stringify(g));assert(g.mapWidth>0&&g.mapHeight>0);
+     assert(g.left>=0&&g.right<=width+1&&g.top>=0&&g.bottom<=height+1,JSON.stringify(g));assert(g.mapWidth>0&&g.mapHeight>0);await assertHeader(page);
      if(stage>=5)assert.deepEqual(g.pins,[]);
      assert.equal(await page.locator('.m0-rows button').count(),0,'upper shelf is a read-only clone');
     }
+    await page.locator('.m0-stage').selectOption('1');await page.locator('[data-m0="advance"]').click();assert.equal((await assertHeader(page)).mode,'full');
+    await page.locator('[data-m0="advance"]').focus();await page.keyboard.press('Enter');assert.equal((await assertHeader(page)).mode,'half','keyboard action toggles once');
    }
+   const handle=await page.locator('.m0-handle').boundingBox();await page.mouse.move(handle.x+5,handle.y+20);await page.mouse.down();await page.mouse.move(handle.x+5,handle.y-25,{steps:4});await page.mouse.up();assert.equal((await assertHeader(page)).mode,'full','blank header keeps drag');
+   await page.locator('[data-m0="advance"]').click();assert.equal((await assertHeader(page)).mode,'half');
    assert.deepEqual(await page.evaluate(()=>window.mapHarness.snapshot()),initial,'browse never writes formal facts');
    await page.locator('.m0-stage').selectOption('4');await page.locator('.m0-pin[data-m0-shop="trial-region-desk"]').click();
    assert.equal((await page.evaluate(()=>window.mapHarness.view())).selectedShop,'trial-region-desk');

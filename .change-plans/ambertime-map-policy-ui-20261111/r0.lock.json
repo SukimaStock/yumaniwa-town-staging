@@ -1,0 +1,102 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "505a0a99f4a59952df82ff86b1cd2bbbb835c4ee1767c7da6e391d3dbed3b0ce",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-map-policy-ui-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Center map header, retain nearest contracted sales scope and improve bottling policy input controls",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "36e94ac965b4fa4d1843ba00c76ce70ebb8e6d0c",
+    "canonicalSources": [
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-map-policy-ui-20261111/r0.lock.json",
+      "works/ambertime/m0-observation.mjs",
+      "works/ambertime/m0-observation.css",
+      "works/ambertime/map-partners.mjs",
+      "works/ambertime/map-daily-view.mjs",
+      "works/ambertime/market-ui.mjs",
+      "works/ambertime/market.css",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/ui-details.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/tests/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Remove decorative grip only; center viewpoint across header while preserving right controls, keyboard selection and header drag exclusion for controls",
+      "Authoritative availableMarketShops plus existing map projection finds nearest smaller eligible contracted scope only when current has no partners; explicit eligible selection/retail wins; map stage/camera/pins untouched",
+      "One disposable sales-scope projection drives market and read-only M0 top with short fallback heading; allocation/cancel/deliver exact IDs preserved",
+      "Bottler condition1unit buttons and direct input, bounds0..1200months/0..999stock unchanged; invalid/empty stay invalid, draft only until successful formal save",
+      "Bottler count5step choices plus dynamic max and preserved legacy current1/7; +/- previous/next stepped value, no model multiples restriction, remainder1..4 behavior unchanged",
+      "Patch controls in place for focus/scroll stability; no duplicate events; update necessary cache URLs/tests only"
+    ],
+    "ownerDecisions": [
+      "Current user third-batch request explicitly defines header, nearest smaller sales scope and policy input behavior, authorizes required tests/review and safe Staging merge only"
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review",
+      "Shared Chrome actual header, policy controls, sales return where available; distinguish iPhone and four geometry evidence",
+      "Required CI and Pages exactSHA/content"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this UI PR; existing save, model operations and display keys remain readable",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901 persistence",
+      "Newgame/title changes",
+      "Manufacturing/economy/rumor thresholds",
+      "Camera/pinch/pin geometry and map display layout outside header",
+      "Applying 5step to other quantity controls"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}

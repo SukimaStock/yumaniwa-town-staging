@@ -16,6 +16,24 @@ export function defaultBottleCount(previous,max,affordable){
  if(choices.includes(previous))return previous;
  return Number.isFinite(previous)?choices.filter(count=>count<=previous).at(-1)??choices[0]:choices[0];
 }
+// Staff controls only. Manual bottling and all formal model values stay unchanged.
+export function bottlingPolicyCountChoices(current,max){
+ if(!Number.isInteger(max)||max<1)return [];
+ const choices=[];for(let n=5;n<=max;n+=5)choices.push(n);
+ if(!choices.includes(max))choices.push(max);
+ if(Number.isInteger(current)&&current>=1&&current<=max&&!choices.includes(current))choices.push(current);
+ return choices.sort((a,b)=>a-b);
+}
+export function stepBottlingPolicyCount(current,direction,max){
+ if(!Number.isInteger(current)||current<1||current>max)return null;
+ const choices=bottlingPolicyCountChoices(null,max);
+ return direction==='more'?choices.find(n=>n>current)??null:choices.filter(n=>n<current).at(-1)??null;
+}
+export function stepBottlingCondition(current,direction,max){
+ if(!Number.isInteger(current)||current<0||current>max)return null;
+ const next=current+(direction==='more'?1:-1);return next>=0&&next<=max?next:null;
+}
+export function policyNumber(value){return typeof value==='string'&&value.trim()!==''?Number(value):null;}
 const validMonth=month=>Number.isInteger(month)&&month>=0;
 export function releaseLabel(state,productId,caskSerials=new Map()){
  const releases=state?.releases??[],release=releases.find(r=>r.productId===productId);

@@ -431,3 +431,10 @@ details[open]>summary>.pixel-disclosure>[data-symbol=chevronDown]{display:inline
 
 #automatic-news-close{position:fixed;z-index:16;width:84px;min-height:40px;margin:0;padding:4px 6px;font:inherit;background:#26333a;color:var(--ink);border:var(--pixel) solid #8aabb5;box-shadow:none}
 #automatic-news-close[hidden]{display:none}
+
+/* Staff condition edits keep the existing input and controls mounted. */
+#action-dialog .bottling-plan .bottling-condition{grid-template-columns:minmax(0,1fr);gap:4px}
+#action-dialog .bottling-condition-controls{display:grid;grid-template-columns:45px minmax(0,1fr) 45px;gap:8px;grid-column:1/-1;align-items:stretch}
+#action-dialog .bottling-condition-controls>button,#action-dialog .bottling-condition-controls>input{width:100%;min-width:0;height:48px;min-height:48px;margin:0;box-sizing:border-box}
+#action-dialog .bottling-condition-controls>#bottling-condition{grid-column:2;text-align:center}
+#action-dialog .bottling-plan .bottling-condition>#bottling-condition-unit{grid-column:1/-1}
