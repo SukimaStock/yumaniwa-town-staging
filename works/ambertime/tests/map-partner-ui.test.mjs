@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as D from '../partner-orders.mjs';
 import {availableMarketShops,createMarketUI} from '../market-ui.mjs';
-import {marketPartnersForMap,mapPartnerProjection} from '../map-partners.mjs';
+import {marketPartnersForMap,mapPartnerProjection,marketPartnerScopeForMap} from '../map-partners.mjs';
 import {normalizeMapView} from '../map-daily-view.mjs';
 import {naturalDeliveryFixture} from './regional-delivery-helpers.mjs';
 const partner='trial-region-desk';
@@ -15,20 +15,22 @@ function harness(seed=3){
  const root={hidden:true,style:{setProperty(){}},scrollTop:0,innerHTML:'',contains:()=>true,querySelector:()=>null,querySelectorAll:()=>[],addEventListener:(name,fn,capture=false)=>listeners.set(name+(capture?':capture':''),fn)};
  const scene={dataset:{viewport:JSON.stringify({scale:1,offsetX:0,offsetY:0})}};
  const doc={hidden:false,activeElement:null,body:{append(){}},getElementById:id=>id==='market-board'?root:id==='scene-root'?scene:null,addEventListener(){}};
- const ui=createMarketUI({document:doc,model:D,state:()=>current,shopsForState:s=>marketPartnersForMap(s,view,availableMarketShops(s)),art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist:id=>events.push(['info',id]),announce(){},announceSaved:t=>events.push(['saved',t]),setEditing:v=>editing=v});
+ const ui=createMarketUI({document:doc,model:D,state:()=>current,scopeForState:s=>marketPartnerScopeForMap(s,view,availableMarketShops(s)),art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist:id=>events.push(['info',id]),announce(){},announceSaved:t=>events.push(['saved',t]),setEditing:v=>editing=v});
  const click=dataset=>listeners.get('click')({target:{closest:()=>({dataset,disabled:false})}});
  const select=(stage,id=null)=>{view=normalizeMapView({...view,stage,selectedShop:id},6,mapPartnerProjection(current,stage).partners.map(p=>p.id));ui.update({visible:true});};
  const pid=current.result.productId;ui.update({visible:true});click({marketRelease:String(pid)});
  return {ui,root,click,select,pid,events,state:()=>current,editing:()=>editing,setSaved:v=>saved=v,view:()=>view};
 }
 
-test('map selection filters real sales room by scope without mutating stock, contracts or native progress',()=>{
+test('map selection highlights a real sales row and retains same-layer peers without mutating formal state',()=>{
  const h=harness(),raw=D.serializeDistillery(h.state());
  assert(!h.ui.diagnostics().order.includes(partner));assert(h.ui.diagnostics().order.includes('supermarket'));
  h.select(4,partner);assert.deepEqual(h.ui.diagnostics().order,['retail',partner]);assert.match(h.root.innerHTML,/地域窓口/);
  h.select(1);assert.deepEqual(h.ui.diagnostics().order,['retail']);assert.doesNotMatch(h.root.innerHTML,/data-market-place="trial-region-desk"/);
  for(const stage of [5,6]){h.select(stage);assert.deepEqual(h.ui.diagnostics().order,['retail',partner],'empty wider scales supplement the nearest contracted range');assert.match(h.root.innerHTML,/data-market-place="trial-region-desk"/);}
- h.select(3,'supermarket');assert.deepEqual(h.ui.diagnostics().order,['retail','supermarket']);
+ h.select(3,'supermarket');assert.deepEqual(h.ui.diagnostics().order,['retail','town-liquor','supermarket','bar']);assert.match(h.root.innerHTML,/class="market-shop market-map-selected" data-market-shop="supermarket"/);assert.match(h.root.innerHTML,/data-market-details="supermarket"[^>]+aria-current="true"/);assert.equal((h.root.innerHTML.match(/aria-current="true"/g)??[]).length,1);
+ h.select(3,'bar');assert.deepEqual(h.ui.diagnostics().order,['retail','town-liquor','supermarket','bar']);assert.match(h.root.innerHTML,/class="market-shop market-map-selected" data-market-shop="bar"/);assert.doesNotMatch(h.root.innerHTML,/class="market-shop market-map-selected" data-market-shop="supermarket"/);
+ h.select(3,'retail');assert.deepEqual(h.ui.diagnostics().order,['retail','town-liquor','supermarket','bar']);assert.match(h.root.innerHTML,/class="market-shop market-map-selected" data-market-shop="retail"/);
  h.select(4,partner);assert.equal(h.view().selectedShop,partner);assert.equal(D.serializeDistillery(h.state()),raw);
 });
 

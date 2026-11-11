@@ -110,3 +110,6 @@
 
 /* A fallback scope describes the rows, never the map's geographic pins. */
 #market-board .market-scope-heading{font:inherit;margin:0;padding:calc(2px * var(--market-scale,1)) calc(6px * var(--market-scale,1));color:#c5b99a;text-align:left}
+
+/* Map selection emphasizes the existing destination without hiding its peers. */
+#market-board .market-map-selected .market-shop-name{outline:var(--pixel) solid #f7cd58;outline-offset:calc(-1 * var(--pixel));background:#464030}
