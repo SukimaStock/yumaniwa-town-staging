@@ -4,7 +4,7 @@ import {initializeHistoryRecord} from './history-record.mjs?v=s4-1';
 import {initializeRecall} from './recall/collector.mjs?v=bar-v01-1';
 import {FORMAL_SAVE_KEY,isCurrentSession} from './development-save.mjs?v=bar-v01-1';
 
-export const SESSION_ENTRY_BUILD='entry-diagnostics-20261111-r1';
+export const SESSION_ENTRY_BUILD='entry-diagnostics-20261111-r2';
 export const LEGACY_SAVE_KEYS=['sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'];
 // Initialization is deliberately outside the current session's observed model.
 export function createFreshSession(native,seed){
@@ -33,7 +33,7 @@ export function createSessionEntry({storage,create,encode,read,write,replace,ins
   const current=()=>own===token;
   function failure(error,failedStage=stage){
    // Byte comparison says nothing about the formal reader accepting this record.
-   let formalState='unavailable';try{if(store)formalState=store.getItem(FORMAL_SAVE_KEY)===expected.raw?'unchanged':'uncertain';}catch{}
+   let formalState='unavailable';try{if(store){const actual=store.getItem(FORMAL_SAVE_KEY);formalState=actual===expected.raw?'unchanged':writeVerified&&actual===candidateText?'candidate-verified':'uncertain';}}catch{}
    return {ok:false,error,operation,stage:failedStage,writeAttempted,formalState,backupKey,backupPresent,backupVerified,writeVerified,restoreValidated,candidateText};
   }
   try{

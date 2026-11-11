@@ -38,7 +38,9 @@ for(const fault of ['candidate-create','candidate-validation','continue-restore'
  assert(visible.includes('['+fault+']'));assert(!visible.includes(raw));assert.equal(h.nodes.get('entry-error-details').hidden,false);assert.equal(h.ctx.sessionActive,false);assert.equal(h.ctx.canSave,false);assert.equal(h.ctx.runtimeHalted,true);
  if(['formal-readback','session-apply'].includes(fault)){assert([...h.map].some(([key,value])=>key.startsWith(prefix)&&value===raw));assert.notEqual(h.map.get(FORMAL_SAVE_KEY),raw);}
  else assert.equal(h.map.get(FORMAL_SAVE_KEY),raw);
- if(fault==='session-apply')assert.equal(d.writeVerified,true);
+ if(fault==='session-apply'){assert.equal(d.writeVerified,true);assert.equal(d.formalState,'candidate-verified');assert.match(visible,/新規候補の正式保存検証完了: はい/);}
+ if(fault==='continue-restore')assert.match(visible,/継続記録の正式reader検証完了: いいえ/);
+ if(fault==='formal-readback')assert.equal(d.formalState,'uncertain');
 });
 test('existing identical backup is reused and its second readback is independently required',async()=>{
  const h=harness('backup-readback',{existingBackup:true});assert.equal(await h.run(),false);assert.equal(h.ctx.entryDiagnostic.stage,'backup-readback');assert.equal(h.ctx.entryDiagnostic.protection.backupPresent,true);assert.equal(h.ctx.entryDiagnostic.protection.readbackMatched,false);assert.equal(h.writes.length,0);assert.equal(h.map.get(FORMAL_SAVE_KEY),raw);
@@ -58,4 +60,10 @@ for(const available of [false,true])test('actual diagnostic copy is read-only an
  vm.runInContext(source,h.context);await callback();assert.equal(h.writes.length,writes);assert.deepEqual(h.ctx.entryDiagnostic,diagnostic);
  if(available){assert.equal(copied,formatEntryDiagnostic(diagnostic));assert.equal(previous('entry-copy-status').textContent,'コピーしました。');}
  else{assert.match(previous('entry-copy-status').textContent,/下の詳細/);assert(previous('entry-diagnostic-text').textContent.includes('candidate-create'));}
+});
+
+test('verified candidate state is not claimed when another tab changes formal data during failed apply',async()=>{
+ const values=new Map([[FORMAL_SAVE_KEY,raw]]),store={getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};
+ const entry=createSessionEntry({storage:()=>store,create:()=>createFreshSession(native,42),encode,read:text=>readSession(text,options),write:writeCandidate,replace:commitMarketRulesUpdate,install(){values.set(FORMAL_SAVE_KEY,'another-tab');throw Error('apply fault');},yieldTask:()=>Promise.resolve()});
+ const result=await entry.start(inspectStartRecord(store));assert.equal(result.stage,'session-apply');assert.equal(result.writeVerified,true);assert.equal(result.formalState,'uncertain');assert.equal(values.get(FORMAL_SAVE_KEY),'another-tab');assert([...values].some(([key,value])=>key.startsWith(prefix)&&value===raw));
 });

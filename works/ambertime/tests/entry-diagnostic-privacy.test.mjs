@@ -69,9 +69,9 @@ test('storage inspection reads only AmberTime backup values and never writes or 
 
 test('unavailable size inspection does not replace the actual stage or exception',()=>{
  const storage={get length(){throw Error('blocked storage');}};
- const d=makeEntryDiagnostic({stage:'backup-write',error:Object.assign(Error('quota exceeded'),{name:'QuotaExceededError',code:22}),storage,formalState:'unchanged'});
+ const d=makeEntryDiagnostic({stage:'backup-write',error:Object.assign(Error('quota exceeded'),{name:'QuotaExceededError',code:22}),storage,formalState:'unchanged',operation:'new-title'});
  assert.equal(d.stage,'backup-write');assert.equal(d.exception.message,'quota exceeded');assert.equal(d.exception.code,'22');assert.equal(d.sizes.inspection,'unavailable');
- const formatted=formatEntryDiagnostic(d);assert(formatted.includes('処理前と同じ原文（復元可能とは限りません）'));assert(formatted.includes('正式readerの検証完了: いいえ'));
+ const formatted=formatEntryDiagnostic(d);assert(formatted.includes('処理前と同じ原文（復元可能とは限りません）'));assert(formatted.includes('新規候補の正式保存検証完了: いいえ'));
 });
 
 test('an unavailable source snapshot reports unknown sizes instead of implying no saved record',()=>{
@@ -84,7 +84,7 @@ test('an unavailable source snapshot reports unknown sizes instead of implying n
 
 test('backup presence/readback and formal readback/reader validation are separate facts',()=>{
  const d=makeEntryDiagnostic({operation:'continue',stage:'install',error:Error('apply fault'),formalState:'candidate-verified',backupPresent:true,backupVerified:false,writeVerified:true,restoreValidated:true});
- const formatted=formatEntryDiagnostic(d);assert(formatted.includes('原文バックアップ: あり'));assert(formatted.includes('バックアップ読戻し一致: 未確認'));assert(formatted.includes('候補の正式書込み・読戻し一致: 確認済み'));assert(formatted.includes('正式readerの検証完了: はい'));
+ const formatted=formatEntryDiagnostic(d);assert(formatted.includes('原文バックアップ: あり'));assert(formatted.includes('バックアップ読戻し一致: 未確認'));assert(formatted.includes('候補の正式書込み・読戻し一致: 確認済み'));assert(formatted.includes('継続記録の正式reader検証完了: はい'));
 });
 
 test('every instrumented stage has its own readable label and exception fields',()=>{
