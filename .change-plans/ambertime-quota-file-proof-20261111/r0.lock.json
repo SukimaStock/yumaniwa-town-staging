@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0622da8620b8e18b4bd28138a86a84a0f777e66cf4a552f965361003404bbd4d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-quota-file-proof-20261111",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Handle confirmed backup quota failure with file-verified, explicitly chosen protected-record cleanup",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "66b8d898153ac07d460a489da530577ef1bf1051",
+    "canonicalSources": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/verified-backup-cleanup.mjs",
+      "works/ambertime/session-entry.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/market-ui.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-quota-file-proof-20261111/r0.lock.json",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/verified-backup-cleanup.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      "works/ambertime/tests/**",
+      "works/ambertime/entry-diagnostics.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/distillery.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/regional-deliveries.mjs",
+      "works/ambertime/trading-partners.mjs",
+      "works/ambertime/shadow/**",
+      "works/ambertime-strategy-lab/internal/stage5/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Show actual backup-write QuotaExceededError as browser backup-capacity refusal; preserve stage/exception diagnostic and original formal bytes",
+      "Offer cleanup only for existing known formal backup prefix, never formal/legacy/other-work keys",
+      "Require selecting externally saved file and exact raw equality before enabling cleanup; explicit per-record delete button and final user confirmation; no automatic deletion/export-success assumption",
+      "Recheck selected backup raw immediately before removal; changes/read failures/cancel/closed or stale async file checks cannot remove any record; verify absence after removal, never automatic rollback",
+      "Retry new start only through unchanged independent candidate + existing verified backup + formal compare/write/readback path",
+      "Reproduce quota using supplied891435/77280/692004 counts in bounded test storage, test retry after explicit verified cleanup and persistent exact old backup",
+      "Shared Chrome only memory test storage; never remove or modify author records",
+      "Version actual app and diagnostic URL allowlist together for verified Pages references; no diagnostic privacy relaxation"
+    ],
+    "ownerDecisions": [
+      "User supplied actual iPhone quota diagnostic as continuation of authorized startup remediation. No deletion of author data is executed by agent; actual cleanup requires author selection, matching saved file and explicit confirmation in UI."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "WORK Standard locked Plan and Scope Risk Impact",
+      "Existing formal transaction and saving, no Stage5 checkpoint/tail/load reuse",
+      "Local UI improvement, no new game rules or persistent queue"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Independent review of strict deletion boundary and file proof",
+      "Shared Chrome isolated quota/file mismatch/cancel/explicit cleanup/retry and four sizes",
+      "Required CI and Pages deployed byte match",
+      "iPhone final file-picker/cleanup and new start remain author action"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert UI PR; all untouched formal/backup/legacy keys remain readable; explicitly removed backups are in user-verified external files",
+    "outOfScope": [
+      "Production",
+      "Stage5 PR901",
+      "Formal v8/model/normal recall/writer changes",
+      "Automatic backup cleanup",
+      "Deleting formal/legacy/other-work data",
+      "New slots/storage migration"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari final author verification"
+    ]
+  }
+}
