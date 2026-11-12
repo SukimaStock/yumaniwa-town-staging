@@ -1,0 +1,57 @@
+[
+  {
+    "name": "local",
+    "Ams": 165.48378999999977,
+    "Bms": 222.39992699999993,
+    "fullStateMatch": true,
+    "lowFundsMatch": true,
+    "ApeakRSSKiB": 507044,
+    "BpeakRSSKiB": 552144,
+    "rootBytes": 12623055,
+    "labConnectionBytes": 12316374
+  },
+  {
+    "name": "regional",
+    "Ams": 88.89515200000005,
+    "Bms": 105.43690100000003,
+    "fullStateMatch": true,
+    "lowFundsMatch": true,
+    "ApeakRSSKiB": 333772,
+    "BpeakRSSKiB": 367268,
+    "rootBytes": 6512149,
+    "labConnectionBytes": 6164277
+  },
+  {
+    "name": "bulk",
+    "Ams": 87.80487500000004,
+    "Bms": 93.22074399999997,
+    "fullStateMatch": true,
+    "lowFundsMatch": true,
+    "ApeakRSSKiB": 384856,
+    "BpeakRSSKiB": 408732,
+    "rootBytes": 7356896,
+    "labConnectionBytes": 7009002
+  },
+  {
+    "name": "small",
+    "Ams": 128.34313800000018,
+    "Bms": 137.22246900000005,
+    "fullStateMatch": true,
+    "lowFundsMatch": true,
+    "ApeakRSSKiB": 476240,
+    "BpeakRSSKiB": 539500,
+    "rootBytes": 10069507,
+    "labConnectionBytes": 9340615
+  },
+  {
+    "name": "diversified",
+    "Ams": 75.80211099999997,
+    "Bms": 95.92059399999994,
+    "fullStateMatch": true,
+    "lowFundsMatch": true,
+    "ApeakRSSKiB": 336172,
+    "BpeakRSSKiB": 380536,
+    "rootBytes": 6213247,
+    "labConnectionBytes": 5767255
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "completed": true,
+  "childProcesses": 10,
+  "rows": [
+    {
+      "name": "local",
+      "AmedianMs": 148.9611130000003,
+      "BmedianMs": 197.8563610000001,
+      "AminMax": [
+        146.71464500000002,
+        198.90710800000033
+      ],
+      "BminMax": [
+        184.97755200000006,
+        250.8894909999999
+      ],
+      "fullStateEquality": true,
+      "lowFundsEquality": true,
+      "ApeakRSSKiB": 464220,
+      "BpeakRSSKiB": 516340
+    },
+    {
+      "name": "regional",
+      "AmedianMs": 115.47922199999994,
+      "BmedianMs": 103.48698599999989,
+      "AminMax": [
+        87.79639199999997,
+        178.5851990000001
+      ],
+      "BminMax": [
+        90.52947399999994,
+        198.40754500000003
+      ],
+      "fullStateEquality": true,
+      "lowFundsEquality": true,
+      "ApeakRSSKiB": 334096,
+      "BpeakRSSKiB": 386544
+    },
+    {
+      "name": "bulk",
+      "AmedianMs": 81.984197,
+      "BmedianMs": 103.4084969999999,
+      "AminMax": [
+        74.06512000000009,
+        93.31310499999995
+      ],
+      "BminMax": [
+        97.12839599999984,
+        124.79883100000006
+      ],
+      "fullStateEquality": true,
+      "lowFundsEquality": true,
+      "ApeakRSSKiB": 386068,
+      "BpeakRSSKiB": 387880
+    },
+    {
+      "name": "small",
+      "AmedianMs": 108.76160600000003,
+      "BmedianMs": 131.26601000000005,
+      "AminMax": [
+        97.37970700000005,
+        133.8800010000001
+      ],
+      "BminMax": [
+        106.8473640000002,
+        226.71404300000017
+      ],
+      "fullStateEquality": true,
+      "lowFundsEquality": true,
+      "ApeakRSSKiB": 475688,
+      "BpeakRSSKiB": 554536
+    },
+    {
+      "name": "diversified",
+      "AmedianMs": 77.47130300000003,
+      "BmedianMs": 94.85990900000002,
+      "AminMax": [
+        72.34022000000004,
+        106.6701579999999
+      ],
+      "BminMax": [
+        76.69775299999992,
+        116.66731099999993
+      ],
+      "fullStateEquality": true,
+      "lowFundsEquality": true,
+      "ApeakRSSKiB": 334884,
+      "BpeakRSSKiB": 366980
+    }
+  ]
+}

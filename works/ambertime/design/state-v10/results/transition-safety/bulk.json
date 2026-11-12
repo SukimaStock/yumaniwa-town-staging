@@ -1,0 +1,13 @@
+{
+  "name": "bulk",
+  "fixtureSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe",
+  "actualTransitionGraphDisjoint": true,
+  "actualBidirectionalMutation": true,
+  "monthBefore": 1332,
+  "monthAfterRollback": 1332,
+  "cashAfterRollback": -100000,
+  "fundsChoice": true,
+  "townAndRetailRolledBack": true,
+  "rollbackGraphDisjoint": true,
+  "completed": true
+}
