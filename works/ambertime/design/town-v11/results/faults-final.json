@@ -1,0 +1,85 @@
+{
+  "completed": true,
+  "results": [
+    {
+      "name": "1-monthly-mid-exception",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "2-release-mid-exception",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "3-receipt-mid-exception",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "4-consignment-town-reflection-mid-exception",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "5-before-private-commit",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "6-after-tentative-private-commit-before-publication",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "7-old-state-retry-and-same-receipt-idempotence",
+      "pass": true
+    },
+    {
+      "name": "8-divergent-branches-and-conflicting-duplicate-rejection",
+      "pass": true
+    },
+    {
+      "name": "9-mock-save-failure",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "10-first-town-update-after-actual-official-reader",
+      "pass": true,
+      "scope": "reader provenance in separate formal report, town-only next update, not whole-game continuation"
+    },
+    {
+      "name": "complete-public-node-set-disjoint",
+      "pass": true
+    },
+    {
+      "name": "bidirectional-public-mutation",
+      "pass": true
+    },
+    {
+      "name": "array-shrink-delete-push-rollback",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "aliases-descriptor-narrowing-object-delete-rejection",
+      "pass": true
+    },
+    {
+      "name": "prefix-cache-abort",
+      "pass": true,
+      "scope": "private workspace transaction, frozen original formal bytes retained; not real storage"
+    },
+    {
+      "name": "rollback-invalidates-private-prefix-cache",
+      "pass": true
+    }
+  ],
+  "limits": [
+    "4 tests town receipt reflection only, not economic consignment settlement.",
+    "6 tentative private revision, not after external durable commit.",
+    "9 mocked save failure, not IndexedDB quota.",
+    "Frozen formal bytes unchanged; updated town commands are not a formally valid whole-game save."
+  ]
+}

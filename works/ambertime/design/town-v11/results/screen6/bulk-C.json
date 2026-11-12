@@ -1,0 +1,230 @@
+{
+  "name": "bulk",
+  "mode": "C",
+  "node": "v24.22.1",
+  "fixtureSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe",
+  "scope": "native town reflection only, not economic consignment settlement/full game/official save",
+  "samples": [
+    {
+      "entry": 155.55697699999996,
+      "tx": [
+        {
+          "ms": 1.8093889999999533,
+          "fullTownCopy": 0,
+          "revision": 1,
+          "writes": 2,
+          "noopWrites": 2,
+          "journalEntries": 4,
+          "adoptedNodes": 9
+        },
+        {
+          "ms": 320.86916900000006,
+          "fullTownCopy": 0,
+          "revision": 2,
+          "writes": 74,
+          "noopWrites": 28874,
+          "journalEntries": 70,
+          "adoptedNodes": 33
+        },
+        {
+          "ms": 10.18793299999993,
+          "fullTownCopy": 0,
+          "revision": 3,
+          "writes": 59,
+          "noopWrites": 347,
+          "journalEntries": 55,
+          "adoptedNodes": 27
+        },
+        {
+          "ms": 13.573699999999917,
+          "fullTownCopy": 0,
+          "revision": 4,
+          "writes": 76,
+          "noopWrites": 374,
+          "journalEntries": 72,
+          "adoptedNodes": 38
+        },
+        {
+          "ms": 8.936734000000001,
+          "fullTownCopy": 0,
+          "revision": 5,
+          "writes": 75,
+          "noopWrites": 377,
+          "journalEntries": 71,
+          "adoptedNodes": 37
+        },
+        {
+          "ms": 14.973004999999944,
+          "fullTownCopy": 0,
+          "revision": 6,
+          "writes": 71,
+          "noopWrites": 387,
+          "journalEntries": 67,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 16.00711100000001,
+          "fullTownCopy": 0,
+          "revision": 7,
+          "writes": 88,
+          "noopWrites": 406,
+          "journalEntries": 83,
+          "adoptedNodes": 45
+        }
+      ],
+      "exit": 67.97144800000001,
+      "total": 610.181096
+    },
+    {
+      "entry": 217.40550600000006,
+      "tx": [
+        {
+          "ms": 0.9758420000000569,
+          "fullTownCopy": 0,
+          "revision": 1,
+          "writes": 2,
+          "noopWrites": 2,
+          "journalEntries": 4,
+          "adoptedNodes": 9
+        },
+        {
+          "ms": 475.45342900000014,
+          "fullTownCopy": 0,
+          "revision": 2,
+          "writes": 74,
+          "noopWrites": 28874,
+          "journalEntries": 70,
+          "adoptedNodes": 33
+        },
+        {
+          "ms": 13.242514000000028,
+          "fullTownCopy": 0,
+          "revision": 3,
+          "writes": 59,
+          "noopWrites": 347,
+          "journalEntries": 55,
+          "adoptedNodes": 27
+        },
+        {
+          "ms": 16.049498000000085,
+          "fullTownCopy": 0,
+          "revision": 4,
+          "writes": 76,
+          "noopWrites": 374,
+          "journalEntries": 72,
+          "adoptedNodes": 38
+        },
+        {
+          "ms": 8.6648560000001,
+          "fullTownCopy": 0,
+          "revision": 5,
+          "writes": 75,
+          "noopWrites": 377,
+          "journalEntries": 71,
+          "adoptedNodes": 37
+        },
+        {
+          "ms": 15.808238000000074,
+          "fullTownCopy": 0,
+          "revision": 6,
+          "writes": 71,
+          "noopWrites": 387,
+          "journalEntries": 67,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 10.051408999999921,
+          "fullTownCopy": 0,
+          "revision": 7,
+          "writes": 88,
+          "noopWrites": 406,
+          "journalEntries": 83,
+          "adoptedNodes": 45
+        }
+      ],
+      "exit": 96.22125000000005,
+      "total": 853.9143690000001
+    },
+    {
+      "entry": 189.11106500000005,
+      "tx": [
+        {
+          "ms": 0.3811110000001463,
+          "fullTownCopy": 0,
+          "revision": 1,
+          "writes": 2,
+          "noopWrites": 2,
+          "journalEntries": 4,
+          "adoptedNodes": 9
+        },
+        {
+          "ms": 405.00453500000003,
+          "fullTownCopy": 0,
+          "revision": 2,
+          "writes": 74,
+          "noopWrites": 28874,
+          "journalEntries": 70,
+          "adoptedNodes": 33
+        },
+        {
+          "ms": 8.529981000000134,
+          "fullTownCopy": 0,
+          "revision": 3,
+          "writes": 59,
+          "noopWrites": 347,
+          "journalEntries": 55,
+          "adoptedNodes": 27
+        },
+        {
+          "ms": 10.619838999999956,
+          "fullTownCopy": 0,
+          "revision": 4,
+          "writes": 76,
+          "noopWrites": 374,
+          "journalEntries": 72,
+          "adoptedNodes": 38
+        },
+        {
+          "ms": 7.488636000000042,
+          "fullTownCopy": 0,
+          "revision": 5,
+          "writes": 75,
+          "noopWrites": 377,
+          "journalEntries": 71,
+          "adoptedNodes": 37
+        },
+        {
+          "ms": 18.144244999999955,
+          "fullTownCopy": 0,
+          "revision": 6,
+          "writes": 71,
+          "noopWrites": 387,
+          "journalEntries": 67,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 13.653008999999656,
+          "fullTownCopy": 0,
+          "revision": 7,
+          "writes": 88,
+          "noopWrites": 406,
+          "journalEntries": 83,
+          "adoptedNodes": 45
+        }
+      ],
+      "exit": 62.88636899999983,
+      "total": 715.8604270000001
+    }
+  ],
+  "completed": true,
+  "outputSHA256": "0e265a82795be91d97a3ad876e9141be228346902da8c939ca157bed3df8dfa9",
+  "aliasSHA256": "272fb2c77a9af20123a8b9d5514bb3c238bac8263740e8d2751198c57fe9c57d",
+  "peakRSSKiB": 471940,
+  "heap": {
+    "rss": 473464832,
+    "heapTotal": 385228800,
+    "heapUsed": 285548024,
+    "external": 4107709,
+    "arrayBuffers": 212115
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "completed": true,
+  "children": 10,
+  "steps": 36,
+  "rows": [
+    {
+      "name": "local",
+      "wholeTownAndAliasEqual": true,
+      "AmedianMs": 5225.370018,
+      "CmedianMs": 1706.1427009999998,
+      "Arange": [
+        4892.971667999998,
+        5670.344177
+      ],
+      "Crange": [
+        1605.608283,
+        1843.7808669999997
+      ],
+      "ApeakRSSKiB": 1162984,
+      "CpeakRSSKiB": 680896
+    },
+    {
+      "name": "regional",
+      "wholeTownAndAliasEqual": true,
+      "AmedianMs": 2011.5107279999993,
+      "CmedianMs": 885.4578240000001,
+      "Arange": [
+        1949.164949,
+        2035.5500559999998
+      ],
+      "Crange": [
+        817.4387099999999,
+        1105.43538
+      ],
+      "ApeakRSSKiB": 515952,
+      "CpeakRSSKiB": 446040
+    },
+    {
+      "name": "bulk",
+      "wholeTownAndAliasEqual": true,
+      "AmedianMs": 2951.591899,
+      "CmedianMs": 988.683706,
+      "Arange": [
+        2511.1890399999993,
+        3010.4575370000002
+      ],
+      "Crange": [
+        832.6754569999998,
+        1017.373065
+      ],
+      "ApeakRSSKiB": 582976,
+      "CpeakRSSKiB": 476936
+    },
+    {
+      "name": "small",
+      "wholeTownAndAliasEqual": true,
+      "AmedianMs": 3442.266948,
+      "CmedianMs": 1944.841586,
+      "Arange": [
+        3392.1715779999995,
+        3510.211971999999
+      ],
+      "Crange": [
+        1751.4636549999996,
+        3075.613198
+      ],
+      "ApeakRSSKiB": 824420,
+      "CpeakRSSKiB": 615196
+    },
+    {
+      "name": "diversified",
+      "wholeTownAndAliasEqual": true,
+      "AmedianMs": 2124.809271,
+      "CmedianMs": 1910.621193,
+      "Arange": [
+        1934.0281970000005,
+        2903.9373250000003
+      ],
+      "Crange": [
+        1178.775004,
+        2222.2565129999994
+      ],
+      "ApeakRSSKiB": 532660,
+      "CpeakRSSKiB": 441704
+    }
+  ]
+}

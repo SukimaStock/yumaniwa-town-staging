@@ -1,0 +1,1146 @@
+{
+  "manifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+  "note": "Frozen same-career 360 vs1200 month checkpoints after setup. UTF8 native JSON sizes not heap; alias counted repeatedly; no new simulation.",
+  "rows": {
+    "local": {
+      "sources": {
+        "f30": "native/local-360.json",
+        "f100": "expected/local-1200.json"
+      },
+      "month30": 492,
+      "month100": 1332,
+      "town30Bytes": 3720901,
+      "town100Bytes": 12316275,
+      "fields": {
+        "events": {
+          "type": "array",
+          "count": 12576,
+          "bytes": 4605745,
+          "at30": {
+            "type": "array",
+            "count": 3835,
+            "bytes": 1383201
+          },
+          "growthBytes": 3222544,
+          "growthCount": 8741
+        },
+        "arrivals": {
+          "type": "array",
+          "count": 8992,
+          "bytes": 3608447,
+          "at30": {
+            "type": "array",
+            "count": 2718,
+            "bytes": 1076970
+          },
+          "growthBytes": 2531477,
+          "growthCount": 6274
+        },
+        "attempts": {
+          "type": "array",
+          "count": 29791,
+          "bytes": 3476695,
+          "at30": {
+            "type": "array",
+            "count": 9032,
+            "bytes": 1047641
+          },
+          "growthBytes": 2429054,
+          "growthCount": 20759
+        },
+        "seen": {
+          "type": "object",
+          "count": 8992,
+          "bytes": 375887,
+          "at30": {
+            "type": "object",
+            "count": 2718,
+            "bytes": 109396
+          },
+          "growthBytes": 266491,
+          "growthCount": 6274
+        },
+        "shipments": {
+          "type": "array",
+          "count": 1034,
+          "bytes": 117018,
+          "at30": {
+            "type": "array",
+            "count": 334,
+            "bytes": 37107
+          },
+          "growthBytes": 79911,
+          "growthCount": 700
+        },
+        "releases": {
+          "type": "array",
+          "count": 104,
+          "bytes": 96388,
+          "at30": {
+            "type": "array",
+            "count": 34,
+            "bytes": 31436
+          },
+          "growthBytes": 64952,
+          "growthCount": 70
+        },
+        "packets": {
+          "type": "array",
+          "count": 139,
+          "bytes": 30661,
+          "at30": {
+            "type": "array",
+            "count": 135,
+            "bytes": 29173
+          },
+          "growthBytes": 1488,
+          "growthCount": 4
+        },
+        "nodes": {
+          "type": "object",
+          "count": 14,
+          "bytes": 3977,
+          "at30": {
+            "type": "object",
+            "count": 14,
+            "bytes": 3960
+          },
+          "growthBytes": 17,
+          "growthCount": 0
+        },
+        "pending": {
+          "type": "array",
+          "count": 9,
+          "bytes": 1185,
+          "at30": {
+            "type": "array",
+            "count": 14,
+            "bytes": 1747
+          },
+          "growthBytes": -562,
+          "growthCount": -5
+        },
+        "lastEncounter": {
+          "type": "object",
+          "count": 2,
+          "bytes": 24,
+          "at30": {
+            "type": "object",
+            "count": 2,
+            "bytes": 23
+          },
+          "growthBytes": 1,
+          "growthCount": 0
+        },
+        "version": {
+          "type": "string",
+          "count": null,
+          "bytes": 23,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 23
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "mode": {
+          "type": "string",
+          "count": null,
+          "bytes": 11,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 11
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "external": {
+          "type": "boolean",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "boolean",
+            "count": null,
+            "bytes": 4
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "month": {
+          "type": "number",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 3
+          },
+          "growthBytes": 1,
+          "growthCount": null
+        },
+        "memories": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "trades": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "seed": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "generation": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        }
+      }
+    },
+    "regional": {
+      "sources": {
+        "f30": "native/regional-360.json",
+        "f100": "expected/regional-1200.json"
+      },
+      "month30": 492,
+      "month100": 1332,
+      "town30Bytes": 2775858,
+      "town100Bytes": 6164178,
+      "fields": {
+        "events": {
+          "type": "array",
+          "count": 5935,
+          "bytes": 2418768,
+          "at30": {
+            "type": "array",
+            "count": 2659,
+            "bytes": 1073381
+          },
+          "growthBytes": 1345387,
+          "growthCount": 3276
+        },
+        "arrivals": {
+          "type": "array",
+          "count": 3859,
+          "bytes": 1792710,
+          "at30": {
+            "type": "array",
+            "count": 1778,
+            "bytes": 809343
+          },
+          "growthBytes": 983367,
+          "growthCount": 2081
+        },
+        "attempts": {
+          "type": "array",
+          "count": 12467,
+          "bytes": 1415202,
+          "at30": {
+            "type": "array",
+            "count": 5722,
+            "bytes": 648249
+          },
+          "growthBytes": 766953,
+          "growthCount": 6745
+        },
+        "seen": {
+          "type": "object",
+          "count": 3859,
+          "bytes": 293476,
+          "at30": {
+            "type": "object",
+            "count": 1778,
+            "bytes": 128647
+          },
+          "growthBytes": 164829,
+          "growthCount": 2081
+        },
+        "shipments": {
+          "type": "array",
+          "count": 795,
+          "bytes": 118407,
+          "at30": {
+            "type": "array",
+            "count": 375,
+            "bytes": 54491
+          },
+          "growthBytes": 63916,
+          "growthCount": 420
+        },
+        "releases": {
+          "type": "array",
+          "count": 104,
+          "bytes": 96366,
+          "at30": {
+            "type": "array",
+            "count": 34,
+            "bytes": 31434
+          },
+          "growthBytes": 64932,
+          "growthCount": 70
+        },
+        "packets": {
+          "type": "array",
+          "count": 95,
+          "bytes": 24986,
+          "at30": {
+            "type": "array",
+            "count": 100,
+            "bytes": 25906
+          },
+          "growthBytes": -920,
+          "growthCount": -5
+        },
+        "nodes": {
+          "type": "object",
+          "count": 14,
+          "bytes": 3991,
+          "at30": {
+            "type": "object",
+            "count": 14,
+            "bytes": 3981
+          },
+          "growthBytes": 10,
+          "growthCount": 0
+        },
+        "version": {
+          "type": "string",
+          "count": null,
+          "bytes": 23,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 23
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "lastEncounter": {
+          "type": "object",
+          "count": 2,
+          "bytes": 22,
+          "at30": {
+            "type": "object",
+            "count": 2,
+            "bytes": 22
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "mode": {
+          "type": "string",
+          "count": null,
+          "bytes": 11,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 11
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "external": {
+          "type": "boolean",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "boolean",
+            "count": null,
+            "bytes": 4
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "month": {
+          "type": "number",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 3
+          },
+          "growthBytes": 1,
+          "growthCount": null
+        },
+        "memories": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "trades": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "pending": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 1,
+            "bytes": 157
+          },
+          "growthBytes": -155,
+          "growthCount": -1
+        },
+        "seed": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "generation": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        }
+      }
+    },
+    "bulk": {
+      "sources": {
+        "f30": "native/bulk-360.json",
+        "f100": "expected/bulk-1200.json"
+      },
+      "month30": 492,
+      "month100": 1332,
+      "town30Bytes": 2792544,
+      "town100Bytes": 7008903,
+      "fields": {
+        "events": {
+          "type": "array",
+          "count": 6670,
+          "bytes": 2737496,
+          "at30": {
+            "type": "array",
+            "count": 2673,
+            "bytes": 1077274
+          },
+          "growthBytes": 1660222,
+          "growthCount": 3997
+        },
+        "arrivals": {
+          "type": "array",
+          "count": 4410,
+          "bytes": 2051718,
+          "at30": {
+            "type": "array",
+            "count": 1782,
+            "bytes": 809751
+          },
+          "growthBytes": 1241967,
+          "growthCount": 2628
+        },
+        "attempts": {
+          "type": "array",
+          "count": 14178,
+          "bytes": 1609982,
+          "at30": {
+            "type": "array",
+            "count": 5740,
+            "bytes": 650693
+          },
+          "growthBytes": 959289,
+          "growthCount": 8438
+        },
+        "seen": {
+          "type": "object",
+          "count": 4410,
+          "bytes": 337173,
+          "at30": {
+            "type": "object",
+            "count": 1782,
+            "bytes": 128635
+          },
+          "growthBytes": 208538,
+          "growthCount": 2628
+        },
+        "shipments": {
+          "type": "array",
+          "count": 915,
+          "bytes": 136587,
+          "at30": {
+            "type": "array",
+            "count": 383,
+            "bytes": 55631
+          },
+          "growthBytes": 80956,
+          "growthCount": 532
+        },
+        "releases": {
+          "type": "array",
+          "count": 104,
+          "bytes": 96364,
+          "at30": {
+            "type": "array",
+            "count": 34,
+            "bytes": 31432
+          },
+          "growthBytes": 64932,
+          "growthCount": 70
+        },
+        "packets": {
+          "type": "array",
+          "count": 133,
+          "bytes": 34640,
+          "at30": {
+            "type": "array",
+            "count": 132,
+            "bytes": 33895
+          },
+          "growthBytes": 745,
+          "growthCount": 1
+        },
+        "nodes": {
+          "type": "object",
+          "count": 14,
+          "bytes": 3990,
+          "at30": {
+            "type": "object",
+            "count": 14,
+            "bytes": 3982
+          },
+          "growthBytes": 8,
+          "growthCount": 0
+        },
+        "pending": {
+          "type": "array",
+          "count": 4,
+          "bytes": 683,
+          "at30": {
+            "type": "array",
+            "count": 6,
+            "bytes": 982
+          },
+          "growthBytes": -299,
+          "growthCount": -2
+        },
+        "version": {
+          "type": "string",
+          "count": null,
+          "bytes": 23,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 23
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "lastEncounter": {
+          "type": "object",
+          "count": 2,
+          "bytes": 22,
+          "at30": {
+            "type": "object",
+            "count": 2,
+            "bytes": 22
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "mode": {
+          "type": "string",
+          "count": null,
+          "bytes": 11,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 11
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "external": {
+          "type": "boolean",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "boolean",
+            "count": null,
+            "bytes": 4
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "month": {
+          "type": "number",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 3
+          },
+          "growthBytes": 1,
+          "growthCount": null
+        },
+        "memories": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "trades": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "seed": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "generation": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        }
+      }
+    },
+    "small": {
+      "sources": {
+        "f30": "native/small-360.json",
+        "f100": "expected/small-1200.json"
+      },
+      "month30": 492,
+      "month100": 1332,
+      "town30Bytes": 3260387,
+      "town100Bytes": 9340516,
+      "fields": {
+        "events": {
+          "type": "array",
+          "count": 8859,
+          "bytes": 3658231,
+          "at30": {
+            "type": "array",
+            "count": 3113,
+            "bytes": 1260534
+          },
+          "growthBytes": 2397697,
+          "growthCount": 5746
+        },
+        "arrivals": {
+          "type": "array",
+          "count": 5879,
+          "bytes": 2749753,
+          "at30": {
+            "type": "array",
+            "count": 2074,
+            "bytes": 947113
+          },
+          "growthBytes": 1802640,
+          "growthCount": 3805
+        },
+        "attempts": {
+          "type": "array",
+          "count": 18861,
+          "bytes": 2141981,
+          "at30": {
+            "type": "array",
+            "count": 6648,
+            "bytes": 753504
+          },
+          "growthBytes": 1388477,
+          "growthCount": 12213
+        },
+        "seen": {
+          "type": "object",
+          "count": 5879,
+          "bytes": 458484,
+          "at30": {
+            "type": "object",
+            "count": 2074,
+            "bytes": 152354
+          },
+          "growthBytes": 306130,
+          "growthCount": 3805
+        },
+        "shipments": {
+          "type": "array",
+          "count": 1223,
+          "bytes": 183626,
+          "at30": {
+            "type": "array",
+            "count": 453,
+            "bytes": 66273
+          },
+          "growthBytes": 117353,
+          "growthCount": 770
+        },
+        "releases": {
+          "type": "array",
+          "count": 104,
+          "bytes": 96366,
+          "at30": {
+            "type": "array",
+            "count": 34,
+            "bytes": 31434
+          },
+          "growthBytes": 64932,
+          "growthCount": 70
+        },
+        "packets": {
+          "type": "array",
+          "count": 179,
+          "bytes": 47294,
+          "at30": {
+            "type": "array",
+            "count": 171,
+            "bytes": 44427
+          },
+          "growthBytes": 2867,
+          "growthCount": 8
+        },
+        "nodes": {
+          "type": "object",
+          "count": 14,
+          "bytes": 3991,
+          "at30": {
+            "type": "object",
+            "count": 14,
+            "bytes": 3978
+          },
+          "growthBytes": 13,
+          "growthCount": 0
+        },
+        "pending": {
+          "type": "array",
+          "count": 3,
+          "bytes": 520,
+          "at30": {
+            "type": "array",
+            "count": 3,
+            "bytes": 501
+          },
+          "growthBytes": 19,
+          "growthCount": 0
+        },
+        "version": {
+          "type": "string",
+          "count": null,
+          "bytes": 23,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 23
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "lastEncounter": {
+          "type": "object",
+          "count": 2,
+          "bytes": 22,
+          "at30": {
+            "type": "object",
+            "count": 2,
+            "bytes": 22
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "mode": {
+          "type": "string",
+          "count": null,
+          "bytes": 11,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 11
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "external": {
+          "type": "boolean",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "boolean",
+            "count": null,
+            "bytes": 4
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "month": {
+          "type": "number",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 3
+          },
+          "growthBytes": 1,
+          "growthCount": null
+        },
+        "memories": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "trades": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "seed": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "generation": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        }
+      }
+    },
+    "diversified": {
+      "sources": {
+        "f30": "multidesk/diversified-360.json",
+        "f100": "expected/diversified-1200.json"
+      },
+      "month30": 610,
+      "month100": 1450,
+      "town30Bytes": 2286521,
+      "town100Bytes": 5767156,
+      "fields": {
+        "events": {
+          "type": "array",
+          "count": 5502,
+          "bytes": 2298351,
+          "at30": {
+            "type": "array",
+            "count": 2220,
+            "bytes": 902409
+          },
+          "growthBytes": 1395942,
+          "growthCount": 3282
+        },
+        "arrivals": {
+          "type": "array",
+          "count": 3504,
+          "bytes": 1667507,
+          "at30": {
+            "type": "array",
+            "count": 1406,
+            "bytes": 649234
+          },
+          "growthBytes": 1018273,
+          "growthCount": 2098
+        },
+        "attempts": {
+          "type": "array",
+          "count": 11094,
+          "bytes": 1245001,
+          "at30": {
+            "type": "array",
+            "count": 4492,
+            "bytes": 503899
+          },
+          "growthBytes": 741102,
+          "growthCount": 6602
+        },
+        "seen": {
+          "type": "object",
+          "count": 3504,
+          "bytes": 276316,
+          "at30": {
+            "type": "object",
+            "count": 1406,
+            "bytes": 103106
+          },
+          "growthBytes": 173210,
+          "growthCount": 2098
+        },
+        "shipments": {
+          "type": "array",
+          "count": 1003,
+          "bytes": 156169,
+          "at30": {
+            "type": "array",
+            "count": 408,
+            "bytes": 61762
+          },
+          "growthBytes": 94407,
+          "growthCount": 595
+        },
+        "releases": {
+          "type": "array",
+          "count": 103,
+          "bytes": 95834,
+          "at30": {
+            "type": "array",
+            "count": 33,
+            "bytes": 30685
+          },
+          "growthBytes": 65149,
+          "growthCount": 70
+        },
+        "packets": {
+          "type": "array",
+          "count": 89,
+          "bytes": 23510,
+          "at30": {
+            "type": "array",
+            "count": 118,
+            "bytes": 30804
+          },
+          "growthBytes": -7294,
+          "growthCount": -29
+        },
+        "nodes": {
+          "type": "object",
+          "count": 14,
+          "bytes": 4030,
+          "at30": {
+            "type": "object",
+            "count": 14,
+            "bytes": 4024
+          },
+          "growthBytes": 6,
+          "growthCount": 0
+        },
+        "pending": {
+          "type": "array",
+          "count": 1,
+          "bytes": 168,
+          "at30": {
+            "type": "array",
+            "count": 2,
+            "bytes": 329
+          },
+          "growthBytes": -161,
+          "growthCount": -1
+        },
+        "version": {
+          "type": "string",
+          "count": null,
+          "bytes": 23,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 23
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "lastEncounter": {
+          "type": "object",
+          "count": 2,
+          "bytes": 22,
+          "at30": {
+            "type": "object",
+            "count": 2,
+            "bytes": 22
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "mode": {
+          "type": "string",
+          "count": null,
+          "bytes": 11,
+          "at30": {
+            "type": "string",
+            "count": null,
+            "bytes": 11
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "external": {
+          "type": "boolean",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "boolean",
+            "count": null,
+            "bytes": 4
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "month": {
+          "type": "number",
+          "count": null,
+          "bytes": 4,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 3
+          },
+          "growthBytes": 1,
+          "growthCount": null
+        },
+        "memories": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "trades": {
+          "type": "array",
+          "count": 0,
+          "bytes": 2,
+          "at30": {
+            "type": "array",
+            "count": 0,
+            "bytes": 2
+          },
+          "growthBytes": 0,
+          "growthCount": 0
+        },
+        "seed": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        },
+        "generation": {
+          "type": "number",
+          "count": null,
+          "bytes": 1,
+          "at30": {
+            "type": "number",
+            "count": null,
+            "bytes": 1
+          },
+          "growthBytes": 0,
+          "growthCount": null
+        }
+      }
+    }
+  }
+}
