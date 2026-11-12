@@ -1,8 +1,8 @@
 # AmberTime v0.5 — 復元性能・保存往復の実行記録
 
-更新: 2026-11-12T12:45:21.820508+00:00
+更新: 2026-11-12T12:50:59.186982+00:00
 
-状態: 途中保全。改善候補の完全な5戦略プロトコルは **5/5完了**。完了集合: local, regional, bulk, small, diversified。未完了・将来実行予定は成功扱いにしない。
+状態: 最終測定完了。改善候補の完全な5戦略プロトコルは **5/5完了**。完了集合: local, regional, bulk, small, diversified。未完了・将来実行予定は成功扱いにしない。
 
 ## 固定した対象
 
@@ -18,7 +18,7 @@
 2. 100年の原軌跡は、元の `a210984399547b07728c48bcd83365cf2f28e269` モデルで生成・凍結された独立期待値を再利用した。今回1200か月の生成そのものを再実行したとは主張しない。翌月の独立期待値も凍結済み原本を使用し、改善候補から生成し直していない。
 3. 改善候補では各戦略を新しく正式保存し、child1でcold復元・全gameと全sidecar一致・翌月進行・独立翌月原本一致・再保存、child2で再cold復元・全一致・canonical再保存の完全一致を確認する。親プロセスの正常終了まで完了扱いにしない。
 4. 基準側は地元のみ完全プロトコルを新実行。残る4戦略は1回ずつfresh正式reader・全原本一致・復元後最初の正式serializerとcanonical wire一致を新実行した。基準側の過去5完全プロトコル成功は過去証拠のまま区別する。
-5. 初期の地元基準は2本の全回帰suiteと競合したため、正しさだけの証拠。改善候補5戦略の終了後、同じloaderを用いた地元基準のfresh readerを再実行し、比較値に採用する予定。
+5. 初期の地元基準は2本の全回帰suiteと競合したため、正しさだけの証拠。改善候補5戦略の終了後、同じloaderを用いた地元基準のfresh readerを再実行し、正常終了と全原本一致を確認したうえで比較値に採用した。
 6. `firstSaveAfterRestore`は正式serializerとその内部reader検証の時間。IndexedDB transaction書込み時間ではない。`checkpointCapture`はreplay後に新しく作るdetached cache snapshotであり、永続checkpointのcold復元ではない。phase値は入れ子であり合計してはならない。
 7. native IndexedDB起動はheadとpreviousを検証する。単一generationのNode reader時間を、そのままブラウザー起動時間とみなさない。
 8. 単回測定。信頼区間やiPhone外挿なし。長い復元時間と大きいメモリは未解決。性能改善だけでStagingマージ条件を満たしたとは扱わない。
@@ -60,7 +60,7 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
 
 ## 二世代readMainRecord測定
 
-別の正規Planで実装されたprevious→head検証順序候補を、100年の旧世代・翌月の新世代で測定する予定。現在のfixtureは合成原軌跡だけを使用する。候補commit `d087bbca74768aa666e2c9d681030bf5df1a0a22`、tree `b675d0f3c14acf4b43e798376232b55a8cb26fd6`。実 `bootMainIdb` → `readMainRecord` と実正式reader・SHA検証を呼び、実際の3つのlegacy source key（すべてnull）を一致させる。IDBのopen/readonly request schedulingだけを模擬する。native browser IDB測定とは区別する。二世代とも正式readerを呼ぶこと、旧・新の全session原本一致、保存bytes不変を確認する。
+別の正規Planで実装されたprevious→head検証順序候補を、100年の旧世代・翌月の新世代で測定した。現在のfixtureは合成原軌跡だけを使用する。候補commit `d087bbca74768aa666e2c9d681030bf5df1a0a22`、tree `b675d0f3c14acf4b43e798376232b55a8cb26fd6`。実 `bootMainIdb` → `readMainRecord` と実正式reader・SHA検証を呼び、実際の3つのlegacy source key（すべてnull）を一致させる。IDBのopen/readonly request schedulingだけを模擬する。native browser IDB測定とは区別する。二世代とも正式readerが呼ばれたこと、旧・新の全session原本一致、保存bytes不変、ready/idb、親・両プロセス正常終了を確認した。
 
 ## 最終比較JSON
 
@@ -793,6 +793,40 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
     "protocol-v05.mjs": "0b7ae57565ddccee36da372fdd18ddf4251e0ed330dd762465ead752bcc0c3fd",
     "protocol-perf-v05.mjs": "1a82851a22240d8a091e0b88f054ab72968147398b8573a93a35afefa94f4f4b"
   }
+}
+```
+
+## 二世代測定結果
+
+```json
+{
+  "storageKind": "Mock readonly IDB scheduling, not native browser IndexedDB",
+  "baselineSource": "bb12ed6 recovered",
+  "candidateSource": "d087bbca74768aa666e2c9d681030bf5df1a0a22",
+  "candidateTree": "b675d0f3c14acf4b43e798376232b55a8cb26fd6",
+  "bothFormalReadersExecuted": true,
+  "fullHeadAndPreviousEqual": true,
+  "baselineSeconds": 191.674708351,
+  "candidateSeconds": 92.91123687899999,
+  "improvementPercent": 51.526605842614146,
+  "baselineOrder": [
+    "head",
+    "previous"
+  ],
+  "candidateOrder": [
+    "previous",
+    "head"
+  ],
+  "results": [
+    {
+      "variant": "baseline",
+      "exitCode": 0
+    },
+    {
+      "variant": "previous-first",
+      "exitCode": 0
+    }
+  ]
 }
 ```
 
@@ -3303,6 +3337,108 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
     "elapsedSeconds": 251.18957033899915
   }
 ]
+```
+
+### two-generation-v05/process-results.json
+
+```json
+[
+  {
+    "variant": "baseline",
+    "exitCode": 0
+  },
+  {
+    "variant": "previous-first",
+    "exitCode": 0
+  }
+]
+```
+
+### two-generation-v05/launcher-exit.json
+
+```json
+{
+  "exitCode": 0,
+  "finalOutput": "FINAL_TWO_GENERATION printed",
+  "bothProcessExitCodes": [
+    0,
+    0
+  ],
+  "bothBootReady": true,
+  "exactOrderObserved": true
+}
+```
+
+### two-generation-v05/baseline.json
+
+```json
+{
+  "repo": "/workspace/scratch/a46e452c28fd/protocol-recovered",
+  "name": "regional",
+  "storageKind": "Mock readonly IDB request scheduling, not native browser IndexedDB",
+  "officialBootMainIdb": true,
+  "officialReadMainRecord": true,
+  "legacySourceKeyCount": 3,
+  "bootReady": true,
+  "headSHA256": "9c8593825553bc08413ba203dc1c354027ae10c3c6375bb4d32e0d7f7d94eb36",
+  "previousSHA256": "b38a683adb00948baa91121922833d2169304a13613931a2d77ff71046cdb7f4",
+  "callOrder": [
+    "head",
+    "previous"
+  ],
+  "calls": [
+    {
+      "kind": "head",
+      "ms": 96596.265919,
+      "fullSessionEqual": true
+    },
+    {
+      "kind": "previous",
+      "ms": 94870.17553299999,
+      "fullSessionEqual": true
+    }
+  ],
+  "elapsedMs": 191674.70835099998,
+  "wholeHeadAndPreviousEqual": true,
+  "storedBytesUnchanged": true,
+  "rss": 805496
+}
+```
+
+### two-generation-v05/previous-first.json
+
+```json
+{
+  "repo": "/workspace/scratch/a46e452c28fd/idb-order-benchmark",
+  "name": "regional",
+  "storageKind": "Mock readonly IDB request scheduling, not native browser IndexedDB",
+  "officialBootMainIdb": true,
+  "officialReadMainRecord": true,
+  "legacySourceKeyCount": 3,
+  "bootReady": true,
+  "headSHA256": "9c8593825553bc08413ba203dc1c354027ae10c3c6375bb4d32e0d7f7d94eb36",
+  "previousSHA256": "b38a683adb00948baa91121922833d2169304a13613931a2d77ff71046cdb7f4",
+  "callOrder": [
+    "previous",
+    "head"
+  ],
+  "calls": [
+    {
+      "kind": "previous",
+      "ms": 91105.677023,
+      "fullSessionEqual": true
+    },
+    {
+      "kind": "head",
+      "ms": 1683.173438999991,
+      "fullSessionEqual": true
+    }
+  ],
+  "elapsedMs": 92911.23687899999,
+  "wholeHeadAndPreviousEqual": true,
+  "storedBytesUnchanged": true,
+  "rss": 839968
+}
 ```
 
 ## 実行プログラムの保全
