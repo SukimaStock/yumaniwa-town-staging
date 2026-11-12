@@ -1,0 +1,11 @@
+✔ six entry graphs preserve recursive identities and exact shared native module (2655.503843ms)
+✔ all changed Lab files are exactly declared import or entry URL metadata, not content (95.479978ms)
+✔ economic and replay source matches exact927 after exact reviewed codec and private replay inverses (24.061903ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2899.171812

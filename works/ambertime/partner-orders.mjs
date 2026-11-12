@@ -318,7 +318,7 @@ export function restartRangeDistillation(s){
  return action(j,'restart-range',{progress:d.progress});
 }
 function flavorRecipe(r){return r?.flavorChoice?{flavorChoice:clone(r.flavorChoice)}:{}}
-function prepareFlavorFill(s,type){if(!s.core.spirit?.flavor)return s;const j=clone(s);j.core.spirit=setFlavorCask(j.core.spirit,type);return j;}
+function prepareFlavorFill(s,type){if(!s.core.spirit?.flavor)return s;return {...s,core:{...s.core,spirit:setFlavorCask(s.core.spirit,type)}};}
 function syncTown(s){
  const l=s.labConnection;if(!l)return;l.town.generation=s.generations?.active.id??1;
  for(const r of s.releases)recordBottle(l.town,r);
@@ -707,7 +707,7 @@ function automaticRoleBottling(s){
   if(j.core.cash<cost+salary){r.lastError='資金不足';continue;}
   if(j.decisions.some(d=>d.caskId!==c.id)){r.lastError='判断待ち';continue;}
   if(j.core.products.filter(p=>p.stock>0).length>=C.maxProducts||j.releases.length>=RETAIL_BRANDS.maxReleases){r.lastError='在庫待ち';continue;}
-  if(salary){j=clone(j);j.core.cash=round(j.core.cash-salary);j.core.totals.costs=round(j.core.totals.costs+salary);}
+  if(salary){j.core.cash=round(j.core.cash-salary);j.core.totals.costs=round(j.core.totals.costs+salary);}
   const manualCount=j.workPreferences.last.bottleCount;
   j=brandedBottling(j,c.id,{brandId:1},count,true);j.operations.pop();j.workPreferences.last.bottleCount=manualCount;const productId=j.result.productId;
   j=listBottles(j,productId);j.operations.pop();r=j.automation.reservations.find(x=>x.caskId===c.id);
@@ -732,7 +732,7 @@ function automaticBottling(s){
   if(j.core.cash<cost+salary){r.lastError='資金不足';continue;}
   if(j.decisions.some(d=>d.caskId!==c.id)){r.lastError='判断待ち';continue;}
   if(j.core.products.filter(p=>p.stock>0).length>=C.maxProducts||j.releases.length>=RETAIL_BRANDS.maxReleases){r.lastError='在庫待ち';continue;}
-  if(salary){j=clone(j);j.core.cash=round(j.core.cash-salary);j.core.totals.costs=round(j.core.totals.costs+salary);}
+  if(salary){j.core.cash=round(j.core.cash-salary);j.core.totals.costs=round(j.core.totals.costs+salary);}
   const manualCount=bottlingPolicyMode(j)?j.workPreferences.last.bottleCount:null;
   j=brandedBottling(j,c.id,{brandId:1},count,true);j.operations.pop();if(bottlingPolicyMode(j))j.workPreferences.last.bottleCount=manualCount;const productId=j.result.productId;
   j=listBottles(j,productId);j.operations.pop();r=j.automation.reservations.find(x=>x.caskId===c.id);

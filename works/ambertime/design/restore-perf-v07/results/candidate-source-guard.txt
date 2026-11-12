@@ -1,0 +1,36 @@
+✔ six entry graphs preserve recursive identities and exact shared native module (2454.574105ms)
+✔ all changed Lab files are exactly declared import or entry URL metadata, not content (81.200667ms)
+✖ economic and replay source matches exact927 after exact reviewed codec and private replay inverses (18.670093ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2714.678378
+
+✖ failing tests:
+
+test at works/ambertime/tests/consignment-integration-source.test.mjs:25:1
+✖ economic and replay source matches exact927 after exact reviewed codec and private replay inverses (18.670093ms)
+  AssertionError [ERR_ASSERTION]: partner-orders.mjs
+  + actual - expected
+  
+  + '80cdea13918cbc2c9ae7e043629135c8a64a80494f326fdeb785af3aa109dbd4'
+  - 'b81e2b629e433bf0f949bc44d64d910aaa85e9b1a7b1c7ed703a678b87a323a8'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/consignment-integration-source.test.mjs:41:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '80cdea13918cbc2c9ae7e043629135c8a64a80494f326fdeb785af3aa109dbd4',
+    expected: 'b81e2b629e433bf0f949bc44d64d910aaa85e9b1a7b1c7ed703a678b87a323a8',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
