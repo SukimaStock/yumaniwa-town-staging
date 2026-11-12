@@ -1,0 +1,486 @@
+{
+  "name": "bulk",
+  "mode": "A",
+  "node": "v24.22.1",
+  "fixtureSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe",
+  "steps": 36,
+  "scope": "native town reflection only, not economic consignment settlement/full game/official save",
+  "samples": [
+    {
+      "entry": 100.47676799999999,
+      "tx": [
+        {
+          "ms": 190.22457699999995,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 264.207001,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 264.44219099999987,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 120.04923299999996,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 59.08459199999993,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 60.217510000000175,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 65.19918300000018,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 71.4776410000004,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 118.32195300000012,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 97.54508199999964,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 89.1229800000001,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 54.27190500000006,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 100.34927000000016,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 69.38959599999998,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 87.84412400000019,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 74.32265999999981,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 177.32432300000028,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 66.05812700000024,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 259.3682209999997,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 60.390730000000076,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 98.55009199999995,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 56.92170900000019,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 105.15464999999995,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 362.4312340000006,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 152.8304619999999,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 92.78832200000033,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 95.09546299999965,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 70.08583200000066,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 70.90016400000059,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 75.07364000000052,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 80.22954600000048,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 58.99948200000017,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 57.43292500000007,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 93.32547999999952,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 67.91833599999973,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 50.212837000000036,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 86.46199699999943,
+          "fullTownCopy": 1
+        }
+      ],
+      "exit": 53.60775300000023,
+      "total": 4178.186286
+    },
+    {
+      "entry": 57.72312099999999,
+      "tx": [
+        {
+          "ms": 56.18354199999976,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 138.90979599999991,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 59.695004000000154,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 63.55908199999976,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 53.557174999999916,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 52.766013999999814,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 53.751406999999745,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 65.10941700000058,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 53.24956900000052,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 64.05509499999971,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 65.62576799999988,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 55.85913400000027,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 50.96051199999965,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 73.49642799999947,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 47.32430100000056,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 57.963339999999334,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 69.45108600000003,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 64.64179400000012,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 151.0631089999997,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 105.29947900000025,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 107.98250199999984,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 67.98194400000011,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 5835.856619,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 552.307906,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 321.79652200000055,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 249.0854330000002,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 279.0981670000001,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 99.0046739999998,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 985.5208609999991,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 782.8681660000002,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 108.10221599999932,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 140.57300000000032,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 75.68700499999977,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 87.7715019999996,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 56.328010000001086,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 93.85280200000125,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 252.7093679999998,
+          "fullTownCopy": 1
+        }
+      ],
+      "exit": 65.68562700000257,
+      "total": 11623.237188
+    },
+    {
+      "entry": 219.93109000000186,
+      "tx": [
+        {
+          "ms": 156.32494600000064,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 224.39667799999734,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 47.77916399999958,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 85.48575899999923,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 131.7513289999988,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 73.14146800000162,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 52.560631000000285,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 60.585478000000876,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 50.131006999999954,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 63.65741100000014,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 60.13875200000257,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 83.69869199999812,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 80.29846700000053,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 71.29122300000017,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 59.82146199999988,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 63.04613299999983,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 68.93261300000086,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 55.14488999999958,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 63.291668000001664,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 92.83345700000064,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 59.73988500000269,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 65.93338399999993,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 68.78541199999745,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 61.46423700000014,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 74.04352800000197,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 103.37358999999924,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 66.06385999999839,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 52.932982000002085,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 58.686728000000585,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 75.09894499999791,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 62.49170299999969,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 57.76848400000017,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 127.63882100000046,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 88.98867099999916,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 261.6230420000029,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 124.75648799999908,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 61.11200099999769,
+          "fullTownCopy": 1
+        }
+      ],
+      "exit": 48.610625999997865,
+      "total": 3383.8006400000013
+    }
+  ],
+  "completed": true,
+  "outputSHA256": "d8faafc6ac6b3073b0c249767f7c73d17ccd064bbda9b3eba233ebbc617c8ec9",
+  "aliasSHA256": "efb95e0501b29dc4e7de150c01a7997a683dc91cf43a2d0165ecdfd2848f2542",
+  "peakRSSKiB": 589356,
+  "heap": {
+    "rss": 590663680,
+    "heapTotal": 399400960,
+    "heapUsed": 299039344,
+    "external": 4107709,
+    "arrayBuffers": 212115
+  }
+}

@@ -1,0 +1,1041 @@
+{
+  "name": "regional",
+  "mode": "C",
+  "node": "v24.22.1",
+  "fixtureSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f",
+  "steps": 36,
+  "scope": "native town reflection only, not economic consignment settlement/full game/official save",
+  "samples": [
+    {
+      "entry": 128.13412899999997,
+      "tx": [
+        {
+          "ms": 1.2690790000000334,
+          "fullTownCopy": 0,
+          "revision": 1,
+          "writes": 2,
+          "noopWrites": 2,
+          "journalEntries": 4,
+          "adoptedNodes": 9
+        },
+        {
+          "ms": 316.84637000000004,
+          "fullTownCopy": 0,
+          "revision": 2,
+          "writes": 48,
+          "noopWrites": 25271,
+          "journalEntries": 46,
+          "adoptedNodes": 22
+        },
+        {
+          "ms": 10.199182000000064,
+          "fullTownCopy": 0,
+          "revision": 3,
+          "writes": 93,
+          "noopWrites": 296,
+          "journalEntries": 86,
+          "adoptedNodes": 42
+        },
+        {
+          "ms": 15.507213999999976,
+          "fullTownCopy": 0,
+          "revision": 4,
+          "writes": 142,
+          "noopWrites": 345,
+          "journalEntries": 132,
+          "adoptedNodes": 69
+        },
+        {
+          "ms": 9.817961999999966,
+          "fullTownCopy": 0,
+          "revision": 5,
+          "writes": 139,
+          "noopWrites": 342,
+          "journalEntries": 129,
+          "adoptedNodes": 66
+        },
+        {
+          "ms": 16.333481000000006,
+          "fullTownCopy": 0,
+          "revision": 6,
+          "writes": 101,
+          "noopWrites": 316,
+          "journalEntries": 94,
+          "adoptedNodes": 48
+        },
+        {
+          "ms": 8.747049000000061,
+          "fullTownCopy": 0,
+          "revision": 7,
+          "writes": 55,
+          "noopWrites": 285,
+          "journalEntries": 53,
+          "adoptedNodes": 26
+        },
+        {
+          "ms": 9.799620000000004,
+          "fullTownCopy": 0,
+          "revision": 8,
+          "writes": 75,
+          "noopWrites": 301,
+          "journalEntries": 70,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 6.1113129999999956,
+          "fullTownCopy": 0,
+          "revision": 9,
+          "writes": 71,
+          "noopWrites": 310,
+          "journalEntries": 67,
+          "adoptedNodes": 33
+        },
+        {
+          "ms": 10.369982999999934,
+          "fullTownCopy": 0,
+          "revision": 10,
+          "writes": 72,
+          "noopWrites": 322,
+          "journalEntries": 68,
+          "adoptedNodes": 34
+        },
+        {
+          "ms": 8.829311999999959,
+          "fullTownCopy": 0,
+          "revision": 11,
+          "writes": 73,
+          "noopWrites": 331,
+          "journalEntries": 69,
+          "adoptedNodes": 35
+        },
+        {
+          "ms": 12.578850999999986,
+          "fullTownCopy": 0,
+          "revision": 12,
+          "writes": 72,
+          "noopWrites": 338,
+          "journalEntries": 68,
+          "adoptedNodes": 34
+        },
+        {
+          "ms": 15.870766000000003,
+          "fullTownCopy": 0,
+          "revision": 13,
+          "writes": 75,
+          "noopWrites": 350,
+          "journalEntries": 71,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 11.383489000000054,
+          "fullTownCopy": 0,
+          "revision": 14,
+          "writes": 93,
+          "noopWrites": 366,
+          "journalEntries": 87,
+          "adoptedNodes": 44
+        },
+        {
+          "ms": 24.217918999999938,
+          "fullTownCopy": 0,
+          "revision": 15,
+          "writes": 135,
+          "noopWrites": 408,
+          "journalEntries": 125,
+          "adoptedNodes": 64
+        },
+        {
+          "ms": 11.456447000000026,
+          "fullTownCopy": 0,
+          "revision": 16,
+          "writes": 179,
+          "noopWrites": 439,
+          "journalEntries": 165,
+          "adoptedNodes": 86
+        },
+        {
+          "ms": 14.913767000000007,
+          "fullTownCopy": 0,
+          "revision": 17,
+          "writes": 185,
+          "noopWrites": 458,
+          "journalEntries": 172,
+          "adoptedNodes": 93
+        },
+        {
+          "ms": 10.432999999999993,
+          "fullTownCopy": 0,
+          "revision": 18,
+          "writes": 158,
+          "noopWrites": 426,
+          "journalEntries": 145,
+          "adoptedNodes": 77
+        },
+        {
+          "ms": 8.713309999999979,
+          "fullTownCopy": 0,
+          "revision": 19,
+          "writes": 88,
+          "noopWrites": 384,
+          "journalEntries": 82,
+          "adoptedNodes": 41
+        },
+        {
+          "ms": 9.072302000000036,
+          "fullTownCopy": 0,
+          "revision": 20,
+          "writes": 123,
+          "noopWrites": 414,
+          "journalEntries": 113,
+          "adoptedNodes": 55
+        },
+        {
+          "ms": 8.363680000000045,
+          "fullTownCopy": 0,
+          "revision": 21,
+          "writes": 111,
+          "noopWrites": 405,
+          "journalEntries": 102,
+          "adoptedNodes": 50
+        },
+        {
+          "ms": 9.580818000000022,
+          "fullTownCopy": 0,
+          "revision": 22,
+          "writes": 130,
+          "noopWrites": 425,
+          "journalEntries": 120,
+          "adoptedNodes": 61
+        },
+        {
+          "ms": 16.018673000000035,
+          "fullTownCopy": 0,
+          "revision": 23,
+          "writes": 116,
+          "noopWrites": 419,
+          "journalEntries": 106,
+          "adoptedNodes": 52
+        },
+        {
+          "ms": 15.151522999999997,
+          "fullTownCopy": 0,
+          "revision": 24,
+          "writes": 110,
+          "noopWrites": 409,
+          "journalEntries": 101,
+          "adoptedNodes": 49
+        },
+        {
+          "ms": 9.00407000000007,
+          "fullTownCopy": 0,
+          "revision": 25,
+          "writes": 111,
+          "noopWrites": 414,
+          "journalEntries": 102,
+          "adoptedNodes": 50
+        },
+        {
+          "ms": 8.573136999999974,
+          "fullTownCopy": 0,
+          "revision": 26,
+          "writes": 121,
+          "noopWrites": 425,
+          "journalEntries": 111,
+          "adoptedNodes": 53
+        },
+        {
+          "ms": 16.572174000000018,
+          "fullTownCopy": 0,
+          "revision": 27,
+          "writes": 150,
+          "noopWrites": 451,
+          "journalEntries": 136,
+          "adoptedNodes": 68
+        },
+        {
+          "ms": 22.736174000000005,
+          "fullTownCopy": 0,
+          "revision": 28,
+          "writes": 185,
+          "noopWrites": 483,
+          "journalEntries": 170,
+          "adoptedNodes": 85
+        },
+        {
+          "ms": 10.930789000000004,
+          "fullTownCopy": 0,
+          "revision": 29,
+          "writes": 190,
+          "noopWrites": 478,
+          "journalEntries": 174,
+          "adoptedNodes": 88
+        },
+        {
+          "ms": 14.956807000000026,
+          "fullTownCopy": 0,
+          "revision": 30,
+          "writes": 159,
+          "noopWrites": 460,
+          "journalEntries": 146,
+          "adoptedNodes": 73
+        },
+        {
+          "ms": 9.457169999999905,
+          "fullTownCopy": 0,
+          "revision": 31,
+          "writes": 130,
+          "noopWrites": 433,
+          "journalEntries": 119,
+          "adoptedNodes": 59
+        },
+        {
+          "ms": 10.704161999999997,
+          "fullTownCopy": 0,
+          "revision": 32,
+          "writes": 142,
+          "noopWrites": 439,
+          "journalEntries": 130,
+          "adoptedNodes": 66
+        },
+        {
+          "ms": 9.128901999999925,
+          "fullTownCopy": 0,
+          "revision": 33,
+          "writes": 128,
+          "noopWrites": 439,
+          "journalEntries": 117,
+          "adoptedNodes": 57
+        },
+        {
+          "ms": 7.77777100000003,
+          "fullTownCopy": 0,
+          "revision": 34,
+          "writes": 122,
+          "noopWrites": 428,
+          "journalEntries": 112,
+          "adoptedNodes": 54
+        },
+        {
+          "ms": 9.11925599999995,
+          "fullTownCopy": 0,
+          "revision": 35,
+          "writes": 136,
+          "noopWrites": 443,
+          "journalEntries": 125,
+          "adoptedNodes": 61
+        },
+        {
+          "ms": 12.607541999999967,
+          "fullTownCopy": 0,
+          "revision": 36,
+          "writes": 135,
+          "noopWrites": 441,
+          "journalEntries": 125,
+          "adoptedNodes": 63
+        },
+        {
+          "ms": 8.940364999999929,
+          "fullTownCopy": 0,
+          "revision": 37,
+          "writes": 121,
+          "noopWrites": 430,
+          "journalEntries": 111,
+          "adoptedNodes": 53
+        }
+      ],
+      "exit": 60.39744200000018,
+      "total": 920.9373169999999
+    },
+    {
+      "entry": 210.7180330000001,
+      "tx": [
+        {
+          "ms": 0.9066090000001168,
+          "fullTownCopy": 0,
+          "revision": 1,
+          "writes": 2,
+          "noopWrites": 2,
+          "journalEntries": 4,
+          "adoptedNodes": 9
+        },
+        {
+          "ms": 466.62434199999984,
+          "fullTownCopy": 0,
+          "revision": 2,
+          "writes": 48,
+          "noopWrites": 25271,
+          "journalEntries": 46,
+          "adoptedNodes": 22
+        },
+        {
+          "ms": 10.734005000000025,
+          "fullTownCopy": 0,
+          "revision": 3,
+          "writes": 93,
+          "noopWrites": 296,
+          "journalEntries": 86,
+          "adoptedNodes": 42
+        },
+        {
+          "ms": 14.388139000000137,
+          "fullTownCopy": 0,
+          "revision": 4,
+          "writes": 142,
+          "noopWrites": 345,
+          "journalEntries": 132,
+          "adoptedNodes": 69
+        },
+        {
+          "ms": 15.069401000000198,
+          "fullTownCopy": 0,
+          "revision": 5,
+          "writes": 139,
+          "noopWrites": 342,
+          "journalEntries": 129,
+          "adoptedNodes": 66
+        },
+        {
+          "ms": 17.237487999999985,
+          "fullTownCopy": 0,
+          "revision": 6,
+          "writes": 101,
+          "noopWrites": 316,
+          "journalEntries": 94,
+          "adoptedNodes": 48
+        },
+        {
+          "ms": 21.295351999999866,
+          "fullTownCopy": 0,
+          "revision": 7,
+          "writes": 55,
+          "noopWrites": 285,
+          "journalEntries": 53,
+          "adoptedNodes": 26
+        },
+        {
+          "ms": 7.542848000000049,
+          "fullTownCopy": 0,
+          "revision": 8,
+          "writes": 75,
+          "noopWrites": 301,
+          "journalEntries": 70,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 6.488757000000078,
+          "fullTownCopy": 0,
+          "revision": 9,
+          "writes": 71,
+          "noopWrites": 310,
+          "journalEntries": 67,
+          "adoptedNodes": 33
+        },
+        {
+          "ms": 10.599338999999873,
+          "fullTownCopy": 0,
+          "revision": 10,
+          "writes": 72,
+          "noopWrites": 322,
+          "journalEntries": 68,
+          "adoptedNodes": 34
+        },
+        {
+          "ms": 12.885658000000149,
+          "fullTownCopy": 0,
+          "revision": 11,
+          "writes": 73,
+          "noopWrites": 331,
+          "journalEntries": 69,
+          "adoptedNodes": 35
+        },
+        {
+          "ms": 18.608796999999868,
+          "fullTownCopy": 0,
+          "revision": 12,
+          "writes": 72,
+          "noopWrites": 338,
+          "journalEntries": 68,
+          "adoptedNodes": 34
+        },
+        {
+          "ms": 13.935771999999815,
+          "fullTownCopy": 0,
+          "revision": 13,
+          "writes": 75,
+          "noopWrites": 350,
+          "journalEntries": 71,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 13.695063000000118,
+          "fullTownCopy": 0,
+          "revision": 14,
+          "writes": 93,
+          "noopWrites": 366,
+          "journalEntries": 87,
+          "adoptedNodes": 44
+        },
+        {
+          "ms": 16.719293000000107,
+          "fullTownCopy": 0,
+          "revision": 15,
+          "writes": 135,
+          "noopWrites": 408,
+          "journalEntries": 125,
+          "adoptedNodes": 64
+        },
+        {
+          "ms": 14.350468999999975,
+          "fullTownCopy": 0,
+          "revision": 16,
+          "writes": 179,
+          "noopWrites": 439,
+          "journalEntries": 165,
+          "adoptedNodes": 86
+        },
+        {
+          "ms": 17.187930999999935,
+          "fullTownCopy": 0,
+          "revision": 17,
+          "writes": 185,
+          "noopWrites": 458,
+          "journalEntries": 172,
+          "adoptedNodes": 93
+        },
+        {
+          "ms": 8.68252399999983,
+          "fullTownCopy": 0,
+          "revision": 18,
+          "writes": 158,
+          "noopWrites": 426,
+          "journalEntries": 145,
+          "adoptedNodes": 77
+        },
+        {
+          "ms": 8.882496000000174,
+          "fullTownCopy": 0,
+          "revision": 19,
+          "writes": 88,
+          "noopWrites": 384,
+          "journalEntries": 82,
+          "adoptedNodes": 41
+        },
+        {
+          "ms": 10.757790999999997,
+          "fullTownCopy": 0,
+          "revision": 20,
+          "writes": 123,
+          "noopWrites": 414,
+          "journalEntries": 113,
+          "adoptedNodes": 55
+        },
+        {
+          "ms": 8.719759000000067,
+          "fullTownCopy": 0,
+          "revision": 21,
+          "writes": 111,
+          "noopWrites": 405,
+          "journalEntries": 102,
+          "adoptedNodes": 50
+        },
+        {
+          "ms": 10.362607000000025,
+          "fullTownCopy": 0,
+          "revision": 22,
+          "writes": 130,
+          "noopWrites": 425,
+          "journalEntries": 120,
+          "adoptedNodes": 61
+        },
+        {
+          "ms": 12.212645000000066,
+          "fullTownCopy": 0,
+          "revision": 23,
+          "writes": 116,
+          "noopWrites": 419,
+          "journalEntries": 106,
+          "adoptedNodes": 52
+        },
+        {
+          "ms": 7.473613999999998,
+          "fullTownCopy": 0,
+          "revision": 24,
+          "writes": 110,
+          "noopWrites": 409,
+          "journalEntries": 101,
+          "adoptedNodes": 49
+        },
+        {
+          "ms": 8.12230499999987,
+          "fullTownCopy": 0,
+          "revision": 25,
+          "writes": 111,
+          "noopWrites": 414,
+          "journalEntries": 102,
+          "adoptedNodes": 50
+        },
+        {
+          "ms": 6.8475210000001425,
+          "fullTownCopy": 0,
+          "revision": 26,
+          "writes": 121,
+          "noopWrites": 425,
+          "journalEntries": 111,
+          "adoptedNodes": 53
+        },
+        {
+          "ms": 12.49984399999994,
+          "fullTownCopy": 0,
+          "revision": 27,
+          "writes": 150,
+          "noopWrites": 451,
+          "journalEntries": 136,
+          "adoptedNodes": 68
+        },
+        {
+          "ms": 17.433931999999913,
+          "fullTownCopy": 0,
+          "revision": 28,
+          "writes": 185,
+          "noopWrites": 483,
+          "journalEntries": 170,
+          "adoptedNodes": 85
+        },
+        {
+          "ms": 9.595511999999871,
+          "fullTownCopy": 0,
+          "revision": 29,
+          "writes": 190,
+          "noopWrites": 478,
+          "journalEntries": 174,
+          "adoptedNodes": 88
+        },
+        {
+          "ms": 13.95341899999994,
+          "fullTownCopy": 0,
+          "revision": 30,
+          "writes": 159,
+          "noopWrites": 460,
+          "journalEntries": 146,
+          "adoptedNodes": 73
+        },
+        {
+          "ms": 8.719959000000017,
+          "fullTownCopy": 0,
+          "revision": 31,
+          "writes": 130,
+          "noopWrites": 433,
+          "journalEntries": 119,
+          "adoptedNodes": 59
+        },
+        {
+          "ms": 9.684597999999824,
+          "fullTownCopy": 0,
+          "revision": 32,
+          "writes": 142,
+          "noopWrites": 439,
+          "journalEntries": 130,
+          "adoptedNodes": 66
+        },
+        {
+          "ms": 8.545979999999872,
+          "fullTownCopy": 0,
+          "revision": 33,
+          "writes": 128,
+          "noopWrites": 439,
+          "journalEntries": 117,
+          "adoptedNodes": 57
+        },
+        {
+          "ms": 9.455810999999812,
+          "fullTownCopy": 0,
+          "revision": 34,
+          "writes": 122,
+          "noopWrites": 428,
+          "journalEntries": 112,
+          "adoptedNodes": 54
+        },
+        {
+          "ms": 14.56422799999973,
+          "fullTownCopy": 0,
+          "revision": 35,
+          "writes": 136,
+          "noopWrites": 443,
+          "journalEntries": 125,
+          "adoptedNodes": 61
+        },
+        {
+          "ms": 11.953927000000022,
+          "fullTownCopy": 0,
+          "revision": 36,
+          "writes": 135,
+          "noopWrites": 441,
+          "journalEntries": 125,
+          "adoptedNodes": 63
+        },
+        {
+          "ms": 9.888046999999915,
+          "fullTownCopy": 0,
+          "revision": 37,
+          "writes": 121,
+          "noopWrites": 430,
+          "journalEntries": 111,
+          "adoptedNodes": 53
+        }
+      ],
+      "exit": 114.92552800000021,
+      "total": 1212.4805560000002
+    },
+    {
+      "entry": 206.18278499999997,
+      "tx": [
+        {
+          "ms": 1.5841709999999694,
+          "fullTownCopy": 0,
+          "revision": 1,
+          "writes": 2,
+          "noopWrites": 2,
+          "journalEntries": 4,
+          "adoptedNodes": 9
+        },
+        {
+          "ms": 2075.6504070000005,
+          "fullTownCopy": 0,
+          "revision": 2,
+          "writes": 48,
+          "noopWrites": 25271,
+          "journalEntries": 46,
+          "adoptedNodes": 22
+        },
+        {
+          "ms": 8.249657000000298,
+          "fullTownCopy": 0,
+          "revision": 3,
+          "writes": 93,
+          "noopWrites": 296,
+          "journalEntries": 86,
+          "adoptedNodes": 42
+        },
+        {
+          "ms": 101.0691169999991,
+          "fullTownCopy": 0,
+          "revision": 4,
+          "writes": 142,
+          "noopWrites": 345,
+          "journalEntries": 132,
+          "adoptedNodes": 69
+        },
+        {
+          "ms": 24.14264800000001,
+          "fullTownCopy": 0,
+          "revision": 5,
+          "writes": 139,
+          "noopWrites": 342,
+          "journalEntries": 129,
+          "adoptedNodes": 66
+        },
+        {
+          "ms": 26.675018999999338,
+          "fullTownCopy": 0,
+          "revision": 6,
+          "writes": 101,
+          "noopWrites": 316,
+          "journalEntries": 94,
+          "adoptedNodes": 48
+        },
+        {
+          "ms": 13.865966999999728,
+          "fullTownCopy": 0,
+          "revision": 7,
+          "writes": 55,
+          "noopWrites": 285,
+          "journalEntries": 53,
+          "adoptedNodes": 26
+        },
+        {
+          "ms": 8.222580000000562,
+          "fullTownCopy": 0,
+          "revision": 8,
+          "writes": 75,
+          "noopWrites": 301,
+          "journalEntries": 70,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 9.184536000000662,
+          "fullTownCopy": 0,
+          "revision": 9,
+          "writes": 71,
+          "noopWrites": 310,
+          "journalEntries": 67,
+          "adoptedNodes": 33
+        },
+        {
+          "ms": 14.043642999999975,
+          "fullTownCopy": 0,
+          "revision": 10,
+          "writes": 72,
+          "noopWrites": 322,
+          "journalEntries": 68,
+          "adoptedNodes": 34
+        },
+        {
+          "ms": 16.657521999999517,
+          "fullTownCopy": 0,
+          "revision": 11,
+          "writes": 73,
+          "noopWrites": 331,
+          "journalEntries": 69,
+          "adoptedNodes": 35
+        },
+        {
+          "ms": 16.05569899999955,
+          "fullTownCopy": 0,
+          "revision": 12,
+          "writes": 72,
+          "noopWrites": 338,
+          "journalEntries": 68,
+          "adoptedNodes": 34
+        },
+        {
+          "ms": 16.517477000000326,
+          "fullTownCopy": 0,
+          "revision": 13,
+          "writes": 75,
+          "noopWrites": 350,
+          "journalEntries": 71,
+          "adoptedNodes": 36
+        },
+        {
+          "ms": 15.492098000000624,
+          "fullTownCopy": 0,
+          "revision": 14,
+          "writes": 93,
+          "noopWrites": 366,
+          "journalEntries": 87,
+          "adoptedNodes": 44
+        },
+        {
+          "ms": 17.494714000000386,
+          "fullTownCopy": 0,
+          "revision": 15,
+          "writes": 135,
+          "noopWrites": 408,
+          "journalEntries": 125,
+          "adoptedNodes": 64
+        },
+        {
+          "ms": 11.985325000000557,
+          "fullTownCopy": 0,
+          "revision": 16,
+          "writes": 179,
+          "noopWrites": 439,
+          "journalEntries": 165,
+          "adoptedNodes": 86
+        },
+        {
+          "ms": 20.40628199999992,
+          "fullTownCopy": 0,
+          "revision": 17,
+          "writes": 185,
+          "noopWrites": 458,
+          "journalEntries": 172,
+          "adoptedNodes": 93
+        },
+        {
+          "ms": 37.138992000000144,
+          "fullTownCopy": 0,
+          "revision": 18,
+          "writes": 158,
+          "noopWrites": 426,
+          "journalEntries": 145,
+          "adoptedNodes": 77
+        },
+        {
+          "ms": 12.700049000000035,
+          "fullTownCopy": 0,
+          "revision": 19,
+          "writes": 88,
+          "noopWrites": 384,
+          "journalEntries": 82,
+          "adoptedNodes": 41
+        },
+        {
+          "ms": 11.92867699999988,
+          "fullTownCopy": 0,
+          "revision": 20,
+          "writes": 123,
+          "noopWrites": 414,
+          "journalEntries": 113,
+          "adoptedNodes": 55
+        },
+        {
+          "ms": 12.317871000000196,
+          "fullTownCopy": 0,
+          "revision": 21,
+          "writes": 111,
+          "noopWrites": 405,
+          "journalEntries": 102,
+          "adoptedNodes": 50
+        },
+        {
+          "ms": 10.419246999999814,
+          "fullTownCopy": 0,
+          "revision": 22,
+          "writes": 130,
+          "noopWrites": 425,
+          "journalEntries": 120,
+          "adoptedNodes": 61
+        },
+        {
+          "ms": 30.79295000000002,
+          "fullTownCopy": 0,
+          "revision": 23,
+          "writes": 116,
+          "noopWrites": 419,
+          "journalEntries": 106,
+          "adoptedNodes": 52
+        },
+        {
+          "ms": 13.427730999999767,
+          "fullTownCopy": 0,
+          "revision": 24,
+          "writes": 110,
+          "noopWrites": 409,
+          "journalEntries": 101,
+          "adoptedNodes": 49
+        },
+        {
+          "ms": 12.84186100000079,
+          "fullTownCopy": 0,
+          "revision": 25,
+          "writes": 111,
+          "noopWrites": 414,
+          "journalEntries": 102,
+          "adoptedNodes": 50
+        },
+        {
+          "ms": 7.735216000000037,
+          "fullTownCopy": 0,
+          "revision": 26,
+          "writes": 121,
+          "noopWrites": 425,
+          "journalEntries": 111,
+          "adoptedNodes": 53
+        },
+        {
+          "ms": 20.69396599999982,
+          "fullTownCopy": 0,
+          "revision": 27,
+          "writes": 150,
+          "noopWrites": 451,
+          "journalEntries": 136,
+          "adoptedNodes": 68
+        },
+        {
+          "ms": 32.384231,
+          "fullTownCopy": 0,
+          "revision": 28,
+          "writes": 185,
+          "noopWrites": 483,
+          "journalEntries": 170,
+          "adoptedNodes": 85
+        },
+        {
+          "ms": 16.21803600000021,
+          "fullTownCopy": 0,
+          "revision": 29,
+          "writes": 190,
+          "noopWrites": 478,
+          "journalEntries": 174,
+          "adoptedNodes": 88
+        },
+        {
+          "ms": 27.049049000000196,
+          "fullTownCopy": 0,
+          "revision": 30,
+          "writes": 159,
+          "noopWrites": 460,
+          "journalEntries": 146,
+          "adoptedNodes": 73
+        },
+        {
+          "ms": 8.787304999999833,
+          "fullTownCopy": 0,
+          "revision": 31,
+          "writes": 130,
+          "noopWrites": 433,
+          "journalEntries": 119,
+          "adoptedNodes": 59
+        },
+        {
+          "ms": 9.614035000000513,
+          "fullTownCopy": 0,
+          "revision": 32,
+          "writes": 142,
+          "noopWrites": 439,
+          "journalEntries": 130,
+          "adoptedNodes": 66
+        },
+        {
+          "ms": 12.188200999999935,
+          "fullTownCopy": 0,
+          "revision": 33,
+          "writes": 128,
+          "noopWrites": 439,
+          "journalEntries": 117,
+          "adoptedNodes": 57
+        },
+        {
+          "ms": 10.775040000000445,
+          "fullTownCopy": 0,
+          "revision": 34,
+          "writes": 122,
+          "noopWrites": 428,
+          "journalEntries": 112,
+          "adoptedNodes": 54
+        },
+        {
+          "ms": 11.038233999999647,
+          "fullTownCopy": 0,
+          "revision": 35,
+          "writes": 136,
+          "noopWrites": 443,
+          "journalEntries": 125,
+          "adoptedNodes": 61
+        },
+        {
+          "ms": 16.61481299999923,
+          "fullTownCopy": 0,
+          "revision": 36,
+          "writes": 135,
+          "noopWrites": 441,
+          "journalEntries": 125,
+          "adoptedNodes": 63
+        },
+        {
+          "ms": 12.228782999999567,
+          "fullTownCopy": 0,
+          "revision": 37,
+          "writes": 121,
+          "noopWrites": 430,
+          "journalEntries": 111,
+          "adoptedNodes": 53
+        }
+      ],
+      "exit": 83.83532800000012,
+      "total": 3014.3912540000006
+    }
+  ],
+  "completed": true,
+  "outputSHA256": "65aab6132203bbce0e7a5342d99267cd3e0c88c2a0ac1b0646032dd02779b9ec",
+  "aliasSHA256": "e435a3e265ed76b071eb7461de782e1589a1a346222e4d920d278afa0670a99d",
+  "peakRSSKiB": 445088,
+  "heap": {
+    "rss": 446578688,
+    "heapTotal": 366505984,
+    "heapUsed": 255302056,
+    "external": 4107709,
+    "arrayBuffers": 212115
+  }
+}

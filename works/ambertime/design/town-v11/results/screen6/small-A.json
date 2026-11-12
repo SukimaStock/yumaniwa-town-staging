@@ -1,0 +1,125 @@
+{
+  "name": "small",
+  "mode": "A",
+  "node": "v24.22.1",
+  "fixtureSHA256": "b886e4a0e0820e5b36f5e36aa09f20620573f2160cf665d8b4746e6877d04c49",
+  "scope": "native town reflection only, not economic consignment settlement/full game/official save",
+  "samples": [
+    {
+      "entry": 99.17618299999998,
+      "tx": [
+        {
+          "ms": 74.81939000000006,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 142.39514299999996,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 88.65713500000004,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 102.66959900000006,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 96.87551100000007,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 94.77315899999996,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 72.96648499999992,
+          "fullTownCopy": 1
+        }
+      ],
+      "exit": 69.31881299999986,
+      "total": 841.9243549999999
+    },
+    {
+      "entry": 67.00294200000008,
+      "tx": [
+        {
+          "ms": 67.35720400000014,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 105.56842300000017,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 76.97022900000002,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 75.64723200000003,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 75.46060699999998,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 80.19452000000001,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 72.78551199999993,
+          "fullTownCopy": 1
+        }
+      ],
+      "exit": 103.477623,
+      "total": 724.5078939999999
+    },
+    {
+      "entry": 65.53281900000002,
+      "tx": [
+        {
+          "ms": 61.79314699999986,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 116.16197499999998,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 71.20010500000035,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 79.87523999999985,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 74.60152500000004,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 83.86775100000023,
+          "fullTownCopy": 1
+        },
+        {
+          "ms": 70.08131099999991,
+          "fullTownCopy": 1
+        }
+      ],
+      "exit": 74.94607900000028,
+      "total": 698.1016319999999
+    }
+  ],
+  "completed": true,
+  "outputSHA256": "e6ea7854e0a68b046b2c0791fbf794e2ac46cc89605aaeeded22d284ff5affeb",
+  "aliasSHA256": "d95838591b02f133c81de26848d013525e4a2d094cacc1a88aa6e8827e229e8f",
+  "peakRSSKiB": 579228,
+  "heap": {
+    "rss": 494731264,
+    "heapTotal": 277245952,
+    "heapUsed": 152726448,
+    "external": 4107709,
+    "arrayBuffers": 212115
+  }
+}
