@@ -39,12 +39,12 @@ async function init(page,seed=raw){await page.goto(origin+'/blank');await page.e
  const M=await import('/works/ambertime/formal-idb-main.mjs'),S=await import('/works/ambertime/formal-idb-storage.mjs'),V=await import('/works/ambertime/development-save.mjs'),D=await import('/works/ambertime/partner-orders.mjs'),{PARALLEL_PARAMETERS:P}=await import('/works/ambertime/economy-parameters.mjs');
  const reader=text=>V.readSession(text,{enabled:true,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs});
  if(seed!==null)localStorage.setItem(V.FORMAL_SAVE_KEY,seed);
- globalThis.h={raw,next,third,M,S,V,reader,boot:()=>M.bootMainIdb({reader}),async entries(){const db=await S.openMainIdb();try{return [...await S.readMainEntries(db)];}finally{db.close();}},async mutate(key){const db=await S.openMainIdb();try{await new Promise((resolve,reject)=>{const tx=db.transaction('records','readwrite'),s=tx.objectStore('records'),r=s.get(key);r.onsuccess=()=>s.put({...r.result,text:r.result.text+'x'},key);tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error);});}finally{db.close();}},old:()=>localStorage.getItem(V.FORMAL_SAVE_KEY),async save(text=next){try{return {ok:true,receipt:await this.b.adapter.saveCandidate(text)};}catch(e){return {ok:false,code:e.code??e.name};}},async start(){this.b=await this.boot();return {ok:this.b.ok,reason:this.b.reason,text:this.b.text};},fault(mode){
-  const oldPut=IDBObjectStore.prototype.put,oldAdd=IDBObjectStore.prototype.add,oldTx=IDBDatabase.prototype.transaction;let armed=true,afterCommit=false;
+ globalThis.h={raw,next,third,M,S,V,reader,boot:()=>M.bootMainIdb({reader}),async entries(){const db=await S.openMainIdb();try{return [...await S.readMainEntries(db)];}finally{db.close();}},async mutate(key){const db=await S.openMainIdb();try{await new Promise((resolve,reject)=>{const tx=db.transaction('records','readwrite'),s=tx.objectStore('records'),r=s.get(key);r.onsuccess=()=>s.put({...r.result,text:r.result.text+'x'},key);tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error);});}finally{db.close();}},old:()=>localStorage.getItem(V.FORMAL_SAVE_KEY),async save(text=next){try{return {ok:true,receipt:await this.b.adapter.saveCandidate(text)};}catch(e){return {ok:false,name:e.name,code:typeof e.code==='string'?e.code:null,nativeCode:typeof e.code==='number'?e.code:null};}},async start(){this.b=await this.boot();return {ok:this.b.ok,reason:this.b.reason,text:this.b.text};},fault(mode){
+  const oldPut=IDBObjectStore.prototype.put,oldAdd=IDBObjectStore.prototype.add,oldTx=IDBDatabase.prototype.transaction;let armed=true,afterCommit=false;this.nativeAbort=false;
   const handle=function(original,value,key){
    if(armed&&this.transaction.db.name===S.MAIN_IDB_NAME){
     if(mode==='quota'){armed=false;throw new DOMException('Injected before write','QuotaExceededError');}
-    if(mode==='abort'&&key==='head'){const r=original.call(this,value,key);armed=false;this.transaction.abort();return r;}
+    if(mode==='abort'&&key==='head'){const r=original.call(this,value,key);armed=false;this.transaction.abort();globalThis.h.nativeAbort=true;return r;}
     if(mode==='hold'&&key==='head'){const r=original.call(this,value,key),store=this;armed=false;globalThis.h.holding=true;const keep=()=>{try{const q=store.get('head');q.onsuccess=()=>{if(globalThis.h.holding)keep();};}catch{}};keep();return r;}
    }
    return original.call(this,value,key);
@@ -71,8 +71,19 @@ try{
   assert.equal(await p.evaluate(async()=>{h.b.adapter.close();h.b=await h.boot();return h.b.session.elapsed;}),P.distillStepMs);
  }));
  for(const mode of ['quota','abort'])await test(mode+' rejects and keeps all prior bytes','quota injected exception; abort native transaction',()=>fresh(async p=>{
-  await boot(p);const before=await entries(p);await p.evaluate(mode=>h.fault(mode),mode);const r=await save(p);assert.equal(r.ok,false);if(mode==='quota')assert.equal(r.code,'QuotaExceededError');else assert.ok(['AbortError','idb-abort'].includes(r.code),r.code);
-  await p.evaluate(()=>h.unfault());assert.deepEqual(await entries(p),before);assert.equal(await p.evaluate(()=>h.b.adapter.status.state),'halted');assert.equal(await p.evaluate(()=>h.b.adapter.text),raw);assert.equal(await p.evaluate(()=>h.old()),raw);
+  await boot(p);const before=await entries(p);await p.evaluate(mode=>h.fault(mode),mode);const r=await save(p);
+  const nativeAbort=await p.evaluate(()=>h.nativeAbort);await p.evaluate(()=>h.unfault());
+  // Check the actual safety invariants before interpreting engine diagnostics.
+  assert.deepEqual(await entries(p),before);assert.equal(await p.evaluate(()=>h.b.adapter.status.state),'halted');assert.equal(await p.evaluate(()=>h.b.adapter.text),raw);assert.equal(await p.evaluate(()=>h.old()),raw);
+  console.log(JSON.stringify({faultMode:mode,observation:r,nativeAbort}));assert.equal(r.ok,false);
+  if(mode==='quota')assert.equal(r.name,'QuotaExceededError',JSON.stringify(r));
+  else{
+   assert.equal(nativeAbort,true,'The fault must actually call native IDBTransaction.abort()');
+   // The real writer's following metadata put observes the synchronously aborted
+   // transaction and throws this native error. Numeric DOMException.code is not
+   // an application fault code and must never mask the error name.
+   assert.equal(r.name,'TransactionInactiveError',JSON.stringify(r));
+  }
  }));
  await test('postcommit readback failure halts; old normal generation survives','injected readback failure after native commit',()=>fresh(async p=>{
   await boot(p);await p.evaluate(()=>h.fault('readback'));assert.equal((await save(p)).ok,false);await p.evaluate(()=>h.unfault());
