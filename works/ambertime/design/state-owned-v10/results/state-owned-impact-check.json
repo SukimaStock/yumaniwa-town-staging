@@ -1,0 +1,202 @@
+{
+  "schema": "yumaniwa-impact-check-report/0.2",
+  "change": "Independent owned-archive boundary proof for economicMonthly stage only, no full-game connection",
+  "planLevel": "full",
+  "classes": [
+    "WORK"
+  ],
+  "baseSha": "452712109b4f97b9bd0d0193633abe5e0da8991e",
+  "target": "worktree",
+  "headSha": "39a065f99c1ee047198a9c61f51596f21229d024",
+  "changedPaths": [
+    ".change-plans/ambertime-owned-phase-v10-20261112/r0.lock.json",
+    "works/ambertime/design/state-owned-v10/REPORT.md",
+    "works/ambertime/design/state-owned-v10/loader.mjs",
+    "works/ambertime/design/state-owned-v10/owned.mjs",
+    "works/ambertime/design/state-owned-v10/proof.mjs",
+    "works/ambertime/design/state-owned-v10/results/bulk-A.json",
+    "works/ambertime/design/state-owned-v10/results/bulk-C.json",
+    "works/ambertime/design/state-owned-v10/results/diversified-A.json",
+    "works/ambertime/design/state-owned-v10/results/diversified-C.json",
+    "works/ambertime/design/state-owned-v10/results/local-A.json",
+    "works/ambertime/design/state-owned-v10/results/local-C.json",
+    "works/ambertime/design/state-owned-v10/results/regional-A.json",
+    "works/ambertime/design/state-owned-v10/results/regional-C.json",
+    "works/ambertime/design/state-owned-v10/results/small-A.json",
+    "works/ambertime/design/state-owned-v10/results/small-C.json",
+    "works/ambertime/design/state-owned-v10/results/summary.json",
+    "works/ambertime/design/state-owned-v10/run.py"
+  ],
+  "executablePaths": [],
+  "coveredPaths": [
+    "works/ambertime/design/state-owned-v10/loader.mjs",
+    "works/ambertime/design/state-owned-v10/owned.mjs",
+    "works/ambertime/design/state-owned-v10/proof.mjs",
+    "works/ambertime/design/state-owned-v10/results/bulk-A.json",
+    "works/ambertime/design/state-owned-v10/results/bulk-C.json",
+    "works/ambertime/design/state-owned-v10/results/diversified-A.json",
+    "works/ambertime/design/state-owned-v10/results/diversified-C.json",
+    "works/ambertime/design/state-owned-v10/results/local-A.json",
+    "works/ambertime/design/state-owned-v10/results/local-C.json",
+    "works/ambertime/design/state-owned-v10/results/regional-A.json",
+    "works/ambertime/design/state-owned-v10/results/regional-C.json",
+    "works/ambertime/design/state-owned-v10/results/small-A.json",
+    "works/ambertime/design/state-owned-v10/results/small-C.json",
+    "works/ambertime/design/state-owned-v10/results/summary.json",
+    "works/ambertime/design/state-owned-v10/run.py"
+  ],
+  "uncoveredPaths": [
+    ".change-plans/ambertime-owned-phase-v10-20261112/r0.lock.json",
+    "works/ambertime/design/state-owned-v10/REPORT.md"
+  ],
+  "requiredImpacts": [
+    {
+      "id": "work.regression",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-owned-v10/loader.mjs",
+        "works/ambertime/design/state-owned-v10/owned.mjs",
+        "works/ambertime/design/state-owned-v10/proof.mjs",
+        "works/ambertime/design/state-owned-v10/results/bulk-A.json",
+        "works/ambertime/design/state-owned-v10/results/bulk-C.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-A.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-C.json",
+        "works/ambertime/design/state-owned-v10/results/local-A.json",
+        "works/ambertime/design/state-owned-v10/results/local-C.json",
+        "works/ambertime/design/state-owned-v10/results/regional-A.json",
+        "works/ambertime/design/state-owned-v10/results/regional-C.json",
+        "works/ambertime/design/state-owned-v10/results/small-A.json",
+        "works/ambertime/design/state-owned-v10/results/small-C.json",
+        "works/ambertime/design/state-owned-v10/results/summary.json",
+        "works/ambertime/design/state-owned-v10/run.py"
+      ],
+      "core": false
+    },
+    {
+      "id": "work.runtime",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-owned-v10/loader.mjs",
+        "works/ambertime/design/state-owned-v10/owned.mjs",
+        "works/ambertime/design/state-owned-v10/proof.mjs",
+        "works/ambertime/design/state-owned-v10/results/bulk-A.json",
+        "works/ambertime/design/state-owned-v10/results/bulk-C.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-A.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-C.json",
+        "works/ambertime/design/state-owned-v10/results/local-A.json",
+        "works/ambertime/design/state-owned-v10/results/local-C.json",
+        "works/ambertime/design/state-owned-v10/results/regional-A.json",
+        "works/ambertime/design/state-owned-v10/results/regional-C.json",
+        "works/ambertime/design/state-owned-v10/results/small-A.json",
+        "works/ambertime/design/state-owned-v10/results/small-C.json",
+        "works/ambertime/design/state-owned-v10/results/summary.json",
+        "works/ambertime/design/state-owned-v10/run.py"
+      ],
+      "core": true
+    }
+  ],
+  "results": [
+    {
+      "status": "PASS",
+      "check": "impact.declared",
+      "impact": "work.regression",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-owned-v10/loader.mjs",
+        "works/ambertime/design/state-owned-v10/owned.mjs",
+        "works/ambertime/design/state-owned-v10/proof.mjs",
+        "works/ambertime/design/state-owned-v10/results/bulk-A.json",
+        "works/ambertime/design/state-owned-v10/results/bulk-C.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-A.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-C.json",
+        "works/ambertime/design/state-owned-v10/results/local-A.json",
+        "works/ambertime/design/state-owned-v10/results/local-C.json",
+        "works/ambertime/design/state-owned-v10/results/regional-A.json",
+        "works/ambertime/design/state-owned-v10/results/regional-C.json",
+        "works/ambertime/design/state-owned-v10/results/small-A.json",
+        "works/ambertime/design/state-owned-v10/results/small-C.json",
+        "works/ambertime/design/state-owned-v10/results/summary.json",
+        "works/ambertime/design/state-owned-v10/run.py"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "detail": "impact is declared in impactChecks"
+    },
+    {
+      "status": "PASS",
+      "check": "impact.declared",
+      "impact": "work.runtime",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-owned-v10/loader.mjs",
+        "works/ambertime/design/state-owned-v10/owned.mjs",
+        "works/ambertime/design/state-owned-v10/proof.mjs",
+        "works/ambertime/design/state-owned-v10/results/bulk-A.json",
+        "works/ambertime/design/state-owned-v10/results/bulk-C.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-A.json",
+        "works/ambertime/design/state-owned-v10/results/diversified-C.json",
+        "works/ambertime/design/state-owned-v10/results/local-A.json",
+        "works/ambertime/design/state-owned-v10/results/local-C.json",
+        "works/ambertime/design/state-owned-v10/results/regional-A.json",
+        "works/ambertime/design/state-owned-v10/results/regional-C.json",
+        "works/ambertime/design/state-owned-v10/results/small-A.json",
+        "works/ambertime/design/state-owned-v10/results/small-C.json",
+        "works/ambertime/design/state-owned-v10/results/summary.json",
+        "works/ambertime/design/state-owned-v10/run.py"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "detail": "impact is declared in impactChecks"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        ".change-plans/ambertime-owned-phase-v10-20261112/r0.lock.json"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/state-owned-v10/REPORT.md"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    }
+  ],
+  "impactOk": true,
+  "exitCode": 0
+}
