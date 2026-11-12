@@ -1,0 +1,16 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {configureLab,getLabMetrics} from './adapter.mjs';
+const [prefixes,out,variant]=process.argv.slice(2),expected=JSON.parse(fs.readFileSync(prefixes+'/local-5.expected.json')),other=JSON.parse(fs.readFileSync(prefixes+'/diversified-5.expected.json'));let serial=0;const fresh=()=>import('../../partner-orders.mjs?v13test='+serial++),rows=[];
+for(const hook of ['onApplyBefore','onApplyAfter','afterSafeOperation','beforeCheckpoint','afterCheckpoint','beforeReplayPublish',...(variant==='C'?['afterSnapshot','beforeTownCommit','afterTownCommit']:[])]){const D=await fresh(),input=structuredClone(expected.game),before=JSON.stringify(input);let hit=false;configureLab({variant,hooks:{[hook](){hit=true;throw Error('injected-'+hook);}}});assert.throws(()=>D.validateDistillery(input),new RegExp('injected-'+hook));assert(hit);assert.equal(JSON.stringify(input),before);configureLab({variant});assert.equal(JSON.stringify(D.restoreDistillery(before)),before);rows.push({hook,hit,inputUnchanged:true,retryExact:true});}
+{
+ const D=await fresh();configureLab({variant});const first=structuredClone(expected.game),old=JSON.stringify(first);D.validateDistillery(first);const invalid=structuredClone(first);invalid.operations.push({key:'__invalid-last-op'});assert.throws(()=>D.validateDistillery(invalid));assert.equal(JSON.stringify(first),old);assert.equal(JSON.stringify(D.restoreDistillery(old)),old);const another=JSON.stringify(other.game);assert.equal(JSON.stringify(D.restoreDistillery(another)),another);assert.equal(JSON.stringify(D.restoreDistillery(old)),old);rows.push({case:'invalid-tail-then-valid-and-different-game',pass:true});
+}
+{
+ const D=await fresh();configureLab({variant});const text=JSON.stringify(expected.game),a=D.restoreDistillery(text),b=D.restoreDistillery(text);a.core.cash--;a.labConnection.town.events[0].v13Mutation=1;assert.equal(JSON.stringify(b),text);assert.equal(JSON.stringify(D.restoreDistillery(text)),text);rows.push({case:'returned-state-mutation-cache-isolation',pass:true});
+}
+{
+ const D=await fresh(),input=structuredClone(expected.game);let hit=false;configureLab({variant,hooks:{onApplyAfter({index}){if(index===100){input.core.cash++;hit=true;}}}});assert.throws(()=>D.validateDistillery(input));assert(hit);configureLab({variant});assert.equal(JSON.stringify(D.restoreDistillery(JSON.stringify(expected.game))),JSON.stringify(expected.game));rows.push({case:'external-input-mutation-rejected',pass:true});
+}
+{
+ const D=await fresh();configureLab({variant});const input=structuredClone(expected.game),before=JSON.stringify(input);let retained;assert.throws(()=>D.replayDistilleryOperations(input,x=>{retained=x;if(x.index===4)throw Error('observer-stop');}),/observer-stop/);retained.after.core.cash--;assert.equal(JSON.stringify(input),before);assert.equal(JSON.stringify(D.restoreDistillery(before)),before);rows.push({case:'native-projection-observer-throw-and-retained-mutation',pass:true,optimized:false});
+}
+fs.writeFileSync(out,JSON.stringify({completed:true,variant,rows,metrics:getLabMetrics(),unverified:['C actual town mutation is never optimized (four readonly keys only)','native projection observer unchanged','synthetic town74 rollback separate existing test, not C journal mutation']},null,2));console.log('PASS',variant,rows.length);

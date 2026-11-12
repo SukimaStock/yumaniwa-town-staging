@@ -1,0 +1,20 @@
+(node:6) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./ambertime-private-replay-v13/works/ambertime/design/private-replay-v13/loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/design/private-replay-v13/adapter.mjs:31
+ if(session)throw Error('Nested formal replay unsupported');metrics.sessions++;
+                  ^
+
+Error: Nested formal replay unsupported
+    at runPrivateReplay (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/design/private-replay-v13/adapter.mjs:31:19)
+    at validateDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:1526:5)
+    at enableStaffExperience (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:585:2)
+    at enableStage4 (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:58:49)
+    at applyOperation (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:1457:331)
+    at __nativeApply (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:1493:10)
+    at applyInner (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/design/private-replay-v13/adapter.mjs:45:54)
+    at scopedApply (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/design/private-replay-v13/adapter.mjs:39:15)
+    at apply (file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:1491:42)
+    at file:///workspace/scratch/de42cc6691b2/ambertime-private-replay-v13/works/ambertime/partner-orders.mjs?v13test=0:1526:116
+
+Node.js v24.22.1
