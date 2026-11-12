@@ -1,0 +1,15 @@
+# Bounded actual single-tick transaction Lab
+
+Public API: `runTick(actualTickDistillery, input, hooks) -> {game, metrics}` under exact-source Node loader.
+
+The full input is detached once. This original entry remains a plain immutable-by-convention snapshot during the tick. Town forks again into the journal workspace; this deliberate second town copy preserves reads of original `s` by shop evidence, generation handling, and low-funds rollback. The first clone of entry projects other state and attaches the private town view. Known forward-owned clones detach other state while retaining only that same unpublished town workspace. A subsequent clone of original entry uses native full cloning, not the journal. Unknown clone sources fall back to original cloneReplayState. No production source changes or generic global structuredClone replacement.
+
+Input town and current-state graph crossings are rejected before projection; labConnection cross-root references are rejected too. Native clone retains aliases among non-town state and journal snapshot retains aliases within town. Lab property order is rebuilt from original key order. Actual restored v8 fixtures remain necessary: JSON serialization loses alias topology.
+
+After actual tick returns, a plain rollback-state result causes journal discard. Forward result commits only private journal state, then receives detached town snapshot and detached current state. Public result does not share with input. Fault hooks never expose tentative objects. beforePublish can reject output after private commit, but this does not model durable-store commit/rollback. No external effects happen in this Lab.
+
+Source-gated hooks: afterEconomy immediately after actual E.economicMonthly; afterConsignment only after actual settlement month is assigned. Journal afterTownWrite detects one/many tentative mutations; beforeCommit and afterCommit bracket private commit, undo still active at latter. afterTick before private commit; beforePublish after detached result assembled. All are test hooks, not production handlers.
+
+Safety limitation: forward-owned intermediate states share the private town version; they are not arbitrary durable snapshots. Correctness is limited to audited single-tick paths, where nested clones do not subsequently require historical town reads. The original entry explicitly remains independent. If any forward nested path later reads an older town version, this architecture needs versions or narrower mutation ownership, not a claim that sharing is safe. Final-century next-tick tests are not an entire 100-year replay integration. Empty inventory/sales fixtures do not cover automatic bottling/consignment; synthetic legal native fixtures must cover them.
+
+Expected performance limitation: entry full clone + town fork + public exit detach + boundary graph audit may cost more than the original single full clone on ordinary tick. Measure total end-to-end overhead and reject performance adoption if slower. No performance justification based only on internal clone count. Private replay batching would need another ownership design and valid full-operation protocol; not included.

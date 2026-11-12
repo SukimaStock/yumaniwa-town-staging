@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "name": "bulk",
+  "mode": "931",
+  "baselineSHA": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+  "scope": "Actual single tick, not century cold",
+  "samples": [
+    {
+      "ms": 147.646521
+    },
+    {
+      "ms": 161.39113600000007
+    },
+    {
+      "ms": 89.46374200000002
+    },
+    {
+      "ms": 104.85586999999998
+    },
+    {
+      "ms": 121.96562100000006
+    }
+  ],
+  "outputSHA256": "1cd9ebefed81a82984a1b43fb2fe427959295b201e2f7fcdefcb9c7c7a16a1f4",
+  "peakRSSKiB": 337436,
+  "memory": {
+    "rss": 345534464,
+    "heapTotal": 280600576,
+    "heapUsed": 195951760,
+    "external": 4210775,
+    "arrayBuffers": 212115
+  }
+}

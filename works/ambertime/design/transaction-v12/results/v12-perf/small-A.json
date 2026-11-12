@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "name": "small",
+  "mode": "A",
+  "node": "v24.22.1",
+  "fixtureSHA256": "b886e4a0e0820e5b36f5e36aa09f20620573f2160cf665d8b4746e6877d04c49",
+  "scope": "One actual full monthly tick on century snapshot, not full cold restore",
+  "samples": [
+    {
+      "ms": 208.678857
+    },
+    {
+      "ms": 192.5615009999999
+    },
+    {
+      "ms": 119.79555400000004
+    },
+    {
+      "ms": 129.5470899999998
+    },
+    {
+      "ms": 205.4639259999999
+    }
+  ],
+  "outputSHA256": "279749f6943733e26b11f3279619e01cda11b7355e8ba2e4ecec3da25a9bc1dc",
+  "peakRSSKiB": 396164,
+  "memory": {
+    "rss": 387751936,
+    "heapTotal": 295694336,
+    "heapUsed": 202095200,
+    "external": 4073740,
+    "arrayBuffers": 146583
+  }
+}

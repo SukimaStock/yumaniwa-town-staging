@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "name": "diversified",
+  "mode": "931",
+  "baselineSHA": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+  "scope": "Actual single tick, not century cold",
+  "samples": [
+    {
+      "ms": 152.16849699999995
+    },
+    {
+      "ms": 139.11201799999992
+    },
+    {
+      "ms": 82.29247399999997
+    },
+    {
+      "ms": 72.15874599999995
+    },
+    {
+      "ms": 71.27966800000013
+    }
+  ],
+  "outputSHA256": "389b3b143728ab89fca9cfefabdf83fea8319ac4ad1d0aba5a8a2953e6482ad8",
+  "peakRSSKiB": 234432,
+  "memory": {
+    "rss": 240058368,
+    "heapTotal": 233562112,
+    "heapUsed": 127973816,
+    "external": 4210775,
+    "arrayBuffers": 212115
+  }
+}

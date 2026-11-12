@@ -1,0 +1,91 @@
+{
+  "completed": true,
+  "scope": "Native baseline only; simple lowcash not town-before-rollback proof",
+  "rows": [
+    {
+      "name": "local",
+      "fixtureSHA256": "f35e0fb48fab929ebb689d94a07fe98f65c5b758fb4e779c92ba5c3edcf6c668",
+      "normalMonth": [
+        1332,
+        1333
+      ],
+      "ms": 459.98764200000005,
+      "lowMonth": [
+        1332,
+        1332
+      ],
+      "lowFunds": true,
+      "lowTownEqual": true,
+      "normalBottlings": 0,
+      "consignmentSales": 0
+    },
+    {
+      "name": "regional",
+      "fixtureSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f",
+      "normalMonth": [
+        1332,
+        1333
+      ],
+      "ms": 76.75101600000016,
+      "lowMonth": [
+        1332,
+        1332
+      ],
+      "lowFunds": true,
+      "lowTownEqual": true,
+      "normalBottlings": 0,
+      "consignmentSales": 0
+    },
+    {
+      "name": "bulk",
+      "fixtureSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe",
+      "normalMonth": [
+        1332,
+        1333
+      ],
+      "ms": 84.63871299999983,
+      "lowMonth": [
+        1332,
+        1332
+      ],
+      "lowFunds": true,
+      "lowTownEqual": true,
+      "normalBottlings": 0,
+      "consignmentSales": 0
+    },
+    {
+      "name": "small",
+      "fixtureSHA256": "b886e4a0e0820e5b36f5e36aa09f20620573f2160cf665d8b4746e6877d04c49",
+      "normalMonth": [
+        1332,
+        1333
+      ],
+      "ms": 122.93612200000007,
+      "lowMonth": [
+        1332,
+        1332
+      ],
+      "lowFunds": true,
+      "lowTownEqual": true,
+      "normalBottlings": 0,
+      "consignmentSales": 0
+    },
+    {
+      "name": "diversified",
+      "fixtureSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+      "normalMonth": [
+        1450,
+        1451
+      ],
+      "ms": 72.63586699999996,
+      "lowMonth": [
+        1450,
+        1450
+      ],
+      "lowFunds": true,
+      "lowTownEqual": true,
+      "normalBottlings": 0,
+      "consignmentSales": 0
+    }
+  ]
+}

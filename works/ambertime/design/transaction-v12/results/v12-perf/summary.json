@@ -1,0 +1,108 @@
+{
+  "completed": true,
+  "childProcesses": 10,
+  "repeatsPerChild": 5,
+  "scope": "Single actual monthly tick; not cold restore",
+  "rows": [
+    {
+      "name": "local",
+      "outputEqual": true,
+      "A": {
+        "medianMs": 172.57033,
+        "rangeMs": [
+          156.35951599999999,
+          587.7692450000002
+        ],
+        "peakRSSKiB": 446912
+      },
+      "C": {
+        "medianMs": 1551.8550289999985,
+        "rangeMs": [
+          1357.4128970000002,
+          1800.023123
+        ],
+        "peakRSSKiB": 880008
+      }
+    },
+    {
+      "name": "regional",
+      "outputEqual": true,
+      "C": {
+        "medianMs": 718.663065,
+        "rangeMs": [
+          673.8840559999999,
+          761.9619039999998
+        ],
+        "peakRSSKiB": 487416
+      },
+      "A": {
+        "medianMs": 85.53777500000001,
+        "rangeMs": [
+          64.67639499999996,
+          131.402287
+        ],
+        "peakRSSKiB": 323128
+      }
+    },
+    {
+      "name": "bulk",
+      "outputEqual": true,
+      "A": {
+        "medianMs": 122.15515900000003,
+        "rangeMs": [
+          98.416741,
+          145.03233099999994
+        ],
+        "peakRSSKiB": 351052
+      },
+      "C": {
+        "medianMs": 1457.356754,
+        "rangeMs": [
+          837.233946,
+          3222.680953
+        ],
+        "peakRSSKiB": 527752
+      }
+    },
+    {
+      "name": "small",
+      "outputEqual": true,
+      "C": {
+        "medianMs": 1282.9606359999998,
+        "rangeMs": [
+          1160.4166730000006,
+          1776.1934179999998
+        ],
+        "peakRSSKiB": 772416
+      },
+      "A": {
+        "medianMs": 192.5615009999999,
+        "rangeMs": [
+          119.79555400000004,
+          208.678857
+        ],
+        "peakRSSKiB": 396164
+      }
+    },
+    {
+      "name": "diversified",
+      "outputEqual": true,
+      "A": {
+        "medianMs": 105.35545100000002,
+        "rangeMs": [
+          85.46632199999999,
+          140.31596099999996
+        ],
+        "peakRSSKiB": 282140
+      },
+      "C": {
+        "medianMs": 774.670646,
+        "rangeMs": [
+          578.6419059999998,
+          792.259255
+        ],
+        "peakRSSKiB": 476624
+      }
+    }
+  ]
+}

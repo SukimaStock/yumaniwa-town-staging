@@ -1,0 +1,56 @@
+{
+  "completed": true,
+  "scope": "Full native tick with actual consignment sale; private journal exceptions, NOT durable IDB failures",
+  "rows": [
+    {
+      "name": "1-after-economy",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "2-first-town-write",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "3-multiple-town-writes",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "4-after-consignment",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "5-before-journal-commit",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "6-during-tentative-journal-commit",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "7-before-whole-output-publication",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryFullStateEqual": true
+    },
+    {
+      "name": "independent-branches-and-old-state-repeat",
+      "pass": true
+    },
+    {
+      "name": "divergent-branch-full-state",
+      "pass": true
+    }
+  ]
+}

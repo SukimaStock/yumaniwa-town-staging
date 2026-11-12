@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "name": "regional",
+  "mode": "A",
+  "node": "v24.22.1",
+  "fixtureSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f",
+  "scope": "One actual full monthly tick on century snapshot, not full cold restore",
+  "samples": [
+    {
+      "ms": 113.45941700000003
+    },
+    {
+      "ms": 81.25010399999996
+    },
+    {
+      "ms": 85.53777500000001
+    },
+    {
+      "ms": 131.402287
+    },
+    {
+      "ms": 64.67639499999996
+    }
+  ],
+  "outputSHA256": "904601982e066a00455acdf6376a8f08dd9934db78df26191eb3e641e5b6f9f3",
+  "peakRSSKiB": 323128,
+  "memory": {
+    "rss": 330883072,
+    "heapTotal": 292478976,
+    "heapUsed": 192915064,
+    "external": 4073740,
+    "arrayBuffers": 146583
+  }
+}
