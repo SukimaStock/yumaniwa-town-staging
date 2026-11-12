@@ -1,0 +1,36 @@
+{
+  "completed": true,
+  "children": 10,
+  "rows": [
+    {
+      "name": "local",
+      "wholeStateEqual": true,
+      "AmedianTotalMs": 2108.809816,
+      "CmedianTotalMs": 462.24003200000016
+    },
+    {
+      "name": "regional",
+      "wholeStateEqual": true,
+      "AmedianTotalMs": 588.289323,
+      "CmedianTotalMs": 247.15965999999997
+    },
+    {
+      "name": "bulk",
+      "wholeStateEqual": true,
+      "AmedianTotalMs": 817.6533590000001,
+      "CmedianTotalMs": 332.97735999999986
+    },
+    {
+      "name": "small",
+      "wholeStateEqual": true,
+      "AmedianTotalMs": 916.8876920000002,
+      "CmedianTotalMs": 411.91852500000005
+    },
+    {
+      "name": "diversified",
+      "wholeStateEqual": true,
+      "AmedianTotalMs": 574.5533810000002,
+      "CmedianTotalMs": 274.464694
+    }
+  ]
+}
