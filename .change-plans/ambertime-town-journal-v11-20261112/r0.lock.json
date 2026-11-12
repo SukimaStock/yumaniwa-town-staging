@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "7447b49643d664448ca85b15951de150d5155bdd0a2f2b01241fe655cb35d6c3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "882f63ff5ad28007ace1c272f566c522a7a369fb",
+    "changeId": "ambertime-town-journal-v11-20261112",
+    "revision": 0,
+    "change": "Town audit and privately owned reversible-write journal Lab; no runtime connection",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/clone-data.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/design/town-v11/**",
+      ".change-plans/ambertime-town-journal-v11-20261112/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/operations.mjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Audit all town fields, count and size at 30/100y; code-backed write and reader boundaries.",
+      "Independent Lab executes existing town model inside an exclusively owned reversible-write journal; preserve graphs, rollback, detached snapshots.",
+      "Compare baseline full-town copying with incremental owned updates; no shipped module changes.",
+      "Ten specified failure/branch/retry/persistence cases, explicit mock versus actual save paths; no invented formal game proof."
+    ],
+    "ownerDecisions": [
+      "User v1.1 Nov12 explicitly authorizes town audit, independent Lab and Draft preservation; no Staging/Production merge/deploy."
+    ],
+    "hqDecisions": [
+      "User v1.1 authority; exact baseline #936/932 and frozen synthetic fixtures.",
+      "Need owned transactional town records, not generic faster clone or new game schema.",
+      "Minimum offline adapter; no main imports/deployment.",
+      "Owned original graph independent of caller; mutable transaction never changes committed records.",
+      "Readers/formal serialization unchanged; represent full data at public boundary.",
+      "Tests include all10 requested points with explicit proof scope and full-state comparisons.",
+      "Rollback abandons uncommitted records and preserves committed graph and external save bytes.",
+      "Main connection explicitly excluded until newPlan and allformal safety established."
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Browser/iPhone unverified unless actually run; not claimed by Node results."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard unpublished candidate without any save or deployment modification.",
+    "outOfScope": [
+      "Staging merge/deploy",
+      "Production",
+      "Stage5",
+      "UI41-44",
+      "Shared town",
+      "Save acceptance changes",
+      "Economy balance",
+      "History deletion",
+      "New checkpoint trust",
+      "Tools/workflows/permissions changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Lab not main integration. Full5strategy formal protocols pending unless actually executed.",
+      "Actual browser/IDB/iPhone not implied by mock persistence."
+    ],
+    "alternativesRejected": [
+      "Shared mutable town or history, freeze-only isolation, reader weakening, history deletion."
+    ],
+    "boundaryCases": [
+      "Shared event/arrival identity, deferred raw event field initialization, queue replacement/sort, repeated same receipt, divergentbranches, idempotent quantization, native clone of nested products."
+    ],
+    "testPlan": [
+      "Sample all fields and 30→100 growth with manifest verification.",
+      "Baseline and candidate use same native town functions, compare full state and alias topology.",
+      "Faults at month/release/receipt/consignment-reflection/beforeaftercommit/oldstate/divergentbranch/save/restorefirst; clearly label unsupported full-game cases.",
+      "Bidirectional mutation, complete graph disjointness, exceptions and persistence failures.",
+      "Five century snapshots, separate phase profiling and ordinary transaction timing; retain allfailed measurements."
+    ],
+    "problem": "Town events/arrivals/trials dominate century states; copying all on every private action costs time.",
+    "currentContract": "Exact #936 inherited runtime #932, public mutable snapshots detached; native town calculation and formal reader unchanged.",
+    "whyExistingIsInsufficient": "Phase-only proof excludes town writes; need actual town transitions with atomic incremental commit and branch rollback.",
+    "design": "Private workspace fully detached at entry; stable write-journal proxies record old descriptors and append lengths, skip idempotent assignments; rollback any unpublished update. No raw/proxy escapes; full native detached snapshot at public boundary. Not immutable object-sharing; no shipped API changes.",
+    "migration": "None; Lab only.",
+    "compatibility": "No accepted reader/state/history/economics change. Same formal fixtures and transition outputs.",
+    "promotionRisk": "No merge/deploy authorized. Draft only."
+  }
+}
