@@ -1,0 +1,293 @@
+{
+  "completed": true,
+  "scope": "Full actual tick equality; no save or storage change",
+  "rows": [
+    {
+      "label": "local",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 177.4290739999999,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 531.1043639999998,
+        "townForkMs": 510.82537,
+        "tickMs": 1063.5019349999998,
+        "exitMs": 236.9735270000001,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 72,
+          "noopWrites": 64348,
+          "journalEntries": 62,
+          "adoptedNodes": 27
+        }
+      }
+    },
+    {
+      "label": "local-simple-lowcash",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 155.0682770000003,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment",
+          "original-state-native-clone"
+        ],
+        "boundaryAuditMs": 113.67749100000037,
+        "townForkMs": 358.6657439999999,
+        "tickMs": 170.1138490000003,
+        "exitMs": 140.9462220000005,
+        "discardedForwardTown": true,
+        "projectedClones": 1,
+        "journal": null
+      }
+    },
+    {
+      "label": "regional",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 287.0910640000002,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 239.85095,
+        "townForkMs": 209.90337199999885,
+        "tickMs": 416.58065499999975,
+        "exitMs": 79.044272000001,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 19,
+          "noopWrites": 25130,
+          "journalEntries": 11,
+          "adoptedNodes": 2
+        }
+      }
+    },
+    {
+      "label": "regional-simple-lowcash",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 69.90009199999986,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment",
+          "original-state-native-clone"
+        ],
+        "boundaryAuditMs": 52.75992700000097,
+        "townForkMs": 124.68055800000002,
+        "tickMs": 95.47927100000015,
+        "exitMs": 223.97009500000058,
+        "discardedForwardTown": true,
+        "projectedClones": 1,
+        "journal": null
+      }
+    },
+    {
+      "label": "bulk",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 58.67443099999946,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 89.27344299999822,
+        "townForkMs": 125.80459300000075,
+        "tickMs": 405.8748250000008,
+        "exitMs": 115.94037600000047,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 45,
+          "noopWrites": 28695,
+          "journalEntries": 39,
+          "adoptedNodes": 13
+        }
+      }
+    },
+    {
+      "label": "bulk-simple-lowcash",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 51.19166799999948,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment",
+          "original-state-native-clone"
+        ],
+        "boundaryAuditMs": 76.81572200000119,
+        "townForkMs": 289.92289100000016,
+        "tickMs": 117.52095999999983,
+        "exitMs": 80.72252499999922,
+        "discardedForwardTown": true,
+        "projectedClones": 1,
+        "journal": null
+      }
+    },
+    {
+      "label": "small",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 301.78141700000197,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 111.71605900000213,
+        "townForkMs": 262.0167139999976,
+        "tickMs": 645.8587699999989,
+        "exitMs": 705.8288409999986,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 19,
+          "noopWrites": 38108,
+          "journalEntries": 11,
+          "adoptedNodes": 2
+        }
+      }
+    },
+    {
+      "label": "small-simple-lowcash",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 150.39719700000205,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment",
+          "original-state-native-clone"
+        ],
+        "boundaryAuditMs": 100.79251999999906,
+        "townForkMs": 245.2592070000028,
+        "tickMs": 155.0755390000013,
+        "exitMs": 147.2571829999979,
+        "discardedForwardTown": true,
+        "projectedClones": 1,
+        "journal": null
+      }
+    },
+    {
+      "label": "diversified",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 42.85901300000114,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 60.151348000003054,
+        "townForkMs": 139.98420500000066,
+        "tickMs": 300.8020770000003,
+        "exitMs": 101.30007300000216,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 21,
+          "noopWrites": 21500,
+          "journalEntries": 12,
+          "adoptedNodes": 2
+        }
+      }
+    },
+    {
+      "label": "diversified-simple-lowcash",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 48.13089799999943,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment",
+          "original-state-native-clone"
+        ],
+        "boundaryAuditMs": 95.76648600000044,
+        "townForkMs": 111.8050570000014,
+        "tickMs": 91.89876000000004,
+        "exitMs": 62.61331600000267,
+        "discardedForwardTown": true,
+        "projectedClones": 1,
+        "journal": null
+      }
+    },
+    {
+      "label": "actual-reader-live-regional",
+      "completeState": true,
+      "aliasTopology": true,
+      "publicDisjoint": true,
+      "bothDirectionMutation": true,
+      "metrics": {
+        "entryMs": 55.56632599999648,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 64.8365109999977,
+        "townForkMs": 97.11161500000162,
+        "tickMs": 492.1751409999997,
+        "exitMs": 73.64696399999957,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 19,
+          "noopWrites": 25130,
+          "journalEntries": 11,
+          "adoptedNodes": 2
+        }
+      }
+    },
+    {
+      "label": "cross-boundary-alias-rejected",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "name": "local",
+  "mode": "931",
+  "baselineSHA": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+  "scope": "Actual single tick, not century cold",
+  "samples": [
+    {
+      "ms": 337.5614760000001
+    },
+    {
+      "ms": 230.36647599999992
+    },
+    {
+      "ms": 160.3548820000001
+    },
+    {
+      "ms": 174.62305000000015
+    },
+    {
+      "ms": 185.374104
+    }
+  ],
+  "outputSHA256": "88f7b48f2232aa3a55ae1a218f3c5fe9aee20f08400e211aa4dabbc584a1cc28",
+  "peakRSSKiB": 417004,
+  "memory": {
+    "rss": 379015168,
+    "heapTotal": 299003904,
+    "heapUsed": 182382416,
+    "external": 4210775,
+    "arrayBuffers": 212115
+  }
+}

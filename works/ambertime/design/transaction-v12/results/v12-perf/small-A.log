@@ -1,0 +1,10 @@
+small A [
+  208.678857,
+  192.5615009999999,
+  119.79555400000004,
+  129.5470899999998,
+  205.4639259999999
+]
+(node:69) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("/workspace/scratch/de42cc6691b2/ambertime-transaction-v12/works/ambertime/design/transaction-v12/loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)

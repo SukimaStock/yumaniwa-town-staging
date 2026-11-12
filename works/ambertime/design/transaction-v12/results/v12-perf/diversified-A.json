@@ -1,0 +1,34 @@
+{
+  "completed": true,
+  "name": "diversified",
+  "mode": "A",
+  "node": "v24.22.1",
+  "fixtureSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+  "scope": "One actual full monthly tick on century snapshot, not full cold restore",
+  "samples": [
+    {
+      "ms": 140.31596099999996
+    },
+    {
+      "ms": 101.43191300000001
+    },
+    {
+      "ms": 105.35545100000002
+    },
+    {
+      "ms": 111.8548760000001
+    },
+    {
+      "ms": 85.46632199999999
+    }
+  ],
+  "outputSHA256": "389b3b143728ab89fca9cfefabdf83fea8319ac4ad1d0aba5a8a2953e6482ad8",
+  "peakRSSKiB": 282140,
+  "memory": {
+    "rss": 288911360,
+    "heapTotal": 266043392,
+    "heapUsed": 160095368,
+    "external": 4073740,
+    "arrayBuffers": 146583
+  }
+}

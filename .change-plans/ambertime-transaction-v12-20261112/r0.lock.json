@@ -1,0 +1,114 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "42e7373f712abc694e95d6fd13e399a96070b4173274187fd8603fd038cc387e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "a3a28226676bfdc9aef20179815f32f52ce72da0",
+    "changeId": "ambertime-transaction-v12-20261112",
+    "revision": 0,
+    "change": "Independent full-game transaction ownership Lab, differential rollback and formal boundary evidence; no shipped connection",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/clone-data.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/design/transaction-v12/**",
+      ".change-plans/ambertime-transaction-v12-20261112/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/operations.mjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Audit exact game tick, nested clone ownership, original-state reads, town and sidecar commit order.",
+      "Independent exact-source loader/adapter and differential full-state/alias tests, 7 fault points, low-funds branch, retries and concurrent isolated instances.",
+      "Only after transaction correctness, test unchanged formal reader and storage boundaries, five century fixtures, exact canonical and performance evidence.",
+      "No runtime connection under this Plan; failed candidates and uncovered requirements remain explicit."
+    ],
+    "ownerDecisions": [
+      "User v1.2 explicitly requests independent full-game transaction Lab and Draft preservation; no Staging/Production merge or deploy."
+    ],
+    "hqDecisions": [
+      "Owned synchronous Lab only; original entry and every published state fully detached.",
+      "Original and divergent old branches must not see forward town writes; unknown ownership or graph-crosslinks reject or use baseline.",
+      "Do not alter native operation order, RNG, economic rules, readers, histories or saves.",
+      "A loader rewrites only hash/count-asserted designated clone/function boundaries in isolated process; source on disk unchanged.",
+      "Separate transaction completion from durable IndexedDB publication; no premature formal safety claim."
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Browser/iPhone unverified unless actually run; not claimed by Node results."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard unpublished candidate without any save or deployment modification.",
+    "outOfScope": [
+      "Shipped runtime changes",
+      "Staging/Production merge/deploy",
+      "Reader relaxation",
+      "History removal",
+      "UI",
+      "World expansion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Lab not main integration. Full5strategy formal protocols pending unless actually executed.",
+      "Actual browser/IDB/iPhone not implied by mock persistence."
+    ],
+    "alternativesRejected": [
+      "Shared mutable town or history, freeze-only isolation, reader weakening, history deletion."
+    ],
+    "boundaryCases": [
+      "Old original-state reads after nested town updates",
+      "Low-funds rollback after auto bottling action",
+      "Seven fault points and formal-save failure boundaries",
+      "Native aliases and original/public isolation"
+    ],
+    "testPlan": [
+      "Trace and compare actual tickDistillery before optimization.",
+      "Seven stage faults, low-funds existing behavior, bidirectional mutation, branch retry and isolation.",
+      "Formal reader/storage tests only after full-game candidate equality; full century protocols and performance with unchanged fixtures.",
+      "Independent exact-source review; strict CI; no merge."
+    ],
+    "problem": "Town events/arrivals/trials dominate century states; copying all on every private action costs time.",
+    "currentContract": "Exact #936 inherited runtime #932, public mutable snapshots detached; native town calculation and formal reader unchanged.",
+    "whyExistingIsInsufficient": "Phase-only proof excludes town writes; need actual town transitions with atomic incremental commit and branch rollback.",
+    "design": "Private workspace fully detached at entry; stable write-journal proxies record old descriptors and append lengths, skip idempotent assignments; rollback any unpublished update. No raw/proxy escapes; full native detached snapshot at public boundary. Not immutable object-sharing; no shipped API changes.",
+    "migration": "None; Lab only.",
+    "compatibility": "No accepted reader/state/history/economics change. Same formal fixtures and transition outputs.",
+    "promotionRisk": "No merge/deploy authorized. Draft only."
+  }
+}

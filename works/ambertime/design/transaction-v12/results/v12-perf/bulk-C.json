@@ -1,0 +1,139 @@
+{
+  "completed": true,
+  "name": "bulk",
+  "mode": "C",
+  "node": "v24.22.1",
+  "fixtureSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe",
+  "scope": "One actual full monthly tick on century snapshot, not full cold restore",
+  "samples": [
+    {
+      "ms": 837.233946,
+      "metrics": {
+        "entryMs": 97.15833000000009,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 86.07841499999995,
+        "townForkMs": 178.10397899999998,
+        "tickMs": 372.94369800000004,
+        "exitMs": 102.6700659999999,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 45,
+          "noopWrites": 28695,
+          "journalEntries": 39,
+          "adoptedNodes": 13
+        }
+      }
+    },
+    {
+      "ms": 908.2108800000003,
+      "metrics": {
+        "entryMs": 73.91549699999996,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 82.234688,
+        "townForkMs": 183.5502080000001,
+        "tickMs": 458.11962900000003,
+        "exitMs": 110.23487999999998,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 45,
+          "noopWrites": 28695,
+          "journalEntries": 39,
+          "adoptedNodes": 13
+        }
+      }
+    },
+    {
+      "ms": 1457.356754,
+      "metrics": {
+        "entryMs": 67.2009079999998,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 86.0780950000003,
+        "townForkMs": 319.015132,
+        "tickMs": 896.3602249999999,
+        "exitMs": 88.46642999999995,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 45,
+          "noopWrites": 28695,
+          "journalEntries": 39,
+          "adoptedNodes": 13
+        }
+      }
+    },
+    {
+      "ms": 2572.180249,
+      "metrics": {
+        "entryMs": 63.33188900000005,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 70.46397900000011,
+        "townForkMs": 210.73354800000016,
+        "tickMs": 1632.6474479999997,
+        "exitMs": 594.8311749999993,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 45,
+          "noopWrites": 28695,
+          "journalEntries": 39,
+          "adoptedNodes": 13
+        }
+      }
+    },
+    {
+      "ms": 3222.680953,
+      "metrics": {
+        "entryMs": 138.46316000000024,
+        "trace": [
+          "first-entry-fork",
+          "afterEconomy",
+          "afterConsignment"
+        ],
+        "boundaryAuditMs": 503.9207839999999,
+        "townForkMs": 1361.704538,
+        "tickMs": 908.9529320000001,
+        "exitMs": 309.3027010000005,
+        "discardedForwardTown": false,
+        "projectedClones": 1,
+        "journal": {
+          "revision": 1,
+          "writes": 45,
+          "noopWrites": 28695,
+          "journalEntries": 39,
+          "adoptedNodes": 13
+        }
+      }
+    }
+  ],
+  "outputSHA256": "1cd9ebefed81a82984a1b43fb2fe427959295b201e2f7fcdefcb9c7c7a16a1f4",
+  "peakRSSKiB": 527752,
+  "memory": {
+    "rss": 540418048,
+    "heapTotal": 352948224,
+    "heapUsed": 253793008,
+    "external": 4073740,
+    "arrayBuffers": 146583
+  }
+}

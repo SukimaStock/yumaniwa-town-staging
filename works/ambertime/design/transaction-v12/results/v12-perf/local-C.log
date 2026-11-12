@@ -1,0 +1,10 @@
+local C [
+  1621.8535430000002,
+  1357.4128970000002,
+  1517.5197120000003,
+  1800.023123,
+  1551.8550289999985
+]
+(node:15) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("/workspace/scratch/de42cc6691b2/ambertime-transaction-v12/works/ambertime/design/transaction-v12/loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)

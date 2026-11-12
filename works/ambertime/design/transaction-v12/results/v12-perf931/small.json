@@ -1,0 +1,33 @@
+{
+  "completed": true,
+  "name": "small",
+  "mode": "931",
+  "baselineSHA": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+  "scope": "Actual single tick, not century cold",
+  "samples": [
+    {
+      "ms": 206.21560400000004
+    },
+    {
+      "ms": 157.42630100000008
+    },
+    {
+      "ms": 227.05291499999998
+    },
+    {
+      "ms": 137.86488499999996
+    },
+    {
+      "ms": 149.39284099999986
+    }
+  ],
+  "outputSHA256": "279749f6943733e26b11f3279619e01cda11b7355e8ba2e4ecec3da25a9bc1dc",
+  "peakRSSKiB": 372628,
+  "memory": {
+    "rss": 363651072,
+    "heapTotal": 295956480,
+    "heapUsed": 202433208,
+    "external": 4210775,
+    "arrayBuffers": 212115
+  }
+}
