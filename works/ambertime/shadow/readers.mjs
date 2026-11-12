@@ -1,5 +1,5 @@
 // Diagnostic read boundary. No fake delivery arrays and no writes to native state.
-import {ADAPTER_SHOPS,candidatesFromReadModel,remarkFromStoreFacts} from '../../ambertime-strategy-lab/internal/adapters.mjs';
+import {ADAPTER_SHOPS,candidatesFromReadModel,remarkFromStoreFacts} from '../../ambertime-strategy-lab/internal/adapters.mjs?consignment=night-stage4-v01';
 import {shopRemarkFacts} from '../shop-remarks.mjs';
 import {dialogueCandidates} from '../shop-dialogue.mjs';
 const copy=x=>structuredClone(x),eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b),shopOf=d=>d.shopId??'town-liquor';
