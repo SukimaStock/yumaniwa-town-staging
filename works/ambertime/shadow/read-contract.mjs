@@ -1,5 +1,5 @@
 // Read-only projections of confirmed Shadow facts. No native history reconstruction.
-import {remarkFromStoreFacts,ADAPTER_SHOPS} from '../../ambertime-strategy-lab/internal/adapters.mjs';
+import {remarkFromStoreFacts,ADAPTER_SHOPS} from '../../ambertime-strategy-lab/internal/adapters.mjs?consignment=night-stage4-v01';
 import {readRelease,storeRecord} from '../../ambertime-strategy-lab/internal/model.mjs';
 const copy=x=>structuredClone(x);
 const missing=(reason,identity={})=>({status:'missing',reason,...identity});

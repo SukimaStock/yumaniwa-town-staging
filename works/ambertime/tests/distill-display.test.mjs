@@ -37,10 +37,10 @@ test('lever and moving glass have their current hit targets at all three phone w
  const bar=collectionGeometry({current:.7,start:.2,end:.7});assert.deepEqual([bar.x,bar.y,bar.w,bar.h],[60,393,240,6]);assert.equal(bar.rangeEnd,.7);
 });
 
-test('actual finish handler opens integrated result/barrel selection for current and legacy cuts after placement adoption',()=>{
+test('actual finish handler opens integrated result/barrel selection for current and legacy cuts after placement adoption',async()=>{
  for(const fullRange of [true,false]){
   let s=D.adoptPlacement(D.newConnectedDistillery(42),'listed');s=fullRange?D.startRangeDistillation(s):D.startDistillation(s);s=D.beginCollection(step(s,fullRange?0:40));s=step(s,fullRange?24:58);
-  const h=host({state:s}),before=s.core.cash;h.api.finishDistillation();
+  const h=host({state:s}),before=s.core.cash;await h.api.finishDistillation();
   assert.equal(h.api.game().still.phase,'filling');assert.equal(distillationReadout(h.api.game()).phase,'confirmed');assert.equal(h.api.modal().kind,'fill');
   assert.equal(h.api.node('dialog-title').textContent,'蒸留結果');assert.match(h.api.node('dialog-body').innerHTML,/fill-volume/);assert.match(h.api.node('dialog-body').innerHTML,/たるを選ぶ/);assert.match(h.api.node('dialog-actions').innerHTML,/data-action="fill"/);
   assert.equal(h.api.game().core.cash,before,'opening the combined result never purchases a cask');
