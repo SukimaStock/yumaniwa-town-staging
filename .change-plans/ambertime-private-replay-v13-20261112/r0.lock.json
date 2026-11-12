@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "520b781c54b3001a9be353ef338e87a2033cf3e8c1436d2f93837710b061fdce",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "62f04704925ff2e66e7a509947d69cb208120002",
+    "changeId": "ambertime-private-replay-v13-20261112",
+    "revision": 0,
+    "change": "Independent long-lived formal replay ownership Lab, separate A/B/C gates; no shipped connection",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/clone-data.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/design/private-replay-v13/**",
+      ".change-plans/ambertime-private-replay-v13-20261112/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/operations.mjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Audit actual formal replay/validate/restore/apply/checkpoint/prefix and external observer boundaries.",
+      "Independent exact-source loader and private ownership adapters; A native, B owned replay, C owned+journal tested separately.",
+      "Short-history normal/failed/branch/snapshot/checkpoint tests including v1.2 nestedtown rollback.",
+      "Local and actual-multidesk 5/25/100y bounded gate where supported; retain all total timing, export/comparison costs and memory.",
+      "Only when every safety/performance gate passes, extend5strategy formal protocol inside independent Lab; no shipped runtime connection under this Plan."
+    ],
+    "ownerDecisions": [
+      "User v1.3 explicitly requests formal-replay audit, independent A/B/C Lab, gated performance/safety experiments and separate Draft; no merge/deploy."
+    ],
+    "hqDecisions": [
+      "Bounded private formal validation loop only; never public gameplay or projection-observer ownership by isPrivateReplay alone.",
+      "First old snapshot and all retained before-state reads remain semantically independent; whitelists require source proof.",
+      "Do not relax reader equality, checkpoint trust, operation order, RNG or game rules.",
+      "Cold-cache/branch/abort tests and fully detached checkpoint/export; exceptions do not publish unverified state.",
+      "Exact-source isolated loader allowed, on-disk runtime unchanged; no arbitrary cloning hack or global nativeClone replacement for optimization."
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Browser/iPhone unverified unless actually run; not claimed by Node results."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard unpublished candidate without any save or deployment modification.",
+    "outOfScope": [
+      "Shipped runtime edits without separatePlan",
+      "Staging/Production merge/deploy",
+      "Reader relaxation",
+      "History removal",
+      "UI",
+      "World expansion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Only actual executed tests reported; smallgate failure means5strategy formal and browser integration notrun.",
+      "Node does not imply actualIndexedDB/browser/iPhone."
+    ],
+    "alternativesRejected": [
+      "Shared mutable town or history, freeze-only isolation, reader weakening, history deletion."
+    ],
+    "boundaryCases": [
+      "apply retains old core for captureNearby; tick retains oldtown for shopEvidence androllback",
+      "Checkpoint only published after exactcomparison; projection observer retains detached snapshots",
+      "withPrivateReplay exported flag not ownershipauthority",
+      "Prefix cache certify/abort and branch input mutation"
+    ],
+    "testPlan": [
+      "Short legal histories and synthetic nestedtown lowcash stress separately labelled.",
+      "Input/output/snapshot/checkpoint/branch exception and cache isolation.",
+      "Two strategies A/B/C total return gates, copied volume separate profiling; no forced large tests after failed gates.",
+      "Independent review, strict Plan/Scope/Risk/Impact and CI."
+    ],
+    "problem": "Town events/arrivals/trials dominate century states; copying all on every private action costs time.",
+    "currentContract": "Exact #936 inherited runtime #932, public mutable snapshots detached; native town calculation and formal reader unchanged.",
+    "whyExistingIsInsufficient": "Phase-only proof excludes town writes; need actual town transitions with atomic incremental commit and branch rollback.",
+    "design": "Private workspace fully detached at entry; stable write-journal proxies record old descriptors and append lengths, skip idempotent assignments; rollback any unpublished update. No raw/proxy escapes; full native detached snapshot at public boundary. Not immutable object-sharing; no shipped API changes.",
+    "migration": "None; Lab only.",
+    "compatibility": "No accepted reader/state/history/economics change. Same formal fixtures and transition outputs.",
+    "promotionRisk": "No merge/deploy authorized. Draft only."
+  }
+}
