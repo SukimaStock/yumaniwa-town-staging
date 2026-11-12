@@ -1,0 +1,583 @@
+{
+  "schema": "ambertime-copy-v07-micro/1",
+  "completed": true,
+  "fixtureType": "Small lawful public-operation paths built on baseline0ef9; no synthetic money/staff mutation; NOT a 100-year formal-save fixture.",
+  "node": "v24.22.1",
+  "baselineCommit": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+  "candidateCommit": "33e620c8f2f41c5b512947621b86fb364081506b",
+  "candidatePartnerSHA256": "72a73307f3938046ece2c87912dc13f95bdf0e47f9cf74a79a90828ed411a27f",
+  "testSHA256": "b8e0b021080b0ac3fc958f4a55f1004198024a34f81bf2411a8b204772581418",
+  "workingTree": "M works/ambertime/design/restore-perf-v07/protocol.mjs\n?? works/ambertime/design/restore-perf-v07/plain.mjs\n?? works/ambertime/design/restore-perf-v07/sample-profile-loader.mjs\n?? works/ambertime/design/restore-perf-v07/sample-profile.mjs\n?? works/ambertime/tests/copy-v07-micro.mjs",
+  "measurementNotes": [
+    "Fixture preparation/input copying excluded. Native full-state filter: value.core && value.trade.",
+    "Logical JSON size is serialized diagnostic volume, not allocation bytes.",
+    "JSON accounting and stack capture perturb operation wall time; not an ordinary performance benchmark. Native timing excludes accounting/stack capture.",
+    "Single-process baseline then candidate; micro timing not an independent cold-process result. No iPhone/browser or formal-save claim."
+  ],
+  "results": [
+    {
+      "case": "control.legacy-fill",
+      "inputSHA256": "56efc4645b48568278f975c76a530faa726c3007b48eb696c429c91bb8bf8939",
+      "outputSHA256": "121312ea72edb9ebf77c326369cc81308e01caa3efd2366accd29839fc8423f1",
+      "paidJobs": 0,
+      "exactOutputMatch": true,
+      "baseline": {
+        "nativeCalls": 3,
+        "fullStateCopies": 1,
+        "fullStateLogicalJSONCodeUnits": 2658,
+        "fullStateLogicalJSONUTF8Bytes": 2680,
+        "fullStateNativeCloneMilliseconds": 0.07089400000000978,
+        "instrumentedOperationMilliseconds": 0.8894180000000347,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 2658,
+            "logicalJSONUTF8Bytes": 2680,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:42:147)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1248:325)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.07089400000000978
+          }
+        ]
+      },
+      "candidate": {
+        "nativeCalls": 3,
+        "fullStateCopies": 1,
+        "fullStateLogicalJSONCodeUnits": 2658,
+        "fullStateLogicalJSONUTF8Bytes": 2680,
+        "fullStateNativeCloneMilliseconds": 0.10020200000002433,
+        "instrumentedOperationMilliseconds": 1.175752999999986,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 2658,
+            "logicalJSONUTF8Bytes": 2680,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:42:147)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1248:325)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:66"
+            ],
+            "nativeCloneMilliseconds": 0.10020200000002433
+          }
+        ]
+      },
+      "fullCopyReduction": 0
+    },
+    {
+      "case": "A.flavor-fill",
+      "inputSHA256": "ba07463d7e1616d6bd8f1dc562af56b44a2b2acd33acf319036a38b80126bf0b",
+      "outputSHA256": "6e1e9897976aa13f6844edb45bf6451618bc3e5c8414a480710b06ce59489862",
+      "paidJobs": 0,
+      "exactOutputMatch": true,
+      "baseline": {
+        "nativeCalls": 6,
+        "fullStateCopies": 2,
+        "fullStateLogicalJSONCodeUnits": 17930,
+        "fullStateLogicalJSONUTF8Bytes": 18022,
+        "fullStateNativeCloneMilliseconds": 0.394128999999964,
+        "instrumentedOperationMilliseconds": 1.359401000000048,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 8965,
+            "logicalJSONUTF8Bytes": 9011,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at prepareFlavorFill (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:321:79)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1248:336)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.27525600000001305
+          },
+          {
+            "logicalJSONCodeUnits": 8965,
+            "logicalJSONUTF8Bytes": 9011,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:42:147)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1248:325)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.11887299999995093
+          }
+        ]
+      },
+      "candidate": {
+        "nativeCalls": 5,
+        "fullStateCopies": 1,
+        "fullStateLogicalJSONCodeUnits": 8965,
+        "fullStateLogicalJSONUTF8Bytes": 9011,
+        "fullStateNativeCloneMilliseconds": 0.18464300000005096,
+        "instrumentedOperationMilliseconds": 0.6857559999999694,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 8965,
+            "logicalJSONUTF8Bytes": 9011,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:42:147)",
+              "at Module.fillBarrel (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1248:325)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:66"
+            ],
+            "nativeCloneMilliseconds": 0.18464300000005096
+          }
+        ]
+      },
+      "fullCopyReduction": 1
+    },
+    {
+      "case": "B.legacy.age",
+      "inputSHA256": "25fb4583a7d8d24c8a9e3e0c5a5efe1f9be58aed58696f0ea6ce46e343ec9eda",
+      "outputSHA256": "15b4d4299f5aac27ae4d6963e26fb2fa2bc54481c7c5b4f9686fded5824738b9",
+      "paidJobs": 1,
+      "exactOutputMatch": true,
+      "baseline": {
+        "nativeCalls": 15,
+        "fullStateCopies": 4,
+        "fullStateLogicalJSONCodeUnits": 27266,
+        "fullStateLogicalJSONUTF8Bytes": 29396,
+        "fullStateNativeCloneMilliseconds": 1.5695219999998926,
+        "instrumentedOperationMilliseconds": 11.804912999999999,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6109,
+            "logicalJSONUTF8Bytes": 6549,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.15914499999996679
+          },
+          {
+            "logicalJSONCodeUnits": 6310,
+            "logicalJSONUTF8Bytes": 6792,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:735:16)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1393:213)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.274029999999982
+          },
+          {
+            "logicalJSONCodeUnits": 6310,
+            "logicalJSONUTF8Bytes": 6792,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1173:10)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:737:5)"
+            ],
+            "nativeCloneMilliseconds": 0.7706749999999829
+          },
+          {
+            "logicalJSONCodeUnits": 8537,
+            "logicalJSONUTF8Bytes": 9263,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1144:45)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:738:5)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1393:213)"
+            ],
+            "nativeCloneMilliseconds": 0.3656719999999609
+          }
+        ]
+      },
+      "candidate": {
+        "nativeCalls": 14,
+        "fullStateCopies": 3,
+        "fullStateLogicalJSONCodeUnits": 20956,
+        "fullStateLogicalJSONUTF8Bytes": 22604,
+        "fullStateNativeCloneMilliseconds": 0.5121790000000033,
+        "instrumentedOperationMilliseconds": 5.760127000000011,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6109,
+            "logicalJSONUTF8Bytes": 6549,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:66"
+            ],
+            "nativeCloneMilliseconds": 0.09749199999998837
+          },
+          {
+            "logicalJSONCodeUnits": 6310,
+            "logicalJSONUTF8Bytes": 6792,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1173:10)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:737:5)"
+            ],
+            "nativeCloneMilliseconds": 0.29988400000002
+          },
+          {
+            "logicalJSONCodeUnits": 8537,
+            "logicalJSONUTF8Bytes": 9263,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1144:45)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:738:5)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1393:213)"
+            ],
+            "nativeCloneMilliseconds": 0.11480299999999488
+          }
+        ]
+      },
+      "fullCopyReduction": 1
+    },
+    {
+      "case": "B.legacy.stock",
+      "inputSHA256": "57294cfc037ba66e7bb1e60ad062295127d2814aa9d350e6e14d870940bcdd4d",
+      "outputSHA256": "a626aca9226f96a91d7545ce65c8952f2a7f65af9b4bae068042062ade2b318a",
+      "paidJobs": 1,
+      "exactOutputMatch": true,
+      "baseline": {
+        "nativeCalls": 15,
+        "fullStateCopies": 4,
+        "fullStateLogicalJSONCodeUnits": 27315,
+        "fullStateLogicalJSONUTF8Bytes": 29445,
+        "fullStateNativeCloneMilliseconds": 0.9041079999999511,
+        "instrumentedOperationMilliseconds": 3.099806000000001,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6123,
+            "logicalJSONUTF8Bytes": 6563,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.49148599999995213
+          },
+          {
+            "logicalJSONCodeUnits": 6324,
+            "logicalJSONUTF8Bytes": 6806,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:735:16)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1393:213)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.1257669999999962
+          },
+          {
+            "logicalJSONCodeUnits": 6324,
+            "logicalJSONUTF8Bytes": 6806,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1173:10)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:737:5)"
+            ],
+            "nativeCloneMilliseconds": 0.16798199999999497
+          },
+          {
+            "logicalJSONCodeUnits": 8544,
+            "logicalJSONUTF8Bytes": 9270,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1144:45)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:738:5)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1393:213)"
+            ],
+            "nativeCloneMilliseconds": 0.11887300000000778
+          }
+        ]
+      },
+      "candidate": {
+        "nativeCalls": 14,
+        "fullStateCopies": 3,
+        "fullStateLogicalJSONCodeUnits": 20991,
+        "fullStateLogicalJSONUTF8Bytes": 22639,
+        "fullStateNativeCloneMilliseconds": 0.31349400000004835,
+        "instrumentedOperationMilliseconds": 2.558328999999958,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6123,
+            "logicalJSONUTF8Bytes": 6563,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:66"
+            ],
+            "nativeCloneMilliseconds": 0.0829750000000331
+          },
+          {
+            "logicalJSONCodeUnits": 6324,
+            "logicalJSONUTF8Bytes": 6806,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1173:10)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:737:5)"
+            ],
+            "nativeCloneMilliseconds": 0.13437099999998736
+          },
+          {
+            "logicalJSONCodeUnits": 8544,
+            "logicalJSONUTF8Bytes": 9270,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1144:45)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:738:5)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1393:213)"
+            ],
+            "nativeCloneMilliseconds": 0.09614800000002788
+          }
+        ]
+      },
+      "fullCopyReduction": 1
+    },
+    {
+      "case": "B.roles.age",
+      "inputSHA256": "adb183649dbf78c9a25bf2bb00d652c19168966b310216f27bd2dc7e07aeeea1",
+      "outputSHA256": "79e48b1b2909c6641b8d6b26af331f8078093a458d8af03cb23b8e6c1b55e5d1",
+      "paidJobs": 1,
+      "exactOutputMatch": true,
+      "baseline": {
+        "nativeCalls": 15,
+        "fullStateCopies": 4,
+        "fullStateLogicalJSONCodeUnits": 29750,
+        "fullStateLogicalJSONUTF8Bytes": 31880,
+        "fullStateNativeCloneMilliseconds": 1.2015719999999988,
+        "instrumentedOperationMilliseconds": 5.5929290000000265,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6730,
+            "logicalJSONUTF8Bytes": 7170,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.8484000000000265
+          },
+          {
+            "logicalJSONCodeUnits": 6931,
+            "logicalJSONUTF8Bytes": 7413,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:710:16)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:722:33)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1393:56)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)"
+            ],
+            "nativeCloneMilliseconds": 0.1253489999999715
+          },
+          {
+            "logicalJSONCodeUnits": 6931,
+            "logicalJSONUTF8Bytes": 7413,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1173:10)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:712:5)"
+            ],
+            "nativeCloneMilliseconds": 0.09338100000002214
+          },
+          {
+            "logicalJSONCodeUnits": 9158,
+            "logicalJSONUTF8Bytes": 9884,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1144:45)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:713:5)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:722:33)"
+            ],
+            "nativeCloneMilliseconds": 0.13444199999997863
+          }
+        ]
+      },
+      "candidate": {
+        "nativeCalls": 14,
+        "fullStateCopies": 3,
+        "fullStateLogicalJSONCodeUnits": 22819,
+        "fullStateLogicalJSONUTF8Bytes": 24467,
+        "fullStateNativeCloneMilliseconds": 0.45947799999999006,
+        "instrumentedOperationMilliseconds": 2.780448999999976,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6730,
+            "logicalJSONUTF8Bytes": 7170,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:66"
+            ],
+            "nativeCloneMilliseconds": 0.1223550000000273
+          },
+          {
+            "logicalJSONCodeUnits": 6931,
+            "logicalJSONUTF8Bytes": 7413,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1173:10)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:712:5)"
+            ],
+            "nativeCloneMilliseconds": 0.2227959999999598
+          },
+          {
+            "logicalJSONCodeUnits": 9158,
+            "logicalJSONUTF8Bytes": 9884,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1144:45)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:713:5)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:722:33)"
+            ],
+            "nativeCloneMilliseconds": 0.11432700000000295
+          }
+        ]
+      },
+      "fullCopyReduction": 1
+    },
+    {
+      "case": "B.roles.stock",
+      "inputSHA256": "029505ef2c5684dfed5521fa5a8aaa28e2a28d74be3586a8e68cf688ccb7e0d7",
+      "outputSHA256": "999e1e942e7d287babd88b7c02ddaf1ed0afd033c2fb189253f298df5b73f63d",
+      "paidJobs": 1,
+      "exactOutputMatch": true,
+      "baseline": {
+        "nativeCalls": 15,
+        "fullStateCopies": 4,
+        "fullStateLogicalJSONCodeUnits": 29807,
+        "fullStateLogicalJSONUTF8Bytes": 31937,
+        "fullStateNativeCloneMilliseconds": 0.4702960000000189,
+        "instrumentedOperationMilliseconds": 1.7514879999999948,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6746,
+            "logicalJSONUTF8Bytes": 7186,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:17"
+            ],
+            "nativeCloneMilliseconds": 0.1338230000000067
+          },
+          {
+            "logicalJSONCodeUnits": 6947,
+            "logicalJSONUTF8Bytes": 7429,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:710:16)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:722:33)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1393:56)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)"
+            ],
+            "nativeCloneMilliseconds": 0.09642200000001822
+          },
+          {
+            "logicalJSONCodeUnits": 6947,
+            "logicalJSONUTF8Bytes": 7429,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1173:10)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:712:5)"
+            ],
+            "nativeCloneMilliseconds": 0.11781500000000733
+          },
+          {
+            "logicalJSONCodeUnits": 9167,
+            "logicalJSONUTF8Bytes": 9893,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:1144:45)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:713:5)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs?copy-v07-baseline=0ef9ba32:722:33)"
+            ],
+            "nativeCloneMilliseconds": 0.12223599999998669
+          }
+        ]
+      },
+      "candidate": {
+        "nativeCalls": 14,
+        "fullStateCopies": 3,
+        "fullStateLogicalJSONCodeUnits": 22860,
+        "fullStateLogicalJSONUTF8Bytes": 24508,
+        "fullStateNativeCloneMilliseconds": 0.7294270000000438,
+        "instrumentedOperationMilliseconds": 2.4583959999999934,
+        "fullCopies": [
+          {
+            "logicalJSONCodeUnits": 6746,
+            "logicalJSONUTF8Bytes": 7186,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.economicMonthly (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)",
+              "at Module.tickDistillery (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1390:10)",
+              "at measured (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:35:76)",
+              "at file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/tests/copy-v07-micro.mjs:44:66"
+            ],
+            "nativeCloneMilliseconds": 0.5017590000000496
+          },
+          {
+            "logicalJSONCodeUnits": 6947,
+            "logicalJSONUTF8Bytes": 7429,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.bottleNow (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:259)",
+              "at bottleTransaction (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1252:293)",
+              "at brandedBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1173:10)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:712:5)"
+            ],
+            "nativeCloneMilliseconds": 0.10905900000000202
+          },
+          {
+            "logicalJSONCodeUnits": 9167,
+            "logicalJSONUTF8Bytes": 9893,
+            "callers": [
+              "at cloneReplayState (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/clone-data.mjs?v=restore-perf-v04&perf=v06:11:17)",
+              "at Module.listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:179)",
+              "at listBottles (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:1144:45)",
+              "at automaticRoleBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:713:5)",
+              "at automaticBottling (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/partner-orders.mjs:722:33)"
+            ],
+            "nativeCloneMilliseconds": 0.11860899999999219
+          }
+        ]
+      },
+      "fullCopyReduction": 1
+    }
+  ]
+}

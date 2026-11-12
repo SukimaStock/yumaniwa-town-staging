@@ -1,0 +1,274 @@
+{
+  "command": [
+    "works/ambertime/design/restore-perf-v07/run.py",
+    "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+    "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+    "/workspace/scratch/de42cc6691b2/v07-candidate"
+  ],
+  "environment": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "mode": "full",
+  "fixtureVerification": {
+    "manifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+    "verifiedFiles": 98,
+    "allMatch": true
+  },
+  "results": [
+    {
+      "strategy": "local",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "save",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 178.642404726,
+      "finalJSON": true,
+      "resultSHA256": "4033abf813cea1e4426497be94fcfc1fe012c695e6c9b3948be640a60d2dd888"
+    },
+    {
+      "strategy": "local",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 137.63282879299982,
+      "finalJSON": true,
+      "resultSHA256": "47195611037ad763da3d8e3a974f53fffb2f293519fb40ca6acce049e33d3d64"
+    },
+    {
+      "strategy": "local",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 140.28695090200017,
+      "finalJSON": true,
+      "resultSHA256": "7aed66acac3aa3bc308a25e9242c0cf127a850735c79721214f493d994dd44a2"
+    },
+    {
+      "strategy": "regional",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "save",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 102.53212917600013,
+      "finalJSON": true,
+      "resultSHA256": "9df761701efd3bc1156a4720c0ea7eba157393762e4a4ba7d9350f7d06fa43a4"
+    },
+    {
+      "strategy": "regional",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 99.16866853500005,
+      "finalJSON": true,
+      "resultSHA256": "126068274bfa89eb2b750206e62b26a8c04a0196794d5bd9dd6c6c3108abbf68"
+    },
+    {
+      "strategy": "regional",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 77.50411617199984,
+      "finalJSON": true,
+      "resultSHA256": "d0037b2a935352b01e42db57db20055335652de357de88cdfb84c5bc28c6d39e"
+    },
+    {
+      "strategy": "bulk",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "save",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "bulk"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 92.81384145800007,
+      "finalJSON": true,
+      "resultSHA256": "10ebc19308cf9277e4b73ee2022818b3f4cc4711865abf8f097f8dd09ee45676"
+    },
+    {
+      "strategy": "bulk",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "bulk"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 99.09800097199991,
+      "finalJSON": true,
+      "resultSHA256": "a284bc09f3ca420a43d9149150319faba1315f235c409b66959d320f74a6b648"
+    },
+    {
+      "strategy": "bulk",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "bulk"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 92.83996790900028,
+      "finalJSON": true,
+      "resultSHA256": "b63c77843f048bf256f25c89a4023567bf18b44d1fbdc26ac33f2802b5462ac8"
+    },
+    {
+      "strategy": "small",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "save",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "small"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 200.03159865499993,
+      "finalJSON": true,
+      "resultSHA256": "f81e6b41fe7449f19d05a8e5c7b32e52b4240f8f73c81d33c74d0efb1cc10590"
+    },
+    {
+      "strategy": "small",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "small"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 329.86003484799994,
+      "finalJSON": true,
+      "resultSHA256": "689a2411f02badc96d45d81197599e00a283b2e4ab876e62b3516d80feb5fc25"
+    },
+    {
+      "strategy": "small",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "small"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 217.5426814159996,
+      "finalJSON": true,
+      "resultSHA256": "6ee18acf9bf086d7718528e1d5b96956ec7acf5ef0afbb38e7c3482b09a2dcfb"
+    },
+    {
+      "strategy": "diversified",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "save",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "diversified"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 85.09586573900015,
+      "finalJSON": true,
+      "resultSHA256": "6ca6afff325a93b531ac596eca61d704fe5db7249bcb98a444b914661cc41347"
+    },
+    {
+      "strategy": "diversified",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "diversified"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 96.26099923899983,
+      "finalJSON": true,
+      "resultSHA256": "02b85ab17a263e2536b543f2a08e036248e0f89e28c9c1967c2e143e51c22e96"
+    },
+    {
+      "strategy": "diversified",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+        "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+        "/workspace/scratch/de42cc6691b2/v07-candidate",
+        "diversified"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 91.24587785099993,
+      "finalJSON": true,
+      "resultSHA256": "46733f7f821b9c057fc2a143f301a39b4ef9ab57011a048911884c477b953306"
+    }
+  ],
+  "complete": true,
+  "allProcessesNormalExit": true
+}

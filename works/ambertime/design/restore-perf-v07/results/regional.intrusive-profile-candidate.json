@@ -1,0 +1,1615 @@
+{
+  "schema": "ambertime-perf-v07/1",
+  "mode": "profile",
+  "name": "regional",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/scratch/de42cc6691b2/ambertime-copy-v07/works/ambertime/design/restore-perf-v07/protocol.mjs",
+    "profile",
+    "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+    "/workspace/scratch/de42cc6691b2/v07-fixtures/ambertime-v03-capacity",
+    "/workspace/scratch/de42cc6691b2/v07-profile-candidate",
+    "regional"
+  ],
+  "node": "v24.22.1",
+  "platform": "linux",
+  "arch": "x64",
+  "repo": "/workspace/scratch/de42cc6691b2/ambertime-copy-v07",
+  "commit": "33e620c8f2f41c5b512947621b86fb364081506b",
+  "tree": "5cf1f983c5a26e0597c1c0941eed3b384cdb467a",
+  "worktreeStatus": "M works/ambertime/design/restore-perf-v07/protocol.mjs\n?? works/ambertime/tests/copy-v07-micro.mjs",
+  "instrumentation": "nested synchronous phase and copy timings; logical JSON code units only in separate profile mode; not allocated bytes",
+  "copyDetail": true,
+  "fixtureManifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+  "scriptSHA256": "18394698a3b4146bab9e590d0147f5342306ba8fc3263632e27ea279d0a4a680",
+  "loaderSHA256": "4940987c3989d43c94b2efff46ceb9b73232cac5df0bc747450ad594a674d922",
+  "environment": "Node process; no native IndexedDB/browser/iPhone",
+  "beforeRestoreMemory": {
+    "current": {
+      "rss": 79753216,
+      "heapTotal": 23928832,
+      "heapUsed": 15732104,
+      "external": 4649087,
+      "arrayBuffers": 605553
+    },
+    "peakRSSKiB": 80384
+  },
+  "coldMs": 217210.238119,
+  "restoreBeforeOracle": {
+    "phases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 7.989125000000001
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 27.391012999999987
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 704.2130360000001
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 457.59002199999986
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 17.923937000000024
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 214049.436299
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 92.21554899998682
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 80.64334300000246
+      },
+      "caller.partner-orders.mjs.prepareFlavorFill": {
+        "calls": 105,
+        "ms": 16.099589000018113
+      },
+      "caller.model.mjs.fillCask": {
+        "calls": 105,
+        "ms": 499.6563480000964
+      },
+      "caller.economy.mjs.fillBarrel": {
+        "calls": 105,
+        "ms": 8344.496951000101
+      },
+      "caller.model.mjs.advanceMonth": {
+        "calls": 1332,
+        "ms": 2191.5995239995827
+      },
+      "caller.monthly.mjs.advanceMonthly": {
+        "calls": 1332,
+        "ms": 2591.7342239998525
+      },
+      "caller.economy.mjs.economicMonthly": {
+        "calls": 1332,
+        "ms": 99861.21532499978
+      },
+      "caller.partner-orders.mjs.automaticRoleBottling": {
+        "calls": 1332,
+        "ms": 3.238519999887103
+      },
+      "caller.partner-orders.mjs.automaticBottling": {
+        "calls": 1332,
+        "ms": 12.098287000128494
+      },
+      "caller.partner-orders.mjs.tickDistillery": {
+        "calls": 1332,
+        "ms": 109120.03425599984
+      },
+      "caller.economy.mjs.bottleNow": {
+        "calls": 104,
+        "ms": 8133.793467000001
+      },
+      "caller.partner-orders.mjs.bottleTransaction": {
+        "calls": 104,
+        "ms": 8169.342092000139
+      },
+      "caller.partner-orders.mjs.brandedBottling": {
+        "calls": 104,
+        "ms": 8613.834217000169
+      },
+      "caller.economy.mjs.listBottles": {
+        "calls": 3,
+        "ms": 13.316207999999733
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 214223.555123
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 215915.274811
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.4794220000039786
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 5.41796200000681
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 51.83716200001072
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 25.213589999999385
+      },
+      "wholeOfficialRead": {
+        "calls": 1,
+        "ms": 217210.224598
+      }
+    },
+    "copies": {
+      "cloneReplayState@full-state@at enablePromisedCare (file://REPO/works/ambertime/partner-orders.mjs:1187:10)": {
+        "calls": 2,
+        "ms": 0.7585680000001958,
+        "logicalJSONCodeUnits": 1558,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273686296,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enablePromisedCare (file://REPO/works/ambertime/partner-orders.mjs:1187:10)": {
+        "calls": 2,
+        "ms": 0.14503899999999703,
+        "logicalJSONCodeUnits": 1558,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273685064,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableBrands (file://REPO/works/ambertime/partner-orders.mjs:354:104)": {
+        "calls": 2,
+        "ms": 0.392366999999922,
+        "logicalJSONCodeUnits": 1636,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273709872,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableBrands (file://REPO/works/ambertime/partner-orders.mjs:354:104)": {
+        "calls": 2,
+        "ms": 0.09283099999993283,
+        "logicalJSONCodeUnits": 1636,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273708784,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableReputation (file://REPO/works/ambertime/partner-orders.mjs:362:10)": {
+        "calls": 2,
+        "ms": 0.30971999999974287,
+        "logicalJSONCodeUnits": 1716,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273733464,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableReputation (file://REPO/works/ambertime/partner-orders.mjs:362:10)": {
+        "calls": 2,
+        "ms": 0.14823500000011336,
+        "logicalJSONCodeUnits": 1716,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273732376,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableUsual (file://REPO/works/ambertime/partner-orders.mjs:374:10)": {
+        "calls": 2,
+        "ms": 0.20249100000000908,
+        "logicalJSONCodeUnits": 1804,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273756688,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableUsual (file://REPO/works/ambertime/partner-orders.mjs:374:10)": {
+        "calls": 2,
+        "ms": 0.040843999999651714,
+        "logicalJSONCodeUnits": 1804,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273755600,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableAroma (file://REPO/works/ambertime/partner-orders.mjs:382:10)": {
+        "calls": 2,
+        "ms": 0.4869419999999991,
+        "logicalJSONCodeUnits": 1914,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273781000,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableAroma (file://REPO/works/ambertime/partner-orders.mjs:382:10)": {
+        "calls": 2,
+        "ms": 0.05277699999987817,
+        "logicalJSONCodeUnits": 1914,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273779912,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableShop (file://REPO/works/ambertime/partner-orders.mjs:390:10)": {
+        "calls": 2,
+        "ms": 0.1492300000004434,
+        "logicalJSONCodeUnits": 2026,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273805224,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableShop (file://REPO/works/ambertime/partner-orders.mjs:390:10)": {
+        "calls": 2,
+        "ms": 0.053096000000095955,
+        "logicalJSONCodeUnits": 2026,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273804136,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableStockists (file://REPO/works/ambertime/partner-orders.mjs:399:10)": {
+        "calls": 2,
+        "ms": 0.3081360000001041,
+        "logicalJSONCodeUnits": 2318,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273830504,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableStockists (file://REPO/works/ambertime/partner-orders.mjs:399:10)": {
+        "calls": 2,
+        "ms": 0.1772359999999935,
+        "logicalJSONCodeUnits": 2318,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273829416,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableDepartment (file://REPO/works/ambertime/partner-orders.mjs:407:10)": {
+        "calls": 2,
+        "ms": 0.4132559999998193,
+        "logicalJSONCodeUnits": 2480,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273856224,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableDepartment (file://REPO/works/ambertime/partner-orders.mjs:407:10)": {
+        "calls": 2,
+        "ms": 0.07054999999991196,
+        "logicalJSONCodeUnits": 2480,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273855136,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableBottleStorage (file://REPO/works/ambertime/partner-orders.mjs:421:10)": {
+        "calls": 2,
+        "ms": 0.18796500000007654,
+        "logicalJSONCodeUnits": 2732,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273883976,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableBottleStorage (file://REPO/works/ambertime/partner-orders.mjs:421:10)": {
+        "calls": 2,
+        "ms": 0.06979200000023411,
+        "logicalJSONCodeUnits": 2732,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273882888,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableGenerations (file://REPO/works/ambertime/partner-orders.mjs:428:10)": {
+        "calls": 2,
+        "ms": 0.15726800000038565,
+        "logicalJSONCodeUnits": 2820,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273911424,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableGenerations (file://REPO/works/ambertime/partner-orders.mjs:428:10)": {
+        "calls": 2,
+        "ms": 0.06713799999943149,
+        "logicalJSONCodeUnits": 2820,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273910336,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableRecipeBook (file://REPO/works/ambertime/partner-orders.mjs:435:10)": {
+        "calls": 2,
+        "ms": 0.5654030000000603,
+        "logicalJSONCodeUnits": 3368,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273940528,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableRecipeBook (file://REPO/works/ambertime/partner-orders.mjs:435:10)": {
+        "calls": 2,
+        "ms": 0.09594400000014502,
+        "logicalJSONCodeUnits": 3368,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273939440,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableStaff (file://REPO/works/ambertime/partner-orders.mjs:443:10)": {
+        "calls": 2,
+        "ms": 0.9724200000005112,
+        "logicalJSONCodeUnits": 3548,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273970176,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableStaff (file://REPO/works/ambertime/partner-orders.mjs:443:10)": {
+        "calls": 2,
+        "ms": 0.4924909999999727,
+        "logicalJSONCodeUnits": 3548,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273969088,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enablePartialBottling (file://REPO/works/ambertime/partner-orders.mjs:450:10)": {
+        "calls": 2,
+        "ms": 0.29490800000030504,
+        "logicalJSONCodeUnits": 3786,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274000592,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enablePartialBottling (file://REPO/works/ambertime/partner-orders.mjs:450:10)": {
+        "calls": 2,
+        "ms": 0.1822689999994509,
+        "logicalJSONCodeUnits": 3786,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273999504,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableDelegation (file://REPO/works/ambertime/partner-orders.mjs:459:10)": {
+        "calls": 2,
+        "ms": 0.3516399999998612,
+        "logicalJSONCodeUnits": 3920,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274031168,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableDelegation (file://REPO/works/ambertime/partner-orders.mjs:459:10)": {
+        "calls": 2,
+        "ms": 0.16329399999995076,
+        "logicalJSONCodeUnits": 3920,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274030080,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableDelegationFixes (file://REPO/works/ambertime/partner-orders.mjs:468:10)": {
+        "calls": 2,
+        "ms": 0.4343370000001414,
+        "logicalJSONCodeUnits": 4332,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274063360,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableDelegationFixes (file://REPO/works/ambertime/partner-orders.mjs:468:10)": {
+        "calls": 2,
+        "ms": 0.20133899999973437,
+        "logicalJSONCodeUnits": 4332,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274062272,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableStaffProgression (file://REPO/works/ambertime/partner-orders.mjs:477:39)": {
+        "calls": 2,
+        "ms": 0.2766190000002098,
+        "logicalJSONCodeUnits": 4482,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274095840,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableStaffProgression (file://REPO/works/ambertime/partner-orders.mjs:477:39)": {
+        "calls": 2,
+        "ms": 0.12975199999937104,
+        "logicalJSONCodeUnits": 4482,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274094752,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableMonthlyTiming (file://REPO/works/ambertime/partner-orders.mjs:485:43)": {
+        "calls": 2,
+        "ms": 0.19529699999975492,
+        "logicalJSONCodeUnits": 4916,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274130608,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableMonthlyTiming (file://REPO/works/ambertime/partner-orders.mjs:485:43)": {
+        "calls": 2,
+        "ms": 0.09491200000002209,
+        "logicalJSONCodeUnits": 4916,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274129520,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableShopDemand (file://REPO/works/ambertime/partner-orders.mjs:495:10)": {
+        "calls": 2,
+        "ms": 0.42322999999987587,
+        "logicalJSONCodeUnits": 5092,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274167840,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableShopDemand (file://REPO/works/ambertime/partner-orders.mjs:495:10)": {
+        "calls": 2,
+        "ms": 0.2896410000003016,
+        "logicalJSONCodeUnits": 5092,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274166752,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableBottlingPolicy (file://REPO/works/ambertime/partner-orders.mjs:513:34)": {
+        "calls": 2,
+        "ms": 0.3347680000001674,
+        "logicalJSONCodeUnits": 5360,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274206672,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableBottlingPolicy (file://REPO/works/ambertime/partner-orders.mjs:513:34)": {
+        "calls": 2,
+        "ms": 0.115828999999394,
+        "logicalJSONCodeUnits": 5360,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274205584,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableBottlingRoles (file://REPO/works/ambertime/partner-orders.mjs:536:10)": {
+        "calls": 2,
+        "ms": 0.26125299999966956,
+        "logicalJSONCodeUnits": 5894,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274244616,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableBottlingRoles (file://REPO/works/ambertime/partner-orders.mjs:536:10)": {
+        "calls": 2,
+        "ms": 0.12137900000016089,
+        "logicalJSONCodeUnits": 5894,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274243528,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableFreeAging (file://REPO/works/ambertime/partner-orders.mjs:559:10)": {
+        "calls": 2,
+        "ms": 0.23603400000001784,
+        "logicalJSONCodeUnits": 6142,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274284720,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableFreeAging (file://REPO/works/ambertime/partner-orders.mjs:559:10)": {
+        "calls": 2,
+        "ms": 0.11737399999992704,
+        "logicalJSONCodeUnits": 6142,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274283632,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableStaffExperienceWithContext (file://REPO/works/ambertime/partner-orders.mjs:578:10)": {
+        "calls": 2,
+        "ms": 0.2055089999998927,
+        "logicalJSONCodeUnits": 6302,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274324280,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableStaffExperienceWithContext (file://REPO/works/ambertime/partner-orders.mjs:578:10)": {
+        "calls": 2,
+        "ms": 0.10643300000037925,
+        "logicalJSONCodeUnits": 6302,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274323192,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableBrandIdentity (file://REPO/works/ambertime/partner-orders.mjs:592:10)": {
+        "calls": 2,
+        "ms": 0.23898700000017925,
+        "logicalJSONCodeUnits": 6554,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274364040,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableBrandIdentity (file://REPO/works/ambertime/partner-orders.mjs:592:10)": {
+        "calls": 2,
+        "ms": 0.14238800000021,
+        "logicalJSONCodeUnits": 6554,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274362952,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at file://REPO/works/ambertime/partner-orders.mjs:1524:330": {
+        "calls": 2,
+        "ms": 65.26803400000881,
+        "logicalJSONCodeUnits": 5795534,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274406520,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at file://REPO/works/ambertime/partner-orders.mjs:1524:330": {
+        "calls": 2,
+        "ms": 38.21944599999779,
+        "logicalJSONCodeUnits": 5795534,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274405392,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1535:245)": {
+        "calls": 2,
+        "ms": 2.593729999988682,
+        "logicalJSONCodeUnits": 187,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274438296,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1535:245)": {
+        "calls": 2,
+        "ms": 2.410515999997642,
+        "logicalJSONCodeUnits": 187,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274437168,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at enableStage4 (file://REPO/works/ambertime/partner-orders.mjs:57:10)": {
+        "calls": 1,
+        "ms": 0.1048240000000078,
+        "logicalJSONCodeUnits": 3397,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274479048,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableStage4 (file://REPO/works/ambertime/partner-orders.mjs:57:10)": {
+        "calls": 1,
+        "ms": 0.06279399999993984,
+        "logicalJSONCodeUnits": 3397,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274477920,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enablePlacement (file://REPO/works/ambertime/partner-orders.mjs:66:10)": {
+        "calls": 1,
+        "ms": 0.29145299999981944,
+        "logicalJSONCodeUnits": 7517,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274556864,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enablePlacement (file://REPO/works/ambertime/partner-orders.mjs:66:10)": {
+        "calls": 1,
+        "ms": 0.18488299999989977,
+        "logicalJSONCodeUnits": 7517,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274554904,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableStoreMarketTransaction (file://REPO/works/ambertime/partner-orders.mjs:93:10)": {
+        "calls": 1,
+        "ms": 1.0841220000002068,
+        "logicalJSONCodeUnits": 7617,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274621392,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableStoreMarketTransaction (file://REPO/works/ambertime/partner-orders.mjs:93:10)": {
+        "calls": 1,
+        "ms": 0.11772100000007413,
+        "logicalJSONCodeUnits": 7617,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274619528,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableMarketRulesTransaction (file://REPO/works/ambertime/partner-orders.mjs:111:10)": {
+        "calls": 1,
+        "ms": 0.6789019999996526,
+        "logicalJSONCodeUnits": 7780,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274709424,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableMarketRulesTransaction (file://REPO/works/ambertime/partner-orders.mjs:111:10)": {
+        "calls": 1,
+        "ms": 0.5615350000002763,
+        "logicalJSONCodeUnits": 7780,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274707544,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableAlleyBarTransaction (file://REPO/works/ambertime/partner-orders.mjs:124:10)": {
+        "calls": 1,
+        "ms": 0.25652199999967706,
+        "logicalJSONCodeUnits": 8086,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274773304,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableAlleyBarTransaction (file://REPO/works/ambertime/partner-orders.mjs:124:10)": {
+        "calls": 1,
+        "ms": 0.12315499999976964,
+        "logicalJSONCodeUnits": 8086,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274771408,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableShopDialogueTransaction (file://REPO/works/ambertime/partner-orders.mjs:139:10)": {
+        "calls": 1,
+        "ms": 0.5896950000001198,
+        "logicalJSONCodeUnits": 8238,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274837752,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableShopDialogueTransaction (file://REPO/works/ambertime/partner-orders.mjs:139:10)": {
+        "calls": 1,
+        "ms": 0.5015430000003107,
+        "logicalJSONCodeUnits": 8238,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274835936,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableRegionalPartnersTransaction (file://REPO/works/ambertime/partner-orders.mjs:152:10)": {
+        "calls": 1,
+        "ms": 0.82588399999986,
+        "logicalJSONCodeUnits": 8342,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274901496,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableRegionalPartnersTransaction (file://REPO/works/ambertime/partner-orders.mjs:152:10)": {
+        "calls": 1,
+        "ms": 0.7341329999999289,
+        "logicalJSONCodeUnits": 8342,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274899680,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at enableRegionalDeliveriesTransaction (file://REPO/works/ambertime/partner-orders.mjs:163:10)": {
+        "calls": 1,
+        "ms": 0.19016000000010536,
+        "logicalJSONCodeUnits": 8620,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274970152,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "nativeStructuredClone@full-state@at enableRegionalDeliveriesTransaction (file://REPO/works/ambertime/partner-orders.mjs:163:10)": {
+        "calls": 1,
+        "ms": 0.1221810000001824,
+        "logicalJSONCodeUnits": 8620,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 274968336,
+        "maxObservedProcessRSSKiB": 420432
+      },
+      "cloneReplayState@full-state@at selectFlavorCards (file://REPO/works/ambertime/partner-orders.mjs:303:10)": {
+        "calls": 105,
+        "ms": 4969.785260999915,
+        "logicalJSONCodeUnits": 339484192,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 422681656,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at selectFlavorCards (file://REPO/works/ambertime/partner-orders.mjs:303:10)": {
+        "calls": 105,
+        "ms": 2726.4727690001796,
+        "logicalJSONCodeUnits": 339484192,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 422680768,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at selectFlavorCards (file://REPO/works/ambertime/partner-orders.mjs:303:112)": {
+        "calls": 105,
+        "ms": 9.217900999959056,
+        "logicalJSONCodeUnits": 3570,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 422698344,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at selectFlavorCards (file://REPO/works/ambertime/partner-orders.mjs:303:112)": {
+        "calls": 105,
+        "ms": 1.3980680000468055,
+        "logicalJSONCodeUnits": 3570,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 422697936,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@core@at Module.startDistillation (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:26:200)": {
+        "calls": 105,
+        "ms": 87.50939099999096,
+        "logicalJSONCodeUnits": 4023747,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 424411592,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@core@at Module.startDistillation (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:26:200)": {
+        "calls": 105,
+        "ms": 54.94172300010223,
+        "logicalJSONCodeUnits": 4023747,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 424411184,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at Module.startDistillation (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:26:292)": {
+        "calls": 105,
+        "ms": 6199.404081999974,
+        "logicalJSONCodeUnits": 339491123,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420259432,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at Module.startDistillation (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:26:292)": {
+        "calls": 105,
+        "ms": 3364.417043999987,
+        "logicalJSONCodeUnits": 339491123,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420258544,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at Module.startDistillation (file://REPO/works/ambertime/distillery.mjs?v=stage4-r2&perf=v06:14:100)": {
+        "calls": 105,
+        "ms": 81.42287899992652,
+        "logicalJSONCodeUnits": 4031517,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420617792,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at Module.startDistillation (file://REPO/works/ambertime/distillery.mjs?v=stage4-r2&perf=v06:14:100)": {
+        "calls": 105,
+        "ms": 51.572956000103204,
+        "logicalJSONCodeUnits": 4031517,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420617384,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@core@at distill (file://REPO/works/ambertime/model.mjs?v=stage4-r2:27:38)": {
+        "calls": 105,
+        "ms": 50.012846999999965,
+        "logicalJSONCodeUnits": 4023747,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420879136,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at startWithModel (file://REPO/works/ambertime/partner-orders.mjs:1069:34)": {
+        "calls": 105,
+        "ms": 12.33505199989122,
+        "logicalJSONCodeUnits": 3570,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420923136,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at startWithModel (file://REPO/works/ambertime/partner-orders.mjs:1069:34)": {
+        "calls": 105,
+        "ms": 0.8313699999266646,
+        "logicalJSONCodeUnits": 3570,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 420922336,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at Module.distillStep (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:29:153)": {
+        "calls": 6825,
+        "ms": 6604.877050000243,
+        "logicalJSONCodeUnits": 265158145,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 449869872,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at Module.distillStep (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:29:153)": {
+        "calls": 6825,
+        "ms": 3844.5776399998017,
+        "logicalJSONCodeUnits": 265158145,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 449869464,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at Module.distillStep (file://REPO/works/ambertime/distillery.mjs?v=stage4-r2&perf=v06:16:75)": {
+        "calls": 6825,
+        "ms": 5929.1149809991375,
+        "logicalJSONCodeUnits": 264980695,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 450240160,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at Module.distillStep (file://REPO/works/ambertime/distillery.mjs?v=stage4-r2&perf=v06:16:75)": {
+        "calls": 6825,
+        "ms": 3617.3241999999937,
+        "logicalJSONCodeUnits": 264980695,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 450239752,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at progress (file://REPO/works/ambertime/partner-orders.mjs:1406:23)": {
+        "calls": 210,
+        "ms": 11679.660456999998,
+        "logicalJSONCodeUnits": 679080481,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 436191112,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at progress (file://REPO/works/ambertime/partner-orders.mjs:1406:23)": {
+        "calls": 210,
+        "ms": 6323.5789800000375,
+        "logicalJSONCodeUnits": 679080481,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 436190224,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at beginCollection (file://REPO/works/ambertime/partner-orders.mjs:312:10)": {
+        "calls": 105,
+        "ms": 6508.6356829999695,
+        "logicalJSONCodeUnits": 339538088,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 439326096,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at beginCollection (file://REPO/works/ambertime/partner-orders.mjs:312:10)": {
+        "calls": 105,
+        "ms": 3156.403867999964,
+        "logicalJSONCodeUnits": 339538088,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 439325208,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at Module.stopDistillation (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:30:101)": {
+        "calls": 105,
+        "ms": 6630.245498999978,
+        "logicalJSONCodeUnits": 339542603,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 456944960,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at Module.stopDistillation (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:30:101)": {
+        "calls": 105,
+        "ms": 3297.032193999955,
+        "logicalJSONCodeUnits": 339542603,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 456944072,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at Module.stopDistillation (file://REPO/works/ambertime/distillery.mjs?v=stage4-r2&perf=v06:17:136)": {
+        "calls": 105,
+        "ms": 83.60697400006711,
+        "logicalJSONCodeUnits": 4076282,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457267504,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at Module.stopDistillation (file://REPO/works/ambertime/distillery.mjs?v=stage4-r2&perf=v06:17:136)": {
+        "calls": 105,
+        "ms": 53.0702359999882,
+        "logicalJSONCodeUnits": 4076282,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457267096,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at attachFlavor (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:17:111)": {
+        "calls": 105,
+        "ms": 1.457030999993549,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457312760,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at attachFlavor (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:19:131)": {
+        "calls": 105,
+        "ms": 0.5290070000137348,
+        "logicalJSONCodeUnits": 15645,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457325160,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at stopWithModel (file://REPO/works/ambertime/partner-orders.mjs:1076:282)": {
+        "calls": 105,
+        "ms": 9.61641600005214,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457343584,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at stopWithModel (file://REPO/works/ambertime/partner-orders.mjs:1076:282)": {
+        "calls": 105,
+        "ms": 0.4824530000792038,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457343176,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at setFlavorCask (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:25:15)": {
+        "calls": 105,
+        "ms": 2.4221180000731692,
+        "logicalJSONCodeUnits": 58695,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 457356096,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at __copyProfile_fillBarrel (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:42:118)": {
+        "calls": 105,
+        "ms": 5493.020885000075,
+        "logicalJSONCodeUnits": 339615978,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452307424,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at __copyProfile_fillBarrel (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:42:118)": {
+        "calls": 105,
+        "ms": 3033.849315999913,
+        "logicalJSONCodeUnits": 339615978,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452306536,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@core@at __copyProfile_fillCask (file://REPO/works/ambertime/model.mjs?v=stage4-r2:37:11)": {
+        "calls": 105,
+        "ms": 194.6434490000147,
+        "logicalJSONCodeUnits": 4097458,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452602960,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at __copyProfile_fillCask (file://REPO/works/ambertime/model.mjs?v=stage4-r2:37:64)": {
+        "calls": 105,
+        "ms": 1.7885189999624345,
+        "logicalJSONCodeUnits": 74221,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452615088,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at flavorRecipe (file://REPO/works/ambertime/partner-orders.mjs:320:63)": {
+        "calls": 105,
+        "ms": 9.85783600002651,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452686776,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at flavorRecipe (file://REPO/works/ambertime/partner-orders.mjs:320:63)": {
+        "calls": 105,
+        "ms": 1.2617440000231,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452686368,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at captureNearby (file://REPO/works/ambertime/partner-orders.mjs:1467:323)": {
+        "calls": 105,
+        "ms": 4.367831999979899,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452704160,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at captureNearby (file://REPO/works/ambertime/partner-orders.mjs:1467:323)": {
+        "calls": 105,
+        "ms": 0.4670990000204256,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452703752,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at apply (file://REPO/works/ambertime/partner-orders.mjs:1499:146)": {
+        "calls": 105,
+        "ms": 4.54525899999453,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452721600,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at apply (file://REPO/works/ambertime/partner-orders.mjs:1499:146)": {
+        "calls": 105,
+        "ms": 1.79971799996747,
+        "logicalJSONCodeUnits": 10815,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 452721192,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at __copyProfile_economicMonthly (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)": {
+        "calls": 1332,
+        "ms": 67572.07140499985,
+        "logicalJSONCodeUnits": 4129711072,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 437800824,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at __copyProfile_economicMonthly (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:51:25)": {
+        "calls": 1332,
+        "ms": 37289.976756000324,
+        "logicalJSONCodeUnits": 4129711072,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 437799936,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@core@at __copyProfile_advanceMonth (file://REPO/works/ambertime/model.mjs?v=stage4-r2:101:11)": {
+        "calls": 1332,
+        "ms": 799.3941390001173,
+        "logicalJSONCodeUnits": 50413443,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438056920,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at ageCask (file://REPO/works/ambertime/model.mjs?v=stage4-r2:55:11)": {
+        "calls": 1254,
+        "ms": 35.866748999919764,
+        "logicalJSONCodeUnits": 1316988,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438070648,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at ageFlavor (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:35:34)": {
+        "calls": 1254,
+        "ms": 10.354776000091988,
+        "logicalJSONCodeUnits": 129162,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438079536,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@array@at ageFlavor (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:35:136)": {
+        "calls": 1254,
+        "ms": 8.193851999894832,
+        "logicalJSONCodeUnits": 40128,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438089144,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at ageFlavor (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:36:18)": {
+        "calls": 1254,
+        "ms": 19.47347600005969,
+        "logicalJSONCodeUnits": 505352,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438099544,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at __copyProfile_advanceMonthly (file://REPO/works/ambertime/monthly.mjs?v=stage4-r2:67:21)": {
+        "calls": 1254,
+        "ms": 19.722267999728956,
+        "logicalJSONCodeUnits": 325692,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438120504,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at observeFreeAging (file://REPO/works/ambertime/monthly.mjs?v=stage4-r2:41:10)": {
+        "calls": 1254,
+        "ms": 11.20953599996983,
+        "logicalJSONCodeUnits": 325692,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438131400,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at planSales (file://REPO/works/ambertime/market-sales.mjs?v=bar-v01-1:63:76)": {
+        "calls": 8798,
+        "ms": 163.67349300059095,
+        "logicalJSONCodeUnits": 1457354,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 438250752,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@array@at __copyProfile_bottleTransaction (file://REPO/works/ambertime/partner-orders.mjs:1252:262)": {
+        "calls": 104,
+        "ms": 10.731147000030887,
+        "logicalJSONCodeUnits": 8930,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 439733400,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@array@at __copyProfile_bottleTransaction (file://REPO/works/ambertime/partner-orders.mjs:1252:262)": {
+        "calls": 104,
+        "ms": 2.7945680000511857,
+        "logicalJSONCodeUnits": 8930,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 439732992,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at __copyProfile_bottleNow (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:228)": {
+        "calls": 104,
+        "ms": 5551.235645000108,
+        "logicalJSONCodeUnits": 339113282,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 426642792,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at __copyProfile_bottleNow (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:228)": {
+        "calls": 104,
+        "ms": 2804.167487999883,
+        "logicalJSONCodeUnits": 339113282,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 426641904,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@core@at Module.bottle (file://REPO/works/ambertime/model.mjs?v=stage4-r2:81:11)": {
+        "calls": 104,
+        "ms": 58.6525910000737,
+        "logicalJSONCodeUnits": 4108688,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 426876000,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at freezeFlavor (file://REPO/works/ambertime/lab-flavor.mjs?v=stage4-r2:40:77)": {
+        "calls": 104,
+        "ms": 2.4106570001158616,
+        "logicalJSONCodeUnits": 61775,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 426888008,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@core@at Module.setPrice (file://REPO/works/ambertime/model.mjs?v=stage4-r2:97:11)": {
+        "calls": 104,
+        "ms": 47.41873900003566,
+        "logicalJSONCodeUnits": 4018313,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427127744,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at profile (file://REPO/works/ambertime/character.mjs?v=stage4-r2:8:133)": {
+        "calls": 312,
+        "ms": 4.189957000150571,
+        "logicalJSONCodeUnits": 185325,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427228472,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@array@at __copyProfile_bottleNow (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:1655)": {
+        "calls": 104,
+        "ms": 5.411126999882526,
+        "logicalJSONCodeUnits": 208,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427169744,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@array@at __copyProfile_bottleNow (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:1655)": {
+        "calls": 104,
+        "ms": 0.30244399997445726,
+        "logicalJSONCodeUnits": 208,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427169336,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@array@at __copyProfile_bottleNow (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:1680)": {
+        "calls": 104,
+        "ms": 6.226420000107737,
+        "logicalJSONCodeUnits": 81183,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427192080,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@array@at __copyProfile_bottleNow (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:88:1680)": {
+        "calls": 104,
+        "ms": 1.8822779999945851,
+        "logicalJSONCodeUnits": 81183,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427191672,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at __copyProfile_brandedBottling (file://REPO/works/ambertime/partner-orders.mjs:1176:55)": {
+        "calls": 1,
+        "ms": 0.030539999999746215,
+        "logicalJSONCodeUnits": 77,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 228729312,
+        "maxObservedProcessRSSKiB": 425040
+      },
+      "nativeStructuredClone@partial@at __copyProfile_brandedBottling (file://REPO/works/ambertime/partner-orders.mjs:1176:55)": {
+        "calls": 1,
+        "ms": 0.005161999999927502,
+        "logicalJSONCodeUnits": 77,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 228728552,
+        "maxObservedProcessRSSKiB": 425040
+      },
+      "cloneReplayState@partial@at __copyProfile_brandedBottling (file://REPO/works/ambertime/partner-orders.mjs:1178:233)": {
+        "calls": 104,
+        "ms": 9.038681000015458,
+        "logicalJSONCodeUnits": 73592,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427250088,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at __copyProfile_brandedBottling (file://REPO/works/ambertime/partner-orders.mjs:1178:233)": {
+        "calls": 104,
+        "ms": 1.7475220000701484,
+        "logicalJSONCodeUnits": 73592,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427249680,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at __copyProfile_brandedBottling (file://REPO/works/ambertime/partner-orders.mjs:1181:87)": {
+        "calls": 104,
+        "ms": 7.595818000017061,
+        "logicalJSONCodeUnits": 1392,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427268240,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at __copyProfile_brandedBottling (file://REPO/works/ambertime/partner-orders.mjs:1181:87)": {
+        "calls": 104,
+        "ms": 1.4108609998925203,
+        "logicalJSONCodeUnits": 1392,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 427267832,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at productFor (file://REPO/works/ambertime/town-connection.mjs?v=stage4-r2&perf=v06:10:356)": {
+        "calls": 82334,
+        "ms": 1438.8625569972314,
+        "logicalJSONCodeUnits": 48904892,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 439914672,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at registerExternalRelease (file://REPO/works/ambertime/experiments/town-simulation/v01/model.mjs?v=stage4-r2&perf=v06:257:94)": {
+        "calls": 104,
+        "ms": 1.7098989999890364,
+        "logicalJSONCodeUnits": 82326,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 428650512,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at allocateProductTransaction (file://REPO/works/ambertime/partner-orders.mjs:294:8)": {
+        "calls": 3,
+        "ms": 10.335656999999628,
+        "logicalJSONCodeUnits": 283624,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 260660920,
+        "maxObservedProcessRSSKiB": 454392
+      },
+      "nativeStructuredClone@full-state@at allocateProductTransaction (file://REPO/works/ambertime/partner-orders.mjs:294:8)": {
+        "calls": 3,
+        "ms": 6.67316400000027,
+        "logicalJSONCodeUnits": 283624,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 260659592,
+        "maxObservedProcessRSSKiB": 454392
+      },
+      "cloneReplayState@full-state@at __copyProfile_listBottles (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:186)": {
+        "calls": 3,
+        "ms": 8.804597999999714,
+        "logicalJSONCodeUnits": 283644,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 261276936,
+        "maxObservedProcessRSSKiB": 454392
+      },
+      "nativeStructuredClone@full-state@at __copyProfile_listBottles (file://REPO/works/ambertime/economy.mjs?v=bar-v01-1&perf=v06:89:186)": {
+        "calls": 3,
+        "ms": 3.102472999999918,
+        "logicalJSONCodeUnits": 283644,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 261275608,
+        "maxObservedProcessRSSKiB": 454392
+      },
+      "cloneReplayState@full-state@at acceptShop (file://REPO/works/ambertime/partner-orders.mjs:924:76)": {
+        "calls": 3,
+        "ms": 6.540149999999812,
+        "logicalJSONCodeUnits": 311793,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 263768360,
+        "maxObservedProcessRSSKiB": 454392
+      },
+      "nativeStructuredClone@full-state@at acceptShop (file://REPO/works/ambertime/partner-orders.mjs:924:76)": {
+        "calls": 3,
+        "ms": 3.505869000000075,
+        "logicalJSONCodeUnits": 311793,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 263767032,
+        "maxObservedProcessRSSKiB": 454392
+      },
+      "cloneReplayState@full-state@at storeAssignmentTransaction (file://REPO/works/ambertime/partner-orders.mjs:269:10)": {
+        "calls": 1,
+        "ms": 6.090788999999859,
+        "logicalJSONCodeUnits": 262993,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 325467064,
+        "maxObservedProcessRSSKiB": 476084
+      },
+      "nativeStructuredClone@full-state@at storeAssignmentTransaction (file://REPO/works/ambertime/partner-orders.mjs:269:10)": {
+        "calls": 1,
+        "ms": 3.577806000000237,
+        "logicalJSONCodeUnits": 262993,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 325465696,
+        "maxObservedProcessRSSKiB": 476084
+      },
+      "cloneReplayState@partial@at settleStoreMarket (file://REPO/works/ambertime/partner-orders.mjs:775:87)": {
+        "calls": 4,
+        "ms": 0.2486800000006042,
+        "logicalJSONCodeUnits": 493,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 333917680,
+        "maxObservedProcessRSSKiB": 480308
+      },
+      "nativeStructuredClone@partial@at settleStoreMarket (file://REPO/works/ambertime/partner-orders.mjs:775:87)": {
+        "calls": 4,
+        "ms": 0.04819200000019919,
+        "logicalJSONCodeUnits": 493,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 333917040,
+        "maxObservedProcessRSSKiB": 480308
+      },
+      "cloneReplayState@full-state@at regionalOfferTransaction (file://REPO/works/ambertime/partner-orders.mjs:248:10)": {
+        "calls": 1,
+        "ms": 7.191260000000511,
+        "logicalJSONCodeUnits": 316950,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273028784,
+        "maxObservedProcessRSSKiB": 488116
+      },
+      "nativeStructuredClone@full-state@at regionalOfferTransaction (file://REPO/works/ambertime/partner-orders.mjs:248:10)": {
+        "calls": 1,
+        "ms": 4.6358020000006945,
+        "logicalJSONCodeUnits": 316950,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 273027416,
+        "maxObservedProcessRSSKiB": 488116
+      },
+      "cloneReplayState@full-state@at enableWorldNetworkTransaction (file://REPO/works/ambertime/partner-orders.mjs:176:10)": {
+        "calls": 1,
+        "ms": 4.631922999999915,
+        "logicalJSONCodeUnits": 324196,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 324772600,
+        "maxObservedProcessRSSKiB": 488116
+      },
+      "nativeStructuredClone@full-state@at enableWorldNetworkTransaction (file://REPO/works/ambertime/partner-orders.mjs:176:10)": {
+        "calls": 1,
+        "ms": 2.5045350000000326,
+        "logicalJSONCodeUnits": 324196,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 324771232,
+        "maxObservedProcessRSSKiB": 488116
+      },
+      "cloneReplayState@full-state@at enableConsignmentTransaction (file://REPO/works/ambertime/partner-orders.mjs:207:10)": {
+        "calls": 1,
+        "ms": 4.459840999999869,
+        "logicalJSONCodeUnits": 324577,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 326822016,
+        "maxObservedProcessRSSKiB": 488116
+      },
+      "nativeStructuredClone@full-state@at enableConsignmentTransaction (file://REPO/works/ambertime/partner-orders.mjs:207:10)": {
+        "calls": 1,
+        "ms": 2.589969999999994,
+        "logicalJSONCodeUnits": 324577,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 326820648,
+        "maxObservedProcessRSSKiB": 488116
+      },
+      "cloneReplayState@full-state@at regionalDeliveryTransaction (file://REPO/works/ambertime/partner-orders.mjs:221:10)": {
+        "calls": 100,
+        "ms": 5839.167292999914,
+        "logicalJSONCodeUnits": 338651749,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 422150560,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at regionalDeliveryTransaction (file://REPO/works/ambertime/partner-orders.mjs:221:10)": {
+        "calls": 100,
+        "ms": 2958.4064989999615,
+        "logicalJSONCodeUnits": 338651749,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 422149672,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at consignmentTransaction (file://REPO/works/ambertime/partner-orders.mjs:213:10)": {
+        "calls": 100,
+        "ms": 4865.934922999977,
+        "logicalJSONCodeUnits": 338692277,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 436168184,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at consignmentTransaction (file://REPO/works/ambertime/partner-orders.mjs:213:10)": {
+        "calls": 100,
+        "ms": 2718.766601000025,
+        "logicalJSONCodeUnits": 338692277,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 436167296,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at fixGeneration (file://REPO/works/ambertime/generations.mjs?v=0.41-delegation:20:59)": {
+        "calls": 4,
+        "ms": 0.1716300000116462,
+        "logicalJSONCodeUnits": 375,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 333026280,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at handoverGeneration (file://REPO/works/ambertime/partner-orders.mjs:872:10)": {
+        "calls": 4,
+        "ms": 170.80433900001663,
+        "logicalJSONCodeUnits": 14084658,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 313063424,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at handoverGeneration (file://REPO/works/ambertime/partner-orders.mjs:872:10)": {
+        "calls": 4,
+        "ms": 94.28117700002622,
+        "logicalJSONCodeUnits": 14084658,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 313062536,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at profile (file://REPO/works/ambertime/recent-ledger.mjs?v=s3-1:8:157)": {
+        "calls": 8,
+        "ms": 0.23207399997045286,
+        "logicalJSONCodeUnits": 4752,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 232769168,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at file://REPO/works/ambertime/history-record.mjs?v=s4-1&perf=v06:7:86": {
+        "calls": 1226,
+        "ms": 2.8970760004012845,
+        "logicalJSONCodeUnits": 7699,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 244595024,
+        "maxObservedProcessRSSKiB": 641996
+      }
+    },
+    "operations": 2229,
+    "memory": {
+      "current": {
+        "rss": 519720960,
+        "heapTotal": 355713024,
+        "heapUsed": 248031056,
+        "external": 4190117,
+        "arrayBuffers": 146583
+      },
+      "peakRSSKiB": 641996
+    }
+  },
+  "month": 1332,
+  "wireSHA256": "b38a683adb00948baa91121922833d2169304a13613931a2d77ff71046cdb7f4",
+  "wireUnits": 2475089,
+  "expectedSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f",
+  "fullSessionEquality": true,
+  "canonicalResaveEquality": true,
+  "afterOracleAndContinuation": {
+    "phases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 0.03129600000102073
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 222.94876400000066
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 255.45429000002332
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 16.48469300000579
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 511.72009500002605
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 295.1848480000044
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 29.53581000000122
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 396.7513340000005
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 938.0009600000049
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.04017200000816956
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 1.4519310000177938
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 38.18637499999022
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 18.9195550000004
+      },
+      "canonicalResave": {
+        "calls": 1,
+        "ms": 2956.790726999985
+      }
+    },
+    "copies": {
+      "cloneReplayState@full-state@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1523:12)": {
+        "calls": 2,
+        "ms": 189.41393999999855,
+        "logicalJSONCodeUnits": 11584274,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 285513560,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1523:12)": {
+        "calls": 2,
+        "ms": 110.35778300001402,
+        "logicalJSONCodeUnits": 11584274,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 285512920,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1523:108)": {
+        "calls": 2,
+        "ms": 1.9402540000155568,
+        "logicalJSONCodeUnits": 192,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 285742840,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1523:108)": {
+        "calls": 2,
+        "ms": 1.7016520000179298,
+        "logicalJSONCodeUnits": 192,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 285742200,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@full-state@at file://REPO/works/ambertime/partner-orders.mjs:1524:330": {
+        "calls": 2,
+        "ms": 154.9687500000291,
+        "logicalJSONCodeUnits": 11584274,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 320941408,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@full-state@at file://REPO/works/ambertime/partner-orders.mjs:1524:330": {
+        "calls": 2,
+        "ms": 92.31663499999559,
+        "logicalJSONCodeUnits": 11584274,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 320940768,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "cloneReplayState@partial@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1535:245)": {
+        "calls": 2,
+        "ms": 2.1403810000047088,
+        "logicalJSONCodeUnits": 192,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 344614840,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at validateDistillery (file://REPO/works/ambertime/partner-orders.mjs:1535:245)": {
+        "calls": 2,
+        "ms": 1.936467999999877,
+        "logicalJSONCodeUnits": 192,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 344614200,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at profile (file://REPO/works/ambertime/recent-ledger.mjs?v=s3-1:8:157)": {
+        "calls": 16,
+        "ms": 0.21315100000356324,
+        "logicalJSONCodeUnits": 9504,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 344946104,
+        "maxObservedProcessRSSKiB": 641996
+      },
+      "nativeStructuredClone@partial@at file://REPO/works/ambertime/history-record.mjs?v=s4-1&perf=v06:7:86": {
+        "calls": 2452,
+        "ms": 3.4836889984144364,
+        "logicalJSONCodeUnits": 15398,
+        "unserializable": 0,
+        "maxObservedHeapUsed": 356581824,
+        "maxObservedProcessRSSKiB": 641996
+      }
+    },
+    "operations": 0,
+    "memory": {
+      "current": {
+        "rss": 662663168,
+        "heapTotal": 460808192,
+        "heapUsed": 373563168,
+        "external": 4190117,
+        "arrayBuffers": 146583
+      },
+      "peakRSSKiB": 647132
+    }
+  },
+  "completed": true
+}

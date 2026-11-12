@@ -1,0 +1,80 @@
+✔ old save and replay boundary preserve all existing facts including tasting and partial progress (1495.884544ms)
+✔ bar offer comes from existing sales without requiring another formal shop or delivery (338.365952ms)
+✔ any flavor and young release may be assigned; placement earns nothing; real sales conserve and reach bar (813.024741ms)
+✔ bar has low volume with smoke/body preference; old venues remain exactly the frozen algorithm (58.53267ms)
+✔ corrupt adoption, double reservations and unrecorded bar state are rejected (91.153964ms)
+✖ install migration exposes recovery on save failure and publishes the bar only after commit (7.686229ms)
+✔ recall observer treats bar boundary as one transition and rollback as a read-only projection (73.158823ms)
+✔ main DB is separate and empty boot requires an explicit initial durable write (14.988479ms)
+✔ valid legacy migration preserves exact source and archival old keys across reload (6.378637ms)
+✔ malformed, older and noncanonical original records need explicit replacement and remain exact (10.127032ms)
+✔ explicit import, new start and market rules preserve origin with bounded internal generations (16.977941ms)
+✔ source changes at boot and before any save halt without selecting a preferred copy (12.065354ms)
+✔ legacy writer during transaction preserves both sides and rejects uncertain publication (7.433594ms)
+✔ quota and transaction abort are atomic, halt the adapter, and never retry (14.081578ms)
+✔ readback failure does not roll back committed storage or publish new adapter state (3.019367ms)
+✔ delayed native commit rejects a second action; interruption never publishes the late result (6.69204ms)
+✔ two independently booted tabs use native transaction CAS, with one winner and no overwrite (5.187679ms)
+✔ damaged head, previous, metadata and origin all fail closed without repair (78.959188ms)
+✔ unavailable legacy storage or IndexedDB never creates a fresh replacement silently (0.465338ms)
+✔ unchanged formal reader/serializer round trip game, history, recall, ledger, clock and paused state (473.500232ms)
+✔ formal rejection preserves invalid original and explicit valid import retains it in origin (30.893065ms)
+✔ no formal legacy mutation, database deletion, rollback or preflight adoption paths (1.380469ms)
+✔ steady-state save formally reads the candidate and committed head without replaying unchanged archives (6.217902ms)
+✖ warm exact-text records skip redundant canonical parsing but never skip candidate or head checks (5.818124ms)
+✔ invalid explicit import does not replace or halt a healthy game (5.328259ms)
+✔ warm records with recomputed checksums cannot reuse canonical validation for altered bytes (8.371495ms)
+✔ identical cached text still requires a fresh matching envelope checksum (8.135481ms)
+✔ missing or asynchronous validators cannot reuse a warm successful cache or mutate storage (2.704927ms)
+✔ warm previous with recomputed checksums still requires semantic validation and failed reads are not cached (5.200315ms)
+✔ cold reopen discards the exact-text cache and revalidates head and previous (4.988308ms)
+✔ LRU refresh keeps a repeatedly verified original warm beyond eight changing action candidates (21.051477ms)
+✔ bounded cache evicts older entries rather than retaining unlimited validated archives (18.988294ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 30
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4357.673623
+
+✖ failing tests:
+
+test at works/ambertime/tests/bar-model.test.mjs:57:1
+✖ install migration exposes recovery on save failure and publishes the bar only after commit (7.686229ms)
+  ReferenceError [Error]: clearEntryDiagnostic is not defined
+      at installSession (evalmachine.<anonymous>:3:2)
+      at evalmachine.<anonymous>:56:1
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at Module.runInNewContext (node:vm:310:38)
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07-control/works/ambertime/tests/bar-model.test.mjs:67:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at works/ambertime/tests/formal-idb-main.test.mjs:227:1
+✖ warm exact-text records skip redundant canonical parsing but never skip candidate or head checks (5.818124ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      '{"version":8,"game":{"core":{"month":155}},"userPaused":true}',
+      '{"version":8,"game":{"core":{"month":155}},"userPaused":true}',
+  +   '{"version":8,"game":{"core":{"month":97}},"userPaused":true}',
+  +   '{"version":8,"game":{"core":{"month":154}},"userPaused":true}',
+  +   '{"version":8,"game":{"core":{"month":154}},"userPaused":true}',
+      '{"version":8,"game":{"core":{"month":155}},"userPaused":true}',
+      '{"version":8,"game":{"core":{"month":155}},"userPaused":true}'
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-copy-v07-control/works/ambertime/tests/formal-idb-main.test.mjs:235:9)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ '{"version":8,"game":{"core":{"month":155}},"userPaused":true}', '{"version":8,"game":{"core":{"month":155}},"userPaused":true}', '{"version":8,"game":{"core":{"month":97}},"userPaused":true}', '{"version":8,"game":{"core":{"month":154}},"userPaused":true}', '{"version":8,"game":{"core":{"month":154}},"userPaused":true}', '{"version":8,"game":{"core":{"month":155}},"userPaused":true}', '{"version":8,"game":{"core":{"month":155}},"userPaused":true}' ],
+    expected: [ '{"version":8,"game":{"core":{"month":155}},"userPaused":true}', '{"version":8,"game":{"core":{"month":155}},"userPaused":true}', '{"version":8,"game":{"core":{"month":155}},"userPaused":true}', '{"version":8,"game":{"core":{"month":155}},"userPaused":true}' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
