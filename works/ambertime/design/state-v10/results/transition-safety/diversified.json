@@ -1,0 +1,13 @@
+{
+  "name": "diversified",
+  "fixtureSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+  "actualTransitionGraphDisjoint": true,
+  "actualBidirectionalMutation": true,
+  "monthBefore": 1450,
+  "monthAfterRollback": 1450,
+  "cashAfterRollback": -100000,
+  "fundsChoice": true,
+  "townAndRetailRolledBack": true,
+  "rollbackGraphDisjoint": true,
+  "completed": true
+}

@@ -1,0 +1,13 @@
+{
+  "name": "regional",
+  "fixtureSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f",
+  "actualTransitionGraphDisjoint": true,
+  "actualBidirectionalMutation": true,
+  "monthBefore": 1332,
+  "monthAfterRollback": 1332,
+  "cashAfterRollback": -100000,
+  "fundsChoice": true,
+  "townAndRetailRolledBack": true,
+  "rollbackGraphDisjoint": true,
+  "completed": true
+}

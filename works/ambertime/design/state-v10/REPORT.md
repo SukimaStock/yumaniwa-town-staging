@@ -84,3 +84,9 @@ Local syntax and Plan/scope checks, independent review and CI status are recorde
 After native fallback guard for non-plain prototypes/root cycles, full runner completed all10 child processes and parent exit0. Five per-process transitions: local148.96→197.86ms; regional115.48→103.49ms; bulk81.98→103.41ms; small108.76→131.27ms; dispersed77.47→94.86ms. Regional reversal shows noise; four others worsened again. No reproducible broad benefit. Both rounds retained, never select only favorable values. All five next-month whole-state bytes and low-funds outcomes match. Fault injection was rerun with candidate partition clone, not baseline clone.
 
 Local Plan Lock, Scope, Risk and Impact checks PASS. Native syntax checks PASS. GitHub/CI and independent review still pending at this record. The remote Plan-only equivalent commit is c7ec2621e0b2ad6b0aa6292b5eff9a557e4d6885; local original Plan-only dd4e5d97 predates implementation.
+
+### Independent review and stronger transition checks
+
+Independent reviewer distinguishes B-partition (componentized **full** copy) from requested selective-copy B. This rejection does not prove selective B or C impossible. All five actual B monthly outputs were subsequently checked for complete old/new graph disjointness and bidirectional post-return mutation. All five low-cash paths explicitly retain month and cash, show a funds choice, revert town and retail state, and return graph-disjoint rollback output. `transition-safety.mjs` and raw results retain these assertions. These are transition-level checks, not only direct clone tests. Source baseline retained.
+
+At exact4527121: Gate43287596760, Trusted Evidence43287596775, Release43287596964 success; nativeChromium43287597022 still running at observation. This native workflow exercises unchanged product code, not Node-only Lab clone. Separate owned economic-stage proof will test a minimal private C boundary; C is not dismissed by this negative B screen.
