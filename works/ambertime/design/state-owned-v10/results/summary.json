@@ -1,0 +1,66 @@
+{
+  "completed": true,
+  "children": 10,
+  "rows": [
+    {
+      "name": "local",
+      "totalAms": 1143.0328180000001,
+      "totalCms": 414.06423699999993,
+      "stageAms": 750.496118,
+      "stageCms": 40.1558,
+      "wholeStateEqual": true,
+      "currentBytes": 306664,
+      "archiveBytes": 12316374,
+      "ApeakRSSKiB": 955888,
+      "CpeakRSSKiB": 699092
+    },
+    {
+      "name": "regional",
+      "totalAms": 602.7064040000001,
+      "totalCms": 244.42734200000007,
+      "stageAms": 370.5619590000001,
+      "stageCms": 45.62378899999999,
+      "wholeStateEqual": true,
+      "currentBytes": 347855,
+      "archiveBytes": 6164277,
+      "ApeakRSSKiB": 502108,
+      "CpeakRSSKiB": 378652
+    },
+    {
+      "name": "bulk",
+      "totalAms": 768.748695,
+      "totalCms": 249.72614900000008,
+      "stageAms": 474.03030600000005,
+      "stageCms": 39.75388100000009,
+      "wholeStateEqual": true,
+      "currentBytes": 347877,
+      "archiveBytes": 7009002,
+      "ApeakRSSKiB": 546336,
+      "CpeakRSSKiB": 437068
+    },
+    {
+      "name": "small",
+      "totalAms": 837.1103109999999,
+      "totalCms": 313.17427799999996,
+      "stageAms": 571.8665379999998,
+      "stageCms": 63.33129299999996,
+      "wholeStateEqual": true,
+      "currentBytes": 728875,
+      "archiveBytes": 9340615,
+      "ApeakRSSKiB": 660808,
+      "CpeakRSSKiB": 633320
+    },
+    {
+      "name": "diversified",
+      "totalAms": 505.11150499999997,
+      "totalCms": 218.055907,
+      "stageAms": 380.92297599999995,
+      "stageCms": 59.825837999999976,
+      "wholeStateEqual": true,
+      "currentBytes": 445975,
+      "archiveBytes": 5767255,
+      "ApeakRSSKiB": 523080,
+      "CpeakRSSKiB": 370252
+    }
+  ]
+}
