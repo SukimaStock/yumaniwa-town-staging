@@ -10,8 +10,8 @@ import {fileURLToPath} from 'node:url';
 import {createFreshSession} from '../session-entry.mjs';
 import * as nativeModel from '../partner-orders.mjs';
 const freshSession=()=>createFreshSession(nativeModel,141);
-import {encodeSession} from './formal-idb-runtime-harness.mjs';
-import {FORMAL_SAVE_KEY} from '../development-save.mjs';
+import {encodeSession,options as formalOptions} from './formal-idb-runtime-harness.mjs';
+import {FORMAL_SAVE_KEY,readSession} from '../development-save.mjs';
 import {MAIN_IDB_NAME,STAGING_IDB_NAME} from '../formal-idb-storage.mjs';
 const enabled=!!process.env.AMBER_BROWSER_MODULE&&!!process.env.AMBER_BROWSER_EXECUTABLE;
 const root=path.resolve(fileURLToPath(new URL('../../../',import.meta.url)));
@@ -22,6 +22,35 @@ globalThis.__idbRuntimeTest={
  snapshot:()=>structuredClone({game,userPaused,elapsed,caskSlots,recentLedger,historyRecord,recallRecord}),
  status:()=>({canSave,runtimeHalted,saving:savingBusy(),boundary:commitBoundary?.status}),
  advancePaused:()=>act(s=>s,null,null,{paused:true,time:elapsed+100}),
+ nativeFault(mode){
+  if(!['abort','readback'].includes(mode))throw Error('Unknown native test fault');
+  this.restoreNativeFault?.();
+  const actual=mainStore,oldPut=IDBObjectStore.prototype.put,oldTransaction=IDBDatabase.prototype.transaction;
+  const observation=this.nativeFaultObservation={mode,called:false,committed:false};
+  let armed=true,awaitingReadback=false;
+  const mainName=${JSON.stringify(MAIN_IDB_NAME)};
+  this.nativeWriterUnchanged=()=>mainStore===actual;
+  const restore=()=>{IDBObjectStore.prototype.put=oldPut;IDBDatabase.prototype.transaction=oldTransaction;};
+  this.restoreNativeFault=restore;
+  if(mode==='abort')IDBObjectStore.prototype.put=function(value,key){
+   const request=oldPut.call(this,value,key);
+   if(armed&&key==='head'&&this.transaction.db.name===mainName){
+    armed=false;this.transaction.abort();observation.called=true;restore();
+   }
+   return request;
+  };
+  if(mode==='readback')IDBDatabase.prototype.transaction=function(...args){
+   if(this.name===mainName&&awaitingReadback&&(args[1]??'readonly')==='readonly'){
+    awaitingReadback=false;observation.called=true;restore();
+    throw new DOMException('Injected native postcommit readback failure','UnknownError');
+   }
+   const tx=oldTransaction.apply(this,args);
+   if(armed&&this.name===mainName&&args[1]==='readwrite'){
+    armed=false;tx.addEventListener('complete',()=>{observation.committed=true;awaitingReadback=true;});
+   }
+   return tx;
+  };
+ },
  gate(){
   const actual=mainStore;let release;const waiting=new Promise(resolve=>{release=resolve;});
   this.nativeCommitted=false;this.release=release;
@@ -54,6 +83,12 @@ const readHead=(page)=>page.evaluate(name=>new Promise((resolve,reject)=>{
  const request=indexedDB.open(name,1);request.onerror=()=>reject(request.error);request.onsuccess=()=>{
   const db=request.result,tx=db.transaction('records','readonly'),get=tx.objectStore('records').get('head');let value;
   get.onsuccess=()=>{value=get.result;};tx.oncomplete=()=>{db.close();resolve(value);};tx.onabort=()=>{db.close();reject(tx.error);};
+ };
+}),MAIN_IDB_NAME);
+const readEntries=page=>page.evaluate(name=>new Promise((resolve,reject)=>{
+ const request=indexedDB.open(name,1);request.onerror=()=>reject(request.error);request.onsuccess=()=>{
+  const db=request.result,tx=db.transaction('records','readonly'),store=tx.objectStore('records'),keys=store.getAllKeys(),values=store.getAll();
+  tx.oncomplete=()=>{db.close();resolve(keys.result.map((key,index)=>[key,values.result[index]]));};tx.onabort=()=>{db.close();reject(tx.error);};
  };
 }),MAIN_IDB_NAME);
 const snapshot=page=>page.evaluate(()=>__idbRuntimeTest.snapshot());
@@ -112,6 +147,42 @@ test('native IDB runtime migration, delayed publication, conflict and recovery',
     assert.equal(await h.page.evaluate(()=>pendingAction),false);assert.deepEqual(await snapshot(h.page),before);
     assert.equal(await h.page.evaluate(()=>__idbRuntimeTest.status().boundary.state),'halted');
     await h.page.reload();await settled(h.page);assert.equal((await snapshot(h.page)).game,null);await continueTitle(h.page);const restored=await snapshot(h.page);assert.equal(restored.userPaused,true);assert.equal(restored.elapsed,before.elapsed+100);assert.deepEqual(h.errors,[]);
+   }finally{await h.context.close();}
+  });
+  for(const mode of ['abort','readback'])await t.test('actual runtime '+mode+' fault preserves all visible game and sidecars until cold reload',async()=>{
+   const h=await open();try{
+    const before=await snapshot(h.page),storedBefore=await readEntries(h.page),oldHead=new Map(storedBefore).get('head');
+    await h.page.evaluate(mode=>__idbRuntimeTest.nativeFault(mode),mode);
+    assert.equal(await h.page.evaluate(()=>__idbRuntimeTest.nativeWriterUnchanged()),true);
+    assert.equal(await h.page.evaluate(()=>__idbRuntimeTest.advancePaused()),false);
+    // Full app action uses its actual adapter/writer. Neither fault substitutes
+    // mainStore or the publication coordinator with a simulated implementation.
+    assert.deepEqual(await snapshot(h.page),before);
+    const status=await h.page.evaluate(()=>__idbRuntimeTest.status());
+    assert.equal(status.canSave,false);assert.equal(status.runtimeHalted,true);assert.equal(status.boundary.state,'halted');assert.equal(status.saving,false);
+    const observed=await h.page.evaluate(()=>__idbRuntimeTest.nativeFaultObservation);
+    assert.equal(observed.called,true,'The native IDB hook must actually execute');assert.equal(observed.committed,mode==='readback');
+    assert.equal(await h.page.evaluate(()=>__idbRuntimeTest.nativeWriterUnchanged()),true);
+    assert.equal(await h.page.evaluate(()=>__idbRuntimeTest.advancePaused()),false);
+    await h.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    assert.deepEqual(await snapshot(h.page),before,'No late publication after the failed native write/readback');
+    assert.equal(await h.page.evaluate(key=>localStorage.getItem(key),FORMAL_SAVE_KEY),legacy);
+    const storedAfter=await readEntries(h.page),saved=new Map(storedAfter);
+    if(mode==='abort')assert.deepEqual(storedAfter,storedBefore,'Native transaction abort must roll back every entry');
+    else{
+     assert.equal(saved.get('head').revision,oldHead.revision+1);
+     assert.deepEqual(saved.get('previous'),oldHead,'Postcommit failure must retain the exact old normal generation');
+     assert.notEqual(saved.get('head').text,oldHead.text);
+     assert.deepEqual(saved.get('origin'),new Map(storedBefore).get('origin'));
+    }
+    await h.page.reload();await settled(h.page);assert.equal((await snapshot(h.page)).game,null);await continueTitle(h.page);
+    const restored=await snapshot(h.page);
+    if(mode==='abort')assert.deepEqual(restored,before);
+    else{
+     assert.equal(restored.elapsed,before.elapsed+100);assert.equal(restored.userPaused,true);
+     assert.deepEqual(restored,readSession(saved.get('head').text,formalOptions),'Cold reload must restore the exact officially validated committed session');
+    }
+    assert.equal(await h.page.evaluate(key=>localStorage.getItem(key),FORMAL_SAVE_KEY),legacy);assert.deepEqual(h.errors,[]);
    }finally{await h.context.close();}
   });
   await t.test('two tabs cannot overwrite a newer native revision; injected quota cannot advance',async()=>{
