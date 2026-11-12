@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0190f701e3716eb30681b82edfd08f9ac032fce261c8ba42ae96ed0d793f9bf5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+    "changeId": "ambertime-source-guard-v10-20261112",
+    "revision": 0,
+    "change": "Preserve exact927 source provenance while enumerating reviewed v07 copy inverses; tests only Draft",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/tests/consignment-integration-source.test.mjs",
+      "works/ambertime/tests/copy-v07-source.test.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/tests/consignment-integration-source.test.mjs",
+      "works/ambertime/tests/copy-v07-provenance.mjs",
+      "works/ambertime/tests/copy-v07-provenance.test.mjs",
+      "works/ambertime/design/source-guard-v10/REPORT.md",
+      ".change-plans/ambertime-source-guard-v10-20261112/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/operations.mjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Apply only exact A1/B2 inverse with mandatory occurrence counts before original unchanged927 hash check.",
+      "Negative mutations, missing and duplicate hunks must reject. No runtime, expected source hashes or trusted tools changes."
+    ],
+    "ownerDecisions": [
+      "User v1.0 2026-11-12 explicitly requests investigating source guard and, under new proper Plan, preserving protected properties; Draft only, no merge/deployment."
+    ],
+    "hqDecisions": [
+      "Existing source provenance contract retained: fixed927 SHA hashes and prior exact inverses remain. New exact three-hunk provenance coverage is test maintenance not change of save acceptance or authority.",
+      "Independent behavioral17 and five-strategy evidence remain separate; exact source check does not prove runtime safety."
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "No UI or runtime changes; no browser claim."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert tests-only Draft; no save state changes.",
+    "outOfScope": [
+      "Runtime changes",
+      "Merge/deploy",
+      "Production",
+      "History deletion",
+      "Tools/workflows"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "CI and exact review pending; no runtime changed, browser not claimed."
+    ],
+    "alternativesRejected": [
+      "Replace hashes",
+      "Generic clone stripping",
+      "Property-only guard"
+    ],
+    "boundaryCases": [
+      "Missing/duplicate/altered allowed hunk; unrelated edit; old unoptimized source; hash unchanged."
+    ],
+    "testPlan": [
+      "Run original test before change to preserve failure evidence.",
+      "Source guard, new inverse adversarial tests, copy-v07-source and17 property tests.",
+      "Scope/Risk/Impact/Trusted Static; independent review."
+    ],
+    "problem": "Source guard correctly rejects previously reviewed A/B changes not yet enumerated.",
+    "currentContract": "Exact927 hashes after explicit allowed transformations; tests alone do not prove runtime behavior.",
+    "whyExistingIsInsufficient": "Current exact inverse list stops at931 and omits reviewed932 A/B changes.",
+    "design": "Narrow counted inverse of3 exact snippets, immutable original hashes and negative adversarial fixtures.",
+    "migration": "None. No save schema, history, replay order or economics change.",
+    "compatibility": "Exact full-state and canonical wire comparison against immutable v03 proof; public input immutability and detached outputs.",
+    "promotionRisk": "No merge/deploy authorized. Draft only."
+  }
+}
