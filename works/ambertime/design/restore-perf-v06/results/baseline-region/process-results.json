@@ -1,0 +1,40 @@
+{
+  "command": [
+    "works/ambertime/design/restore-perf-v06/run.py",
+    "../baseline-v05",
+    "../fixtures/unpacked/ambertime-v03-capacity",
+    "../baseline-region",
+    "--mode",
+    "baseline",
+    "--strategies",
+    "regional"
+  ],
+  "environment": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "mode": "baseline",
+  "fixtureVerification": {
+    "manifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+    "verifiedFiles": 98,
+    "allMatch": true
+  },
+  "results": [
+    {
+      "strategy": "regional",
+      "mode": "baseline",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "baseline",
+        "/workspace/scratch/4a97a0876dd0/baseline-v05",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/baseline-region",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 81.34981593299926,
+      "finalJSON": true,
+      "resultSHA256": "833d6c2359b37da41a00e2bfd46c032d118d177394e02ff4885e3f9ffb473479"
+    }
+  ],
+  "complete": true,
+  "allProcessesNormalExit": true
+}

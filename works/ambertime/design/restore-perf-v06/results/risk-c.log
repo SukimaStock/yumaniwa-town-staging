@@ -1,0 +1,16 @@
+YUMANIWA RISK CHECK v0.2
+PASS risk.repository repository identity matches SukimaStock/yumaniwa-town-staging
+PASS risk.plan-level planLevel full satisfies full
+PASS risk.class required class SYSTEM declared
+PASS risk.authority required authority HQ Review declared
+PASS risk.impact required impact is declared for checking
+PASS risk.impact required impact is declared for checking
+PASS risk.impact required impact is declared for checking
+PASS risk.static-check required static check change-operations-regression declared
+N/A risk.static-check-not-applicable required static check node-syntax is not applicable to changed paths
+PASS risk.plan-level planLevel full satisfies standard
+PASS risk.class required class WORK declared
+PASS risk.impact required impact is declared for checking
+PASS risk.impact required impact is declared for checking
+
+Risk: PASS

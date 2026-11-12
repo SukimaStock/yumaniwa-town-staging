@@ -1,0 +1,45 @@
+[
+  {
+    "stage": "wait-full-five",
+    "ok": true,
+    "processCount": 15
+  },
+  {
+    "stage": "baseline-five",
+    "command": [
+      "python3",
+      "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/run.py",
+      "/workspace/scratch/4a97a0876dd0/baseline-v05",
+      "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+      "/workspace/scratch/4a97a0876dd0/baseline-five",
+      "--mode",
+      "baseline"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 578.9964927839992
+  },
+  {
+    "stage": "two-generation-candidate",
+    "command": [
+      "node",
+      "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/two-generation.mjs",
+      "/workspace/scratch/4a97a0876dd0/ambertime",
+      "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+      "regional"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 70.36552160099927
+  },
+  {
+    "stage": "two-generation-baseline",
+    "command": [
+      "node",
+      "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/two-generation.mjs",
+      "/workspace/scratch/4a97a0876dd0/baseline-v05",
+      "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+      "regional"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 164.8176934710009
+  }
+]

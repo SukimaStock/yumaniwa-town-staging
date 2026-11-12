@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/run.py",
+    "/workspace/scratch/4a97a0876dd0/ambertime",
+    "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+    "/workspace/scratch/4a97a0876dd0/profile-region",
+    "--mode",
+    "profile",
+    "--strategies",
+    "regional"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 177.12339464100114,
+  "caveat": "Additional JSON traversal on every clone input; not performance-comparison timing or allocation bytes"
+}

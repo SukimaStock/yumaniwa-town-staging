@@ -1,0 +1,72 @@
+{
+  "command": [
+    "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/run.py",
+    "/workspace/scratch/4a97a0876dd0/ambertime",
+    "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+    "/workspace/scratch/4a97a0876dd0/final-local-exact",
+    "--strategies",
+    "local"
+  ],
+  "environment": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "mode": "full",
+  "fixtureVerification": {
+    "manifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+    "verifiedFiles": 98,
+    "allMatch": true
+  },
+  "results": [
+    {
+      "strategy": "local",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "save",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-local-exact",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 130.5188602170001,
+      "finalJSON": true,
+      "resultSHA256": "bc49154c895fa75eab36c6b029398a9774fd24ce0905c5f3d234991aa071c374"
+    },
+    {
+      "strategy": "local",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-local-exact",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 131.39135311799873,
+      "finalJSON": true,
+      "resultSHA256": "e5d7d47d2f736135a2b3108976d6159d582a8734d02900ae448b983572936a7d"
+    },
+    {
+      "strategy": "local",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-local-exact",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 134.80115860399928,
+      "finalJSON": true,
+      "resultSHA256": "3a4329dc0fd81e2865da4275572606fd22f0510034e41cd8303150863bac69d5"
+    }
+  ],
+  "complete": true,
+  "allProcessesNormalExit": true
+}

@@ -1,0 +1,40 @@
+{
+  "command": [
+    "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/run.py",
+    "/workspace/scratch/4a97a0876dd0/ambertime",
+    "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+    "/workspace/scratch/4a97a0876dd0/profile-region",
+    "--mode",
+    "profile",
+    "--strategies",
+    "regional"
+  ],
+  "environment": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "mode": "profile",
+  "fixtureVerification": {
+    "manifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+    "verifiedFiles": 98,
+    "allMatch": true
+  },
+  "results": [
+    {
+      "strategy": "regional",
+      "mode": "profile",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "profile",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/profile-region",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 175.5372518760014,
+      "finalJSON": true,
+      "resultSHA256": "d82a24a0202f5fe1621f93232f5b14802bb6c1ccaf2ea67541cad94d6f844a71"
+    }
+  ],
+  "complete": true,
+  "allProcessesNormalExit": true
+}

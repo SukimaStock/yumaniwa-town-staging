@@ -1,0 +1,57 @@
+✖ six entry graphs preserve recursive identities and exact shared native module (1544.57624ms)
+✔ all eight Lab changes are exactly import or entry URL metadata, not content (42.750402ms)
+✖ economic and replay source matches exact927, except reviewed additive codec branch and URLs (15.359229ms)
+✔ actual app target handler saves selected offer before mounting and preserves prior UI on failure (6.371802ms)
+✔ actual target handler refuses stale pair without write and lets manual choice bypass consumed auto budget (1.861581ms)
+✔ actual auto conditions suppress cascade yet allow generation, then explicit continuation allows next offer without month advance (3.038772ms)
+✔ live static and worker URL closure refreshes every reachable model importer (28.651426ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1789.369594
+
+✖ failing tests:
+
+test at works/ambertime/tests/consignment-integration-source.test.mjs:12:1
+✖ six entry graphs preserve recursive identities and exact shared native module (1544.57624ms)
+  AssertionError [ERR_ASSERTION]: stale cache identity: works/ambertime-small-memory-lab/fixture.mjs → works/ambertime/town-connection.mjs
+      at assertUpdatedGraph (file:///workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/tests/r0-cache-graph.mjs:104:5)
+      at TestContext.<anonymous> (file:///workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/tests/consignment-integration-source.test.mjs:13:135)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at works/ambertime/tests/consignment-integration-source.test.mjs:22:1
+✖ economic and replay source matches exact927, except reviewed additive codec branch and URLs (15.359229ms)
+  AssertionError [ERR_ASSERTION]: partner-orders.mjs
+  + actual - expected
+
+  + '0ad0c9b2ba2a308db410d18eb523b0b14a3bb8004ff0aee18b9a7b7ef3fa8551'
+  - 'b81e2b629e433bf0f949bc44d64d910aaa85e9b1a7b1c7ed703a678b87a323a8'
+
+      at TestContext.<anonymous> (file:///workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/tests/consignment-integration-source.test.mjs:29:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '0ad0c9b2ba2a308db410d18eb523b0b14a3bb8004ff0aee18b9a7b7ef3fa8551',
+    expected: 'b81e2b629e433bf0f949bc44d64d910aaa85e9b1a7b1c7ed703a678b87a323a8',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

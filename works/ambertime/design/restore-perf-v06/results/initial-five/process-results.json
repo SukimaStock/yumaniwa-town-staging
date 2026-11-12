@@ -1,0 +1,274 @@
+{
+  "command": [
+    "works/ambertime/design/restore-perf-v06/run.py",
+    ".",
+    "../fixtures/unpacked/ambertime-v03-capacity",
+    "../final-five"
+  ],
+  "environment": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "mode": "full",
+  "fixtureVerification": {
+    "manifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+    "verifiedFiles": 98,
+    "allMatch": true
+  },
+  "results": [
+    {
+      "strategy": "local",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "save",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 142.17732043199976,
+      "finalJSON": true,
+      "resultSHA256": "863564d4b7da54a9d0a8b5f3a91f222fcfdb70e5864f68c106c68055cd496494"
+    },
+    {
+      "strategy": "local",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 142.81934591000027,
+      "finalJSON": true,
+      "resultSHA256": "90b1515314426e2a81de231c7d10aa1cbdb3d97953f38fb82857bf43d9e0b2c7"
+    },
+    {
+      "strategy": "local",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "local"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 147.01346451299833,
+      "finalJSON": true,
+      "resultSHA256": "ef74774bf8d9271d3a26576d5704e82f63cc3f5836336214715612976194321b"
+    },
+    {
+      "strategy": "regional",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "save",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 78.1820982169993,
+      "finalJSON": true,
+      "resultSHA256": "5069862bc35ad51ee38a48d1a65721e347911a99146102b66ffec1b064bfaaa6"
+    },
+    {
+      "strategy": "regional",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 80.15286761399875,
+      "finalJSON": true,
+      "resultSHA256": "8fd0e99a383bad1c914fada218ef26732184a6c84123a81a278c3ecbd4b0d180"
+    },
+    {
+      "strategy": "regional",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "regional"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 72.58395194200057,
+      "finalJSON": true,
+      "resultSHA256": "efc5b6516ce45f2a0fb53e0a90daea84783c4d9919b6bd4eeb4c087ff1291c07"
+    },
+    {
+      "strategy": "bulk",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "save",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "bulk"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 80.36671210700115,
+      "finalJSON": true,
+      "resultSHA256": "373e27beb3248c6b4e0dcb6bf0166d27c24ca4feea0b331fdf7a97136ca0752e"
+    },
+    {
+      "strategy": "bulk",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "bulk"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 77.55220717400152,
+      "finalJSON": true,
+      "resultSHA256": "2b569f63ba2af9152bddad7a8c04d62603d1750a809efa5d94f1fcd9b9d4c514"
+    },
+    {
+      "strategy": "bulk",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "bulk"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 78.23177188699992,
+      "finalJSON": true,
+      "resultSHA256": "82f5e2011efed69f773038418378c95f925f80300a8721084e0e556dec6a817b"
+    },
+    {
+      "strategy": "small",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "save",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "small"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 165.48531619599999,
+      "finalJSON": true,
+      "resultSHA256": "7981bbb337267f696494e357462102e1d26538ac2ff53cf084ede365275afe0a"
+    },
+    {
+      "strategy": "small",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "small"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 182.5664498119986,
+      "finalJSON": true,
+      "resultSHA256": "df2280a75aaa80674394c47f91ca2e42b304892b607598520d613f7897aab5c8"
+    },
+    {
+      "strategy": "small",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "small"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 167.0108678280012,
+      "finalJSON": true,
+      "resultSHA256": "ab072aa7e27e3ca774dcfb40b723f64e8f73dd4b3dec0fd47e73e36d0c6fe415"
+    },
+    {
+      "strategy": "diversified",
+      "mode": "save",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "save",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "diversified"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 77.01634124299926,
+      "finalJSON": true,
+      "resultSHA256": "09fa554683079341cb95310d6c825edfbefd77906ed646e53778a98b6d5fe29a"
+    },
+    {
+      "strategy": "diversified",
+      "mode": "cold1",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold1",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "diversified"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 77.53554959999929,
+      "finalJSON": true,
+      "resultSHA256": "6fb175598fa7d7b5c44b02d68e621fcc81c61841cdd40d537edd5716422b06b3"
+    },
+    {
+      "strategy": "diversified",
+      "mode": "cold2",
+      "command": [
+        "node",
+        "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+        "cold2",
+        "/workspace/scratch/4a97a0876dd0/ambertime",
+        "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+        "/workspace/scratch/4a97a0876dd0/final-five",
+        "diversified"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 78.26937301900034,
+      "finalJSON": true,
+      "resultSHA256": "2dac372c137b8b925e6a1020ecd271b17289691072675c47b7b100f54bbad83e"
+    }
+  ],
+  "complete": true,
+  "allProcessesNormalExit": true
+}

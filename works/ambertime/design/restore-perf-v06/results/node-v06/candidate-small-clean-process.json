@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/run.py",
+    "/workspace/scratch/4a97a0876dd0/ambertime",
+    "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+    "/workspace/scratch/4a97a0876dd0/candidate-small-clean",
+    "--mode",
+    "baseline",
+    "--strategies",
+    "small"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 165.3263434929995,
+  "reason": "Original full small cold1 overlapped unrelated 50s short behavior tests. Preserve it as correctness only; use this clean cold reader for timing/RSS comparison."
+}

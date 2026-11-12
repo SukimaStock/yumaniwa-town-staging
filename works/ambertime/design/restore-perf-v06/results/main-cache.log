@@ -1,0 +1,37 @@
+✔ dependency model covers HTML entities, CSS, imports, re-exports, dynamic imports and workers (4.215307ms)
+✔ multiline and compact declarations are read without treating comments as edges (1.26805ms)
+✔ missing graph resources, required edges, unversioned dependencies and split identities fail (5.565067ms)
+✔ computed imports and worker URLs fail explicitly for graph review (0.63073ms)
+✔ changed child requires all importer identities and propagation to the HTML entry (3.184149ms)
+✔ changed stylesheet requires its parent import and HTML stylesheet identity update (1.665975ms)
+✔ worker, re-export and dynamic dependency changes cannot reuse old identities (3.152355ms)
+✖ pre-R0 anchor is nonempty and current graph preserves the entry, styles and both worker branches (321.190656ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 544.732618
+
+✖ failing tests:
+
+test at works/ambertime/tests/r0-cache-graph.test.mjs:53:1
+✖ pre-R0 anchor is nonempty and current graph preserves the entry, styles and both worker branches (321.190656ms)
+  AssertionError [ERR_ASSERTION]: missing works/ambertime/shop-app.mjs → works/ambertime/history-worker.mjs (worker)
+      at requireEdge (file:///workspace/scratch/4a97a0876dd0/baseline-main/works/ambertime/tests/r0-cache-graph.mjs:86:2)
+      at TestContext.<anonymous> (file:///workspace/scratch/4a97a0876dd0/baseline-main/works/ambertime/tests/r0-cache-graph.test.mjs:56:70)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
