@@ -6,8 +6,8 @@ import {SHOP_DIALOGUE_TEXT} from '../../ambertime/shop-dialogue-text.mjs';
 import {packageFamily,packageArt} from '../../ambertime/release-package.mjs';
 import {releasePriceTier} from '../../ambertime/brand-identity.mjs';
 import {readCompletedRecalls} from '../../ambertime/recall/collector.mjs';
-import {buildReleaseLedger} from '../../ambertime/ledger-view.mjs';
-import {currentView} from '../../ambertime-small-memory-lab/memory.mjs';
+import {buildReleaseLedger} from '../../ambertime/ledger-view.mjs?consignment=night-stage4-v01&v=0.63-ledger&delivery=regional-delivery-v01';
+import {currentView} from '../../ambertime-small-memory-lab/memory.mjs?consignment=night-stage4-v01';
 const copy=x=>structuredClone(x), shopOf=d=>d.shopId??'town-liquor';
 export const ADAPTER_SHOPS=['town-liquor','supermarket','bar','department'];
 export function remarkFromStoreFacts(facts){const key=classifyShopRemark(facts);return {key,text:SHOP_REMARK_TEXT[facts.shopId]?.[key]??''};}

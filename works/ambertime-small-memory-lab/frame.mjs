@@ -1,8 +1,8 @@
-import {currentView,compactView} from './memory.mjs';
+import {currentView,compactView} from './memory.mjs?consignment=night-stage4-v01';
 import {packageArt,packageFamily} from '../ambertime/release-package.mjs';
 import {sceneViews,drawScene} from '../ambertime/recall/pixel-scene.mjs';
 import {renderMap} from '../ambertime/experiments/world-map/v01/map.mjs';
-import {mapShopPositions,STAGES} from '../ambertime/world-map-view.mjs';
+import {mapShopPositions,STAGES} from '../ambertime/world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01';
 import {dialogueShopName} from '../ambertime/shop-dialogue.mjs';
 import {monthLabel} from '../ambertime/model.mjs';
 const mode=new URLSearchParams(location.search).get('mode')==='current'?'current':'compact';

@@ -1,5 +1,5 @@
-// AmberTime #889 phase 2: isolated async commit boundary.
-// NOT wired into shop-app.mjs yet. This does not read/write either storage API.
+// AmberTime #889: fail-stop async main-runtime publication boundary.
+// The caller supplies the writer; this module does not access storage itself.
 // Future callers must build a detached candidate and publish it only in apply().
 const error=(code,message)=>Object.assign(new Error(message),{code});
 const validRevision=revision=>Number.isSafeInteger(revision)&&revision>=0;
@@ -39,7 +39,7 @@ export class FormalIdbCommitBoundary {
  // prepare MUST be synchronous and must not mutate the currently committed game.
  // write MUST resolve only after the native IDB transaction and exact readback.
  // apply MUST synchronously publish the detached candidate once.
- async commit({prepare,apply}={}){
+ async commit({prepare,apply,reason='save'}={}){
   if(this.#state!=='ready')throw error('storage-halted','保存を再確認してください。');
   if(this.#busy)throw error('pending-save','保存が完了していません。');
   if(typeof prepare!=='function'||typeof apply!=='function')
@@ -53,10 +53,10 @@ export class FormalIdbCommitBoundary {
    if(!candidate||typeof candidate!=='object'||typeof candidate.then==='function'||
       typeof candidate.text!=='string'||candidate.text.length===0)
     throw error('invalid-candidate','保存候補が不正です。');
-   const receipt=await this.#write(candidate.text,{expectedRevision});
+   const receipt=await this.#write(candidate.text,{expectedRevision,reason});
    if(this.#state!=='ready'||epoch!==this.#epoch)
     throw error('interrupted','保存中に画面が中断されました。最新の記録を読み直してください。');
-   if(!receipt||receipt.revision!==expectedRevision+1||!validRevision(receipt.revision))
+   if(!receipt||receipt.ok===false||receipt.revision!==expectedRevision+1||!validRevision(receipt.revision))
     throw error('invalid-receipt','保存世代の確定を確認できません。');
    // At this point the stored record exists. Do not roll back IDB if UI apply fails.
    this.#revision=receipt.revision;

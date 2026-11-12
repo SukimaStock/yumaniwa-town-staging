@@ -18,7 +18,7 @@ function harness({kind='new',failure='before-game',createFailure=false,encodeFai
  const old=readSession(encode(createFreshSession(native,41)),options),oldRaw=encode(old),values=new Map([[FORMAL_SAVE_KEY,oldRaw]]),writes=[];
  const storage={getItem:key=>values.get(key)??null,setItem(key,text){writes.push({key,text});values.set(key,text);}};
  const counters={save:0,stop:0,countdown:0},errors=[],diagnostics=[];
- const context={sessionEpoch:0,sessionActive:false,canSave:true,runtimeHalted:false,entryView:'title',entryReturn:{modal:{kind:'aux-panel'}},entryIntent:null,entryOperation:'new',entrySnapshot:inspectStartRecord(storage),entryMessage:'',lastSavedText:oldRaw,game:old.game,
+ const context={runtimeStarting:false,runtimeEpoch:0,commitBoundary:null,offerPresentation:{reset(){}},sessionEpoch:0,sessionActive:false,canSave:true,runtimeHalted:false,entryView:'title',entryReturn:{modal:{kind:'aux-panel'}},entryIntent:null,entryOperation:'new',entrySnapshot:inspectStartRecord(storage),entryMessage:'',lastSavedText:oldRaw,game:old.game,
   pendingRecall:old.recallRecord,recallRecord:old.recallRecord,recallPreview:null,
   userPaused:old.userPaused,elapsed:old.elapsed,caskSlots:old.caskSlots,recentLedger:old.recentLedger,historyRecord:old.historyRecord,
   recallScenePlayer:{close(){if(failure==='before-game')throw injected('before-game');}},
@@ -33,13 +33,13 @@ function harness({kind='new',failure='before-game',createFailure=false,encodeFai
   save(){counters.save++;writeCandidate(storage,FORMAL_SAVE_KEY,context.lastSavedText,oldRaw);},render(){},
  };
  vm.createContext(context);
- vm.runInContext(source('function installSession(','\nlet newGameBackupKey='),context);
- vm.runInContext(source('function suspend(){','\nfunction resume(){'),context);
+ vm.runInContext(source('async function installSession(','\nlet newGameBackupKey='),context);
+ vm.runInContext(source('function suspend(){','\nasync function resume(){'),context);
  context.sessionEntry=createSessionEntry({storage:()=>storage,
   create:()=>{if(createFailure)throw injected('create');return createFreshSession(native,42);},
   encode:session=>{if(encodeFailure)throw injected('encode');return encode(session);},
   read:raw=>readSession(raw,options),write:writeCandidate,replace:commitMarketRulesUpdate,
-  install(session,details){context.lastSavedText=details.text;context.session=session;context.fresh=details.fresh;vm.runInContext('installSession(session,{fresh})',context);},
+  async install(session,details){context.lastSavedText=details.text;context.session=session;context.fresh=details.fresh;await vm.runInContext('installSession(session,{fresh})',context);},
  });
  vm.runInContext(source('async function enterSession(',"\n$('entry-new')"),context);
  return {context,old,oldRaw,storage,values,writes,counters,errors,diagnostics,

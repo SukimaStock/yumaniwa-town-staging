@@ -27,10 +27,10 @@ test('shop visibility uses release brand and actual town relation, reasons only 
  }
  const h=harness([{brandId:3,shopId:'town-liquor'}]);assert.match(h.ui.markup(1).body,/data-id="shop"/);h.ui.update();assert.equal(h.element('placement-reason').textContent,'今月は納品できません');assert.equal(h.element('placement-shop').disabled,true);
 });
-test('saved changed feedback is transient; failure clears prior success and cancels motion; noop stays neutral',()=>{
- const h=harness();h.ui.markup(1);h.confirm();assert.equal(h.element('placement-receipt').textContent,'自家販売へ1本回しました。');assert.equal(h.animations.length,1);
- h.setAnswer({ok:false});h.confirm();assert.equal(h.element('placement-receipt').textContent,'');assert.equal(h.ui.diagnostics().motions,0);
- h.setAnswer({ok:true,changed:false,text:'配分は変わっていません。'});h.confirm();assert.equal(h.element('placement-receipt').dataset.changed,'false');assert.equal(h.animations.length,1);assert.equal(h.ui.diagnostics().motions,0);
+test('saved changed feedback is transient; failure clears prior success and cancels motion; noop stays neutral',async()=>{
+ const h=harness([],undefined,{motionVisible:true});h.ui.markup(1);await h.confirm();assert.equal(h.element('placement-receipt').textContent,'自家販売へ1本回しました。');assert.equal(h.animations.length,1);
+ h.setAnswer({ok:false});await h.confirm();assert.equal(h.element('placement-receipt').textContent,'');assert.equal(h.ui.diagnostics().motions,0);
+ h.setAnswer({ok:true,changed:false,text:'配分は変わっていません。'});await h.confirm();assert.equal(h.element('placement-receipt').dataset.changed,'false');assert.equal(h.animations.length,1);assert.equal(h.ui.diagnostics().motions,0);
 });
 test('details, separate pricing, and live receipt stay outside the allocation explanation',()=>{
  const h=harness(),m=h.ui.markup(1,{details:'<b>味</b>',prices:'<aside>価格</aside>',other:'<nav>申し出</nav>'});assert.match(m.body,/<b>味<\/b><\/details><aside>価格<\/aside><nav>申し出<\/nav>/);assert.doesNotMatch(m.body,/従来|自動発送|取扱いのあと/);assert.match(m.actions,/role="status" aria-live="polite" aria-atomic="true"/);
