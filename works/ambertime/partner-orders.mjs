@@ -1,13 +1,13 @@
 import {cloneReplayState,withPrivateReplay} from './clone-data.mjs?v=restore-perf-v04&perf=v06';
 import {decodeExactJSON,isLosslessEnvelope} from './lossless-json.mjs?v=lossless-v1&codec=v03';
-import {consignmentMode,initialConsignment,consignInto,settleConsignmentInto,consignmentProductTotals} from './regional-consignment.mjs?consignment=night-stage4-v01&perf=v06&perf=v06';
-export {consignmentMode,consignmentRows,nextConsignmentId} from './regional-consignment.mjs?consignment=night-stage4-v01&perf=v06&perf=v06';
+import {consignmentMode,initialConsignment,consignInto,settleConsignmentInto,consignmentProductTotals} from './regional-consignment.mjs?consignment=night-stage4-v01&perf=v06';
+export {consignmentMode,consignmentRows,nextConsignmentId} from './regional-consignment.mjs?consignment=night-stage4-v01&perf=v06';
 import {WORLD_NETWORK,WORLD_CONTACTS,worldNetworkMode,worldContact} from './world-network.mjs?v=world-network-v01';
 export {worldNetworkMode} from './world-network.mjs?v=world-network-v01';
-import {regionalDeliveryMode,initialRegionalDeliveries,reserveRegionalInto,returnRegionalInto,deliverRegionalInto,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06&perf=v06';
-export {regionalDeliveryMode,regionalDeliveryPartners,regionalDeliveryQuote,regionalDeliveryRows,regionalDeliveryReceipt,regionalDeliveryHistory,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06&perf=v06';
-import {REGIONAL_PARTNERS,regionalPartnerMode,regionalOffers,regionalContract,initialRegionalPartners,refreshRegionalOffers,decideRegionalOffer} from './regional-partners.mjs?world=world-network-v01&perf=v06&perf=v06';
-export {regionalPartnerMode,regionalOffers,regionalContract} from './regional-partners.mjs?world=world-network-v01&perf=v06&perf=v06';
+import {regionalDeliveryMode,initialRegionalDeliveries,reserveRegionalInto,returnRegionalInto,deliverRegionalInto,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+export {regionalDeliveryMode,regionalDeliveryPartners,regionalDeliveryQuote,regionalDeliveryRows,regionalDeliveryReceipt,regionalDeliveryHistory,regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {REGIONAL_PARTNERS,regionalPartnerMode,regionalOffers,regionalContract,initialRegionalPartners,refreshRegionalOffers,decideRegionalOffer} from './regional-partners.mjs?world=world-network-v01&perf=v06';
+export {regionalPartnerMode,regionalOffers,regionalContract} from './regional-partners.mjs?world=world-network-v01&perf=v06';
 import {RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import {attachFlavor,setFlavorCask,flavorName} from './lab-flavor.mjs?v=stage4-r2';
 import {createTown,recordBottle,receiveActual,advanceTown,townNews} from './town-connection.mjs?v=stage4-r2&perf=v06';
@@ -15,8 +15,8 @@ import {brandIdentityMode,needsBrandSetup,checkedBrandDraft} from './brand-ident
 export {brandIdentityMode,needsBrandSetup} from './brand-identity.mjs?v=0.58-first-brand';
 import {placementMode,placementInventory} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01';
 export {placementMode,placementInventory} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01';
-import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01&perf=v06&perf=v06';
-export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01&perf=v06&perf=v06';
+import {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows,planStoreMarketSales} from './store-market.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01&perf=v06';
+export {storeMarketMode,storeMarketInventory,storeMarketQuote,storeMarketRows} from './store-market.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01&perf=v06';
 import {NORMAL_SHOP_DEMAND,normalShopOrders,planShopFulfillment} from './shop-demand.mjs?v=bar-v01-1&perf=v06';
 import {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
 export {PARTIAL_BOTTLING,partialMode,DELEGATION,delegationMode} from './partial-bottling.mjs?v=0.41-delegation';
@@ -30,7 +30,7 @@ import {BOTTLE_STORAGE,bottleStorageMode} from './bottle-storage.mjs?v=0.41-dele
 export {BOTTLE_STORAGE,bottleStorageMode} from './bottle-storage.mjs?v=0.41-delegation';
 // New execution contract. The complete v0.9 reader remains frozen.
 import * as V09 from './trade.mjs?v=bar-v01-1&perf=v06';
-import * as E from './economy.mjs?v=bar-v01-1&perf=v06&perf=v06';
+import * as E from './economy.mjs?v=bar-v01-1&perf=v06';
 import * as M from './model.mjs?v=stage4-r2';
 import {mixSeed,CHARACTER_PARAMETERS as CHARACTER,profile as characterProfile} from './character.mjs?v=stage4-r2';
 import {PARALLEL_PARAMETERS as P,ECONOMY_PARAMETERS as C} from './economy-parameters.mjs';
@@ -43,7 +43,7 @@ import {DEPARTMENT,departmentMode,departmentReleaseEligible,departmentUsedReleas
 export {DEPARTMENT,departmentMode,departmentInterests,departmentAdoptions,departmentStatus} from './department-projects.mjs?v=0.44-monthly-timing';
 import {brandReputation,retailReputationFactors} from './brand-reputation.mjs?v=0.12';
 export {SPECIAL_ORDER} from './partner-parameters.mjs';
-export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=bar-v01-1&perf=v06&perf=v06';
+export {currentCask,upkeep,observation,comparison,quote,salePrices,marketValue,endTasting} from './economy.mjs?v=bar-v01-1&perf=v06';
 const clone=cloneReplayState,round=x=>Math.round(x*100)/100;
 const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 const blocked=s=>s.tastingId!==null||s.decisions.length>0||s.trade.offer!==null;
