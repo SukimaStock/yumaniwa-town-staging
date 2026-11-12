@@ -1,10 +1,10 @@
 // Disposable map presentation. Static geography never grants a trading right.
-import {tradingPartner,partnersForMap} from './trading-partners.mjs?world=world-network-v01';
+import {tradingPartner,partnersForMap} from './trading-partners.mjs?world=world-network-v01&perf=v06';
 import {regionalContacts} from './world-network.mjs';
-import {regionalOffers,regionalContract} from './regional-partners.mjs?world=world-network-v01';
-import {regionalDeliveryPartners,regionalDeliveryRows,regionalDeliveryMode} from './regional-deliveries.mjs?world=world-network-v01';
-import {mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
-import {mapObservationBounds} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&world=world-network-v01';
+import {regionalOffers,regionalContract} from './regional-partners.mjs?world=world-network-v01&perf=v06';
+import {regionalDeliveryPartners,regionalDeliveryRows,regionalDeliveryMode} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1&consignment=night-stage4-v01&perf=v06';
+import {mapObservationBounds} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01&perf=v06';
 const count=n=>Number.isSafeInteger(n)&&n>=0?n:0;
 const scopesFor=(game,stage)=>stage===2||stage===3?[{regionId:'town',mapScale:'town'}]:regionalContacts(game).filter(p=>p.stage===stage).map(({regionId,mapScale})=>({regionId,mapScale}));
 const latestRegionalReceipts=new WeakMap();

@@ -53,7 +53,7 @@ test('map symbols use conventional direction, accessible names, current name and
  for(let max=1;max<=6;max++)for(let current=1;current<=max;current++){assert.equal(mapStep(current,'out',max),Math.min(current+1,max));assert.equal(mapStep(current,'in',max),Math.max(current-1,1));}
 });
 test('ordinary URL uses native store market and preserves legacy placement details',()=>{
- contains(app,['const placementEnabled=true;','export const SAVE_KEY=FORMAL_SAVE_KEY','nativeModel.newWorldNetworkDistillery(seed)','placementUI.markup(id']);
+ contains(app,['const placementEnabled=true;','export const SAVE_KEY=FORMAL_SAVE_KEY','nativeModel.newConsignmentDistillery(seed)','placementUI.markup(id']);
  const product=section("}else if(kind==='product'){","if(kind==='product')body=shopStartedMarkup()+body;");
  assert.ok(!/D\.listBottles|button\([^\n]*'list'|sales-destination-choice|自家販売を始める/.test(product));
  contains(product,["x.shop.id!=='town-liquor'",'departmentDestination','releaseComparisonButton','<summary>価格</summary>']);

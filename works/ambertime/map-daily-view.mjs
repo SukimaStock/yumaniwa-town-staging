@@ -1,12 +1,12 @@
 // Daily map presentation only. Native receipts, relationships and save data stay owned
 // by the existing model. The optional storage helpers write only the supplied UI key.
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
-import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1';
-import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01';
-import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
+import {mapSalesProjection,mapShopDetail} from './map-sales-view.mjs?v=bar-v01-1&consignment=night-stage4-v01&perf=v06';
+import {mapProgress} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01&perf=v06';
 import {WORLD_CONTACTS} from './world-network.mjs';
-import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01';
-import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111&night=stage1&mapSelection=night-stage3&consignment=night-stage4-v01&perf=v06';
 
 const validStage=n=>Number.isInteger(n)&&n>=1&&n<=6;
 const validSelection=id=>id===null||typeof id==='string'&&id.length>0&&id.length<=128;

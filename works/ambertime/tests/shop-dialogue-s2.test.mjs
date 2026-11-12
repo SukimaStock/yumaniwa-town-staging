@@ -1,3 +1,4 @@
+import {extractFunction} from './formal-idb-runtime-harness.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -64,12 +65,13 @@ test('daily text has no image, memories keep real package after stock disappears
   assert.deepEqual(cache.read(s,id),shopDialogueHistory(s).filter(e=>e.shopId===id).at(-1)??null);
  }
 });
-test('install publishes S2 only after save, leaves old policy and recovery on failure',()=>{
- const app=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),install=app.slice(app.indexOf('function installSession('),app.indexOf('\nfunction startNew(){'));
+test('install publishes S2 only after save, leaves old policy and recovery on failure',async()=>{
+ const app=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8'),install=extractFunction('installSession',app);
  for(const succeeds of [false,true]){
   const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:true,textContent:''});return nodes.get(id);};const no=()=>{},reset={reset:no},old={core:{casks:[]},still:{phase:'ready'},operations:[],tastingId:null};
   const context={session:{game:old,caskSlots:[],userPaused:true,elapsed:0},dialogueNotice:reset,dialogueProjection:reset,countdown:{cancel:no},stopClock:no,manualDistilling:()=>false,preview:false,distillRoom:reset,scene:{resetMotion:no},marketUI:reset,placementUI:reset,feedbackComments:reset,automaticNews:reset,mapNoticeLoad:no,warehouseRoom:{select:no,selectedId:null},D:{marketRulesMode:()=>true,alleyBarMode:()=>true,shopDialogueMode:s=>s.operations.some(o=>o.key==='enable-shop-dialogue'),enableShopDialogue:s=>({...s,operations:[...s.operations,{key:'enable-shop-dialogue',value:{version:2,boundaryMonth:60}}]})},$:node,storageNotice:text=>node('storage-notice').textContent=text,render:no,schedule:no};
+  context.m0=reset;context.prepareGame=fn=>fn(context.game);
   context.saveCandidate=next=>{if(succeeds){context.committedSession={game:next};return true;}node('recovery').hidden=false;node('save-status').textContent='未保存';context.canSave=false;return false;};
-  vm.runInNewContext(install+'\ninstallSession(session);',context);assert.equal(context.D.shopDialogueMode(context.game),succeeds);assert.equal(context.D.shopDialogueMode(context.committedSession.game),succeeds);assert.equal(node('recovery').hidden,succeeds);
+  await vm.runInNewContext(install+'\ninstallSession(session);',context);assert.equal(context.D.shopDialogueMode(context.game),succeeds);assert.equal(context.D.shopDialogueMode(context.committedSession.game),succeeds);assert.equal(node('recovery').hidden,succeeds);
  }
 });

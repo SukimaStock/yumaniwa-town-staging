@@ -1,9 +1,9 @@
 // Disposable presentation of native sales records. Never replay or mutate the game.
 import {SHOPS,SHOP} from './shop-model.mjs?v=bar-v01-1';
-import {storeMarketMode,placementMode} from './placement-mode.mjs?v=bar-v01-1';
+import {storeMarketMode,placementMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01';
 import {shopRemark} from './shop-remarks.mjs?v=0.51-shop-remarks';
-import {mapShopPositions} from './world-map-view.mjs?v=0.28.0-map';
-import {customerComments} from './player-news.mjs?v=0.25.4';
+import {mapShopPositions} from './world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {customerComments} from './player-news.mjs?v=0.25.4&perf=v06';
 const integer=n=>Number.isSafeInteger(n)&&n>=0;
 const count=n=>integer(n)?n:0;
 const shopId=row=>row.shopId??SHOP.id;

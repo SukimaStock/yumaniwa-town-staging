@@ -1,9 +1,9 @@
 // Procurement by an accepted regional contact, never observed consumer sales.
-import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
-import {regionalContract,regionalPartnerMode} from './regional-partners.mjs?world=world-network-v01';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01&perf=v06';
+import {regionalContract,regionalPartnerMode} from './regional-partners.mjs?world=world-network-v01&perf=v06';
 import {regionalContacts} from './world-network.mjs?v=world-network-v01';
-import {placementInventory,regionalDeliveryMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01';
-import {salePrices} from './economy.mjs?v=bar-v01-1';
+import {placementInventory,regionalDeliveryMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01';
+import {salePrices} from './economy.mjs?v=bar-v01-1&perf=v06';
 export {regionalDeliveryMode};
 export const REGIONAL_DELIVERY=Object.freeze({version:1,rules:'regional-delivery/1',recentLimit:8});
 const round=n=>Math.round(n*100)/100,assert=(ok,message)=>{if(!ok)throw Error(message);};
