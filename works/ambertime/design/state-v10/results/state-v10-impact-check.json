@@ -1,0 +1,288 @@
+{
+  "schema": "yumaniwa-impact-check-report/0.2",
+  "change": "Read-only state/write audit and detached partition-copy independent Lab; no runtime integration",
+  "planLevel": "full",
+  "classes": [
+    "WORK"
+  ],
+  "baseSha": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+  "target": "worktree",
+  "headSha": "dd4e5d97763256d71397278dab2d93d6616dfa0d",
+  "changedPaths": [
+    ".change-plans/ambertime-state-v10-20261112/r0.lock.json",
+    "works/ambertime/design/state-v10/REPORT.md",
+    "works/ambertime/design/state-v10/fault.mjs",
+    "works/ambertime/design/state-v10/loader.mjs",
+    "works/ambertime/design/state-v10/measure.mjs",
+    "works/ambertime/design/state-v10/partition.mjs",
+    "works/ambertime/design/state-v10/results/final/bulk-A.json",
+    "works/ambertime/design/state-v10/results/final/bulk-B.json",
+    "works/ambertime/design/state-v10/results/final/diversified-A.json",
+    "works/ambertime/design/state-v10/results/final/diversified-B.json",
+    "works/ambertime/design/state-v10/results/final/local-A.json",
+    "works/ambertime/design/state-v10/results/final/local-B.json",
+    "works/ambertime/design/state-v10/results/final/regional-A.json",
+    "works/ambertime/design/state-v10/results/final/regional-B.json",
+    "works/ambertime/design/state-v10/results/final/small-A.json",
+    "works/ambertime/design/state-v10/results/final/small-B.json",
+    "works/ambertime/design/state-v10/results/final/summary.json",
+    "works/ambertime/design/state-v10/results/initial/bulk-A.json",
+    "works/ambertime/design/state-v10/results/initial/bulk-B.json",
+    "works/ambertime/design/state-v10/results/initial/diversified-A.json",
+    "works/ambertime/design/state-v10/results/initial/diversified-B.json",
+    "works/ambertime/design/state-v10/results/initial/fault.txt",
+    "works/ambertime/design/state-v10/results/initial/local-A.json",
+    "works/ambertime/design/state-v10/results/initial/local-B.json",
+    "works/ambertime/design/state-v10/results/initial/regional-A.json",
+    "works/ambertime/design/state-v10/results/initial/regional-B.json",
+    "works/ambertime/design/state-v10/results/initial/small-A.json",
+    "works/ambertime/design/state-v10/results/initial/small-B.json",
+    "works/ambertime/design/state-v10/results/initial/summary.json",
+    "works/ambertime/design/state-v10/run.py"
+  ],
+  "executablePaths": [],
+  "coveredPaths": [
+    "works/ambertime/design/state-v10/fault.mjs",
+    "works/ambertime/design/state-v10/loader.mjs",
+    "works/ambertime/design/state-v10/measure.mjs",
+    "works/ambertime/design/state-v10/partition.mjs",
+    "works/ambertime/design/state-v10/results/final/bulk-A.json",
+    "works/ambertime/design/state-v10/results/final/bulk-B.json",
+    "works/ambertime/design/state-v10/results/final/diversified-A.json",
+    "works/ambertime/design/state-v10/results/final/diversified-B.json",
+    "works/ambertime/design/state-v10/results/final/local-A.json",
+    "works/ambertime/design/state-v10/results/final/local-B.json",
+    "works/ambertime/design/state-v10/results/final/regional-A.json",
+    "works/ambertime/design/state-v10/results/final/regional-B.json",
+    "works/ambertime/design/state-v10/results/final/small-A.json",
+    "works/ambertime/design/state-v10/results/final/small-B.json",
+    "works/ambertime/design/state-v10/results/final/summary.json",
+    "works/ambertime/design/state-v10/results/initial/bulk-A.json",
+    "works/ambertime/design/state-v10/results/initial/bulk-B.json",
+    "works/ambertime/design/state-v10/results/initial/diversified-A.json",
+    "works/ambertime/design/state-v10/results/initial/diversified-B.json",
+    "works/ambertime/design/state-v10/results/initial/local-A.json",
+    "works/ambertime/design/state-v10/results/initial/local-B.json",
+    "works/ambertime/design/state-v10/results/initial/regional-A.json",
+    "works/ambertime/design/state-v10/results/initial/regional-B.json",
+    "works/ambertime/design/state-v10/results/initial/small-A.json",
+    "works/ambertime/design/state-v10/results/initial/small-B.json",
+    "works/ambertime/design/state-v10/results/initial/summary.json",
+    "works/ambertime/design/state-v10/run.py"
+  ],
+  "uncoveredPaths": [
+    ".change-plans/ambertime-state-v10-20261112/r0.lock.json",
+    "works/ambertime/design/state-v10/REPORT.md",
+    "works/ambertime/design/state-v10/results/initial/fault.txt"
+  ],
+  "requiredImpacts": [
+    {
+      "id": "work.regression",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-v10/fault.mjs",
+        "works/ambertime/design/state-v10/loader.mjs",
+        "works/ambertime/design/state-v10/measure.mjs",
+        "works/ambertime/design/state-v10/partition.mjs",
+        "works/ambertime/design/state-v10/results/final/bulk-A.json",
+        "works/ambertime/design/state-v10/results/final/bulk-B.json",
+        "works/ambertime/design/state-v10/results/final/diversified-A.json",
+        "works/ambertime/design/state-v10/results/final/diversified-B.json",
+        "works/ambertime/design/state-v10/results/final/local-A.json",
+        "works/ambertime/design/state-v10/results/final/local-B.json",
+        "works/ambertime/design/state-v10/results/final/regional-A.json",
+        "works/ambertime/design/state-v10/results/final/regional-B.json",
+        "works/ambertime/design/state-v10/results/final/small-A.json",
+        "works/ambertime/design/state-v10/results/final/small-B.json",
+        "works/ambertime/design/state-v10/results/final/summary.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-A.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-B.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-A.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-B.json",
+        "works/ambertime/design/state-v10/results/initial/local-A.json",
+        "works/ambertime/design/state-v10/results/initial/local-B.json",
+        "works/ambertime/design/state-v10/results/initial/regional-A.json",
+        "works/ambertime/design/state-v10/results/initial/regional-B.json",
+        "works/ambertime/design/state-v10/results/initial/small-A.json",
+        "works/ambertime/design/state-v10/results/initial/small-B.json",
+        "works/ambertime/design/state-v10/results/initial/summary.json",
+        "works/ambertime/design/state-v10/run.py"
+      ],
+      "core": false
+    },
+    {
+      "id": "work.runtime",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-v10/fault.mjs",
+        "works/ambertime/design/state-v10/loader.mjs",
+        "works/ambertime/design/state-v10/measure.mjs",
+        "works/ambertime/design/state-v10/partition.mjs",
+        "works/ambertime/design/state-v10/results/final/bulk-A.json",
+        "works/ambertime/design/state-v10/results/final/bulk-B.json",
+        "works/ambertime/design/state-v10/results/final/diversified-A.json",
+        "works/ambertime/design/state-v10/results/final/diversified-B.json",
+        "works/ambertime/design/state-v10/results/final/local-A.json",
+        "works/ambertime/design/state-v10/results/final/local-B.json",
+        "works/ambertime/design/state-v10/results/final/regional-A.json",
+        "works/ambertime/design/state-v10/results/final/regional-B.json",
+        "works/ambertime/design/state-v10/results/final/small-A.json",
+        "works/ambertime/design/state-v10/results/final/small-B.json",
+        "works/ambertime/design/state-v10/results/final/summary.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-A.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-B.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-A.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-B.json",
+        "works/ambertime/design/state-v10/results/initial/local-A.json",
+        "works/ambertime/design/state-v10/results/initial/local-B.json",
+        "works/ambertime/design/state-v10/results/initial/regional-A.json",
+        "works/ambertime/design/state-v10/results/initial/regional-B.json",
+        "works/ambertime/design/state-v10/results/initial/small-A.json",
+        "works/ambertime/design/state-v10/results/initial/small-B.json",
+        "works/ambertime/design/state-v10/results/initial/summary.json",
+        "works/ambertime/design/state-v10/run.py"
+      ],
+      "core": true
+    }
+  ],
+  "results": [
+    {
+      "status": "PASS",
+      "check": "impact.declared",
+      "impact": "work.regression",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-v10/fault.mjs",
+        "works/ambertime/design/state-v10/loader.mjs",
+        "works/ambertime/design/state-v10/measure.mjs",
+        "works/ambertime/design/state-v10/partition.mjs",
+        "works/ambertime/design/state-v10/results/final/bulk-A.json",
+        "works/ambertime/design/state-v10/results/final/bulk-B.json",
+        "works/ambertime/design/state-v10/results/final/diversified-A.json",
+        "works/ambertime/design/state-v10/results/final/diversified-B.json",
+        "works/ambertime/design/state-v10/results/final/local-A.json",
+        "works/ambertime/design/state-v10/results/final/local-B.json",
+        "works/ambertime/design/state-v10/results/final/regional-A.json",
+        "works/ambertime/design/state-v10/results/final/regional-B.json",
+        "works/ambertime/design/state-v10/results/final/small-A.json",
+        "works/ambertime/design/state-v10/results/final/small-B.json",
+        "works/ambertime/design/state-v10/results/final/summary.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-A.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-B.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-A.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-B.json",
+        "works/ambertime/design/state-v10/results/initial/local-A.json",
+        "works/ambertime/design/state-v10/results/initial/local-B.json",
+        "works/ambertime/design/state-v10/results/initial/regional-A.json",
+        "works/ambertime/design/state-v10/results/initial/regional-B.json",
+        "works/ambertime/design/state-v10/results/initial/small-A.json",
+        "works/ambertime/design/state-v10/results/initial/small-B.json",
+        "works/ambertime/design/state-v10/results/initial/summary.json",
+        "works/ambertime/design/state-v10/run.py"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "detail": "impact is declared in impactChecks"
+    },
+    {
+      "status": "PASS",
+      "check": "impact.declared",
+      "impact": "work.runtime",
+      "description": "Required by high-risk profile work-runtime",
+      "descriptions": [
+        "Required by high-risk profile work-runtime"
+      ],
+      "paths": [
+        "works/ambertime/design/state-v10/fault.mjs",
+        "works/ambertime/design/state-v10/loader.mjs",
+        "works/ambertime/design/state-v10/measure.mjs",
+        "works/ambertime/design/state-v10/partition.mjs",
+        "works/ambertime/design/state-v10/results/final/bulk-A.json",
+        "works/ambertime/design/state-v10/results/final/bulk-B.json",
+        "works/ambertime/design/state-v10/results/final/diversified-A.json",
+        "works/ambertime/design/state-v10/results/final/diversified-B.json",
+        "works/ambertime/design/state-v10/results/final/local-A.json",
+        "works/ambertime/design/state-v10/results/final/local-B.json",
+        "works/ambertime/design/state-v10/results/final/regional-A.json",
+        "works/ambertime/design/state-v10/results/final/regional-B.json",
+        "works/ambertime/design/state-v10/results/final/small-A.json",
+        "works/ambertime/design/state-v10/results/final/small-B.json",
+        "works/ambertime/design/state-v10/results/final/summary.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-A.json",
+        "works/ambertime/design/state-v10/results/initial/bulk-B.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-A.json",
+        "works/ambertime/design/state-v10/results/initial/diversified-B.json",
+        "works/ambertime/design/state-v10/results/initial/local-A.json",
+        "works/ambertime/design/state-v10/results/initial/local-B.json",
+        "works/ambertime/design/state-v10/results/initial/regional-A.json",
+        "works/ambertime/design/state-v10/results/initial/regional-B.json",
+        "works/ambertime/design/state-v10/results/initial/small-A.json",
+        "works/ambertime/design/state-v10/results/initial/small-B.json",
+        "works/ambertime/design/state-v10/results/initial/summary.json",
+        "works/ambertime/design/state-v10/run.py"
+      ],
+      "rules": [],
+      "profiles": [
+        "work-runtime"
+      ],
+      "detail": "impact is declared in impactChecks"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        ".change-plans/ambertime-state-v10-20261112/r0.lock.json"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/state-v10/REPORT.md"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    },
+    {
+      "status": "INFO",
+      "check": "impact.no-rule",
+      "impact": null,
+      "description": null,
+      "paths": [
+        "works/ambertime/design/state-v10/results/initial/fault.txt"
+      ],
+      "rules": [],
+      "profiles": [],
+      "detail": "no v0.2 explicit or high-risk Impact Rule is registered for this path"
+    }
+  ],
+  "impactOk": true,
+  "exitCode": 0
+}
