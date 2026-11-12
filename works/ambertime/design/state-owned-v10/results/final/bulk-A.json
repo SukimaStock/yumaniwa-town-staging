@@ -1,0 +1,36 @@
+{
+  "name": "bulk",
+  "mode": "A",
+  "fixtureSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe",
+  "scope": "six economicMonthly phases only, NOT full tickDistillery/game/replay",
+  "samples": [
+    {
+      "entry": 119.63152500000001,
+      "stages": 688.6277620000001,
+      "exit": 92.82617299999993,
+      "total": 968.4026
+    },
+    {
+      "entry": 97.29333899999983,
+      "stages": 536.2829719999997,
+      "exit": 83.2318009999999,
+      "total": 817.6533590000001
+    },
+    {
+      "entry": 61.7164829999997,
+      "stages": 465.41190099999994,
+      "exit": 72.06120999999985,
+      "total": 666.2630060000001
+    }
+  ],
+  "outputSHA256": "42f5ed67bced6610ff1f5402632202acd993f79e22645b3c955966fd5cb75256",
+  "aliasSignatureSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "publicIsolation": true,
+  "bidirectionalMutation": true,
+  "midTransactionAbort": true,
+  "archiveUnchanged": true,
+  "archiveBytes": 7009002,
+  "currentBytes": 347877,
+  "peakRSSKiB": 540476,
+  "completed": true
+}
