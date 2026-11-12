@@ -1,10 +1,11 @@
+import {cloneReplayState} from './clone-data.mjs?v=restore-perf-v04';
 import {advanceCoreMonth} from './monthly.mjs?v=stage4-r2';
 import {newGame,distill,previewDistillation,fillCask,bottle,bottleQuote,setPrice,marketValue,tasting,restore,serialize} from './model.mjs?v=stage4-r2';
 import {CHARACTER_PARAMETERS as C,mixSeed,caskOf,profile,sampleOf,observeCharacterMonth,sampleCharacter,endCharacterTasting,comparisons,chooseCharacter} from './character.mjs?v=stage4-r2';
 import {PARAMETERS as CORE_PARAMETERS} from './parameters.mjs';
 import {DISTILLERY_PARAMETERS as P} from './distillery-parameters.mjs';
 export {DISTILLERY_PARAMETERS} from './distillery-parameters.mjs';
-const clone=x=>structuredClone(x),assert=(v,t)=>{if(!v)throw new Error(t);},round=x=>Math.round(x*100)/100;
+const clone=cloneReplayState,assert=(v,t)=>{if(!v)throw new Error(t);},round=x=>Math.round(x*100)/100;
 export const currentCask=caskOf;
 const characterFields=()=>({view:'watching',stage:0,intent:null,targetAge:null,choices:[],pending:null,result:null,samples:[],actions:[],seen:[],lastEventAge:-C.minEventGap,cooled:false,peakCharacter:0});
 export function newDistillery(seed=20261014){const core=newGame(seed);core.rngState=mixSeed(seed);return {version:3,rules:'distillery',seed,round:1,core,phase:'ready',...characterFields(),records:[],distillation:null,batch:null,currentProductId:null,selectedPrice:'standard',operations:[]};}

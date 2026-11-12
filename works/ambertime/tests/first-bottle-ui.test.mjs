@@ -57,7 +57,7 @@ test('first ceremony occurs only in post-save callback; unchanged branded action
  const css=readFileSync(new URL('../room-scene.css',import.meta.url),'utf8');
  const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
  assert.match(app,/const firstBottle=D\.needsBrandSetup\(game\),selection=/);
- assert.match(app,/const ok=act\(s=>D\.bottleBranded\(D\.endTasting\(s\),id,selection,count\),\(\)=>/);
+ assert.match(app,/const ok=await act\(s=>D\.bottleBranded\(D\.endTasting\(s\),id,selection,count\),\(\)=>/);
  assert.match(app,/if\(firstBottle\)modal=\{kind:'first-bottle-complete'/);
  assert.match(app,/if\(modal\?\.kind==='first-bottle-complete'\)return;/);
  assert.match(app,/kind==='first-bottle-complete'\)\{/);

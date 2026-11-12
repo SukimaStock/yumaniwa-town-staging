@@ -1,3 +1,4 @@
+import {cloneReplayState} from './clone-data.mjs?v=restore-perf-v04';
 import {planSales,RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import * as M from './model.mjs?v=stage4-r2';
 import * as D from './distillery.mjs?v=stage4-r2';
@@ -7,7 +8,7 @@ import {PARAMETERS as OLD_CORE} from './parameters.mjs';
 import {ECONOMY_PARAMETERS as CORE} from './economy-parameters.mjs';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
 export {PARALLEL_PARAMETERS} from './economy-parameters.mjs';
-const clone=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
+const clone=cloneReplayState,round=x=>Math.round(x*100)/100;
 const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 export function newDistillery(seed=20261015){const core=M.newGame(seed);core.cash=P.startingCash;core.rngState=mixSeed(seed);return {version:P.version,rules:'parallel-distillery-economy',seed,core,still:{phase:'ready',distillation:null,batch:null},notesById:{},batchesById:{},productsById:{},decisions:[],tastingId:null,records:[],result:null,operations:[]};}
 export const currentCask=(s,id)=>s.core.casks.find(c=>c.id===id)??null;
