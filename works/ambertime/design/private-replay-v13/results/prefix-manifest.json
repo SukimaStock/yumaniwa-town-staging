@@ -1,0 +1,55 @@
+{
+  "completed": true,
+  "rows": [
+    {
+      "name": "local",
+      "years": 5,
+      "absoluteMonth": 192,
+      "operations": 297,
+      "sourceSHA256": "f35e0fb48fab929ebb689d94a07fe98f65c5b758fb4e779c92ba5c3edcf6c668",
+      "expectedSHA256": "2341a6d35858a1f21e69f39e91318542dbd18411ff1a64597aad9b6344df267e",
+      "wireSHA256": "114698c6fa7692565e8d12f4c0b542902e1d7fddfa4fed0f75b2f7c7576a4afb",
+      "desksWithActualSales": [],
+      "formalRoundtrip": true
+    },
+    {
+      "name": "local",
+      "years": 25,
+      "absoluteMonth": 432,
+      "operations": 678,
+      "sourceSHA256": "f35e0fb48fab929ebb689d94a07fe98f65c5b758fb4e779c92ba5c3edcf6c668",
+      "expectedSHA256": "0748b51be0209d03af2dd7b8d287302ff4a0a0a480b2af1fd94c6c7408638d08",
+      "wireSHA256": "f058dcece665fa8dad9fc6cfe4d1cbf6de9876a39fa2b06fa3a3cd83b2b99e8e",
+      "desksWithActualSales": [],
+      "formalRoundtrip": true
+    },
+    {
+      "name": "diversified",
+      "years": 5,
+      "absoluteMonth": 310,
+      "operations": 461,
+      "sourceSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+      "expectedSHA256": "190b44c6e0371bd194fda9bb8c76427876320e51e0e01ec73ac02ff6b5d66319",
+      "wireSHA256": "38a22c82e043af1658596b96911ec8d224594e0f9538c3d7a718dabb829d2c23",
+      "desksWithActualSales": [
+        "trial-region-desk",
+        "national-specialist-desk"
+      ],
+      "formalRoundtrip": true
+    },
+    {
+      "name": "diversified",
+      "years": 25,
+      "absoluteMonth": 550,
+      "operations": 921,
+      "sourceSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+      "expectedSHA256": "9d902c29ccbb16500214b7b0e8a0cc3aa07335885b0a7aa3303d2275734444a5",
+      "wireSHA256": "c4d7cdb5e22e1204a1d95bd4a9120a762d9f21ef1754a9f538fe46a5165b7397",
+      "desksWithActualSales": [
+        "trial-region-desk",
+        "national-specialist-desk"
+      ],
+      "formalRoundtrip": true
+    }
+  ]
+}

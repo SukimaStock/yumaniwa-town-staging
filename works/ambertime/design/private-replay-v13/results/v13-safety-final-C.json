@@ -1,0 +1,95 @@
+{
+  "completed": true,
+  "variant": "C",
+  "rows": [
+    {
+      "hook": "onApplyBefore",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "onApplyAfter",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "afterSafeOperation",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "beforeCheckpoint",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "afterCheckpoint",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "beforeReplayPublish",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "afterSnapshot",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "beforeTownCommit",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "hook": "afterTownCommit",
+      "hit": true,
+      "inputUnchanged": true,
+      "retryExact": true
+    },
+    {
+      "case": "invalid-tail-then-valid-and-different-game",
+      "pass": true
+    },
+    {
+      "case": "returned-state-mutation-cache-isolation",
+      "pass": true
+    },
+    {
+      "case": "external-input-mutation-rejected",
+      "pass": true
+    },
+    {
+      "case": "native-projection-observer-throw-and-retained-mutation",
+      "pass": true,
+      "optimized": false
+    }
+  ],
+  "metrics": {
+    "variant": "C",
+    "sessions": 2,
+    "safeOperations": 20,
+    "nativeOperations": 300,
+    "omittedTownCopies": 30,
+    "journalSegments": 20,
+    "townMaterializations": 20,
+    "keys": {
+      "start": 10,
+      "stop": 10
+    }
+  },
+  "unverified": [
+    "C actual town mutation is never optimized (four readonly keys only)",
+    "native projection observer unchanged",
+    "synthetic town74 rollback separate existing test, not C journal mutation"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "completed": true,
+  "variant": "C",
+  "nativeEqual": true,
+  "inputUnchanged": true,
+  "bidirectionalIsolation": true,
+  "rollbackMonth": 1332,
+  "operationsAdded": 1,
+  "metrics": {
+    "variant": "C",
+    "sessions": 2,
+    "safeOperations": 0,
+    "nativeOperations": 2,
+    "omittedTownCopies": 0,
+    "journalSegments": 0,
+    "townMaterializations": 0,
+    "keys": {}
+  },
+  "limitation": "synthetic invalid formal history; month is native fallback, not optimized journal writes"
+}

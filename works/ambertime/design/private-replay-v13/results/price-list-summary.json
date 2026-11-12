@@ -1,0 +1,86 @@
+{
+  "completed": true,
+  "sourceSHA256": "2341a6d35858a1f21e69f39e91318542dbd18411ff1a64597aad9b6344df267e",
+  "fixtureSHA256": "1b236c92528cc5f25b950e3972de7b5908586beeb17beb66f339266dd96f93c9",
+  "nativeFormalAccepted": true,
+  "sourceInputUnchanged": true,
+  "sourceMonth": 192,
+  "productId": 30,
+  "caskId": 29,
+  "appendedOperations": [
+    {
+      "key": "bottle-counted-branded",
+      "value": {
+        "id": 29,
+        "selection": {
+          "brandId": 1
+        },
+        "count": 1
+      }
+    },
+    {
+      "key": "price",
+      "value": {
+        "tier": "standard",
+        "productId": 30
+      }
+    },
+    {
+      "key": "list",
+      "value": 30
+    }
+  ],
+  "variants": [
+    {
+      "completed": true,
+      "variant": "B",
+      "fixtureSHA256": "1b236c92528cc5f25b950e3972de7b5908586beeb17beb66f339266dd96f93c9",
+      "formalRestoreExact": true,
+      "canonicalExact": true,
+      "returnedMutationIsolation": true,
+      "metrics": {
+        "variant": "B",
+        "sessions": 3,
+        "safeOperations": 22,
+        "nativeOperations": 301,
+        "omittedTownCopies": 32,
+        "journalSegments": 0,
+        "townMaterializations": 0,
+        "keys": {
+          "start": 10,
+          "stop": 10,
+          "price": 1,
+          "list": 1
+        }
+      }
+    },
+    {
+      "completed": true,
+      "variant": "C",
+      "fixtureSHA256": "1b236c92528cc5f25b950e3972de7b5908586beeb17beb66f339266dd96f93c9",
+      "formalRestoreExact": true,
+      "canonicalExact": true,
+      "returnedMutationIsolation": true,
+      "metrics": {
+        "variant": "C",
+        "sessions": 3,
+        "safeOperations": 22,
+        "nativeOperations": 301,
+        "omittedTownCopies": 32,
+        "journalSegments": 21,
+        "townMaterializations": 21,
+        "keys": {
+          "start": 10,
+          "stop": 10,
+          "price": 1,
+          "list": 1
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Uses existing legal five-year local career plus three native public operations, not a fresh 100-year strategy",
+    "No private operation mutation injected; these two town paths remain read-only",
+    "Does not claim journal town-write coverage or persistent storage fault coverage"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "completed": true,
+  "name": "diversified",
+  "years": 5,
+  "mode": "C",
+  "node": "v24.22.1",
+  "scope": "Complete official readSession including native formal validation and all sidecars; isolated loader candidate only",
+  "wireSHA256": "38a22c82e043af1658596b96911ec8d224594e0f9538c3d7a718dabb829d2c23",
+  "expectedSHA256": "190b44c6e0371bd194fda9bb8c76427876320e51e0e01ec73ac02ff6b5d66319",
+  "outputSHA256": "190b44c6e0371bd194fda9bb8c76427876320e51e0e01ec73ac02ff6b5d66319",
+  "proof": {
+    "name": "diversified",
+    "years": 5,
+    "absoluteMonth": 310,
+    "operations": 461,
+    "sourceSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+    "expectedSHA256": "190b44c6e0371bd194fda9bb8c76427876320e51e0e01ec73ac02ff6b5d66319",
+    "wireSHA256": "38a22c82e043af1658596b96911ec8d224594e0f9538c3d7a718dabb829d2c23",
+    "desksWithActualSales": [
+      "trial-region-desk",
+      "national-specialist-desk"
+    ],
+    "formalRoundtrip": true
+  },
+  "absoluteMonth": 310,
+  "operations": 461,
+  "desksWithActualSales": [
+    "trial-region-desk",
+    "national-specialist-desk"
+  ],
+  "restoreMs": 6026.032133000001,
+  "independentFullCompareMs": 3.8488710000001447,
+  "totalVerifiedReturnMs": 6029.881004000001,
+  "peakRSSKiB": 165956,
+  "memory": {
+    "rss": 169938944,
+    "heapTotal": 98230272,
+    "heapUsed": 56198272,
+    "external": 4073740,
+    "arrayBuffers": 146583
+  },
+  "lab": {
+    "variant": "C",
+    "sessions": 2,
+    "safeOperations": 20,
+    "nativeOperations": 464,
+    "omittedTownCopies": 30,
+    "journalSegments": 20,
+    "townMaterializations": 20,
+    "keys": {
+      "start": 10,
+      "stop": 10
+    }
+  }
+}
