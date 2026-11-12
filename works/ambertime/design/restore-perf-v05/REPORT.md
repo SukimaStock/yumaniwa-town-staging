@@ -1,8 +1,8 @@
 # AmberTime v0.5 — 復元性能・保存往復の実行記録
 
-更新: 2026-11-12T12:29:44.952588+00:00
+更新: 2026-11-12T12:43:07.685261+00:00
 
-状態: 途中保全。改善候補の完全な5戦略プロトコルは **3/5完了**。完了集合: local, regional, bulk。未完了・将来実行予定は成功扱いにしない。
+状態: 途中保全。改善候補の完全な5戦略プロトコルは **5/5完了**。完了集合: local, regional, bulk, small, diversified。未完了・将来実行予定は成功扱いにしない。
 
 ## 固定した対象
 
@@ -14,7 +14,7 @@
 
 ## 検証の意味と限界
 
-1. Nodeの別プロセスによる正式reader/serializer検証。ブラウザーIndexedDB・iPhone Safariの性能測定ではない。`fileRead`はscratch filesystemの読取り時間。
+1. Node `v24.22.1` / Linux x64の別プロセスによる正式reader/serializer検証。ブラウザーIndexedDB・iPhone Safariの性能測定ではない。`fileRead`はscratch filesystemの読取り時間。
 2. 100年の原軌跡は、元の `a210984399547b07728c48bcd83365cf2f28e269` モデルで生成・凍結された独立期待値を再利用した。今回1200か月の生成そのものを再実行したとは主張しない。翌月の独立期待値も凍結済み原本を使用し、改善候補から生成し直していない。
 3. 改善候補では各戦略を新しく正式保存し、child1でcold復元・全gameと全sidecar一致・翌月進行・独立翌月原本一致・再保存、child2で再cold復元・全一致・canonical再保存の完全一致を確認する。親プロセスの正常終了まで完了扱いにしない。
 4. 基準側は地元のみ完全プロトコルを新実行。残る4戦略は1回ずつfresh正式reader・全原本一致・復元後最初の正式serializerとcanonical wire一致を新実行した。基準側の過去5完全プロトコル成功は過去証拠のまま区別する。
@@ -44,8 +44,8 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
 | local | 再測定待ち | 129.357 | 142.478 | 親・両child正常終了 |
 | regional | 88.785 | 75.492 | 74.220 | 親・両child正常終了 |
 | bulk | 95.743 | 81.053 | 79.873 | 親・両child正常終了 |
-| small | 187.694 | 未完了 | 未完了 | 未完了 |
-| diversified | 92.679 | 未完了 | 未完了 | 未完了 |
+| small | 187.694 | 164.940 | 164.374 | 親・両child正常終了 |
+| diversified | 92.679 | 82.614 | 76.689 | 親・両child正常終了 |
 
 地元の競合あり基準完全プロトコル: 初回正式serializer199.454秒、child1 cold200.322秒、child2 cold189.956秒、親exit0。比較値には未採用。
 
@@ -54,9 +54,13 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
 - 新しいclone helperと境界検証: 6/6成功。native graph detachment、public prefix非流用、例外後scope復元、低資金月次rollback、旧ログ改変拒否・cache汚染なし、public sparse/extra-property互換を含む。
 - exact `2a3f009` のScope / Risk / Impactはすべて成功。正式CI、実ブラウザーの成否は別担当の記録に従い、本Node結果から成功を推測しない。
 
+## 残る単一世代cold復元の改善候補
+
+測定ではoperation replayがcold時間の大部分を占める。次はreplay中のdetached state copy回数と、蓄積town logの再copyを分離して測定し、rollback境界を壊さないprojectionや不変データ表現を独立設計する。検証済みprefix checkpointの再利用は同一origin・完全一致する操作prefixの範囲に限定し、未知のcold履歴をchecksumだけで受理する方式へ変更しない。shared townへの単純な参照共有は不採用のままとする。
+
 ## 二世代readMainRecord測定
 
-別の正規Planで実装されたprevious→head検証順序候補を、100年の旧世代・翌月の新世代で測定する予定。現在のfixtureは合成原軌跡だけを使用する。候補commit `d087bbca74768aa666e2c9d681030bf5df1a0a22`、tree `b675d0f3c14acf4b43e798376232b55a8cb26fd6`。実 `readMainRecord` と実正式reader・SHA検証を呼び、IDBのreadonly request schedulingだけを模擬する。native browser IDB測定とは区別する。二世代とも正式readerを呼ぶこと、旧・新の全session原本一致、保存bytes不変を確認する。
+別の正規Planで実装されたprevious→head検証順序候補を、100年の旧世代・翌月の新世代で測定する予定。現在のfixtureは合成原軌跡だけを使用する。候補commit `d087bbca74768aa666e2c9d681030bf5df1a0a22`、tree `b675d0f3c14acf4b43e798376232b55a8cb26fd6`。実 `bootMainIdb` → `readMainRecord` と実正式reader・SHA検証を呼び、実際の3つのlegacy source key（すべてnull）を一致させる。IDBのopen/readonly request schedulingだけを模擬する。native browser IDB測定とは区別する。二世代とも正式readerを呼ぶこと、旧・新の全session原本一致、保存bytes不変を確認する。
 
 ## Fixture manifest（保存本体は含めない）
 
@@ -1705,6 +1709,660 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
 ]
 ```
 
+### optimized: small
+
+```json
+[
+  {
+    "name": "small",
+    "careerOrigin": "frozen original a210 1200-month trajectory, not newly generated",
+    "nextOracle": "frozen independent original next-month session",
+    "expectedSHA256": "b886e4a0e0820e5b36f5e36aa09f20620573f2160cf665d8b4746e6877d04c49",
+    "sourceGameSHA256": "abce5d44e7a29bd5ce6a58b08b891175eb4011aed35d50cc0f13d6861210ab25",
+    "firstWriteMs": 164959.25210699998,
+    "wireUnits": 3698705,
+    "wireUtf8": 3867991,
+    "unmodifiedOriginal": true,
+    "firstWritePhases": {
+      "operationReplay": {
+        "calls": 3,
+        "ms": 160682.80898099998
+      },
+      "checkpointCapture": {
+        "calls": 3,
+        "ms": 124.18865700001663
+      },
+      "finalStateEquality": {
+        "calls": 3,
+        "ms": 417.39203700000746
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 17.055208999983734
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 780.7159040000115
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 521.7073060000257
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 27.453456000017468
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 254.53307199999108
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 1104.7649920000113
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.12591599998995662
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 0.9416609999898355
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 2.9660150000127032
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 14.950388999975985
+      }
+    },
+    "nestedPhaseTimings": true
+  },
+  {
+    "mode": "child1",
+    "name": "small",
+    "month": 1332,
+    "coldMs": 164940.166953,
+    "wireUnits": 3698705,
+    "wireSHA256": "9cbfe8554c8106c4ed745e02d91317226c3b313bacd4c341ea92d38a4c3d1b95",
+    "expectedFullEquality": true,
+    "readPhases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 42.63996899999995
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 102.04960399999993
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 1158.386994
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 763.6902400000001
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 20.65267199999971
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 161112.47187500002
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 63.662480000018604
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 344.9977699999895
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 161527.15070099998
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 162582.63065600002
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.887871000013547
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 4.663349000009475
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 5.681995999999344
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 19.192050000012387
+      }
+    },
+    "afterReadPhases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 97.19764299999224
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 129.47147899999982
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 320.2080380000116
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 24.162301999982446
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 819.7093689999892
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 529.9254409999994
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 26.706285999971442
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 333.71019400001387
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 1019.34951
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.1677170000039041
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 1.5644430000102147
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 4.055038999998942
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 20.069783000013558
+      },
+      "firstSaveAfterRestore": {
+        "calls": 1,
+        "ms": 3909.1370160000224
+      }
+    },
+    "nestedPhaseTimings": true,
+    "rss": 1155340
+  },
+  {
+    "mode": "child2",
+    "name": "small",
+    "month": 1333,
+    "coldMs": 164373.81908800002,
+    "wireUnits": 3698754,
+    "wireSHA256": "7c2b359bcc549a3c175009a435b4248b98eaff7d37238ee2f70d33c51fcd7b03",
+    "expectedFullEquality": true,
+    "readPhases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 19.94090799999998
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 54.20379700000001
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 755.4360829999999
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 476.336916
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 20.01868400000012
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 161741.45861499998
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 63.80731699999569
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 245.68337599998176
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 162055.88397300002
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 162813.414014
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.44970099997590296
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 3.7729070000059437
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 5.154811999993399
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 23.298821999982465
+      }
+    },
+    "afterReadPhases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 0.03667899998254143
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 130.10478399999556
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 321.88192599997274
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 18.64353899998241
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 847.2589870000083
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 548.0521049999807
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 29.112252999999328
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 268.5124739999883
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 1143.49926099999
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.10913200001232326
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 0.6176259999920148
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 3.805227000004379
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 22.094066999998176
+      },
+      "canonicalResave": {
+        "calls": 1,
+        "ms": 3958.4884369999927
+      }
+    },
+    "nestedPhaseTimings": true,
+    "rss": 1173776
+  }
+]
+```
+
+### optimized: diversified
+
+```json
+[
+  {
+    "name": "diversified",
+    "careerOrigin": "frozen original a210 1200-month trajectory, not newly generated",
+    "nextOracle": "frozen independent original next-month session",
+    "expectedSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc",
+    "sourceGameSHA256": "681efd85a8c33e814ad9ef35929f7d54e07a55816565ee6530e610195bfed525",
+    "firstWriteMs": 85048.977877,
+    "wireUnits": 2409241,
+    "wireUtf8": 2570677,
+    "unmodifiedOriginal": true,
+    "firstWritePhases": {
+      "operationReplay": {
+        "calls": 3,
+        "ms": 82459.433197
+      },
+      "checkpointCapture": {
+        "calls": 3,
+        "ms": 85.52893399999687
+      },
+      "finalStateEquality": {
+        "calls": 3,
+        "ms": 253.1267899999949
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 19.75285900000017
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 503.05311699998856
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 292.38847600000736
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 41.41047699999763
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 163.31684500000847
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 589.1542340000015
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.12011000000347849
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 0.8916239999962272
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 4.577529999995022
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 16.64698300001328
+      }
+    },
+    "nestedPhaseTimings": true
+  },
+  {
+    "mode": "child1",
+    "name": "diversified",
+    "month": 1450,
+    "coldMs": 82614.008214,
+    "wireUnits": 2409241,
+    "wireSHA256": "c78ce5bf0787634fbd9e30f7c01798a0ef49226c384fdd5f4f7374b7dcfa1443",
+    "expectedFullEquality": true,
+    "readPhases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 31.70471200000003
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 80.23436300000003
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 870.491339
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 529.0637360000001
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 39.681142000000364
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 79988.210915
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 38.216905999997834
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 145.39512300000388
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 80176.304863
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 80859.17195999999
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.44186700000136625
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 3.321195999989868
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 5.833852999989176
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 27.194667999996454
+      }
+    },
+    "afterReadPhases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 53.04134399999748
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 93.20852100000775
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 121.41706300000078
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 13.325780999992276
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 505.829813999997
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 293.48232499998994
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 14.416043999997783
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 149.4315370000113
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 763.1104210000049
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.042218999995384365
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 1.3167499999981374
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 3.3033270000014454
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 15.741923000008683
+      },
+      "firstSaveAfterRestore": {
+        "calls": 1,
+        "ms": 2398.4258139999874
+      }
+    },
+    "nestedPhaseTimings": true,
+    "rss": 791528
+  },
+  {
+    "mode": "child2",
+    "name": "diversified",
+    "month": 1451,
+    "coldMs": 76688.602125,
+    "wireUnits": 2409261,
+    "wireSHA256": "beb83bba1a202d46e38f64324575fd60aac6c4ee4b8414ab094417b3b393e07e",
+    "expectedFullEquality": true,
+    "readPhases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 6.504691000000008
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 28.46454600000004
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 517.742382
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 303.999597
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 13.736206999999922
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 75087.565585
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 38.95728000001236
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 126.65559000000076
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 75257.67686600001
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 75658.347015
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.38429899999755435
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 2.167417000004207
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 4.97322100000747
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 22.9449530000129
+      }
+    },
+    "afterReadPhases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 0.028500999993411824
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 71.46786599999177
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 174.68602999999712
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 11.22844299999997
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 441.5437399999937
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 257.3037369999947
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 23.72129699999641
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 148.94355799999903
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 555.4935210000112
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.04425599999376573
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 0.6787100000074133
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 2.742294999989099
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 15.530772999991314
+      },
+      "canonicalResave": {
+        "calls": 1,
+        "ms": 2122.211433000004
+      }
+    },
+    "nestedPhaseTimings": true,
+    "rss": 878932
+  }
+]
+```
+
 ### protocol-v05/whole-results.json
 
 ```json
@@ -1755,6 +2413,16 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
     "strategy": "bulk",
     "exitCode": 0,
     "elapsedSeconds": 251.87983209599997
+  },
+  {
+    "strategy": "small",
+    "exitCode": 0,
+    "elapsedSeconds": 504.8709297989999
+  },
+  {
+    "strategy": "diversified",
+    "exitCode": 0,
+    "elapsedSeconds": 251.18957033899915
   }
 ]
 ```
@@ -1991,19 +2659,21 @@ raise SystemExit(result.returncode)
 
 ### two-generation-read-v05.mjs
 
-SHA256: `aa363d5b10b0e4fc9a80107d9ec68ddf4761e44784b10a7a72cd0347e444f061`
+SHA256: `fa3621f20ed2fb68870e62dd0562adc673287cc9fdec1a6adf798fb22e14e285`
 
 ```javascript
 import fs from 'node:fs';import {pathToFileURL} from 'node:url';import {createHash,webcrypto} from 'node:crypto';import {performance} from 'node:perf_hooks';import assert from 'node:assert/strict';
 const [repo,name='regional']=process.argv.slice(2),base='/workspace/scratch/a46e452c28fd/unpacked/AmberTime-v03-five-strategy-proof/ambertime-v03-capacity',j=JSON.stringify,sha=s=>createHash('sha256').update(s).digest('hex'),schema='ambertime-main-bounded-idb/2';
-const u=n=>pathToFileURL(repo+'/works/ambertime/'+n).href,D=await import(u('partner-orders.mjs')),S=await import(u('development-save.mjs')),I=await import(u('formal-idb-storage.mjs')),P=(await import(u('economy-parameters.mjs'))).PARALLEL_PARAMETERS;
+const u=n=>pathToFileURL(repo+'/works/ambertime/'+n).href,D=await import(u('partner-orders.mjs')),S=await import(u('development-save.mjs')),M=await import(u('formal-idb-main.mjs')),P=(await import(u('economy-parameters.mjs'))).PARALLEL_PARAMETERS;
 const oldText=fs.readFileSync(base+'/protocol/'+name+'.formal9.json','utf8'),newText=fs.readFileSync(base+'/protocol/'+name+'.next.formal9.json','utf8'),oldExpected=JSON.parse(fs.readFileSync(base+'/expected/'+name+'-1200.json','utf8')),newExpected=JSON.parse(fs.readFileSync(base+'/protocol/'+name+'.next.expected.json','utf8'));
-const signed=p=>({...p,sha256:sha(j(p))}),origin=signed({schema,sources:[{key:S.FORMAL_SAVE_KEY,text:null}]}),metadata=signed({schema,revision:2,originSha256:origin.sha256}),head={schema,revision:2,text:newText,sha256:sha(newText)},previous={schema,revision:1,text:oldText,sha256:sha(oldText)};
+const signed=p=>({...p,sha256:sha(j(p))}),origin=signed({schema,sources:M.LEGACY_SAVE_KEYS.map(key=>({key,text:null}))}),metadata=signed({schema,revision:2,originSha256:origin.sha256}),head={schema,revision:2,text:newText,sha256:sha(newText)},previous={schema,revision:1,text:oldText,sha256:sha(oldText)};
 const entries=new Map([['head',head],['previous',previous],['metadata',metadata],['origin',origin]]),before=j([...entries]),requests=[];
-const db={transaction(storeName,mode){assert.equal(storeName,'records');assert.equal(mode,'readonly');const tx={},resultFor=kind=>{const request={};queueMicrotask(()=>{request.result=structuredClone(kind==='keys'?[...entries.keys()]:[...entries.values()]);request.onsuccess?.();requests.push(kind);if(requests.length===2)queueMicrotask(()=>tx.oncomplete?.());});return request;};tx.objectStore=name=>{assert.equal(name,'records');return {getAllKeys:()=>resultFor('keys'),getAll:()=>resultFor('values')};};return tx;}};
+const db={close(){},transaction(storeName,mode){assert.equal(storeName,'records');assert.equal(mode,'readonly');const tx={},resultFor=kind=>{const request={};queueMicrotask(()=>{request.result=structuredClone(kind==='keys'?[...entries.keys()]:[...entries.values()]);request.onsuccess?.();requests.push(kind);if(requests.length===2)queueMicrotask(()=>tx.oncomplete?.());});return request;};tx.objectStore=name=>{assert.equal(name,'records');return {getAllKeys:()=>resultFor('keys'),getAll:()=>resultFor('values')};};return tx;}};
 const calls=[],reader=text=>{const kind=text===oldText?'previous':text===newText?'head':'unknown';assert.notEqual(kind,'unknown');const t=performance.now(),session=S.readSession(text,{enabled:true,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs});assert.equal(j(session),j(kind==='previous'?oldExpected:newExpected),'full independent session differs');calls.push({kind,ms:performance.now()-t,fullSessionEqual:true});return session;};
-const start=performance.now(),result=await I.readMainRecord(db,{reader,cryptoApi:webcrypto}),elapsedMs=performance.now()-start;assert.equal(j(result.session),j(newExpected));assert.equal(result.record.text,newText);assert.equal(result.previous.text,oldText);assert.equal(result.revision,2);assert.equal(calls.length,2);assert.deepEqual(new Set(calls.map(x=>x.kind)),new Set(['head','previous']));assert.equal(j([...entries]),before,'read mutated storage');
-console.log(j({repo,name,storageKind:'Mock readonly IDB request scheduling, not native browser IndexedDB',officialReadMainRecord:true,headSHA256:head.sha256,previousSHA256:previous.sha256,callOrder:calls.map(x=>x.kind),calls,elapsedMs,wholeHeadAndPreviousEqual:true,storedBytesUnchanged:true,rss:process.resourceUsage().maxRSS}));
+const indexedDBApi={open(name,version){assert.equal(name,M.MAIN_IDB_NAME);assert.equal(version,1);const request={};queueMicrotask(()=>{request.result=db;request.onsuccess?.();});return request;}};
+const start=performance.now(),result=await M.bootMainIdb({reader,storage:{getItem:()=>null},indexedDBApi,cryptoApi:webcrypto}),elapsedMs=performance.now()-start;assert.equal(result.ok,true,'boot failed: '+result.reason+' '+result.error?.message);assert.equal(result.state,'ready');assert.equal(result.reason,'idb');assert.equal(j(result.session),j(newExpected));assert.equal(result.text,newText);assert.equal(result.adapter.text,newText);assert.equal(entries.get('previous').text,oldText);assert.equal(result.revision,2);assert.equal(calls.length,2);assert.deepEqual(new Set(calls.map(x=>x.kind)),new Set(['head','previous']));assert.equal(j([...entries]),before,'read mutated storage');
+result.adapter.close();
+console.log(j({repo,name,storageKind:'Mock readonly IDB request scheduling, not native browser IndexedDB',officialBootMainIdb:true,officialReadMainRecord:true,legacySourceKeyCount:origin.sources.length,bootReady:true,headSHA256:head.sha256,previousSHA256:previous.sha256,callOrder:calls.map(x=>x.kind),calls,elapsedMs,wholeHeadAndPreviousEqual:true,storedBytesUnchanged:true,rss:process.resourceUsage().maxRSS}));
 
 ```
 
