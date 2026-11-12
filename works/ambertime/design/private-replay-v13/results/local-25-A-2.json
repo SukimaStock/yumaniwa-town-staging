@@ -1,0 +1,37 @@
+{
+  "completed": true,
+  "name": "local",
+  "years": 25,
+  "mode": "A",
+  "node": "v24.22.1",
+  "scope": "Complete official readSession including native formal validation and all sidecars; isolated loader candidate only",
+  "wireSHA256": "f058dcece665fa8dad9fc6cfe4d1cbf6de9876a39fa2b06fa3a3cd83b2b99e8e",
+  "expectedSHA256": "0748b51be0209d03af2dd7b8d287302ff4a0a0a480b2af1fd94c6c7408638d08",
+  "outputSHA256": "0748b51be0209d03af2dd7b8d287302ff4a0a0a480b2af1fd94c6c7408638d08",
+  "proof": {
+    "name": "local",
+    "years": 25,
+    "absoluteMonth": 432,
+    "operations": 678,
+    "sourceSHA256": "f35e0fb48fab929ebb689d94a07fe98f65c5b758fb4e779c92ba5c3edcf6c668",
+    "expectedSHA256": "0748b51be0209d03af2dd7b8d287302ff4a0a0a480b2af1fd94c6c7408638d08",
+    "wireSHA256": "f058dcece665fa8dad9fc6cfe4d1cbf6de9876a39fa2b06fa3a3cd83b2b99e8e",
+    "desksWithActualSales": [],
+    "formalRoundtrip": true
+  },
+  "absoluteMonth": 432,
+  "operations": 678,
+  "desksWithActualSales": [],
+  "restoreMs": 11339.436201,
+  "independentFullCompareMs": 24.920689999999013,
+  "totalVerifiedReturnMs": 11364.356891,
+  "peakRSSKiB": 308764,
+  "memory": {
+    "rss": 316174336,
+    "heapTotal": 249839616,
+    "heapUsed": 180104920,
+    "external": 4107709,
+    "arrayBuffers": 212115
+  },
+  "lab": null
+}

@@ -11,3 +11,5 @@ Findings addressed before final gate:
 Final source inspection found no new safety blocker in the limited four-key scope. Dynamic price/list coverage was requested separately; start/stop are covered by existing prefix tests. This is not endorsement of broad mutable-town sharing or shipped connection.
 
 C faults occur in readonly journal regions and cannot prove changed-town rollback. Synthetic town-after-bottling funds rollback is full-state native-equal but month uses native fallback (zero omitted clones/journal segments); this limitation is intentional. Native observer tests remain native.
+
+Dynamic price/list coverage subsequently completed with native legal operations and B/C separate-process formal/canonical equality (results/price-list-summary.json). No adapter/loader changes.
