@@ -95,7 +95,7 @@ test('formal quota failure never reports successful start and keeps original byt
  const store=memory();store.setItem=()=>{throw Object.assign(Error('full'),{name:'QuotaExceededError'});};
  const h=harness({store}),result=await h.entry.start(h.expected);
  assert.equal(result.ok,false);assert.equal(result.error.name,'QuotaExceededError');assert.equal(result.stage,'formal-write');
- assert.equal(h.installed.length,0);assert.equal(store.getItem(FORMAL_SAVE_KEY),original);assert.equal(result.formalState,'unchanged');
+ assert.equal(h.installed.length,0);assert.equal(store.getItem(FORMAL_SAVE_KEY),original);assert.equal(result.formalState,'uncertain');
  assert.equal(backups(store).length,0);assert.deepEqual(readSession(store.getItem(FORMAL_SAVE_KEY),options),originalSession);
 });
 

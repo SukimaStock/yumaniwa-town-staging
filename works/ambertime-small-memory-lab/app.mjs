@@ -1,5 +1,5 @@
-import {scenarios} from './fixture.mjs';
-import {extractMemory,compactView,measure} from './memory.mjs';
+import {scenarios} from './fixture.mjs?perf=v06';
+import {extractMemory,compactView,measure} from './memory.mjs?consignment=night-stage4-v01';
 const $=id=>document.getElementById(id),frames={current:$('current'),compact:$('compact')};
 let tab='shops',memory=null,downloadUrl=null;
 for(const s of scenarios)$('scenario').add(new Option(s.label,s.id));

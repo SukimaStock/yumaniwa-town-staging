@@ -1,0 +1,50 @@
+// Private synchronous replay uses detached plain-data graph copies. Public and
+// unsupported graphs retain native structuredClone. No data is shared or saved.
+let privateReplay=0;
+const prefixes=new WeakMap();
+const appendOnly=['events','arrivals','attempts'];
+export function withPrivateReplay(run){privateReplay++;try{return run();}finally{privateReplay--;}}
+export function isPrivateReplay(){return privateReplay>0;}
+export function reactionPrefix(array){return privateReplay?Math.min(prefixes.get(array)??0,array.length):0;}
+export function rememberReactionPrefix(array,length){if(privateReplay)prefixes.set(array,length);}
+const unsupported=Symbol('native clone required');
+function detachedReplayGraph(root){
+ const seen=new WeakMap();
+ function copy(value){
+  if(value===null||typeof value!=='object'){
+   if(typeof value==='function'||typeof value==='symbol')throw unsupported;
+   return value;
+  }
+  if(seen.has(value))return seen.get(value);
+  const array=Array.isArray(value),prototype=Object.getPrototypeOf(value);
+  if(!array&&prototype!==Object.prototype&&prototype!==null)throw unsupported;
+  const result=array?new Array(value.length):{};seen.set(value,result);
+  for(const key of Object.keys(value)){
+   // Do not invoke accessors during the fast path: native fallback must observe
+   // each getter only once. Internal replay states are ordinary data graphs.
+   const descriptor=Object.getOwnPropertyDescriptor(value,key);
+   if(!descriptor||!Object.hasOwn(descriptor,'value'))throw unsupported;
+   const next=copy(descriptor.value);
+   if(key==='__proto__')Object.defineProperty(result,key,{value:next,writable:true,enumerable:true,configurable:true});
+   else result[key]=next;
+  }
+  return result;
+ }
+ try{return copy(root);}catch(error){
+  // Fallback the WHOLE graph, preserving aliases even across supported and
+  // unsupported subgraphs. No partially copied value escapes this function.
+  if(error!==unsupported&&!(error instanceof RangeError))throw error;
+  return structuredClone(root);
+ }
+}
+export function cloneReplayState(value){
+ const detached=privateReplay?detachedReplayGraph(value):structuredClone(value);
+ const connection=privateReplay&&value&&typeof value==='object'?Object.getOwnPropertyDescriptor(value,'labConnection')?.value:null;
+ const town=connection&&typeof connection==='object'?Object.getOwnPropertyDescriptor(connection,'town')?.value:null;
+ if(town&&detached?.labConnection?.town){
+  for(const key of appendOnly){const before=Object.getOwnPropertyDescriptor(town,key)?.value,after=detached.labConnection.town[key];
+   if(Array.isArray(before)&&Array.isArray(after)&&prefixes.has(before))prefixes.set(after,Math.min(prefixes.get(before),after.length));
+  }
+ }
+ return detached;
+}

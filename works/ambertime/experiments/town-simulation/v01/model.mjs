@@ -1,3 +1,4 @@
+import {isPrivateReplay,reactionPrefix,rememberReactionPrefix} from '../../../clone-data.mjs?v=restore-perf-v04&perf=v06';
 import {copySnapshot,projectSnapshot} from '../../../../ambertime-flavor-lab-v02/bridge.mjs?stage3=1';
 // Independent monthly experiment. Main save, economics and demand are not imported.
 import {PRODUCTS as BASE_PRODUCTS, affinity as baseAffinity, unit} from '../../reputation/v03/model.mjs';
@@ -273,8 +274,18 @@ export function receiveExternal(s,{receiptId,releaseId,to,count}){
 // Only mutable reaction calculations are quantized. Frozen bottled provenance and
 // seed-derived uniform draws stay untouched, so a save replays across JS engines.
 function quantizeReaction(s){
- const visit=value=>{for(const key of Object.keys(value)){if(typeof value[key]==='number'&&!Number.isInteger(value[key])&&key!=='roll')value[key]=Math.round(value[key]*1e12)/1e12;else if(value[key]&&typeof value[key]==='object')visit(value[key]);}};
- for(const key of ['nodes','events','arrivals','memories','pending','packets','attempts'])visit(s[key]);
+ const rounded=n=>Math.round(n*1e12)/1e12;
+ const visit=value=>{let stable=true;for(const key of Object.keys(value)){if(typeof value[key]==='number'&&!Number.isInteger(value[key])&&key!=='roll'){value[key]=rounded(value[key]);if(!Object.is(rounded(value[key]),value[key]))stable=false;}else if(value[key]&&typeof value[key]==='object'&&!visit(value[key]))stable=false;}return stable;};
+ // These three lists append records but never edit their numeric fields. Only
+ // private replay can retain proven fixed-point prefixes across detached clones.
+ // Public mutable calls start from zero; no caller-owned array is trusted.
+ for(const key of ['nodes','events','arrivals','memories','pending','packets','attempts']){
+  if(isPrivateReplay()&&['events','arrivals','attempts'].includes(key)){
+   const array=s[key],start=reactionPrefix(array);let prefix=start;
+   for(let i=start;i<array.length;i++){const stable=visit(array[i]);if(stable&&prefix===i)prefix=i+1;}
+   rememberReactionPrefix(array,prefix);
+  }else visit(s[key]);
+ }
 }
 export function advanceExternal(s,month){
  if(!s.external||!Number.isSafeInteger(month)||month<s.month)throw Error('Invalid main town month');

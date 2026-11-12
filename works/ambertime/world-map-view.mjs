@@ -1,9 +1,9 @@
 // Pure, read-only view of the existing AmberTime town record.
 // No save schema, economic action or transmission draw is changed here.
 import {STAGES,clampStage,renderMap,MAP_CELL} from './experiments/world-map/v01/map.mjs';
-import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01';
+import {mapSceneryProjection} from './map-scenery.mjs?v=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01&perf=v06';
 import {drawMapScenery} from './map-scenery-view.mjs?v=map-scenery-v01&world=world-network-v01';
-import {NODES} from './town-connection.mjs?v=stage4-r2';
+import {NODES} from './town-connection.mjs?v=stage4-r2&perf=v06';
 const level=new Map(NODES.map(n=>[n.id,n.level]));
 const receipts=game=>game?.labConnection?.version===1?game.labConnection.town:null;
 export function mapProgress(game){

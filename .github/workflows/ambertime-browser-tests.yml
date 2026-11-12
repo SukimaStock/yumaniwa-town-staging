@@ -1,0 +1,60 @@
+name: AmberTime native browser safety
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.github/workflows/ambertime-browser-tests.yml'
+      - 'works/ambertime/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ambertime-browser-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  native-chromium:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Keep Chromium sandbox enabled on a supported image with user namespaces.
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact candidate without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Install pinned official browser tooling in temporary directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/ambertime-browser" --no-audit --no-fund --ignore-scripts playwright@1.62.1
+          "$RUNNER_TEMP/ambertime-browser/node_modules/.bin/playwright" install --with-deps chromium
+          echo "AMBER_BROWSER_MODULE=$RUNNER_TEMP/ambertime-browser/node_modules/playwright/index.mjs" >> "$GITHUB_ENV"
+          node -e 'console.log("AMBER_BROWSER_EXECUTABLE="+require(process.argv[1]).chromium.executablePath())' "$RUNNER_TEMP/ambertime-browser/node_modules/playwright" >> "$GITHUB_ENV"
+      - name: Verify native main adapter safety matrix
+        shell: bash
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ runner.temp }}/ambertime-browser/node_modules
+          AMBER_CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          node --version
+          node works/ambertime/tests/formal-idb-main-browser.mjs "$RUNNER_TEMP/ambertime-browser-results"
+      - name: Verify actual runtime and native IndexedDB publication boundary
+        run: node --test works/ambertime/tests/formal-idb-runtime-browser.test.mjs
+      - name: Verify frozen 100-year native storage and cold processes
+        env:
+          AMBER_CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node works/ambertime/tests/formal-idb-large-browser.mjs "$RUNNER_TEMP/ambertime-large-browser-results"
+      - name: Preserve native browser measurements
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ambertime-native-${{ github.event.pull_request.head.sha }}
+          path: |
+            ${{ runner.temp }}/ambertime-browser-results
+            ${{ runner.temp }}/ambertime-large-browser-results
+          if-no-files-found: warn

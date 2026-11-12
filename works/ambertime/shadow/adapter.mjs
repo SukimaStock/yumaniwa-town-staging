@@ -1,7 +1,7 @@
-import {createReadSwitch} from './read-switch.mjs';
+import {createReadSwitch} from './read-switch.mjs?consignment=night-stage4-v01&perf=v06';
 import {compareAchievements} from './achievements.mjs';
 // Diagnostic only: never receives a writer and never mutates native state.
-import {createReader,updateReader,compareReader} from './readers.mjs';
+import {createReader,updateReader,compareReader} from './readers.mjs?consignment=night-stage4-v01&perf=v06';
 import * as M from '../../ambertime-strategy-lab/internal/model.mjs';
 const copy=x=>structuredClone(x), cents=n=>Math.round(n*100);
 const require=(x,m)=>{if(!x)throw Error(m);};

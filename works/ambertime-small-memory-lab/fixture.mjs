@@ -1,5 +1,5 @@
 // Authored synthetic presentation facts. Not a save, player record, or simulated trajectory.
-import {NODES} from '../ambertime/town-connection.mjs';
+import {NODES} from '../ambertime/town-connection.mjs?v=stage4-r2&perf=v06';
 const clone=structuredClone;
 const profile=smoke=>({roughness:.22,character:.64,wood:.52,flavor:{version:1,profile:{fruit:smoke?.12:.8,grain:.3,smoke:smoke?.9:.08,body:.5,rough:.2,spice:.2,wood:.5,vanilla:.3}}});
 const gen=m=>Math.floor(m/360)+1;

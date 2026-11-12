@@ -1,5 +1,5 @@
 // Native-game inquiry adapter. No RNG, inventory, money, simulation or storage IO.
-import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01&perf=v06';
 import {regionalContacts,worldNetworkMode,worldContact,contactForNode} from './world-network.mjs?v=world-network-v01';
 import {SHOP} from './shop-model.mjs?v=bar-v01-1';
 export const REGIONAL_PARTNERS=Object.freeze({version:1,rules:'regional-inquiry-offers/1',partnerId:'trial-region-desk',regionId:'trial-region',nodeId:'near-wide'});
