@@ -103,7 +103,7 @@ try{
  }));
  await test('first save after cold adapter restore fails safely','injected quota on first native write after cold connection',()=>fresh(async p=>{
   await boot(p);assert.equal((await save(p)).ok,true);await p.evaluate(async()=>{h.b.adapter.close();h.b=await h.boot();});const before=await entries(p);
-  await p.evaluate(()=>h.fault('quota'));assert.equal((await p.evaluate(()=>h.save(h.third))).ok,false);await p.evaluate(()=>h.unfault());assert.deepEqual(await entries(p),before);assert.equal(await p.evaluate(()=>h.b.adapter.text),next);
+  await p.evaluate(()=>h.fault('quota'));assert.equal((await p.evaluate(()=>h.save(h.third))).ok,false);await p.evaluate(()=>h.unfault());assert.deepEqual(await entries(p),before);assert.equal(await p.evaluate(()=>h.b.adapter.text),next);assert.equal(await p.evaluate(()=>h.b.adapter.status.state),'halted');
  }));
  await test('new browser process restores exact official state','native persistent profile clean close/reopen; not power loss',async()=>{
   const profile=await mkdtemp(path.join(tmpdir(),'ambertime-browser-profile-'));let c=await chromium.launchPersistentContext(profile,launch);

@@ -17,7 +17,8 @@ concurrency:
 jobs:
   native-chromium:
     if: github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    # Keep Chromium sandbox enabled on a supported image with user namespaces.
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
     steps:
       - name: Checkout exact candidate without persisted credentials
