@@ -1,0 +1,117 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "afb5b53ddaa7762ce45bb0e8ac40e38afb5c88c08b988577116f1564dff19b49",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+    "changeId": "ambertime-state-v10-20261112",
+    "revision": 0,
+    "change": "Read-only state/write audit and detached partition-copy independent Lab; no runtime integration",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/economy.mjs",
+      "works/ambertime/town-connection.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/design/state-v10/**",
+      ".change-plans/ambertime-state-v10-20261112/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/operations.mjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Audit actual write paths and sampled five-century fixture state sizes.",
+      "Independent Lab compares complete clone against graph-aware component cloning at experimental monthly boundary; preserve all aliases and full detach.",
+      "Compare archive separation feasibility without sharing mutable original state or changing public reader.",
+      "No runtime connection unless separate new Plan after evidence; no merge or deployment."
+    ],
+    "ownerDecisions": [
+      "User v1.0 2026-11-12 authorizes state audit and independent Lab, Draft preservation only."
+    ],
+    "hqDecisions": [
+      "Authority: user v1.0; exact PR932 stacked on931; formal reader unchanged.",
+      "Missing capability: measured state ownership separation, not new save schema.",
+      "Minimal extension: offline independent Lab with sampled sizes and actual one-month comparisons.",
+      "Scope: design/state-v10 only; no shipped module imports or cache changes.",
+      "Compatibility: full state, property order and cross-field alias preservation required.",
+      "Tests: bidirectional mutation, injected failure, low cash, whole-state equality; reject unsafe candidates.",
+      "Rollback: discard experimental branch without touching saves.",
+      "No integration authority assumed; any connection requires new Plan and independent review."
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Browser/iPhone unverified unless actually run; not claimed by Node results."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard unpublished candidate without any save or deployment modification.",
+    "outOfScope": [
+      "Staging merge/deploy",
+      "Production",
+      "Stage5",
+      "UI41-44",
+      "Shared town",
+      "Save acceptance changes",
+      "Economy balance",
+      "History deletion",
+      "New checkpoint trust",
+      "Tools/workflows/permissions changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Lab not yet run; no new five-strategy formal cold protocol claimed.",
+      "Browser/iPhone unverified; Node Lab only."
+    ],
+    "alternativesRejected": [
+      "Shared mutable town or history, freeze-only isolation, reader weakening, history deletion."
+    ],
+    "boundaryCases": [
+      "Cross-root aliases; shared events/arrivals; records/result; insufficient funds; exception; public input mutated after result."
+    ],
+    "testPlan": [
+      "Verify immutable synthetic fixture manifest before reading.",
+      "Compare five saved century states through actual next-month path with instrumentation OFF time and separate sampled sizes.",
+      "Reject alias changes, public mutations, exception leaks; profile cost includes partition preparation separately.",
+      "Independent review and Scope/Risk/Impact checks."
+    ],
+    "problem": "Large mutable state copies dominate cold replay; small redundant-copy removals did not yield stable speedup.",
+    "currentContract": "Exact PR932 runtime a287 and fixed 100-year formal fixtures; public detached snapshots, rollback, exact formal state.",
+    "whyExistingIsInsufficient": "Public full detach copies growing histories. Need prove whether narrower independent ownership is possible, not assume past records immutable.",
+    "design": "Offline sampled field/write audit and bounded component-clone Lab. Native structuredClone remains baseline and all mutable outputs detached. No production loader.",
+    "migration": "None; Lab only.",
+    "compatibility": "No accepted reader/state/history/economics change. Same formal fixtures and transition outputs.",
+    "promotionRisk": "No merge/deploy authorized. Draft only."
+  }
+}
