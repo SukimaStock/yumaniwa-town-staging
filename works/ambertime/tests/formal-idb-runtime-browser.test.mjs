@@ -89,7 +89,7 @@ test('native IDB runtime migration, delayed publication, conflict and recovery',
     await h.page.locator('#entry-new').click();
     await h.page.waitForFunction(()=>__idbRuntimeTest.snapshot().game!==null&&!__idbRuntimeTest.status().saving);
     assert.equal(await h.page.evaluate(()=>__idbRuntimeTest.advancePaused()),true);
-    const before=await snapshot(h.page);assert.equal(before.userPaused,true);assert.equal(JSON.parse((await readHead(h.page)).text).version,8);
+    const before=await snapshot(h.page);assert.equal(before.userPaused,true);assert.equal(JSON.parse((await readHead(h.page)).text).version,9); // Approved lossless-v1 writer emits v9; official reader below remains authoritative.
     assert.equal(await h.page.evaluate(key=>localStorage.getItem(key),FORMAL_SAVE_KEY),null);
     await h.page.reload();await settled(h.page);assert.equal((await snapshot(h.page)).game,null);await continueTitle(h.page);assert.deepEqual(await snapshot(h.page),before);assert.deepEqual(h.errors,[]);
    }finally{await h.context.close();}
