@@ -1,6 +1,6 @@
 # AmberTime v0.5 — 復元性能・保存往復の実行記録
 
-更新: 2026-11-12T12:43:07.685261+00:00
+更新: 2026-11-12T12:45:21.820508+00:00
 
 状態: 途中保全。改善候補の完全な5戦略プロトコルは **5/5完了**。完了集合: local, regional, bulk, small, diversified。未完了・将来実行予定は成功扱いにしない。
 
@@ -41,7 +41,7 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
 
 | 戦略 | 基準cold秒 | 改善候補cold秒 | 2回目cold秒 | 完全プロトコル |
 | --- | ---: | ---: | ---: | --- |
-| local | 再測定待ち | 129.357 | 142.478 | 親・両child正常終了 |
+| local | 180.450 | 129.357 | 142.478 | 親・両child正常終了 |
 | regional | 88.785 | 75.492 | 74.220 | 親・両child正常終了 |
 | bulk | 95.743 | 81.053 | 79.873 | 親・両child正常終了 |
 | small | 187.694 | 164.940 | 164.374 | 親・両child正常終了 |
@@ -61,6 +61,740 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
 ## 二世代readMainRecord測定
 
 別の正規Planで実装されたprevious→head検証順序候補を、100年の旧世代・翌月の新世代で測定する予定。現在のfixtureは合成原軌跡だけを使用する。候補commit `d087bbca74768aa666e2c9d681030bf5df1a0a22`、tree `b675d0f3c14acf4b43e798376232b55a8cb26fd6`。実 `bootMainIdb` → `readMainRecord` と実正式reader・SHA検証を呼び、実際の3つのlegacy source key（すべてnull）を一致させる。IDBのopen/readonly request schedulingだけを模擬する。native browser IDB測定とは区別する。二世代とも正式readerを呼ぶこと、旧・新の全session原本一致、保存bytes不変を確認する。
+
+## 最終比較JSON
+
+```json
+{
+  "environment": "Node, local managed executor, sequential fresh processes. Not browser IndexedDB or iPhone.",
+  "baselineRuntime": "bb12ed6 recovered candidate; local clean comparison after full protocols; original local full run200s retained as contended correctness only.",
+  "optimizedRuntime": {
+    "localCommit": "2a3f009d6efa9e6d4033a852cd2e84be56ee79c3",
+    "gitTree": "f417cb3a4ac7ee6023ce9e2bfe5af08db442a872",
+    "preservedRemoteHead": "8593831d3fd4d77c066357f502a658ca87514a91"
+  },
+  "fixtures": "Frozen original a210 independent1200-month careers and frozen original next-month full-session oracles. Original100-year generation reused, not rerun.",
+  "timingInterpretation": "Single run per strategy; phase measurements nested, not additive. fileRead is filesystem, not IndexedDB. Native IDB head+previous verification may incur additional reader passes. firstSaveAfterRestore is official serialization plus embedded reader verification, not IDB transaction write. checkpointCapture is new replay-cache snapshot capture, not persisted checkpoint restoration. Memory not demonstrated improved.",
+  "allFiveOptimizedFullProtocolNormalExit": true,
+  "allFiveUncontendedBaselineReadsNormalExit": true,
+  "baselineRoutes": [
+    {
+      "strategy": "local",
+      "exitCode": 0,
+      "elapsedSeconds": 603.8525707889999
+    },
+    {
+      "strategy": "regional",
+      "exitCode": 0,
+      "elapsedSeconds": 91.79852619700023
+    },
+    {
+      "strategy": "bulk",
+      "exitCode": 0,
+      "elapsedSeconds": 98.90220103499996
+    },
+    {
+      "strategy": "small",
+      "exitCode": 0,
+      "elapsedSeconds": 192.12309605100018
+    },
+    {
+      "strategy": "diversified",
+      "exitCode": 0,
+      "elapsedSeconds": 95.38890496700014
+    }
+  ],
+  "optimizedRoutes": [
+    {
+      "strategy": "local",
+      "exitCode": 0,
+      "elapsedSeconds": 423.4763741339998
+    },
+    {
+      "strategy": "regional",
+      "exitCode": 0,
+      "elapsedSeconds": 236.9919878999999
+    },
+    {
+      "strategy": "bulk",
+      "exitCode": 0,
+      "elapsedSeconds": 251.87983209599997
+    },
+    {
+      "strategy": "small",
+      "exitCode": 0,
+      "elapsedSeconds": 504.8709297989999
+    },
+    {
+      "strategy": "diversified",
+      "exitCode": 0,
+      "elapsedSeconds": 251.18957033899915
+    }
+  ],
+  "rows": [
+    {
+      "strategy": "local",
+      "baselineColdSeconds": 180.450258282,
+      "optimizedColdSeconds": 129.356862952,
+      "optimizedSecondColdSeconds": 142.47805301100001,
+      "coldImprovementPercent": 28.314393016912952,
+      "sameWireSHA256": "87f84465dbeaf08f5bb3ad3fc1bb26881fff304026446568e09de0c180cf4456",
+      "baselineFirstSaveAfterRestoreSeconds": 5.169401255000004,
+      "optimizedFirstSaveAfterRestoreSeconds": 5.4488128550000114,
+      "baselineReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 61.92654200000004
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 86.81421599999999
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 1417.092608
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 730.8745050000002
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 41.39590499999986
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 175891.00992
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 94.94285699999637
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 412.5174869999855
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 176401.199074
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 177844.57400700002
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.48939299999619834
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 3.672576000011759
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 5.070512999984203
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 24.268562999990536
+        }
+      },
+      "optimizedReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 13.98077699999999
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 24.37199899999996
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 1293.313306
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 950.2520579999998
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 91.45110199999999
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 125080.465731
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 129.00473400000283
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 426.71067799999173
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 125643.707572
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 126692.770695
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.48359000000345986
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 3.7531310000049416
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 6.386687999998685
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 31.245148999994854
+        }
+      },
+      "baselinePeakRSSKiB": 1276988,
+      "optimizedChild1PeakRSSKiB": 1246908,
+      "fullOptimizedProtocolNormalExit": true,
+      "wholeGameAndEverySidecarEqual": true,
+      "initialExpectedSHA256": "f35e0fb48fab929ebb689d94a07fe98f65c5b758fb4e779c92ba5c3edcf6c668"
+    },
+    {
+      "strategy": "regional",
+      "baselineColdSeconds": 88.784981675,
+      "optimizedColdSeconds": 75.491623754,
+      "optimizedSecondColdSeconds": 74.21956462200001,
+      "coldImprovementPercent": 14.972529892117029,
+      "sameWireSHA256": "b38a683adb00948baa91121922833d2169304a13613931a2d77ff71046cdb7f4",
+      "baselineFirstSaveAfterRestoreSeconds": 2.4080605689999937,
+      "optimizedFirstSaveAfterRestoreSeconds": 2.3719985450000096,
+      "baselineReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 31.322386999999992
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 23.879705000000058
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 861.96129
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 450.550424
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 15.767515000000003
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 86429.587908
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 47.10661599999321
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 179.93617300000096
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 86660.524604
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 87235.249834
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.7169949999952223
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 3.254574999999022
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 6.527616999999736
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 19.374236999996356
+        }
+      },
+      "optimizedReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 30.013209999999958
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 74.31311000000005
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 886.21998
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 641.173685
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 17.484799000000294
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 72599.066998
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 48.02618300000813
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 212.2212709999976
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 72864.048629
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 73632.251265
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.40508799999952316
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 3.477339999997639
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 7.107191000002786
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 18.697280000007595
+        }
+      },
+      "baselinePeakRSSKiB": 808600,
+      "optimizedChild1PeakRSSKiB": 885124,
+      "fullOptimizedProtocolNormalExit": true,
+      "wholeGameAndEverySidecarEqual": true,
+      "initialExpectedSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f"
+    },
+    {
+      "strategy": "bulk",
+      "baselineColdSeconds": 95.74322776300001,
+      "optimizedColdSeconds": 81.053062878,
+      "optimizedSecondColdSeconds": 79.87318441400001,
+      "coldImprovementPercent": 15.343293962643079,
+      "sameWireSHA256": "2e32bb086764754baca3073e08784d385eb9a31c32725cfff487658773355592",
+      "baselineFirstSaveAfterRestoreSeconds": 2.747438221999997,
+      "optimizedFirstSaveAfterRestoreSeconds": 2.6017031940000015,
+      "baselineReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 16.366428000000013
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 22.983064000000013
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 662.933638
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 367.85512400000016
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 17.435709000000088
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 93672.769612
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 47.05103999999278
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 185.38008500000205
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 93908.41334
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 94456.564726
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 1.4548429999995278
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 9.376506000000518
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 6.185318000003463
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 22.503819000005024
+        }
+      },
+      "optimizedReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 32.862459
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 87.64854300000002
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 838.4114030000001
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 675.4818309999998
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 18.327932000000146
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 78147.25071
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 48.23599699999568
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 236.36187800000653
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 78435.517217
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 79197.37745199999
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.3446479999984149
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 2.3667180000047665
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 4.949316999991424
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 20.977100999996765
+        }
+      },
+      "baselinePeakRSSKiB": 849740,
+      "optimizedChild1PeakRSSKiB": 945112,
+      "fullOptimizedProtocolNormalExit": true,
+      "wholeGameAndEverySidecarEqual": true,
+      "initialExpectedSHA256": "0554aad284cb93e38691538723a3f3243418ecd3c489ce499b2bd30d255feabe"
+    },
+    {
+      "strategy": "small",
+      "baselineColdSeconds": 187.69358988999997,
+      "optimizedColdSeconds": 164.94016695300002,
+      "optimizedSecondColdSeconds": 164.373819088,
+      "coldImprovementPercent": 12.122642520895294,
+      "sameWireSHA256": "9cbfe8554c8106c4ed745e02d91317226c3b313bacd4c341ea92d38a4c3d1b95",
+      "baselineFirstSaveAfterRestoreSeconds": 3.90499841,
+      "optimizedFirstSaveAfterRestoreSeconds": 3.9091370160000225,
+      "baselineReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 20.270689000000004
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 33.85853000000003
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 816.898115
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 525.3758890000001
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 24.169977000000017
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 184950.61690700002
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 67.0498439999933
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 323.2279810000182
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 185345.913876
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 186039.25658199997
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.23742699998547323
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 2.909079000004567
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 5.358479999995325
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 27.08933000001707
+        }
+      },
+      "optimizedReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 42.63996899999995
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 102.04960399999993
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 1158.386994
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 763.6902400000001
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 20.65267199999971
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 161112.47187500002
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 63.662480000018604
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 344.9977699999895
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 161527.15070099998
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 162582.63065600002
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.887871000013547
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 4.663349000009475
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 5.681995999999344
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 19.192050000012387
+        }
+      },
+      "baselinePeakRSSKiB": 1057720,
+      "optimizedChild1PeakRSSKiB": 1155340,
+      "fullOptimizedProtocolNormalExit": true,
+      "wholeGameAndEverySidecarEqual": true,
+      "initialExpectedSHA256": "b886e4a0e0820e5b36f5e36aa09f20620573f2160cf665d8b4746e6877d04c49"
+    },
+    {
+      "strategy": "diversified",
+      "baselineColdSeconds": 92.678532517,
+      "optimizedColdSeconds": 82.614008214,
+      "optimizedSecondColdSeconds": 76.688602125,
+      "coldImprovementPercent": 10.85960689025138,
+      "sameWireSHA256": "c78ce5bf0787634fbd9e30f7c01798a0ef49226c384fdd5f4f7374b7dcfa1443",
+      "baselineFirstSaveAfterRestoreSeconds": 2.247028470999998,
+      "optimizedFirstSaveAfterRestoreSeconds": 2.3984258139999874,
+      "baselineReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 16.68283500000001
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 19.44136800000001
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 509.32369
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 263.759237
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 20.788763000000017
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 91087.827256
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 39.74463600000013
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 201.7470120000064
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 91333.44145099999
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 91731.466578
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 1.149397000001045
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 12.291847000000416
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 8.821257000003243
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 25.414927999998326
+        }
+      },
+      "optimizedReadPhases": {
+        "fileRead": {
+          "calls": 1,
+          "ms": 31.70471200000003
+        },
+        "sessionJSONParse": {
+          "calls": 1,
+          "ms": 80.23436300000003
+        },
+        "sessionLosslessDecode": {
+          "calls": 1,
+          "ms": 870.491339
+        },
+        "gameExpansion": {
+          "calls": 1,
+          "ms": 529.0637360000001
+        },
+        "nativeJSONParse": {
+          "calls": 1,
+          "ms": 39.681142000000364
+        },
+        "operationReplay": {
+          "calls": 2,
+          "ms": 79988.210915
+        },
+        "checkpointCapture": {
+          "calls": 2,
+          "ms": 38.216905999997834
+        },
+        "finalStateEquality": {
+          "calls": 2,
+          "ms": 145.39512300000388
+        },
+        "officialNativeValidation": {
+          "calls": 1,
+          "ms": 80176.304863
+        },
+        "officialNativeReader": {
+          "calls": 1,
+          "ms": 80859.17195999999
+        },
+        "sidecar.slots": {
+          "calls": 1,
+          "ms": 0.44186700000136625
+        },
+        "sidecar.ledger": {
+          "calls": 1,
+          "ms": 3.321195999989868
+        },
+        "sidecar.history": {
+          "calls": 1,
+          "ms": 5.833852999989176
+        },
+        "sidecar.recall": {
+          "calls": 1,
+          "ms": 27.194667999996454
+        }
+      },
+      "baselinePeakRSSKiB": 743216,
+      "optimizedChild1PeakRSSKiB": 791528,
+      "fullOptimizedProtocolNormalExit": true,
+      "wholeGameAndEverySidecarEqual": true,
+      "initialExpectedSHA256": "86332df390402525a50fe500276328f2b58325533dd06c96fd1a13f97c294ffc"
+    }
+  ],
+  "instrumentationSHA256": {
+    "phase-loader-v05.mjs": "3051124a41e85e10e22987c53a1e819ca9f992ef92ca58256bdb19a8df96924d",
+    "protocol-v05.mjs": "0b7ae57565ddccee36da372fdd18ddf4251e0ed330dd762465ead752bcc0c3fd",
+    "protocol-perf-v05.mjs": "1a82851a22240d8a091e0b88f054ab72968147398b8573a93a35afefa94f4f4b"
+  }
+}
+```
 
 ## Fixture manifest（保存本体は含めない）
 
@@ -2361,6 +3095,150 @@ native `structuredClone`による完全detachmentとalias保持を残し、priva
     "rss": 878932
   }
 ]
+```
+
+### protocol-v05/local.clean.results.json
+
+```json
+[
+  {
+    "mode": "baseline-read-only",
+    "name": "local",
+    "month": 1332,
+    "coldMs": 180450.258282,
+    "readPhases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 61.92654200000004
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 86.81421599999999
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 1417.092608
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 730.8745050000002
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 41.39590499999986
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 175891.00992
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 94.94285699999637
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 412.5174869999855
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 176401.199074
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 177844.57400700002
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.48939299999619834
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 3.672576000011759
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 5.070512999984203
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 24.268562999990536
+      }
+    },
+    "firstSaveAfterRestoreMs": 5169.401255000004,
+    "firstSavePhases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 0.036290999996708706
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 193.81607800000347
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 355.22754399999394
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 26.394952000002377
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 1055.1693889999879
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 830.4812600000005
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 37.83308500002022
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 396.71615100000054
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 1448.6146350000054
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.039072000014130026
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 0.5988070000021253
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 2.960194999992382
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 35.66535300001851
+      }
+    },
+    "nestedPhaseTimings": true,
+    "wireUnits": 4613593,
+    "wireSHA256": "87f84465dbeaf08f5bb3ad3fc1bb26881fff304026446568e09de0c180cf4456",
+    "expectedFullEquality": true,
+    "rss": 1276988,
+    "historicalCareerReused": true,
+    "newNextMonthProtocol": false,
+    "waitedForRegressionSuites": true
+  }
+]
+```
+
+### clean-local-exit.json
+
+```json
+{
+  "exitCode": 0,
+  "observedLauncherOutput": "FINAL_CLEAN_LOCAL_EXIT 0",
+  "source": "tools.write_stdin session24878 completed exit_code0"
+}
 ```
 
 ### protocol-v05/whole-results.json
