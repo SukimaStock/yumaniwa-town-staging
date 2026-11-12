@@ -1,5 +1,6 @@
 // Fresh main-to-recovered-candidate comparison; archived predecessor tests retained separately.
 import {createHash} from 'node:crypto';
+import {invertReviewedCopyV07} from './copy-v07-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import{execFileSync}from'node:child_process';import{readFileSync}from'node:fs';import{buildGraph,dependencies,assertUpdatedGraph,sameIdentity}from'./r0-cache-graph.mjs';
 const base='0778bcf4555737ec45947a80aca8f761f39fa429',source='a210984399547b07728c48bcd83365cf2f28e269';
 const git=(sha,p)=>execFileSync('git',['show',sha+':'+p],{maxBuffer:32*1024*1024}).toString();
@@ -26,6 +27,8 @@ test('economic and replay source matches exact927 after exact reviewed codec and
  for(const name of ['partner-orders.mjs','placement-mode.mjs','regional-consignment.mjs','regional-deliveries.mjs','store-market.mjs','ledger-view.mjs']){
   const p='works/ambertime/'+name;let actual=read(p);
   if(name==='partner-orders.mjs'){
+   // v1.0 enumerates A once and salary B twice; fixed927 hash remains unchanged.
+   actual=invertReviewedCopyV07(actual);
    const line=actual.split('\n').find(l=>l.startsWith('import {decodeExactJSON,isLosslessEnvelope}'));assert(line);actual=actual.replace(line+'\n','');
    const branch="if(isLosslessEnvelope(s,'native'))s=JSON.parse(decodeExactJSON(text,'native'));";assert.equal(actual.split(branch).length,2);actual=actual.replace(branch,'');
    // Invert only the three reviewed replay changes, each required exactly once.
