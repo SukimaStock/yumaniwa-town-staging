@@ -1,0 +1,280 @@
+TAP version 13
+# Subtest: IDB confirmation must finish before a game candidate is published
+ok 1 - IDB confirmation must finish before a game candidate is published
+  ---
+  duration_ms: 2.557216
+  type: 'test'
+  ...
+# Subtest: rapid second tap is rejected; first save is not queued or re-prepared
+ok 2 - rapid second tap is rejected; first save is not queued or re-prepared
+  ---
+  duration_ms: 0.822678
+  type: 'test'
+  ...
+# Subtest: quota / abort / conflict stops gameplay and does not apply candidate
+ok 3 - quota / abort / conflict stops gameplay and does not apply candidate
+  ---
+  duration_ms: 0.738771
+  type: 'test'
+  ...
+# Subtest: uncertain success (write completed but readback rejected) must never apply or retry
+ok 4 - uncertain success (write completed but readback rejected) must never apply or retry
+  ---
+  duration_ms: 0.361494
+  type: 'test'
+  ...
+# Subtest: visibility interruption invalidates pending write even when IDB resolves afterwards
+ok 5 - visibility interruption invalidates pending write even when IDB resolves afterwards
+  ---
+  duration_ms: 0.428344
+  type: 'test'
+  ...
+# Subtest: bad receipt, thrown apply, and async apply all require cold read rather than reusing old revision
+ok 6 - bad receipt, thrown apply, and async apply all require cold read rather than reusing old revision
+  ---
+  duration_ms: 0.601865
+  type: 'test'
+  ...
+# Subtest: invalid candidates and constructor arguments do not publish game or write anything
+ok 7 - invalid candidates and constructor arguments do not publish game or write anything
+  ---
+  duration_ms: 0.491149
+  type: 'test'
+  ...
+# Subtest: pure module has no direct game mutation or browser storage side effects
+ok 8 - pure module has no direct game mutation or browser storage side effects
+  ---
+  duration_ms: 1.277461
+  type: 'test'
+  ...
+# Subtest: large previously validated generations retain bounded digest proofs, never raw text or sessions
+ok 9 - large previously validated generations retain bounded digest proofs, never raw text or sessions
+  ---
+  duration_ms: 254.466299
+  type: 'test'
+  ...
+# Subtest: reader failure cannot seed trust and reader/connection identity isolates proofs
+ok 10 - reader failure cannot seed trust and reader/connection identity isolates proofs
+  ---
+  duration_ms: 1.50227
+  type: 'test'
+  ...
+# Subtest: lone-surrogate UTF8 replacement cannot reuse a canonical proof
+ok 11 - lone-surrogate UTF8 replacement cannot reuse a canonical proof
+  ---
+  duration_ms: 0.850909
+  type: 'test'
+  ...
+# Subtest: v8 write is verified, committed, and equal after reopening
+ok 12 - v8 write is verified, committed, and equal after reopening
+  ---
+  duration_ms: 9.83414
+  type: 'test'
+  ...
+# Subtest: atomic head and previous with monotonic CAS protects old good v8
+ok 13 - atomic head and previous with monotonic CAS protects old good v8
+  ---
+  duration_ms: 3.543434
+  type: 'test'
+  ...
+# Subtest: injected quota abort leaves the old generation and previous unchanged
+ok 14 - injected quota abort leaves the old generation and previous unchanged
+  ---
+  duration_ms: 1.9414
+  type: 'test'
+  ...
+# Subtest: invalid candidate is rejected before any transaction or replacement
+ok 15 - invalid candidate is rejected before any transaction or replacement
+  ---
+  duration_ms: 0.532331
+  type: 'test'
+  ...
+# Subtest: tampered head fails closed; explicit previous read can diagnose without rollback
+ok 16 - tampered head fails closed; explicit previous read can diagnose without rollback
+  ---
+  duration_ms: 3.985874
+  type: 'test'
+  ...
+# Subtest: no storage reader / IDB available refuses to proceed
+ok 17 - no storage reader / IDB available refuses to proceed
+  ---
+  duration_ms: 0.562987
+  type: 'test'
+  ...
+# Subtest: preflight is the only site import; runtime and localStorage are untouched
+ok 18 - preflight is the only site import; runtime and localStorage are untouched
+  ---
+  duration_ms: 0.896288
+  type: 'test'
+  ...
+# Subtest: corrupt head and previous refuse rotation without altering either entry
+ok 19 - corrupt head and previous refuse rotation without altering either entry
+  ---
+  duration_ms: 7.89932
+  type: 'test'
+  ...
+# Subtest: correctly hashed but semantically rejected head cannot rotate
+ok 20 - correctly hashed but semantically rejected head cannot rotate
+  ---
+  duration_ms: 1.508018
+  type: 'test'
+  ...
+# Subtest: orphan previous and revision overflow fail closed
+ok 21 - orphan previous and revision overflow fail closed
+  ---
+  duration_ms: 0.85796
+  type: 'test'
+  ...
+# Subtest: thenable reader is rejected before storage mutation
+ok 22 - thenable reader is rejected before storage mutation
+  ---
+  duration_ms: 0.291498
+  type: 'test'
+  ...
+# Subtest: exact snapshot rejects same-revision mutation and insertion/deletion of either entry
+ok 23 - exact snapshot rejects same-revision mutation and insertion/deletion of either entry
+  ---
+  duration_ms: 14.720068
+  type: 'test'
+  ...
+# Subtest: abort after previous put but before head put preserves both committed entries
+ok 24 - abort after previous put but before head put preserves both committed entries
+  ---
+  duration_ms: 1.938686
+  type: 'test'
+  ...
+# Subtest: postcommit reader failure retains previous and requires cold reconciliation
+ok 25 - postcommit reader failure retains previous and requires cold reconciliation
+  ---
+  duration_ms: 1.597823
+  type: 'test'
+  ...
+# Subtest: every present malformed entry fails closed including stored undefined
+ok 26 - every present malformed entry fails closed including stored undefined
+  ---
+  duration_ms: 8.743469
+  type: 'test'
+  ...
+# Subtest: v03 bounded replacements retain immutable origin and exactly current/previous
+ok 27 - v03 bounded replacements retain immutable origin and exactly current/previous
+  ---
+  duration_ms: 63.350274
+  type: 'test'
+  ...
+# Subtest: v03 old-schema main database is rejected intact, never replaced from legacy
+ok 28 - v03 old-schema main database is rejected intact, never replaced from legacy
+  ---
+  duration_ms: 0.759763
+  type: 'test'
+  ...
+# Subtest: v03 stored falsy previous is not treated as absent at first revision
+ok 29 - v03 stored falsy previous is not treated as absent at first revision
+  ---
+  duration_ms: 11.338162
+  type: 'test'
+  ...
+# Subtest: v03 corrupt head or previous is retained and never automatically rolled back
+ok 30 - v03 corrupt head or previous is retained and never automatically rolled back
+  ---
+  duration_ms: 9.753268
+  type: 'test'
+  ...
+# Subtest: v03 partial queued puts abort all generations and metadata atomically
+ok 31 - v03 partial queued puts abort all generations and metadata atomically
+  ---
+  duration_ms: 10.030015
+  type: 'test'
+  ...
+# Subtest: v03 readback exception halts publication, preserves previous, and cold reads committed head
+ok 32 - v03 readback exception halts publication, preserves previous, and cold reads committed head
+  ---
+  duration_ms: 3.618983
+  type: 'test'
+  ...
+# Subtest: v03 competing valid tab wins, stale writer cannot rotate either generation
+ok 33 - v03 competing valid tab wins, stale writer cannot rotate either generation
+  ---
+  duration_ms: 3.966255
+  type: 'test'
+  ...
+# Subtest: v03 equal-revision envelope mutation between validation and transaction fails CAS
+ok 34 - v03 equal-revision envelope mutation between validation and transaction fails CAS
+  ---
+  duration_ms: 5.067882
+  type: 'test'
+  ...
+# Subtest: v03 pending input is rejected, invalidation prevents late successful receipt publication
+ok 35 - v03 pending input is rejected, invalidation prevents late successful receipt publication
+  ---
+  duration_ms: 3.876986
+  type: 'test'
+  ...
+# Subtest: v03 successful transaction but corrupt readback never publishes or repairs silently
+ok 36 - v03 successful transaction but corrupt readback never publishes or repairs silently
+  ---
+  duration_ms: 3.109497
+  type: 'test'
+  ...
+# Subtest: v03 abort during initial migration leaves no partial origin or authoritative head
+ok 37 - v03 abort during initial migration leaves no partial origin or authoritative head
+  ---
+  duration_ms: 5.453011
+  type: 'test'
+  ...
+# Subtest: v03 source mutation after commit is uncertainty, not successful migration
+ok 38 - v03 source mutation after commit is uncertainty, not successful migration
+  ---
+  duration_ms: 1.526546
+  type: 'test'
+  ...
+# Subtest: cold generation read formally validates previous then head and returns the exact head session
+ok 39 - cold generation read formally validates previous then head and returns the exact head session
+  ---
+  duration_ms: 20.855525
+  type: 'test'
+  ...
+# Subtest: cold corruption of either generation stops before any rotation and preserves every stored byte
+ok 40 - cold corruption of either generation stops before any rotation and preserves every stored byte
+  ---
+  duration_ms: 31.149207
+  type: 'test'
+  ...
+# Subtest: a recomputed envelope checksum never makes divergent forged native state trusted by the prefix cache
+ok 41 - a recomputed envelope checksum never makes divergent forged native state trusted by the prefix cache
+  ---
+  duration_ms: 68.276292
+  type: 'test'
+  ...
+# Subtest: legacy8 stays byte-identical/default; explicit9 fully restores original game and every sidecar
+ok 42 - legacy8 stays byte-identical/default; explicit9 fully restores original game and every sidecar
+  ---
+  duration_ms: 5897.343176
+  type: 'test'
+  ...
+# Subtest: native compressed reader retains full replay and rejects money tampering
+ok 43 - native compressed reader retains full replay and rejects money tampering
+  ---
+  duration_ms: 376.736519
+  type: 'test'
+  ...
+# Subtest: v9 retains all session constraints and rejects sidecar/elapsed corruption
+ok 44 - v9 retains all session constraints and rejects sidecar/elapsed corruption
+  ---
+  duration_ms: 2697.462359
+  type: 'test'
+  ...
+# Subtest: v9 cold child process reconstructs independent pre-encoding original and first resave
+ok 45 - v9 cold child process reconstructs independent pre-encoding original and first resave
+  ---
+  duration_ms: 2995.895598
+  type: 'test'
+  ...
+1..45
+# tests 45
+# suites 0
+# pass 45
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12144.187888

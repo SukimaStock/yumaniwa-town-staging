@@ -1,0 +1,113 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "39a298678cb9262781af5a0acf468571033819cebaebd96c1306c4f739b6d447",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "abef91fa419b72ea7e533039070e99f3da88b66c",
+    "changeId": "ambertime-trust-v14-20261113",
+    "revision": 0,
+    "change": "Audit formal save trust model and alternatives; research only, no runtime or reader modification",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/experiments/town-simulation/v01/model.mjs",
+      "works/ambertime/clone-data.mjs",
+      "works/ambertime/formal-idb-main.mjs",
+      "works/ambertime/session-state.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/design/trust-v14/**",
+      ".change-plans/ambertime-trust-v14-20261113/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      "engine/**",
+      "data/**",
+      "works/ambertime/economy-parameters.mjs",
+      "works/ambertime/recent-ledger.mjs",
+      "works/ambertime/recall/operations.mjs",
+      ".github/workflows/change-pr-gate.yml",
+      ".github/workflows/change-verification.yml"
+    ],
+    "expectedChanges": [
+      "Audit formal v8/v9 reader, volatile checkpoint and IDB trust/certification boundaries.",
+      "Compare A full replay, B verified checkpoint, C evidence-carrying checkpoint, D staged validation against explicit threat model.",
+      "Preserve prior evidence exact SHAs/environments and quantify measured versus hypothetical performance.",
+      "Only if trust and performance gates both hold, small independent design Lab; otherwise preserve rejection without manufacturing implementation.",
+      "Read-only adversarial native-reader audit probes may demonstrate trust limits; no candidate reader relaxation."
+    ],
+    "ownerDecisions": [
+      "User v1.4 at 2026-11-13 explicitly requests research-only fresh Draft, no runtime integration, merge or deployment."
+    ],
+    "hqDecisions": [
+      "Differentiate semantic consistency from authenticity and freshness. Same-origin data plus metadata cannot establish a new independent trust root.",
+      "Existing in-process verified cache is not persistent cold-start trust.",
+      "No experiments repeated from rejected copy/journal/private replay studies."
+    ],
+    "staticChecks": [
+      "node-syntax",
+      "change-operations-regression"
+    ],
+    "manualChecks": [
+      "Browser/iPhone unverified unless actually run; not claimed by Node results."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Discard unpublished candidate without any save or deployment modification.",
+    "outOfScope": [
+      "Any shipped runtime/reader/save format modification",
+      "Staging/Production merge/deploy",
+      "History deletion",
+      "UI",
+      "World expansion"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "New checkpoint system only if explicitly Lab tested; native tests do not certify alternatives.",
+      "iPhone, physical quota, power loss remain unverified."
+    ],
+    "alternativesRejected": [
+      "Self-hash as authenticity, persistent same-domain evidence as independent authority, unverified gameplay before validation."
+    ],
+    "boundaryCases": [
+      "Cold versus warm trust",
+      "Full archive replacement versus inconsistent checkpoint",
+      "Previous protection versus rollback freshness",
+      "Staged display versus formal play/save"
+    ],
+    "testPlan": [
+      "Existing focused formal-reader regression and minimal adversarial current-reader probes.",
+      "Source provenance and no-runtime-diff checks.",
+      "Scope/Risk/Impact/Trusted Static and independent review, exact remote CI."
+    ],
+    "problem": "Cold formal replay dominates century restore; can equivalent trust be established without it?",
+    "currentContract": "Exact #939 tree retains #932 runtime and prior official v8/v9 readers; full replay plus exact state comparison and bounded IDB generations.",
+    "whyExistingIsInsufficient": "Local copying optimizations did not establish stable full-game speedup.",
+    "design": "Read-only code and evidence audit, explicit threat matrix and conditional design Lab, formal runtime unchanged.",
+    "migration": "None.",
+    "compatibility": "No changes to accepted inputs, saves, history, or gameplay.",
+    "promotionRisk": "Draft research only; no merge/deploy."
+  }
+}

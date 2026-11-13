@@ -1,0 +1,360 @@
+{
+  "observedAt": "2026-11-13T06:05Z",
+  "main": "0778bcf4555737ec45947a80aca8f761f39fa429",
+  "prs": [
+    {
+      "number": 929,
+      "head": "c326834feb33306b7e92c5842d19475c2a95734d",
+      "base": "0778bcf4555737ec45947a80aca8f761f39fa429",
+      "branch": "integrate/ambertime-idb-order-v05-20261112",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 931,
+      "head": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+      "base": "0778bcf4555737ec45947a80aca8f761f39fa429",
+      "branch": "integrate/ambertime-perf-v06c-20261112",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 932,
+      "head": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+      "base": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+      "branch": "audit/ambertime-copy-v07-20261112",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 933,
+      "head": "2c643f00d349bb91af47020bf38fcf95f4c527cb",
+      "base": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+      "branch": "test/ambertime-source-guard-v10",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 934,
+      "head": "c79c0c0313877467bec81759c4b061485987c7a4",
+      "base": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+      "branch": "audit/ambertime-state-v10-20261112",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 937,
+      "head": "a3a28226676bfdc9aef20179815f32f52ce72da0",
+      "base": "882f63ff5ad28007ace1c272f566c522a7a369fb",
+      "branch": "audit/ambertime-town-journal-v11",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 938,
+      "head": "62f04704925ff2e66e7a509947d69cb208120002",
+      "base": "a3a28226676bfdc9aef20179815f32f52ce72da0",
+      "branch": "audit/ambertime-transaction-v12",
+      "draft": true,
+      "merged": false
+    },
+    {
+      "number": 939,
+      "head": "abef91fa419b72ea7e533039070e99f3da88b66c",
+      "base": "62f04704925ff2e66e7a509947d69cb208120002",
+      "branch": "audit/ambertime-private-replay-v13",
+      "draft": true,
+      "merged": false
+    }
+  ],
+  "checks": [
+    {
+      "pr": 929,
+      "sha": "c326834feb33306b7e92c5842d19475c2a95734d",
+      "checks": [
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43222494678/job/131197260993"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43222494769/job/131197260903"
+        },
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43222334931/job/131196705416"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43222334809/job/131196704295"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43222331043/job/131196700651"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43222331230/job/131196699300"
+        }
+      ]
+    },
+    {
+      "pr": 931,
+      "sha": "0ef9ba32c72e0fcb87f5ed748c47865db099adb6",
+      "checks": [
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43253261216/job/131304551868"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43253261088/job/131304551254"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43253180867/job/131304262883"
+        },
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43253180720/job/131304262812"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43253175416/job/131304247893"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43253175261/job/131304247799"
+        }
+      ]
+    },
+    {
+      "pr": 932,
+      "sha": "ad2ce4eb562c66836e3c961e79895bd2535ef2c6",
+      "checks": [
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43269135918/job/131360653518"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43269135874/job/131360640802"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43268969430/job/131360049818"
+        },
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43268969083/job/131360047833"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43268964360/job/131360038960"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43268964324/job/131360036612"
+        }
+      ]
+    },
+    {
+      "pr": 933,
+      "sha": "2c643f00d349bb91af47020bf38fcf95f4c527cb",
+      "checks": [
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43287521060/job/131424736756"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43287519892/job/131424726106"
+        },
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43287520890/job/131424724769"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43287519930/job/131424722275"
+        }
+      ]
+    },
+    {
+      "pr": 934,
+      "sha": "c79c0c0313877467bec81759c4b061485987c7a4",
+      "checks": [
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43288329299/job/131427729922"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43288329260/job/131427562917"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43288325749/job/131427557313"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43288325668/job/131427556672"
+        }
+      ]
+    },
+    {
+      "pr": 937,
+      "sha": "a3a28226676bfdc9aef20179815f32f52ce72da0",
+      "checks": [
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43294067243/job/131447555821"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43294067223/job/131447555157"
+        },
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43294067267/job/131447551434"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43294067462/job/131447551424"
+        }
+      ]
+    },
+    {
+      "pr": 938,
+      "sha": "62f04704925ff2e66e7a509947d69cb208120002",
+      "checks": [
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43298696812/job/131463756933"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43298696536/job/131463756430"
+        },
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43298696621/job/131463751695"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43298696817/job/131463751196"
+        }
+      ]
+    },
+    {
+      "pr": 939,
+      "sha": "abef91fa419b72ea7e533039070e99f3da88b66c",
+      "checks": [
+        {
+          "name": "native-chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43311439713/job/131508663235"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43311520451/job/131508537561"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43311520274/job/131508533627"
+        },
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43311440437/job/131508255179"
+        },
+        {
+          "name": "plan-risk-gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43311435689/job/131508247022"
+        },
+        {
+          "name": "trusted-mechanical-evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43311435585/job/131508246317"
+        }
+      ]
+    }
+  ]
+}
