@@ -1,0 +1,134 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3ad34c1d89a6793f49d747dd3e3afaa0740ad4b6d1f96bc745f8691f87360370",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "lighting-renderer-unification-20261113",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Introduce an opt-in, shared pixel lighting renderer with PNG/vector map contract and a Postcard Generator SVG adapter; no existing runtime behavior changes",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "0778bcf4555737ec45947a80aca8f761f39fa429",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/SUKIMASTOCK-ENGINE-v0.3.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "Space roadmap and approved PNG v0.3 / SVG Lab v0.1 design"
+    ],
+    "allowedPaths": [
+      ".change-plans/lighting-renderer-unification-20261113/r0.lock.json",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/SUKIMASTOCK-LIGHTING-v0.1.md",
+      "works/postcard-generator/lighting-adapter.mjs",
+      "tests/test-lighting.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/sukimastock-engine.v0.3.0.js",
+      "engine/codea-lite.v1.0.0.js",
+      "works/_starter/**",
+      "works/postcard-generator/engine.mjs",
+      "works/postcard-generator/renderer.mjs",
+      "data/**",
+      "lab/**",
+      "main.js",
+      "index.html",
+      "style.css",
+      "works/ambertime/**",
+      ".github/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Introduce opt-in vanilla JS lighting service without new RAF, input handlers, persistence or direct changes to canonical Engine",
+      "Accept existing image RGBA and 0.2 surface/height/emission pixel maps with editable vector geometry and preserve source data",
+      "Render four time periods with directional sunlight, window/lantern emission, bounded shadow geometry, safe fallback",
+      "Add Postcard Generator 0.2 adapter to derive surface shapes from real building/roof/window/corner data without changing generator code",
+      "Cover deterministic PNG/code/SVG adapter lighting equivalence, masks, bounds, non-mutation, legacy shape contracts in Node tests; document limits"
+    ],
+    "ownerDecisions": [
+      "2026-11-13: author approved PNG Lab v0.3 as provisionally complete, approved SVG visual results, explicitly instructed integration; Production authorization not given"
+    ],
+    "hqDecisions": [
+      "Use an additive optional module to preserve Codea/Engine 0.3.0 ownership; do not mutate canonical runtime or old works",
+      "Map shape contract is sukima-stock material-lightmap 0.2 compatible and keeps sourceRGBA immutable; SVG adapter lives near Postcard Generator and does not alter generator source or rendering of existing pages"
+    ],
+    "rulesApplied": [
+      "Full Plan Lock first commit before code; high-risk Scope/Risk/Impact and trusted static gates",
+      "Use authoritative source paths and original sprite Pixel Standard; no schema/storage migration",
+      "Author visual evaluation and device tests stay UNVERIFIED until actually observed"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-time-lighting",
+      "author-png-svg-visual-comparison"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "runtime.shared",
+      "runtime.rollback",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only new optional module, opt-in adapter and tests; existing runtime and works remain byte-identical",
+    "outOfScope": [
+      "Production, release promotion or live town changes",
+      "Alter canonical engine/input/RAF/Core or existing game save files",
+      "Change existing Postcard Generator authoring/rendering behavior",
+      "Scene registry/LAB generated files or any new work published as town content"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari visual behavior and touch experience",
+      "Actual performance in production games and maps"
+    ],
+    "problem": "PNG and SVG visual studies currently each embed independent lighting math; author wants a single reusable renderer for future pixel, SVG and code-made art",
+    "currentContract": "Engine 0.3.0 and Codea Lite own single RAF/input/viewport; PNG lab keeps material/height/emission and editable shadow/window/light geometry; Postcard Generator separates geometry from SVG render",
+    "whyExistingIsInsufficient": "Duplicated lighting formulas can diverge, while generated SVG has structural face data not yet mapped into shared runtime",
+    "design": "A stateless opt-in UMD/Node lighting module (pure maps and per-pixel light rendering, no DOM owners) with generic geometry map builder and shadow projection; a separate Postcard generator adapter creates that geometry from original buildings",
+    "alternativesRejected": [
+      "Patch the canonical Core draw loop directly",
+      "Add a separate game engine, WebGL requirement or shadow-specific RAF",
+      "Copy full Postcard renderer into the shared engine",
+      "Rewrite original PNG assets or all existing works"
+    ],
+    "migration": "None; optional dependency with no new storage key or change to existing saves",
+    "compatibility": "Existing Engine 0.3.0 and Codea Lite scripts, Postcard Generator generated seeds/exports, town and all work files remain untouched",
+    "boundaryCases": [
+      "No normals/depth on a bitmap: maintain fallback to original",
+      "Transparent pixels unchanged and existing input arrays never modified",
+      "Geometry partially outside viewport and very large polygon input bounds",
+      "Window/lamp shapes at night and sun shadows dawn/noon/dusk",
+      "Malformed 0.2 maps, unsupported modes, missing optional shapes and disabled feature",
+      "No duplicate global listeners, timers, animation loops or storage mutations"
+    ],
+    "testPlan": [
+      "Run node --test tests/test-lighting.cjs and node syntax checks",
+      "Compare Postcard adapter map against generated SVG geometry for multiple seed/roof/window variants",
+      "Inspect branch diff, Scope / Risk / Impact trusted gate results and no changes to forbidden files",
+      "Document browser/iPhone physical check as UNVERIFIED until owner tests"
+    ],
+    "promotionRisk": "Staging-only opt-in code. No production deployment. Merge only if required gates pass and no high-risk blocker."
+  }
+}
