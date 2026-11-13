@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: entry delayed durable writer prevents install and cannot be cancelled in flight
+ok 1 - entry delayed durable writer prevents install and cannot be cancelled in flight
+  ---
+  duration_ms: 2.314892
+  type: 'test'
+  ...
+# Subtest: entry rejected or uncertain durable writes never install a candidate
+ok 2 - entry rejected or uncertain durable writes never install a candidate
+  ---
+  duration_ms: 0.69589
+  type: 'test'
+  ...
+# Subtest: entry cancelled continuation cannot install after delayed durable revalidation
+ok 3 - entry cancelled continuation cannot install after delayed durable revalidation
+  ---
+  duration_ms: 0.354414
+  type: 'test'
+  ...
+# Subtest: entry cancellation during storage preparation cannot publish a late adapter session
+ok 4 - entry cancellation during storage preparation cannot publish a late adapter session
+  ---
+  duration_ms: 0.336618
+  type: 'test'
+  ...
+# Subtest: entry waits for asynchronous installation and marks rejected install as failure
+ok 5 - entry waits for asynchronous installation and marks rejected install as failure
+  ---
+  duration_ms: 0.383398
+  type: 'test'
+  ...
+# Subtest: entry failed continue revalidation cannot install apparently valid cached bytes
+ok 6 - entry failed continue revalidation cannot install apparently valid cached bytes
+  ---
+  duration_ms: 0.393994
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 170.276979

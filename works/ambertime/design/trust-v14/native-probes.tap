@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: valid v8 and v9 remain canonical and cold child restores exactly
+ok 1 - valid v8 and v9 remain canonical and cold child restores exactly
+  ---
+  duration_ms: 335.09962
+  type: 'test'
+  ...
+# Subtest: recomputed digest does not make mismatched state or missing history acceptable
+ok 2 - recomputed digest does not make mismatched state or missing history acceptable
+  ---
+  duration_ms: 66.641347
+  type: 'test'
+  ...
+# Subtest: two independently lawful archives both accepted: consistency is not actual-player provenance
+ok 3 - two independently lawful archives both accepted: consistency is not actual-player provenance
+  ---
+  duration_ms: 23.423306
+  type: 'test'
+  ...
+# Subtest: older complete valid save accepted cold: reader alone has no external freshness root
+ok 4 - older complete valid save accepted cold: reader alone has no external freshness root
+  ---
+  duration_ms: 12.58522
+  type: 'test'
+  ...
+# Subtest: warm verified prefix does not accept changed final state and failure does not poison retry
+ok 5 - warm verified prefix does not accept changed final state and failure does not poison retry
+  ---
+  duration_ms: 12.448928
+  type: 'test'
+  ...
+# Subtest: input and returned mutable state cannot mutate earlier returned result or later restore
+ok 6 - input and returned mutable state cannot mutate earlier returned result or later restore
+  ---
+  duration_ms: 13.828517
+  type: 'test'
+  ...
+# Subtest: persisted hash and claimed validation evidence never seed private IDB proof cache
+ok 7 - persisted hash and claimed validation evidence never seed private IDB proof cache
+  ---
+  duration_ms: 40.340318
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 709.896999
