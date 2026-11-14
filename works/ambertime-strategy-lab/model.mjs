@@ -1,9 +1,9 @@
 import {planSales,affinity,VENUES} from '../ambertime/market-sales.mjs';
 import {SHOPS,shopEvidence} from '../ambertime/shop-model.mjs';
 import {brandReputation} from '../ambertime/brand-reputation.mjs';
-import {createTown,recordBottle,receiveActual,advanceTown} from '../ambertime/town-connection.mjs';
+import {createTown,recordBottle,receiveActual,advanceTown} from '../ambertime/town-connection.mjs?v=stage4-r2&perf=v06';
 import {ageCask} from '../ambertime/model.mjs';
-import {marketValue} from '../ambertime/economy.mjs';
+import {marketValue} from '../ambertime/economy.mjs?v=bar-v01-1&perf=v06';
 export const DEFAULT_CONFIG=Object.freeze({months:60,total:100,seed:42,focus:'bar',smoke:.75,age:24,continuityWeight:.5,target:12,method:'carry'});
 export const SHOP_DEFINITIONS=Object.freeze(SHOPS.map(s=>({...s,opportunities:VENUES.find(v=>v.id===s.id)?.opportunities??null})));
 const ids=['town-liquor','supermarket','bar'],nodeId=id=>id==='town-liquor'?'town':id==='supermarket'?'super':id;

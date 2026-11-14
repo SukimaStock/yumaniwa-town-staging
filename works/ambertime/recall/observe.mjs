@@ -1,7 +1,7 @@
 // Observe each committed formal operation without replay or game mutation.
 import {SHOPS} from '../shop-model.mjs?v=bar-v01-1';
-import {NODES} from '../town-connection.mjs';
-import {displayHash,commentLines,commentWording,productTitle} from '../player-news.mjs';
+import {NODES} from '../town-connection.mjs?perf=v06';
+import {displayHash,commentLines,commentWording,productTitle} from '../player-news.mjs?perf=v06';
 const assert=(condition,message)=>{if(!condition)throw Error(message);};
 const helpers={displayHash,commentLines,commentWording,productTitle};
 const shops=new Map(SHOPS.map(({id,name})=>[id,{id,name}]));

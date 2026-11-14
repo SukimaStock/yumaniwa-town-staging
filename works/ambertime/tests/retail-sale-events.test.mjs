@@ -50,7 +50,7 @@ test('same-month placements, returns and cancelled plans never become actual sal
 
 test('synthetic event-envelope edge cases aggregate only the same product and shop',()=>{
  // Synthetic presentation input only: does not claim a native monthly outcome.
- const before={core:{month:12}},after={core:{month:13,lastMonth:{month:13,sales:[
+ const before={core:{month:12}},after={shop:{relations:[{shopId:'town-liquor'},{shopId:'supermarket'}]},core:{month:13,lastMonth:{month:13,sales:[
   {id:5,sold:1,revenue:16},{id:5,sold:2,revenue:32,channel:'retail'},
   {id:6,sold:2,revenue:30},{id:5,sold:1,revenue:12,channel:'stockist',shopId:'town-liquor'},
   {id:5,sold:2,revenue:20,channel:'stockist',shopId:'supermarket'},

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 131281905880,
+    "name": "plan-risk-gate",
+    "head_sha": "695a70b8e3854624c1877f3e4518e02a74d2ac48",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43246905233/job/131281905880",
+    "started_at": "2026-11-12T15:21:33Z",
+    "completed_at": "2026-11-12T15:21:51Z"
+  },
+  {
+    "id": 131281901682,
+    "name": "trusted-mechanical-evidence",
+    "head_sha": "695a70b8e3854624c1877f3e4518e02a74d2ac48",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43246905335/job/131281901682",
+    "started_at": "2026-11-12T15:21:33Z",
+    "completed_at": "2026-11-12T15:22:00Z"
+  },
+  {
+    "id": 131281896597,
+    "name": "native-chromium",
+    "head_sha": "695a70b8e3854624c1877f3e4518e02a74d2ac48",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43246905176/job/131281896597",
+    "started_at": "2026-11-12T15:21:32Z",
+    "completed_at": "2026-11-12T15:26:27Z"
+  },
+  {
+    "id": 131281895817,
+    "name": "validate",
+    "head_sha": "695a70b8e3854624c1877f3e4518e02a74d2ac48",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/SukimaStock/yumaniwa-town-staging/actions/runs/43246905994/job/131281895817",
+    "started_at": "2026-11-12T15:21:32Z",
+    "completed_at": "2026-11-12T15:21:46Z"
+  }
+]

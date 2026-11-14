@@ -1,0 +1,365 @@
+{
+  "runId": 43246905176,
+  "jobId": 131281896597,
+  "candidateSha": "695a70b8e3854624c1877f3e4518e02a74d2ac48",
+  "artifactId": 13958900900,
+  "artifactZipSha256": "76dd6584192510cf6edfe03f32abc83eb17d1bad37fa33749c83a972d2bdcd28",
+  "events": [
+    {
+      "name": "migration preserves exact v8; real writer accepts official lossless v9",
+      "kind": "native transactions + official reader",
+      "status": "pass",
+      "ms": 327.59323900000004
+    },
+    {
+      "faultMode": "quota",
+      "observation": {
+        "ok": false,
+        "name": "QuotaExceededError",
+        "code": null,
+        "nativeCode": 22
+      },
+      "nativeAbort": false
+    },
+    {
+      "name": "quota rejects and keeps all prior bytes",
+      "kind": "quota injected exception; abort native transaction",
+      "status": "pass",
+      "ms": 259.3702699999999
+    },
+    {
+      "faultMode": "abort",
+      "observation": {
+        "ok": false,
+        "name": "TransactionInactiveError",
+        "code": null,
+        "nativeCode": 0
+      },
+      "nativeAbort": true
+    },
+    {
+      "name": "abort rejects and keeps all prior bytes",
+      "kind": "quota injected exception; abort native transaction",
+      "status": "pass",
+      "ms": 255.37465199999997
+    },
+    {
+      "name": "postcommit readback failure halts; old normal generation survives",
+      "kind": "injected readback failure after native commit",
+      "status": "pass",
+      "ms": 248.04483400000004
+    },
+    {
+      "name": "corrupt head stops rotation without overwriting other generations",
+      "kind": "injected native DB corruption + official validation",
+      "status": "pass",
+      "ms": 268.26051600000005
+    },
+    {
+      "name": "corrupt previous stops rotation without overwriting other generations",
+      "kind": "injected native DB corruption + official validation",
+      "status": "pass",
+      "ms": 265.362396
+    },
+    {
+      "name": "closing page during native write leaves complete old or new generation",
+      "kind": "actual page close with active transaction; not OS kill",
+      "status": "pass",
+      "ms": 451.115014
+    },
+    {
+      "name": "two native tabs reject stale CAS and retain winning exact head",
+      "kind": "actual two pages, native serialized write transactions",
+      "status": "pass",
+      "ms": 442.099428
+    },
+    {
+      "name": "migration interrupted in native transaction retains exact legacy and empty IDB",
+      "kind": "native transaction abort during migration",
+      "status": "pass",
+      "ms": 242.807237
+    },
+    {
+      "name": "overlapping input is rejected while first real save succeeds once",
+      "kind": "actual adapter busy guard and native writer",
+      "status": "pass",
+      "ms": 265.12561900000037
+    },
+    {
+      "name": "first save after cold adapter restore fails safely",
+      "kind": "injected quota on first native write after cold connection",
+      "status": "pass",
+      "ms": 411.8968719999998
+    },
+    {
+      "name": "new browser process restores exact official state",
+      "kind": "native persistent profile clean close/reopen; not power loss",
+      "status": "pass",
+      "ms": 1749.6410649999998
+    },
+    {
+      "schema": "ambertime-main-native-browser/1",
+      "candidateSha": "695a70b8e3854624c1877f3e4518e02a74d2ac48",
+      "browser": "151.0.7922.34",
+      "node": "v22.23.4",
+      "sourceHashes": {
+        "formal-idb-storage.mjs": "c647977433bec28ade8bee0366c8116a8e73eb7f4c64e0877df885c98b792a49",
+        "formal-idb-main.mjs": "7c9601d5e2134c681cb72d9395341d7d3fb842c7805ac9158553d9cb50027953",
+        "development-save.mjs": "011f69666f636773ccf805d7bea386ea0f2be9d3722046c9512c332a73585685",
+        "shop-app.mjs": "0ec37ed6d2980b80593bf2b776e6bad7e24f4c8dfe36cb3a8ff76763f42c7bd9"
+      },
+      "fixtureHashes": {
+        "legacy": "2ff11553da42c93bd19e9b553766e08390cd40973b64ece753d0d9a0e94be548",
+        "lossless": "90ffa764fc3fd21036ec32db589584a673b2ac2f0e999981e21dcbd3d89d5ca3"
+      },
+      "cases": [
+        {
+          "name": "migration preserves exact v8; real writer accepts official lossless v9",
+          "kind": "native transactions + official reader",
+          "status": "pass",
+          "ms": 327.59323900000004
+        },
+        {
+          "name": "quota rejects and keeps all prior bytes",
+          "kind": "quota injected exception; abort native transaction",
+          "status": "pass",
+          "ms": 259.3702699999999
+        },
+        {
+          "name": "abort rejects and keeps all prior bytes",
+          "kind": "quota injected exception; abort native transaction",
+          "status": "pass",
+          "ms": 255.37465199999997
+        },
+        {
+          "name": "postcommit readback failure halts; old normal generation survives",
+          "kind": "injected readback failure after native commit",
+          "status": "pass",
+          "ms": 248.04483400000004
+        },
+        {
+          "name": "corrupt head stops rotation without overwriting other generations",
+          "kind": "injected native DB corruption + official validation",
+          "status": "pass",
+          "ms": 268.26051600000005
+        },
+        {
+          "name": "corrupt previous stops rotation without overwriting other generations",
+          "kind": "injected native DB corruption + official validation",
+          "status": "pass",
+          "ms": 265.362396
+        },
+        {
+          "name": "closing page during native write leaves complete old or new generation",
+          "kind": "actual page close with active transaction; not OS kill",
+          "status": "pass",
+          "ms": 451.115014
+        },
+        {
+          "name": "two native tabs reject stale CAS and retain winning exact head",
+          "kind": "actual two pages, native serialized write transactions",
+          "status": "pass",
+          "ms": 442.099428
+        },
+        {
+          "name": "migration interrupted in native transaction retains exact legacy and empty IDB",
+          "kind": "native transaction abort during migration",
+          "status": "pass",
+          "ms": 242.807237
+        },
+        {
+          "name": "overlapping input is rejected while first real save succeeds once",
+          "kind": "actual adapter busy guard and native writer",
+          "status": "pass",
+          "ms": 265.12561900000037
+        },
+        {
+          "name": "first save after cold adapter restore fails safely",
+          "kind": "injected quota on first native write after cold connection",
+          "status": "pass",
+          "ms": 411.8968719999998
+        },
+        {
+          "name": "new browser process restores exact official state",
+          "kind": "native persistent profile clean close/reopen; not power loss",
+          "status": "pass",
+          "ms": 1749.6410649999998
+        }
+      ],
+      "limits": [
+        "Actual native Chromium IndexedDB; injected exception quota is not physical disk exhaustion.",
+        "Native transaction abort and page closure do not prove OS-kill/power-loss/eviction durability.",
+        "Main adapter/official reader tests complement actual runtime UI browser tests; neither is iPhone Safari.",
+        "Only synthetic saves in dedicated localhost origin/profiles; no author data."
+      ]
+    },
+    {
+      "status": "complete",
+      "cases": 12,
+      "browser": "151.0.7922.34"
+    },
+    {
+      "name": "initial huge write and formal readback",
+      "status": "pass",
+      "ms": 46589.293075999994,
+      "beforeHeap": {
+        "JSHeapUsedSize": 1731532,
+        "JSHeapTotalSize": 3932160
+      },
+      "afterHeap": {
+        "JSHeapUsedSize": 117300364,
+        "JSHeapTotalSize": 201510912
+      },
+      "sampledBrowserTreePeakRssKiB": 1756432,
+      "rssSamples": 466,
+      "result": {
+        "writeAndReadbackMs": 46519.09999999999,
+        "wireUnits": 2475089,
+        "revision": 1,
+        "wholeSessionEqual": true,
+        "readerCalls": [
+          {
+            "ms": 44668.3,
+            "units": 2475089
+          },
+          {
+            "ms": 794.2000000000116,
+            "units": 2475089
+          },
+          {
+            "ms": 854.7999999999884,
+            "units": 2475089
+          }
+        ]
+      }
+    },
+    {
+      "name": "new browser process cold restore",
+      "status": "pass",
+      "ms": 44171.790573000006,
+      "beforeHeap": {
+        "JSHeapUsedSize": 1731532,
+        "JSHeapTotalSize": 3932160
+      },
+      "afterHeap": {
+        "JSHeapUsedSize": 63782304,
+        "JSHeapTotalSize": 122781696
+      },
+      "sampledBrowserTreePeakRssKiB": 1727200,
+      "rssSamples": 442,
+      "result": {
+        "state": "ready",
+        "revision": 1,
+        "calls": [
+          {
+            "ms": 44019.100000000006,
+            "units": 2475089
+          }
+        ],
+        "restoreMs": 44076.899999999994,
+        "wholeSessionEqual": true
+      }
+    },
+    {
+      "name": "next month and huge re-save retains old normal generation",
+      "status": "pass",
+      "ms": 3523.052818000011,
+      "beforeHeap": {
+        "JSHeapUsedSize": 63782304,
+        "JSHeapTotalSize": 122781696
+      },
+      "afterHeap": {
+        "JSHeapUsedSize": 52983880,
+        "JSHeapTotalSize": 138428416
+      },
+      "sampledBrowserTreePeakRssKiB": 1642540,
+      "rssSamples": 37,
+      "result": {
+        "nativeSaveAndPublicationMs": 1909.7000000000116,
+        "wholeSessionEqual": true,
+        "canonicalWireEqual": true,
+        "oldGenerationPreserved": true
+      }
+    },
+    {
+      "name": "two generations cold restore in new browser process",
+      "status": "pass",
+      "ms": 46296.798182,
+      "beforeHeap": {
+        "JSHeapUsedSize": 1731532,
+        "JSHeapTotalSize": 4194304
+      },
+      "afterHeap": {
+        "JSHeapUsedSize": 167569816,
+        "JSHeapTotalSize": 252088320
+      },
+      "sampledBrowserTreePeakRssKiB": 1719224,
+      "rssSamples": 463,
+      "result": {
+        "state": "ready",
+        "revision": 2,
+        "calls": [
+          {
+            "ms": 43881.600000000006,
+            "units": 2475089
+          },
+          {
+            "ms": 851,
+            "units": 2475135
+          }
+        ],
+        "restoreMs": 44837.600000000006,
+        "wholeSessionEqual": true,
+        "canonicalResaveEqual": true
+      }
+    },
+    {
+      "name": "large save quota injection halts without publication or rotation",
+      "status": "pass",
+      "ms": 1272.2075889999978,
+      "beforeHeap": {
+        "JSHeapUsedSize": 167569816,
+        "JSHeapTotalSize": 252088320
+      },
+      "afterHeap": {
+        "JSHeapUsedSize": 49250348,
+        "JSHeapTotalSize": 145125376
+      },
+      "sampledBrowserTreePeakRssKiB": 1540688,
+      "rssSamples": 14,
+      "result": {
+        "injected": true,
+        "physicalExhaustion": false,
+        "oldEntriesUnchanged": true,
+        "fullLiveSessionUnchanged": true
+      }
+    },
+    {
+      "name": "corrupt new head never overwrites old normal generation",
+      "status": "pass",
+      "ms": 45524.956167999975,
+      "beforeHeap": {
+        "JSHeapUsedSize": 196330364,
+        "JSHeapTotalSize": 262733824
+      },
+      "afterHeap": {
+        "JSHeapUsedSize": 96714404,
+        "JSHeapTotalSize": 148852736
+      },
+      "sampledBrowserTreePeakRssKiB": 1661644,
+      "rssSamples": 456,
+      "result": {
+        "rejected": true,
+        "oldGenerationPreserved": true,
+        "noPublication": true,
+        "noWrites": true,
+        "coldRefused": true
+      }
+    },
+    {
+      "status": "complete",
+      "cases": 6,
+      "browser": "Chrome/151.0.7922.34"
+    }
+  ]
+}

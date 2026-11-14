@@ -1,0 +1,219 @@
+{
+  "schema": "ambertime-perf-v06/1",
+  "mode": "baseline",
+  "name": "regional",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/scratch/4a97a0876dd0/ambertime/works/ambertime/design/restore-perf-v06/protocol.mjs",
+    "baseline",
+    "/workspace/scratch/4a97a0876dd0/ambertime",
+    "/workspace/scratch/4a97a0876dd0/fixtures/unpacked/ambertime-v03-capacity",
+    "/workspace/scratch/4a97a0876dd0/candidate-region",
+    "regional"
+  ],
+  "node": "v24.22.1",
+  "platform": "linux",
+  "arch": "x64",
+  "repo": "/workspace/scratch/4a97a0876dd0/ambertime",
+  "commit": "3c4e2516aec867f4f226990134b7fa3603e20740",
+  "tree": "82b59a8048e75031c3a4fdb30c4924cd2b0d9313",
+  "worktreeStatus": "M works/ambertime-small-memory-lab/app.mjs\n M works/ambertime-small-memory-lab/frame.html\n M works/ambertime-small-memory-lab/frame.mjs\n M works/ambertime-small-memory-lab/index.html\n M works/ambertime-small-memory-lab/memory.mjs\n M works/ambertime-strategy-lab/internal/adapters.mjs\n M works/ambertime-strategy-lab/internal/app.mjs\n M works/ambertime-strategy-lab/internal/index.html\n M works/ambertime/development-save.mjs\n M works/ambertime/distillery.mjs\n M works/ambertime/economy.mjs\n M works/ambertime/entry-diagnostics.mjs\n M works/ambertime/event-notices.mjs\n M works/ambertime/experiments/town-simulation/v01/model.mjs\n M works/ambertime/flavor-feedback-view.mjs\n M works/ambertime/formal-idb-commit-boundary.mjs\n M works/ambertime/formal-idb-storage.mjs\n M works/ambertime/history-record.mjs\n M works/ambertime/index.html\n M works/ambertime/ledger-view.mjs\n M works/ambertime/m0-observation.mjs\n M works/ambertime/map-daily-view.mjs\n M works/ambertime/map-partners.mjs\n M works/ambertime/map-sales-view.mjs\n M works/ambertime/map-scenery.mjs\n M works/ambertime/market-ui.mjs\n M works/ambertime/nearby-comparison.mjs\n M works/ambertime/partner-orders.mjs\n M works/ambertime/placement-mode.mjs\n M works/ambertime/placement-ui.mjs\n M works/ambertime/player-news.mjs\n M works/ambertime/recall/collector.mjs\n M works/ambertime/recall/observe.mjs\n M works/ambertime/recall/player.mjs\n M works/ambertime/regional-deliveries.mjs\n M works/ambertime/regional-offer-view.mjs\n M works/ambertime/regional-partners.mjs\n M works/ambertime/save-codec.mjs\n M works/ambertime/session-entry.mjs\n M works/ambertime/shadow/adapter.mjs\n M works/ambertime/shadow/read-contract.mjs\n M works/ambertime/shadow/read-switch.mjs\n M works/ambertime/shadow/readers.mjs\n M works/ambertime/shop-app.mjs\n M works/ambertime/shop-demand.mjs\n M works/ambertime/store-market.mjs\n M works/ambertime/tests/a1-glint.test.mjs\n M works/ambertime/tests/bar-model.test.mjs\n M works/ambertime/tests/debug-time-skip.test.mjs\n M works/ambertime/tests/distill-cut-main-integration.test.mjs\n M works/ambertime/tests/distill-display.test.mjs\n M works/ambertime/tests/entry-diagnostic-apply.test.mjs\n M works/ambertime/tests/entry-diagnostic-privacy.test.mjs\n M works/ambertime/tests/first-bottle-ui.test.mjs\n M works/ambertime/tests/formal-copy.test.mjs\n M works/ambertime/tests/formal-idb-storage.test.mjs\n M works/ambertime/tests/h1-b2-app.test.mjs\n M works/ambertime/tests/h4-player.test.mjs\n M works/ambertime/tests/map-daily-ui.test.mjs\n M works/ambertime/tests/map-partner-ui.test.mjs\n M works/ambertime/tests/market-ui-main.test.mjs\n M works/ambertime/tests/new-game-recovery.test.mjs\n M works/ambertime/tests/placement-0271.test.mjs\n M works/ambertime/tests/r0-app-baseline.test.mjs\n M works/ambertime/tests/r0-distill-host.mjs\n M works/ambertime/tests/r3-preparation-controller.test.mjs\n M works/ambertime/tests/recall-app.test.mjs\n M works/ambertime/tests/regional-delivery-ui.test.mjs\n M works/ambertime/tests/retail-sale-events.test.mjs\n M works/ambertime/tests/rooms-stage1.test.mjs\n M works/ambertime/tests/s2-app.test.mjs\n M works/ambertime/tests/s3-app.test.mjs\n M works/ambertime/tests/s4-app.test.mjs\n M works/ambertime/tests/shop-dialogue-a6.test.mjs\n M works/ambertime/tests/shop-dialogue-s2.test.mjs\n M works/ambertime/tests/shop-dialogue-view.test.mjs\n M works/ambertime/tests/staff-encounter.test.mjs\n M works/ambertime/tests/targeted-offers-ui.test.mjs\n M works/ambertime/tests/ui-polish-regression.test.mjs\n M works/ambertime/tests/ui2-department-notice.test.mjs\n M works/ambertime/tests/ui3-bottling-controls.test.mjs\n M works/ambertime/tests/ui3-market-scope.test.mjs\n M works/ambertime/tests/ui4-session-entry.test.mjs\n M works/ambertime/tests/world-map-view.test.mjs\n M works/ambertime/tests/world-network-ui.test.mjs\n M works/ambertime/town-connection.mjs\n M works/ambertime/trade.mjs\n M works/ambertime/trading-partners.mjs\n M works/ambertime/wholesale-v08.mjs\n M works/ambertime/wholesale.mjs\n M works/ambertime/world-map-view.mjs\n?? .github/workflows/ambertime-browser-tests.yml\n?? works/ambertime/BROWSER-V05-REPORT.md\n?? works/ambertime/IDB-CONSIGNMENT-INTEGRATION.md\n?? works/ambertime/IDB-INTEGRATION.md\n?? works/ambertime/IDB-LOSSLESS-INTEGRATION.md\n?? works/ambertime/clone-data.mjs\n?? works/ambertime/design/restore-perf-v06/\n?? works/ambertime/design/save-capacity-v03/\n?? works/ambertime/formal-idb-main.mjs\n?? works/ambertime/lossless-json.mjs\n?? works/ambertime/regional-consignment.mjs\n?? works/ambertime/tests/clone-data.test.mjs\n?? works/ambertime/tests/consignment-integration-source.test.mjs\n?? works/ambertime/tests/formal-idb-consignment-integration.test.mjs\n?? works/ambertime/tests/formal-idb-large-browser.mjs\n?? works/ambertime/tests/formal-idb-lossless-integration.test.mjs\n?? works/ambertime/tests/formal-idb-main-browser.mjs\n?? works/ambertime/tests/formal-idb-main.test.mjs\n?? works/ambertime/tests/formal-idb-proof-cache.test.mjs\n?? works/ambertime/tests/formal-idb-runtime-browser.test.mjs\n?? works/ambertime/tests/formal-idb-runtime-harness.mjs\n?? works/ambertime/tests/formal-idb-runtime.test.mjs\n?? works/ambertime/tests/formal-idb-v03-entry.test.mjs\n?? works/ambertime/tests/formal-idb-v03-faults.test.mjs\n?? works/ambertime/tests/formal-idb-validation-order.test.mjs\n?? works/ambertime/tests/formal-lossless-save.test.mjs\n?? works/ambertime/tests/idb-lossless-cache.test.mjs\n?? works/ambertime/tests/lossless-json.test.mjs\n?? works/ambertime/tests/regional-consignment-long.mjs\n?? works/ambertime/tests/regional-consignment.test.mjs\n?? works/ambertime/tests/replay-still-projection.test.mjs",
+  "instrumentation": "nested synchronous phase and copy timings; logical JSON code units only in separate profile mode; not allocated bytes",
+  "copyDetail": false,
+  "fixtureManifestSHA256": "28542950c859b8ce265ef6e90b776fbe6783dd720d2b1f79525520ff6b76f00b",
+  "scriptSHA256": "4bdfee8677a05a361f6c1e7a5ba52698c4a256fa5ba6f08fc80b6c02eb1c6229",
+  "loaderSHA256": "502293a98da90bf97fcbee07e57400770489f1dcfd2aefd708fe986d5d9dc147",
+  "environment": "Node process; no native IndexedDB/browser/iPhone",
+  "beforeRestoreMemory": {
+    "current": {
+      "rss": 79724544,
+      "heapTotal": 23924736,
+      "heapUsed": 15724336,
+      "external": 4654565,
+      "arrayBuffers": 611071
+    },
+    "peakRSSKiB": 80360
+  },
+  "coldMs": 76236.55452,
+  "restoreBeforeOracle": {
+    "phases": {
+      "fileRead": {
+        "calls": 1,
+        "ms": 31.369353999999987
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 44.81416899999999
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 961.4964829999999
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 548.0296480000002
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 30.59080099999983
+      },
+      "operationReplay": {
+        "calls": 2,
+        "ms": 73525.80189500001
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 65.7743459999997
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 224.26010400000177
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 73818.832724
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 74581.60297400001
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.23299599999154452
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 2.7947360000107437
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 5.710127999991528
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 18.912715999991633
+      },
+      "wholeOfficialRead": {
+        "calls": 1,
+        "ms": 76236.547974
+      }
+    },
+    "copies": {
+      "cloneReplayState": {
+        "calls": 17671,
+        "ms": 68437.0806219999,
+        "logicalJSONCodeUnits": 0,
+        "unserializable": 0
+      },
+      "nativeStructuredClone": {
+        "calls": 102587,
+        "ms": 2000.5903939999885,
+        "logicalJSONCodeUnits": 0,
+        "unserializable": 0
+      }
+    },
+    "operations": 2229,
+    "memory": {
+      "current": {
+        "rss": 589307904,
+        "heapTotal": 443678720,
+        "heapUsed": 360428576,
+        "external": 4184211,
+        "arrayBuffers": 146583
+      },
+      "peakRSSKiB": 575496
+    }
+  },
+  "month": 1332,
+  "wireSHA256": "b38a683adb00948baa91121922833d2169304a13613931a2d77ff71046cdb7f4",
+  "wireUnits": 2475089,
+  "expectedSHA256": "4a3dc36bdc77c749376c2f52710a0caa438b58b7f5eb77a3a57e61355c539f8f",
+  "fullSessionEquality": true,
+  "canonicalResaveEquality": true,
+  "afterOracleAndContinuation": {
+    "phases": {
+      "operationReplay": {
+        "calls": 2,
+        "ms": 0.11926399999356363
+      },
+      "checkpointCapture": {
+        "calls": 2,
+        "ms": 83.81019899999956
+      },
+      "finalStateEquality": {
+        "calls": 2,
+        "ms": 217.1951010000048
+      },
+      "sessionJSONParse": {
+        "calls": 1,
+        "ms": 14.119370999993407
+      },
+      "sessionLosslessDecode": {
+        "calls": 1,
+        "ms": 535.3355509999965
+      },
+      "gameExpansion": {
+        "calls": 1,
+        "ms": 291.7646309999982
+      },
+      "nativeJSONParse": {
+        "calls": 1,
+        "ms": 21.635903000002145
+      },
+      "officialNativeValidation": {
+        "calls": 1,
+        "ms": 174.21235999999044
+      },
+      "officialNativeReader": {
+        "calls": 1,
+        "ms": 818.4084939999884
+      },
+      "sidecar.slots": {
+        "calls": 1,
+        "ms": 0.21657000000413973
+      },
+      "sidecar.ledger": {
+        "calls": 1,
+        "ms": 0.6131009999953676
+      },
+      "sidecar.history": {
+        "calls": 1,
+        "ms": 3.6626219999889145
+      },
+      "sidecar.recall": {
+        "calls": 1,
+        "ms": 16.09050799999386
+      },
+      "canonicalResave": {
+        "calls": 1,
+        "ms": 2676.6592300000048
+      }
+    },
+    "copies": {
+      "cloneReplayState": {
+        "calls": 8,
+        "ms": 194.51839099999052,
+        "logicalJSONCodeUnits": 0,
+        "unserializable": 0
+      },
+      "nativeStructuredClone": {
+        "calls": 2476,
+        "ms": 196.66814300057013,
+        "logicalJSONCodeUnits": 0,
+        "unserializable": 0
+      }
+    },
+    "operations": 0,
+    "memory": {
+      "current": {
+        "rss": 677675008,
+        "heapTotal": 487362560,
+        "heapUsed": 390336552,
+        "external": 4184211,
+        "arrayBuffers": 146583
+      },
+      "peakRSSKiB": 661792
+    }
+  },
+  "completed": true
+}

@@ -1,7 +1,7 @@
-import {regionalDeliveryMode,regionalDeliveryRows,regionalDeliveryHistory} from './regional-deliveries.mjs?world=world-network-v01';
+import {regionalDeliveryMode,regionalDeliveryRows,regionalDeliveryHistory} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06';
 // The existing offer dialog consumes this projection. No delivery controls or
 // game mutations belong here; a registry entry alone never proves a contract.
-import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';
+import {tradingPartner} from './trading-partners.mjs?world=world-network-v01&perf=v06';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function regionalOfferView(game,offer){
  const partner=tradingPartner(offer?.partnerId),release=game?.releases?.find(r=>r.id===offer?.releaseId),brand=game?.brands?.find(b=>b.id===offer?.brandId);

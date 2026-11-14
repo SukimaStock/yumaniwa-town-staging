@@ -22,7 +22,7 @@ function harness(seed=3){
  return {ui,root,click,select,pid,events,state:()=>current,editing:()=>editing,setSaved:v=>saved=v,view:()=>view};
 }
 
-test('map selection highlights a real sales row and retains same-layer peers without mutating formal state',()=>{
+test('map selection highlights a real sales row and retains same-layer peers without mutating formal state',async()=>{
  const h=harness(),raw=D.serializeDistillery(h.state());
  assert(!h.ui.diagnostics().order.includes(partner));assert(h.ui.diagnostics().order.includes('supermarket'));
  h.select(4,partner);assert.deepEqual(h.ui.diagnostics().order,['retail',partner]);assert.match(h.root.innerHTML,/地域窓口/);
@@ -34,15 +34,15 @@ test('map selection highlights a real sales row and retains same-layer peers wit
  h.select(4,partner);assert.equal(h.view().selectedShop,partner);assert.equal(D.serializeDistillery(h.state()),raw);
 });
 
-test('natural seed3/6 map target uses unchanged1/5/all reservation and explicit cancel/deliver with cold restore',()=>{
+test('natural seed3/6 map target uses unchanged1/5/all reservation and explicit cancel/deliver with cold restore',async()=>{
  for(const seed of [3,6]){
   const h=harness(seed);h.select(4,partner);const initial=h.state(),stock=D.storeMarketInventory(initial,h.pid).hand,cash=initial.core.cash;
-  h.click({marketPortion:'1'});h.click({marketPlace:partner});assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,1);
-  h.click({marketPortion:'5'});h.click({marketPlace:partner});assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,6);
-  h.click({marketPortion:'all'});h.click({marketPlace:partner});assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,stock);assert.equal(h.state().core.cash,cash);
-  h.click({marketStock:partner+':'+h.pid});h.click({marketConfirm:'return'});assert.equal(D.storeMarketInventory(h.state(),h.pid).hand,stock);assert.equal(D.regionalDeliveryRows(h.state(),partner).length,0);
-  h.click({marketPortion:'5'});h.click({marketPlace:partner});const reserved=h.state(),q=D.regionalDeliveryQuote(reserved,h.pid,partner);
-  h.click({marketStock:partner+':'+h.pid});h.click({marketConfirm:'deliver'});
+  await h.click({marketPortion:'1'});await h.click({marketPlace:partner});assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,1);
+  await h.click({marketPortion:'5'});await h.click({marketPlace:partner});assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,6);
+  await h.click({marketPortion:'all'});await h.click({marketPlace:partner});assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,stock);assert.equal(h.state().core.cash,cash);
+  await h.click({marketStock:partner+':'+h.pid});await h.click({marketConfirm:'return'});assert.equal(D.storeMarketInventory(h.state(),h.pid).hand,stock);assert.equal(D.regionalDeliveryRows(h.state(),partner).length,0);
+  await h.click({marketPortion:'5'});await h.click({marketPlace:partner});const reserved=h.state(),q=D.regionalDeliveryQuote(reserved,h.pid,partner);
+  await h.click({marketStock:partner+':'+h.pid});await h.click({marketConfirm:'deliver'});
   const receipt=D.regionalDeliveryHistory(h.state(),partner).at(-1);assert.equal(receipt.count,5);assert.equal(receipt.id,q.nextDeliveryId);assert.equal(receipt.contractId,D.regionalContract(initial).id);assert.equal(receipt.customerSales,null);
   assert.equal(h.state().core.cash,Math.round((cash+receipt.revenue)*100)/100);assert.deepEqual(h.state().labConnection,initial.labConnection);
   const raw=D.serializeDistillery(h.state());assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
@@ -50,17 +50,17 @@ test('natural seed3/6 map target uses unchanged1/5/all reservation and explicit 
  }
 });
 
-test('switching selected map target closes stale pending editor without cancelling reserved physical bottles',()=>{
- const h=harness();h.select(4,partner);h.click({marketPortion:'5'});h.click({marketPlace:partner});h.click({marketStock:partner+':'+h.pid});assert(h.editing());
+test('switching selected map target closes stale pending editor without cancelling reserved physical bottles',async()=>{
+ const h=harness();h.select(4,partner);await h.click({marketPortion:'5'});await h.click({marketPlace:partner});await h.click({marketStock:partner+':'+h.pid});assert(h.editing());
  const reserved=D.serializeDistillery(h.state());h.select(3,'supermarket');assert.equal(h.editing(),false);assert.equal(h.ui.diagnostics().editing,null);assert.equal(D.serializeDistillery(h.state()),reserved);assert.equal(D.regionalDeliveryRows(h.state(),partner)[0].count,5);
- h.click({marketConfirm:'deliver'});assert.equal(D.serializeDistillery(h.state()),reserved,'stale confirmation is inert');
- h.select(4,partner);h.click({marketStock:partner+':'+h.pid});assert(h.editing());h.click({marketCancel:'return'});assert.equal(D.serializeDistillery(h.state()),reserved);
+ await h.click({marketConfirm:'deliver'});assert.equal(D.serializeDistillery(h.state()),reserved,'stale confirmation is inert');
+ h.select(4,partner);await h.click({marketStock:partner+':'+h.pid});assert(h.editing());await h.click({marketCancel:'return'});assert.equal(D.serializeDistillery(h.state()),reserved);
 });
 
-test('save failure on map-selected regional delivery keeps the reservation and retry identity until real commit',()=>{
- const h=harness();h.select(4,partner);h.click({marketPortion:'5'});h.click({marketPlace:partner});h.click({marketStock:partner+':'+h.pid});
- const before=h.state(),raw=D.serializeDistillery(before),q=D.regionalDeliveryQuote(before,h.pid,partner);h.setSaved(false);h.click({marketConfirm:'deliver'});
+test('save failure on map-selected regional delivery keeps the reservation and retry identity until real commit',async()=>{
+ const h=harness();h.select(4,partner);await h.click({marketPortion:'5'});await h.click({marketPlace:partner});await h.click({marketStock:partner+':'+h.pid});
+ const before=h.state(),raw=D.serializeDistillery(before),q=D.regionalDeliveryQuote(before,h.pid,partner);h.setSaved(false);await h.click({marketConfirm:'deliver'});
  assert.equal(h.state(),before);assert.equal(D.serializeDistillery(h.state()),raw);assert.equal(D.regionalDeliveryHistory(h.state(),partner).length,0);assert(h.editing());
- h.setSaved(true);h.click({marketConfirm:'deliver'});assert.equal(D.regionalDeliveryHistory(h.state(),partner).length,1);assert.equal(D.regionalDeliveryHistory(h.state(),partner)[0].id,q.nextDeliveryId);
- h.click({marketConfirm:'deliver'});assert.equal(D.regionalDeliveryHistory(h.state(),partner).length,1);
+ h.setSaved(true);await h.click({marketConfirm:'deliver'});assert.equal(D.regionalDeliveryHistory(h.state(),partner).length,1);assert.equal(D.regionalDeliveryHistory(h.state(),partner)[0].id,q.nextDeliveryId);
+ await h.click({marketConfirm:'deliver'});assert.equal(D.regionalDeliveryHistory(h.state(),partner).length,1);
 });

@@ -1,0 +1,34 @@
+✔ fresh-only initialization, immutable increments and explicit compound boundary (36.495839ms)
+✔ batch start, fill and distinct releases reuse formal provenance and S4 (49.050991ms)
+✔ pruned causal source reconstructs from native positions, then remains pinned (34.861382ms)
+✔ same region without source path has no causal link; stale preparation rejected (1.995766ms)
+✔ reader rejects missing and corrupt causal positions, counts and pin references (3.691169ms)
+✔ live outer calls preserve native results and observe both same-month UI operations (66.472729ms)
+✔ temporary nested native actions are not reported as durable operations (0.343404ms)
+✔ skipped operations, truncation, changed append boundary and wrong game are rejected (0.752055ms)
+✔ native and observation failures propagate; model calls are never retried (0.2373ms)
+✔ historical export projections are queries, not live transitions (34.265582ms)
+✔ recorded migration retains old game and pending allocations; old save replays unchanged (4158.648501ms)
+✔ entrusting creates no money or sold bottles, reserves physical stock, cannot duplicate transfer (326.972716ms)
+✔ monthly real sales pay exactly once; restore continues deterministically; tampering refused (4036.774797ms)
+✔ official v8 roundtrip and cold-process resume preserve all sidecars and next save (8593.353039ms)
+✔ real UI commits consign not legacy paid delivery; entrusted stock cannot be withdrawn (1736.791976ms)
+✔ formal async write failure never publishes entrusted candidate or changes old revision (905.779779ms)
+✔ official release ledger counts mixed old procurement and real consignment separately (1219.555469ms)
+✔ each actual sale publishes record and release mirrors immediately, including final sellout (5842.284099ms)
+✔ lawful regional/national/overseas contracts sell entrusted bottles without duplicating shared stock (10428.155504ms)
+✔ targeted selection preserves legacy bytes and exact pending payloads then cold replays (892.417516ms)
+✔ independent decline and accept retain other offers and 12-month cooldown (398.471672ms)
+✔ stale/mismatched selection rejects immutably; forged operation and state reject (547.683273ms)
+✔ presentation budget cannot cascade and explicit continuation works without advancing a month (1.66063ms)
+✔ formal v8 selection/notice roundtrip and failed persistent write preserve old save (7182.361333ms)
+✔ partial extraction selection replays exact progress and department identity (838.265997ms)
+✔ modern department selection retains exact selectionId and accepts queued delivery with formal restore (2439.231585ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50662.191071
