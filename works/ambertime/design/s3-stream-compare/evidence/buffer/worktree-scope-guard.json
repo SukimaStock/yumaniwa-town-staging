@@ -1,0 +1,601 @@
+{
+  "schema": "yumaniwa-scope-guard-report/0.2",
+  "change": "Independent sequential comparison research; corrected WORK/Standard plan after refused approval wording",
+  "planLevel": "standard",
+  "classes": [
+    "WORK"
+  ],
+  "baseSha": "b57ce881b5f5f68bc12ff1f15634178118496958",
+  "target": "worktree",
+  "headSha": "32e6ce9a3fa8f1266be6a85d1c25daad6d949ce7",
+  "changedPaths": [
+    ".change-plans/ambertime-s3-stream-compare/r0.lock.json",
+    "works/ambertime/design/s3-d1/codec.mjs",
+    "works/ambertime/design/s3-stream-compare/REPORT.md",
+    "works/ambertime/design/s3-stream-compare/compare-buffered.mjs",
+    "works/ambertime/design/s3-stream-compare/compare.mjs",
+    "works/ambertime/design/s3-stream-compare/evidence/after-review-fixes.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/baseline-tests.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/before-review-fixes-source.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/before-review-fixes.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer-continuation-scope.md",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/all-current-regressions.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/b1-current-tests.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/b1-first-tests.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/final-b1-138.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/final-baseline155.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/final-measurements.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/final-v8-protection.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/first-end-to-end.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/first-old-end-to-end.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/identity-final.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-boundaries.test.mjs",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-final-metrics.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-final-sha256.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-final.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-implementation-tests.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-inherited-tests.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-initial-sha256.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-initial.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-original-alias-reproduction.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-report.md",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-supervisor-failure.log",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/inherited-reviewer.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/initial-utf8-stage-failure.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/pilot-16384.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/pilot-4096.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/profile.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/summary.json",
+    "works/ambertime/design/s3-stream-compare/evidence/buffer/v8-protection.json",
+    "works/ambertime/design/s3-stream-compare/evidence/capacity.json",
+    "works/ambertime/design/s3-stream-compare/evidence/comparison.json",
+    "works/ambertime/design/s3-stream-compare/evidence/final-100year-regression.json",
+    "works/ambertime/design/s3-stream-compare/evidence/final-155-tests.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/final-code-100year.json",
+    "works/ambertime/design/s3-stream-compare/evidence/final-comparison.json",
+    "works/ambertime/design/s3-stream-compare/evidence/final-tests.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/first-100year.json",
+    "works/ambertime/design/s3-stream-compare/evidence/formal-regressions.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/game-only.json",
+    "works/ambertime/design/s3-stream-compare/evidence/lifecycle.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/manifest.json",
+    "works/ambertime/design/s3-stream-compare/evidence/preparation.json",
+    "works/ambertime/design/s3-stream-compare/evidence/release-validator-summary.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/repository-regressions.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/reviewer-adversarial.test.mjs",
+    "works/ambertime/design/s3-stream-compare/evidence/reviewer-before-repro.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/reviewer-final-small.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/reviewer-finalization-small.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/reviewer-review.md",
+    "works/ambertime/design/s3-stream-compare/evidence/reviewer-stream44.tap",
+    "works/ambertime/design/s3-stream-compare/evidence/search-pages.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/small-tests.txt",
+    "works/ambertime/design/s3-stream-compare/evidence/v8-protection-exact.json",
+    "works/ambertime/design/s3-stream-compare/evidence/v8-protection-final.json",
+    "works/ambertime/design/s3-stream-compare/evidence/v8-protection.json",
+    "works/ambertime/design/s3-stream-compare/evidence/v8-runner-before-label-correction.txt",
+    "works/ambertime/design/s3-stream-compare/measure-buffered.mjs",
+    "works/ambertime/design/s3-stream-compare/measure.mjs",
+    "works/ambertime/design/s3-stream-compare/protect-v8-buffered.mjs",
+    "works/ambertime/design/s3-stream-compare/protect-v8.mjs",
+    "works/ambertime/tests/s3-d1-codec.test.mjs",
+    "works/ambertime/tests/s3-d1-r-structure.test.mjs",
+    "works/ambertime/tests/s3-stream-buffered.test.mjs",
+    "works/ambertime/tests/s3-stream-compare.test.mjs"
+  ],
+  "results": [
+    {
+      "status": "PASS",
+      "path": ".change-plans/ambertime-s3-stream-compare/r0.lock.json",
+      "check": "scope.allowed",
+      "pattern": ".change-plans/ambertime-s3-stream-compare/r0.lock.json",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-d1/codec.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-d1/codec.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/REPORT.md",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/compare-buffered.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/compare.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/after-review-fixes.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/baseline-tests.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/before-review-fixes-source.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/before-review-fixes.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer-continuation-scope.md",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/all-current-regressions.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/b1-current-tests.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/b1-first-tests.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/final-b1-138.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/final-baseline155.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/final-measurements.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/final-v8-protection.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/first-end-to-end.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/first-old-end-to-end.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/identity-final.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-boundaries.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-final-metrics.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-final-sha256.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-final.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-implementation-tests.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-inherited-tests.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-initial-sha256.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-initial.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-original-alias-reproduction.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-report.md",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/independent-review-supervisor-failure.log",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/inherited-reviewer.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/initial-utf8-stage-failure.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/pilot-16384.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/pilot-4096.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/profile.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/summary.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/buffer/v8-protection.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/capacity.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/comparison.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/final-100year-regression.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/final-155-tests.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/final-code-100year.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/final-comparison.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/final-tests.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/first-100year.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/formal-regressions.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/game-only.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/lifecycle.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/manifest.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/preparation.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/release-validator-summary.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/repository-regressions.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/reviewer-adversarial.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/reviewer-before-repro.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/reviewer-final-small.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/reviewer-finalization-small.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/reviewer-review.md",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/reviewer-stream44.tap",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/search-pages.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/small-tests.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/v8-protection-exact.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/v8-protection-final.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/v8-protection.json",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/evidence/v8-runner-before-label-correction.txt",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/measure-buffered.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/measure.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/protect-v8-buffered.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/design/s3-stream-compare/protect-v8.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/design/s3-stream-compare/**",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/tests/s3-d1-codec.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/tests/s3-d1-codec.test.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/tests/s3-d1-r-structure.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/tests/s3-d1-r-structure.test.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/tests/s3-stream-buffered.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/tests/s3-stream-*.test.mjs",
+      "detail": "changed path is within allowedPaths"
+    },
+    {
+      "status": "PASS",
+      "path": "works/ambertime/tests/s3-stream-compare.test.mjs",
+      "check": "scope.allowed",
+      "pattern": "works/ambertime/tests/s3-stream-*.test.mjs",
+      "detail": "changed path is within allowedPaths"
+    }
+  ],
+  "scopeOk": true,
+  "exitCode": 0
+}

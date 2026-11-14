@@ -1,0 +1,466 @@
+TAP version 13
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 1 input
+ok 1 - exact UTF16/UTF8, escape and surrogate boundaries 1 input
+  ---
+  duration_ms: 8.434824
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 1 game
+ok 2 - exact UTF16/UTF8, escape and surrogate boundaries 1 game
+  ---
+  duration_ms: 1.686693
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 2 input
+ok 3 - exact UTF16/UTF8, escape and surrogate boundaries 2 input
+  ---
+  duration_ms: 1.492599
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 2 game
+ok 4 - exact UTF16/UTF8, escape and surrogate boundaries 2 game
+  ---
+  duration_ms: 3.458013
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 3 input
+ok 5 - exact UTF16/UTF8, escape and surrogate boundaries 3 input
+  ---
+  duration_ms: 2.304036
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 3 game
+ok 6 - exact UTF16/UTF8, escape and surrogate boundaries 3 game
+  ---
+  duration_ms: 1.099313
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 7 input
+ok 7 - exact UTF16/UTF8, escape and surrogate boundaries 7 input
+  ---
+  duration_ms: 1.204613
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 7 game
+ok 8 - exact UTF16/UTF8, escape and surrogate boundaries 7 game
+  ---
+  duration_ms: 0.617054
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 31 input
+ok 9 - exact UTF16/UTF8, escape and surrogate boundaries 31 input
+  ---
+  duration_ms: 0.744677
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 31 game
+ok 10 - exact UTF16/UTF8, escape and surrogate boundaries 31 game
+  ---
+  duration_ms: 4.27869
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 16384 input
+ok 11 - exact UTF16/UTF8, escape and surrogate boundaries 16384 input
+  ---
+  duration_ms: 0.933603
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 16384 game
+ok 12 - exact UTF16/UTF8, escape and surrogate boundaries 16384 game
+  ---
+  duration_ms: 0.525114
+  type: 'test'
+  ...
+# Subtest: all finite JSON numeric forms
+ok 13 - all finite JSON numeric forms
+  ---
+  duration_ms: 0.901995
+  type: 'test'
+  ...
+# Subtest: property absence is distinct from null and order is preserved
+ok 14 - property absence is distinct from null and order is preserved
+  ---
+  duration_ms: 1.34763
+  type: 'test'
+  ...
+# Subtest: integer-like schema keys and special property names
+ok 15 - integer-like schema keys and special property names
+  ---
+  duration_ms: 1.239625
+  type: 'test'
+  ...
+# Subtest: large string escaped incrementally and no legacy aggregate stringify in comparison
+ok 16 - large string escaped incrementally and no legacy aggregate stringify in comparison
+  ---
+  duration_ms: 120.134226
+  type: 'test'
+  ...
+# Subtest: malformed shadowEvents refused even with recomputed integrity before reading reference
+ok 17 - malformed shadowEvents refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 1.228559
+  type: 'test'
+  ...
+# Subtest: malformed shadowAttempts refused even with recomputed integrity before reading reference
+ok 18 - malformed shadowAttempts refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.398714
+  type: 'test'
+  ...
+# Subtest: malformed shadowArrivals refused even with recomputed integrity before reading reference
+ok 19 - malformed shadowArrivals refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.294756
+  type: 'test'
+  ...
+# Subtest: malformed unknownEnvelope refused even with recomputed integrity before reading reference
+ok 20 - malformed unknownEnvelope refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.354857
+  type: 'test'
+  ...
+# Subtest: malformed unknownTable refused even with recomputed integrity before reading reference
+ok 21 - malformed unknownTable refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.912566
+  type: 'test'
+  ...
+# Subtest: malformed unusedSchema refused even with recomputed integrity before reading reference
+ok 22 - malformed unusedSchema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.543692
+  type: 'test'
+  ...
+# Subtest: malformed duplicateSchema refused even with recomputed integrity before reading reference
+ok 23 - malformed duplicateSchema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.34351
+  type: 'test'
+  ...
+# Subtest: malformed schema refused even with recomputed integrity before reading reference
+ok 24 - malformed schema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.269698
+  type: 'test'
+  ...
+# Subtest: malformed columns refused even with recomputed integrity before reading reference
+ok 25 - malformed columns refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.393495
+  type: 'test'
+  ...
+# Subtest: malformed ordinal refused even with recomputed integrity before reading reference
+ok 26 - malformed ordinal refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.272582
+  type: 'test'
+  ...
+# Subtest: malformed duplicateID refused even with recomputed integrity before reading reference
+ok 27 - malformed duplicateID refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.328757
+  type: 'test'
+  ...
+# Subtest: malformed source refused even with recomputed integrity before reading reference
+ok 28 - malformed source refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.297791
+  type: 'test'
+  ...
+# Subtest: malformed arrivals refused even with recomputed integrity before reading reference
+ok 29 - malformed arrivals refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.328998
+  type: 'test'
+  ...
+# Subtest: malformed townKeys refused even with recomputed integrity before reading reference
+ok 30 - malformed townKeys refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.714031
+  type: 'test'
+  ...
+# Subtest: malformed version refused even with recomputed integrity before reading reference
+ok 31 - malformed version refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.235847
+  type: 'test'
+  ...
+# Subtest: malformed missingEvents refused even with recomputed integrity before reading reference
+ok 32 - malformed missingEvents refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.352293
+  type: 'test'
+  ...
+# Subtest: integrity failure distinct from source/content
+ok 33 - integrity failure distinct from source/content
+  ---
+  duration_ms: 0.307265
+  type: 'test'
+  ...
+# Subtest: structurally valid altered value is stopped by independent candidate anchor
+ok 34 - structurally valid altered value is stopped by independent candidate anchor
+  ---
+  duration_ms: 0.326434
+  type: 'test'
+  ...
+# Subtest: independent direct content comparison catches altered value even if candidate hash supplied for altered candidate
+ok 35 - independent direct content comparison catches altered value even if candidate hash supplied for altered candidate
+  ---
+  duration_ms: 1.029358
+  type: 'test'
+  ...
+# Subtest: reference SHA mismatch is refused
+ok 36 - reference SHA mismatch is refused
+  ---
+  duration_ms: 0.526106
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: short
+ok 37 - both EOF and first difference: short
+  ---
+  duration_ms: 0.845199
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: extra
+ok 38 - both EOF and first difference: extra
+  ---
+  duration_ms: 0.846111
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: late mismatch
+ok 39 - both EOF and first difference: late mismatch
+  ---
+  duration_ms: 1.055657
+  type: 'test'
+  ...
+# Subtest: game anchor also checked in full-input comparison
+ok 40 - game anchor also checked in full-input comparison
+  ---
+  duration_ms: 0.626017
+  type: 'test'
+  ...
+# Subtest: missing reference safely fails rather than accepting output
+ok 41 - missing reference safely fails rather than accepting output
+  ---
+  duration_ms: 0.360165
+  type: 'test'
+  ...
+# Subtest: invalid chunk bound refused
+ok 42 - invalid chunk bound refused
+  ---
+  duration_ms: 0.761563
+  type: 'test'
+  ...
+# Subtest: long diagnostic key never stringifies the complete scalar
+ok 43 - long diagnostic key never stringifies the complete scalar
+  ---
+  duration_ms: 4.84356
+  type: 'test'
+  ...
+# Subtest: short byte reads inside multibyte UTF8 are not EOF
+ok 44 - short byte reads inside multibyte UTF8 are not EOF
+  ---
+  duration_ms: 2.426952
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 1 delta -1
+ok 45 - bounded aggregation and exact last buffer cap 1 delta -1
+  ---
+  duration_ms: 0.844939
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 1 delta 0
+ok 46 - bounded aggregation and exact last buffer cap 1 delta 0
+  ---
+  duration_ms: 0.744647
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 1 delta 1
+ok 47 - bounded aggregation and exact last buffer cap 1 delta 1
+  ---
+  duration_ms: 0.586037
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 2 delta -1
+ok 48 - bounded aggregation and exact last buffer cap 2 delta -1
+  ---
+  duration_ms: 0.579286
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 2 delta 0
+ok 49 - bounded aggregation and exact last buffer cap 2 delta 0
+  ---
+  duration_ms: 0.49551
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 2 delta 1
+ok 50 - bounded aggregation and exact last buffer cap 2 delta 1
+  ---
+  duration_ms: 0.635242
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 7 delta -1
+ok 51 - bounded aggregation and exact last buffer cap 7 delta -1
+  ---
+  duration_ms: 0.626127
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 7 delta 0
+ok 52 - bounded aggregation and exact last buffer cap 7 delta 0
+  ---
+  duration_ms: 0.45606
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 7 delta 1
+ok 53 - bounded aggregation and exact last buffer cap 7 delta 1
+  ---
+  duration_ms: 0.552016
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 31 delta -1
+ok 54 - bounded aggregation and exact last buffer cap 31 delta -1
+  ---
+  duration_ms: 0.453396
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 31 delta 0
+ok 55 - bounded aggregation and exact last buffer cap 31 delta 0
+  ---
+  duration_ms: 0.520237
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 31 delta 1
+ok 56 - bounded aggregation and exact last buffer cap 31 delta 1
+  ---
+  duration_ms: 0.468059
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 4096 delta -1
+ok 57 - bounded aggregation and exact last buffer cap 4096 delta -1
+  ---
+  duration_ms: 8.634226
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 4096 delta 0
+ok 58 - bounded aggregation and exact last buffer cap 4096 delta 0
+  ---
+  duration_ms: 8.666045
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 4096 delta 1
+ok 59 - bounded aggregation and exact last buffer cap 4096 delta 1
+  ---
+  duration_ms: 8.169543
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 16384 delta -1
+ok 60 - bounded aggregation and exact last buffer cap 16384 delta -1
+  ---
+  duration_ms: 38.96664
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 16384 delta 0
+ok 61 - bounded aggregation and exact last buffer cap 16384 delta 0
+  ---
+  duration_ms: 30.803226
+  type: 'test'
+  ...
+# Subtest: bounded aggregation and exact last buffer cap 16384 delta 1
+ok 62 - bounded aggregation and exact last buffer cap 16384 delta 1
+  ---
+  duration_ms: 30.6606
+  type: 'test'
+  ...
+# Subtest: diagnostic matches B0 on boundary-adjacent contents capacity 1
+ok 63 - diagnostic matches B0 on boundary-adjacent contents capacity 1
+  ---
+  duration_ms: 4.020424
+  type: 'test'
+  ...
+# Subtest: diagnostic matches B0 on boundary-adjacent contents capacity 2
+ok 64 - diagnostic matches B0 on boundary-adjacent contents capacity 2
+  ---
+  duration_ms: 1.544488
+  type: 'test'
+  ...
+# Subtest: diagnostic matches B0 on boundary-adjacent contents capacity 7
+ok 65 - diagnostic matches B0 on boundary-adjacent contents capacity 7
+  ---
+  duration_ms: 1.201749
+  type: 'test'
+  ...
+# Subtest: diagnostic matches B0 on boundary-adjacent contents capacity 31
+ok 66 - diagnostic matches B0 on boundary-adjacent contents capacity 31
+  ---
+  duration_ms: 1.336603
+  type: 'test'
+  ...
+# Subtest: diagnostic matches B0 on boundary-adjacent contents capacity 4096
+ok 67 - diagnostic matches B0 on boundary-adjacent contents capacity 4096
+  ---
+  duration_ms: 4.990682
+  type: 'test'
+  ...
+# Subtest: diagnostic matches B0 on boundary-adjacent contents capacity 16384
+ok 68 - diagnostic matches B0 on boundary-adjacent contents capacity 16384
+  ---
+  duration_ms: 19.576316
+  type: 'test'
+  ...
+# Subtest: B1 direct comparison detects userPaused only change and exact B0 path
+ok 69 - B1 direct comparison detects userPaused only change and exact B0 path
+  ---
+  duration_ms: 1.198654
+  type: 'test'
+  ...
+# Subtest: B1 direct comparison detects elapsed only change and exact B0 path
+ok 70 - B1 direct comparison detects elapsed only change and exact B0 path
+  ---
+  duration_ms: 1.109189
+  type: 'test'
+  ...
+# Subtest: B1 direct comparison detects caskSlots only change and exact B0 path
+ok 71 - B1 direct comparison detects caskSlots only change and exact B0 path
+  ---
+  duration_ms: 0.998251
+  type: 'test'
+  ...
+# Subtest: B1 direct comparison detects recentLedger only change and exact B0 path
+ok 72 - B1 direct comparison detects recentLedger only change and exact B0 path
+  ---
+  duration_ms: 0.922576
+  type: 'test'
+  ...
+# Subtest: B1 direct comparison detects historyRecord only change and exact B0 path
+ok 73 - B1 direct comparison detects historyRecord only change and exact B0 path
+  ---
+  duration_ms: 1.078011
+  type: 'test'
+  ...
+# Subtest: B1 direct comparison detects recallRecord only change and exact B0 path
+ok 74 - B1 direct comparison detects recallRecord only change and exact B0 path
+  ---
+  duration_ms: 0.86522
+  type: 'test'
+  ...
+# Subtest: fixed cache size for changing schema per event and no arrivals aggregate allocation
+ok 75 - fixed cache size for changing schema per event and no arrivals aggregate allocation
+  ---
+  duration_ms: 10.311515
+  type: 'test'
+  ...
+# Subtest: game input position and empty sidecar strings preserve separate game hash
+ok 76 - game input position and empty sidecar strings preserve separate game hash
+  ---
+  duration_ms: 1.516295
+  type: 'test'
+  ...
+1..76
+# tests 76
+# suites 0
+# pass 76
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 500.927348

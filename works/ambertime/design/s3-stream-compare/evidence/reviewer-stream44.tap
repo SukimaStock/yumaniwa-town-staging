@@ -1,0 +1,274 @@
+TAP version 13
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 1 input
+ok 1 - exact UTF16/UTF8, escape and surrogate boundaries 1 input
+  ---
+  duration_ms: 6.874264
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 1 game
+ok 2 - exact UTF16/UTF8, escape and surrogate boundaries 1 game
+  ---
+  duration_ms: 1.686343
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 2 input
+ok 3 - exact UTF16/UTF8, escape and surrogate boundaries 2 input
+  ---
+  duration_ms: 1.397795
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 2 game
+ok 4 - exact UTF16/UTF8, escape and surrogate boundaries 2 game
+  ---
+  duration_ms: 2.066007
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 3 input
+ok 5 - exact UTF16/UTF8, escape and surrogate boundaries 3 input
+  ---
+  duration_ms: 1.141638
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 3 game
+ok 6 - exact UTF16/UTF8, escape and surrogate boundaries 3 game
+  ---
+  duration_ms: 1.152734
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 7 input
+ok 7 - exact UTF16/UTF8, escape and surrogate boundaries 7 input
+  ---
+  duration_ms: 0.991912
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 7 game
+ok 8 - exact UTF16/UTF8, escape and surrogate boundaries 7 game
+  ---
+  duration_ms: 0.853441
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 31 input
+ok 9 - exact UTF16/UTF8, escape and surrogate boundaries 31 input
+  ---
+  duration_ms: 0.837497
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 31 game
+ok 10 - exact UTF16/UTF8, escape and surrogate boundaries 31 game
+  ---
+  duration_ms: 1.457416
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 16384 input
+ok 11 - exact UTF16/UTF8, escape and surrogate boundaries 16384 input
+  ---
+  duration_ms: 0.874143
+  type: 'test'
+  ...
+# Subtest: exact UTF16/UTF8, escape and surrogate boundaries 16384 game
+ok 12 - exact UTF16/UTF8, escape and surrogate boundaries 16384 game
+  ---
+  duration_ms: 0.714902
+  type: 'test'
+  ...
+# Subtest: all finite JSON numeric forms
+ok 13 - all finite JSON numeric forms
+  ---
+  duration_ms: 1.060755
+  type: 'test'
+  ...
+# Subtest: property absence is distinct from null and order is preserved
+ok 14 - property absence is distinct from null and order is preserved
+  ---
+  duration_ms: 1.278355
+  type: 'test'
+  ...
+# Subtest: integer-like schema keys and special property names
+ok 15 - integer-like schema keys and special property names
+  ---
+  duration_ms: 0.888795
+  type: 'test'
+  ...
+# Subtest: large string escaped incrementally and no legacy aggregate stringify in comparison
+ok 16 - large string escaped incrementally and no legacy aggregate stringify in comparison
+  ---
+  duration_ms: 104.422277
+  type: 'test'
+  ...
+# Subtest: malformed shadowEvents refused even with recomputed integrity before reading reference
+ok 17 - malformed shadowEvents refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 1.065732
+  type: 'test'
+  ...
+# Subtest: malformed shadowAttempts refused even with recomputed integrity before reading reference
+ok 18 - malformed shadowAttempts refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.371232
+  type: 'test'
+  ...
+# Subtest: malformed shadowArrivals refused even with recomputed integrity before reading reference
+ok 19 - malformed shadowArrivals refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.304641
+  type: 'test'
+  ...
+# Subtest: malformed unknownEnvelope refused even with recomputed integrity before reading reference
+ok 20 - malformed unknownEnvelope refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.255337
+  type: 'test'
+  ...
+# Subtest: malformed unknownTable refused even with recomputed integrity before reading reference
+ok 21 - malformed unknownTable refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.244329
+  type: 'test'
+  ...
+# Subtest: malformed unusedSchema refused even with recomputed integrity before reading reference
+ok 22 - malformed unusedSchema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.365313
+  type: 'test'
+  ...
+# Subtest: malformed duplicateSchema refused even with recomputed integrity before reading reference
+ok 23 - malformed duplicateSchema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.262797
+  type: 'test'
+  ...
+# Subtest: malformed schema refused even with recomputed integrity before reading reference
+ok 24 - malformed schema refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.281596
+  type: 'test'
+  ...
+# Subtest: malformed columns refused even with recomputed integrity before reading reference
+ok 25 - malformed columns refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.304541
+  type: 'test'
+  ...
+# Subtest: malformed ordinal refused even with recomputed integrity before reading reference
+ok 26 - malformed ordinal refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.251521
+  type: 'test'
+  ...
+# Subtest: malformed duplicateID refused even with recomputed integrity before reading reference
+ok 27 - malformed duplicateID refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.232863
+  type: 'test'
+  ...
+# Subtest: malformed source refused even with recomputed integrity before reading reference
+ok 28 - malformed source refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.220354
+  type: 'test'
+  ...
+# Subtest: malformed arrivals refused even with recomputed integrity before reading reference
+ok 29 - malformed arrivals refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.338663
+  type: 'test'
+  ...
+# Subtest: malformed townKeys refused even with recomputed integrity before reading reference
+ok 30 - malformed townKeys refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.39013
+  type: 'test'
+  ...
+# Subtest: malformed version refused even with recomputed integrity before reading reference
+ok 31 - malformed version refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.387176
+  type: 'test'
+  ...
+# Subtest: malformed missingEvents refused even with recomputed integrity before reading reference
+ok 32 - malformed missingEvents refused even with recomputed integrity before reading reference
+  ---
+  duration_ms: 0.357201
+  type: 'test'
+  ...
+# Subtest: integrity failure distinct from source/content
+ok 33 - integrity failure distinct from source/content
+  ---
+  duration_ms: 0.703324
+  type: 'test'
+  ...
+# Subtest: structurally valid altered value is stopped by independent candidate anchor
+ok 34 - structurally valid altered value is stopped by independent candidate anchor
+  ---
+  duration_ms: 0.297841
+  type: 'test'
+  ...
+# Subtest: independent direct content comparison catches altered value even if candidate hash supplied for altered candidate
+ok 35 - independent direct content comparison catches altered value even if candidate hash supplied for altered candidate
+  ---
+  duration_ms: 1.063299
+  type: 'test'
+  ...
+# Subtest: reference SHA mismatch is refused
+ok 36 - reference SHA mismatch is refused
+  ---
+  duration_ms: 0.485314
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: short
+ok 37 - both EOF and first difference: short
+  ---
+  duration_ms: 1.144792
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: extra
+ok 38 - both EOF and first difference: extra
+  ---
+  duration_ms: 1.032873
+  type: 'test'
+  ...
+# Subtest: both EOF and first difference: late mismatch
+ok 39 - both EOF and first difference: late mismatch
+  ---
+  duration_ms: 1.383283
+  type: 'test'
+  ...
+# Subtest: game anchor also checked in full-input comparison
+ok 40 - game anchor also checked in full-input comparison
+  ---
+  duration_ms: 0.804788
+  type: 'test'
+  ...
+# Subtest: missing reference safely fails rather than accepting output
+ok 41 - missing reference safely fails rather than accepting output
+  ---
+  duration_ms: 0.421078
+  type: 'test'
+  ...
+# Subtest: invalid chunk bound refused
+ok 42 - invalid chunk bound refused
+  ---
+  duration_ms: 0.621701
+  type: 'test'
+  ...
+# Subtest: long diagnostic key never stringifies the complete scalar
+ok 43 - long diagnostic key never stringifies the complete scalar
+  ---
+  duration_ms: 8.084476
+  type: 'test'
+  ...
+# Subtest: short byte reads inside multibyte UTF8 are not EOF
+ok 44 - short byte reads inside multibyte UTF8 are not EOF
+  ---
+  duration_ms: 4.853776
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 262.356473

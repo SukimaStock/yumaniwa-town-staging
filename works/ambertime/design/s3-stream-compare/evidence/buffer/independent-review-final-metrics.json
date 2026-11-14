@@ -1,0 +1,273 @@
+{
+  "source": "final-measurements.json",
+  "sourceSha256": "1aa7ce6878d6ab6e93ef8f7f4f4e6b7e9af162b51eb63b24c0d6ce1d95d60dcf",
+  "readOnlyArtifactAudit": true,
+  "executedBenchmarks": false,
+  "assertionsPassed": true,
+  "runCount": 18,
+  "node": {
+    "node": "v24.22.1",
+    "flags": [
+      "--expose-gc",
+      "--max-old-space-size=512"
+    ],
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor"
+  },
+  "modes": {
+    "A": {
+      "totalMs": {
+        "runs": [
+          687.4023070000001,
+          705.794813,
+          705.811551
+        ],
+        "median": 705.794813,
+        "min": 687.4023070000001,
+        "max": 705.811551
+      },
+      "workerHighWaterMiB": {
+        "runs": [
+          220.47265625,
+          220.421875,
+          220.14453125
+        ],
+        "median": 220.421875,
+        "min": 220.14453125,
+        "max": 220.47265625
+      },
+      "comparisonIncludingLoadMs": {
+        "runs": [
+          687.085247,
+          705.506186,
+          705.3856370000001
+        ],
+        "median": 705.3856370000001,
+        "min": 687.085247,
+        "max": 705.506186
+      }
+    },
+    "B0": {
+      "totalMs": {
+        "runs": [
+          2530.196254,
+          2562.4472680000003,
+          2410.665211
+        ],
+        "median": 2530.196254,
+        "min": 2410.665211,
+        "max": 2562.4472680000003
+      },
+      "workerHighWaterMiB": {
+        "runs": [
+          164.0859375,
+          162.328125,
+          162.87109375
+        ],
+        "median": 162.87109375,
+        "min": 162.328125,
+        "max": 164.0859375
+      },
+      "comparisonIncludingLoadMs": {
+        "runs": [
+          2529.879264,
+          2562.164741,
+          2410.387191
+        ],
+        "median": 2529.879264,
+        "min": 2410.387191,
+        "max": 2562.164741
+      }
+    },
+    "B1": {
+      "totalMs": {
+        "runs": [
+          651.883348,
+          683.372827,
+          717.595222
+        ],
+        "median": 683.372827,
+        "min": 651.883348,
+        "max": 717.595222
+      },
+      "workerHighWaterMiB": {
+        "runs": [
+          130.66015625,
+          131.4609375,
+          130.48046875
+        ],
+        "median": 130.66015625,
+        "min": 130.48046875,
+        "max": 131.4609375
+      },
+      "comparisonIncludingLoadMs": {
+        "runs": [
+          651.533669,
+          683.100956,
+          717.3148180000001
+        ],
+        "median": 683.100956,
+        "min": 651.533669,
+        "max": 717.3148180000001
+      }
+    },
+    "old-B0": {
+      "totalMs": {
+        "runs": [
+          2836.8391279999996,
+          2824.905431,
+          2853.182712
+        ],
+        "median": 2836.8391279999996,
+        "min": 2824.905431,
+        "max": 2853.182712
+      },
+      "workerHighWaterMiB": {
+        "runs": [
+          341.26953125,
+          341.01171875,
+          341.26953125
+        ],
+        "median": 341.26953125,
+        "min": 341.01171875,
+        "max": 341.26953125
+      },
+      "comparisonIncludingLoadMs": {
+        "runs": [
+          2315.914771,
+          2314.345467,
+          2344.6433810000003
+        ],
+        "median": 2315.914771,
+        "min": 2314.345467,
+        "max": 2344.6433810000003
+      },
+      "preparationMs": {
+        "runs": [
+          520.048211,
+          509.85114100000004,
+          508.00831700000003
+        ],
+        "median": 509.85114100000004,
+        "min": 508.00831700000003,
+        "max": 520.048211
+      }
+    },
+    "old-B1": {
+      "totalMs": {
+        "runs": [
+          1175.270711,
+          1094.536577,
+          1171.984446
+        ],
+        "median": 1171.984446,
+        "min": 1094.536577,
+        "max": 1175.270711
+      },
+      "workerHighWaterMiB": {
+        "runs": [
+          340.95703125,
+          341.5859375,
+          341.0234375
+        ],
+        "median": 341.0234375,
+        "min": 340.95703125,
+        "max": 341.5859375
+      },
+      "comparisonIncludingLoadMs": {
+        "runs": [
+          641.5092070000001,
+          586.1497580000001,
+          634.5695569999999
+        ],
+        "median": 634.5695569999999,
+        "min": 586.1497580000001,
+        "max": 641.5092070000001
+      },
+      "preparationMs": {
+        "runs": [
+          533.148606,
+          507.761533,
+          536.81499
+        ],
+        "median": 533.148606,
+        "min": 507.761533,
+        "max": 536.81499
+      }
+    },
+    "improved-B1": {
+      "totalMs": {
+        "runs": [
+          1171.174666,
+          1195.31842,
+          1128.841197
+        ],
+        "median": 1171.174666,
+        "min": 1128.841197,
+        "max": 1195.31842
+      },
+      "workerHighWaterMiB": {
+        "runs": [
+          289.71875,
+          288.5625,
+          288.48828125
+        ],
+        "median": 288.5625,
+        "min": 288.48828125,
+        "max": 289.71875
+      },
+      "comparisonIncludingLoadMs": {
+        "runs": [
+          605.6827290000001,
+          659.0489319999999,
+          610.928261
+        ],
+        "median": 610.928261,
+        "min": 605.6827290000001,
+        "max": 659.0489319999999
+      },
+      "preparationMs": {
+        "runs": [
+          564.8860099999999,
+          535.70818,
+          517.378467
+        ],
+        "median": 535.70818,
+        "min": 517.378467,
+        "max": 564.8860099999999
+      }
+    }
+  },
+  "supervision": {
+    "intervalMs": 50,
+    "samplesTotal": 568,
+    "samplesRange": [
+      14,
+      58
+    ],
+    "maxSampledRSSMiB": 340.1953125,
+    "maxMeasuredWorkerHighWaterMiB": 341.5859375,
+    "maxMeasuredTotalMs": 2853.182712
+  },
+  "formalWireEvidence": {
+    "rawSha256": "48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693",
+    "status": "new24month-wire-protection-pass",
+    "cases": 10,
+    "reused": true,
+    "newSimulation": false,
+    "newWriter": false,
+    "sourceArtifacts": [
+      "identity-final.json",
+      "final-v8-protection.json"
+    ]
+  },
+  "finalTestEvidence": {
+    "baselinePass": 155,
+    "b1Pass": 138,
+    "totalPass": 293,
+    "noFailures": true,
+    "noSkips": true,
+    "note": "Inspected final TAP artifacts; not reexecuted by this audit."
+  }
+}

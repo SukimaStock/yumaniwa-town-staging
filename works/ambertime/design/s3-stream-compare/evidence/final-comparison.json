@@ -1,0 +1,445 @@
+{
+  "runs": [
+    {
+      "repeat": 1,
+      "mode": "A",
+      "loadMs": 60.56771599999999,
+      "totalProcessWorkMs": 875.2481049999999,
+      "before": {
+        "rss": 36438016,
+        "heapTotal": 12374016,
+        "heapUsed": 8523400,
+        "external": 4146546,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 35584
+      },
+      "afterLoad": {
+        "rss": 74129408,
+        "heapTotal": 63717376,
+        "heapUsed": 33525088,
+        "external": 4146586,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 72392
+      },
+      "after": {
+        "rss": 217247744,
+        "heapTotal": 226258944,
+        "heapUsed": 90645656,
+        "external": 4146550,
+        "arrayBuffers": 146579,
+        "maxRSSKiB": 223744
+      },
+      "result": {
+        "equal": true,
+        "scope": "input",
+        "includesSidecars": true,
+        "units": 10645147,
+        "bytes": 11873989,
+        "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+        "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+        "referenceHashMs": 9.303032000000002,
+        "decodeValidationHydrateAnchorMs": 660.599939,
+        "comparisonMs": 122.08556999999996,
+        "afterDecode": {
+          "rss": 188223488,
+          "heapTotal": 131305472,
+          "heapUsed": 69327472,
+          "external": 4146550,
+          "arrayBuffers": 146579,
+          "maxRSSKiB": 204548
+        }
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor"
+      },
+      "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+    },
+    {
+      "repeat": 1,
+      "mode": "B",
+      "loadMs": 46.87639599999999,
+      "totalProcessWorkMs": 2428.750016,
+      "before": {
+        "rss": 36306944,
+        "heapTotal": 12374016,
+        "heapUsed": 8546928,
+        "external": 4146546,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 35456
+      },
+      "afterLoad": {
+        "rss": 74399744,
+        "heapTotal": 63455232,
+        "heapUsed": 33536872,
+        "external": 4146586,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 72656
+      },
+      "after": {
+        "rss": 167788544,
+        "heapTotal": 92938240,
+        "heapUsed": 27948400,
+        "external": 4212093,
+        "arrayBuffers": 212122,
+        "maxRSSKiB": 163856
+      },
+      "result": {
+        "equal": true,
+        "scope": "input",
+        "includesSidecars": true,
+        "units": 10645147,
+        "bytes": 11873989,
+        "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+        "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+        "chunks": 2329289,
+        "maxChunkUnits": 1358,
+        "maxReferenceBytes": 65536,
+        "validationMs": 207.98886200000004,
+        "referenceHashMs": 8.815394000000026,
+        "comparisonMs": 2163.953725,
+        "totalMs": 2381.079408,
+        "heapAfterValidation": 33860096,
+        "heapAfterComparison": 27947136,
+        "provenance": false
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor"
+      },
+      "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+    },
+    {
+      "repeat": 2,
+      "mode": "A",
+      "loadMs": 48.707499,
+      "totalProcessWorkMs": 734.647399,
+      "before": {
+        "rss": 36306944,
+        "heapTotal": 12374016,
+        "heapUsed": 8528248,
+        "external": 4146546,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 35456
+      },
+      "afterLoad": {
+        "rss": 74317824,
+        "heapTotal": 63717376,
+        "heapUsed": 33541128,
+        "external": 4146586,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 72576
+      },
+      "after": {
+        "rss": 217612288,
+        "heapTotal": 225996800,
+        "heapUsed": 90656304,
+        "external": 4146550,
+        "arrayBuffers": 146579,
+        "maxRSSKiB": 224100
+      },
+      "result": {
+        "equal": true,
+        "scope": "input",
+        "includesSidecars": true,
+        "units": 10645147,
+        "bytes": 11873989,
+        "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+        "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+        "referenceHashMs": 9.733612999999991,
+        "decodeValidationHydrateAnchorMs": 560.001078,
+        "comparisonMs": 92.99347399999999,
+        "afterDecode": {
+          "rss": 188616704,
+          "heapTotal": 131043328,
+          "heapUsed": 69376824,
+          "external": 4146550,
+          "arrayBuffers": 146579,
+          "maxRSSKiB": 204932
+        }
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor"
+      },
+      "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+    },
+    {
+      "repeat": 2,
+      "mode": "B",
+      "loadMs": 44.393078,
+      "totalProcessWorkMs": 2462.318485,
+      "before": {
+        "rss": 36438016,
+        "heapTotal": 12374016,
+        "heapUsed": 8555352,
+        "external": 4146546,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 35584
+      },
+      "afterLoad": {
+        "rss": 74371072,
+        "heapTotal": 63193088,
+        "heapUsed": 33504992,
+        "external": 4146586,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 72628
+      },
+      "after": {
+        "rss": 166719488,
+        "heapTotal": 93200384,
+        "heapUsed": 28102512,
+        "external": 4212093,
+        "arrayBuffers": 212122,
+        "maxRSSKiB": 162812
+      },
+      "result": {
+        "equal": true,
+        "scope": "input",
+        "includesSidecars": true,
+        "units": 10645147,
+        "bytes": 11873989,
+        "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+        "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+        "chunks": 2329289,
+        "maxChunkUnits": 1358,
+        "maxReferenceBytes": 65536,
+        "validationMs": 216.20772300000002,
+        "referenceHashMs": 9.29261699999995,
+        "comparisonMs": 2191.52794,
+        "totalMs": 2417.429776,
+        "heapAfterValidation": 33818752,
+        "heapAfterComparison": 28101248,
+        "provenance": false
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor"
+      },
+      "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+    },
+    {
+      "repeat": 3,
+      "mode": "A",
+      "loadMs": 43.521347999999996,
+      "totalProcessWorkMs": 687.0948229999999,
+      "before": {
+        "rss": 36438016,
+        "heapTotal": 12636160,
+        "heapUsed": 8555304,
+        "external": 4146546,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 35584
+      },
+      "afterLoad": {
+        "rss": 74407936,
+        "heapTotal": 63717376,
+        "heapUsed": 33489304,
+        "external": 4146586,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 72664
+      },
+      "after": {
+        "rss": 217960448,
+        "heapTotal": 225996800,
+        "heapUsed": 90625144,
+        "external": 4146550,
+        "arrayBuffers": 146579,
+        "maxRSSKiB": 224440
+      },
+      "result": {
+        "equal": true,
+        "scope": "input",
+        "includesSidecars": true,
+        "units": 10645147,
+        "bytes": 11873989,
+        "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+        "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+        "referenceHashMs": 9.598788999999996,
+        "decodeValidationHydrateAnchorMs": 516.399323,
+        "comparisonMs": 94.40368899999999,
+        "afterDecode": {
+          "rss": 189181952,
+          "heapTotal": 131567616,
+          "heapUsed": 69349920,
+          "external": 4146550,
+          "arrayBuffers": 146579,
+          "maxRSSKiB": 205484
+        }
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor"
+      },
+      "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+    },
+    {
+      "repeat": 3,
+      "mode": "B",
+      "loadMs": 46.093552,
+      "totalProcessWorkMs": 2509.5773090000002,
+      "before": {
+        "rss": 36175872,
+        "heapTotal": 12636160,
+        "heapUsed": 8523400,
+        "external": 4146546,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 35328
+      },
+      "afterLoad": {
+        "rss": 74338304,
+        "heapTotal": 63979520,
+        "heapUsed": 33504480,
+        "external": 4146586,
+        "arrayBuffers": 146615,
+        "maxRSSKiB": 72596
+      },
+      "after": {
+        "rss": 168550400,
+        "heapTotal": 92938240,
+        "heapUsed": 27720824,
+        "external": 4212093,
+        "arrayBuffers": 212122,
+        "maxRSSKiB": 164600
+      },
+      "result": {
+        "equal": true,
+        "scope": "input",
+        "includesSidecars": true,
+        "units": 10645147,
+        "bytes": 11873989,
+        "outputSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4",
+        "gameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+        "chunks": 2329289,
+        "maxChunkUnits": 1358,
+        "maxReferenceBytes": 65536,
+        "validationMs": 234.01151800000002,
+        "referenceHashMs": 9.78756500000003,
+        "comparisonMs": 2218.862779,
+        "totalMs": 2462.984992,
+        "heapAfterValidation": 33830728,
+        "heapAfterComparison": 27719560,
+        "provenance": false
+      },
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "linux",
+        "arch": "x64",
+        "cpu": "AMD EPYC 9V74 80-Core Processor"
+      },
+      "cold": "fresh Node process; filesystem cache uncontrolled; no formal replay"
+    }
+  ],
+  "note": "Three sequential fresh A/B pairs. Process lifetime maxRSS is not phase-isolated; preparation is separate. Both compare game and all sidecars using unchanged candidate validation and independent original. Baseline decode bundles validation, hydrate and anchor checks.",
+  "statistics": {
+    "A": {
+      "totalMs": {
+        "median": 734.647399,
+        "min": 687.0948229999999,
+        "max": 875.2481049999999
+      },
+      "maxRSSMiB": {
+        "median": 218.84765625,
+        "min": 218.5,
+        "max": 219.1796875
+      },
+      "loadMs": {
+        "median": 48.707499,
+        "min": 43.521347999999996,
+        "max": 60.56771599999999
+      },
+      "referenceHashMs": {
+        "median": 9.598788999999996,
+        "min": 9.303032000000002,
+        "max": 9.733612999999991
+      },
+      "comparisonMs": {
+        "median": 94.40368899999999,
+        "min": 92.99347399999999,
+        "max": 122.08556999999996
+      },
+      "heapAfterLoadMiB": {
+        "median": 31.972015380859375,
+        "min": 31.937889099121094,
+        "max": 31.98731231689453
+      },
+      "heapAfterCompareMiB": {
+        "median": 86.4464340209961,
+        "min": 86.42687225341797,
+        "max": 86.45658874511719
+      },
+      "validationHydrateAnchorMs": {
+        "median": 560.001078,
+        "min": 516.399323,
+        "max": 660.599939
+      }
+    },
+    "B": {
+      "totalMs": {
+        "median": 2462.318485,
+        "min": 2428.750016,
+        "max": 2509.5773090000002
+      },
+      "maxRSSMiB": {
+        "median": 160.015625,
+        "min": 158.99609375,
+        "max": 160.7421875
+      },
+      "loadMs": {
+        "median": 46.093552,
+        "min": 44.393078,
+        "max": 46.87639599999999
+      },
+      "referenceHashMs": {
+        "median": 9.29261699999995,
+        "min": 8.815394000000026,
+        "max": 9.78756500000003
+      },
+      "comparisonMs": {
+        "median": 2191.52794,
+        "min": 2163.953725,
+        "max": 2218.862779
+      },
+      "heapAfterLoadMiB": {
+        "median": 31.952850341796875,
+        "min": 31.952362060546875,
+        "max": 31.983253479003906
+      },
+      "heapAfterCompareMiB": {
+        "median": 26.653671264648438,
+        "min": 26.43663787841797,
+        "max": 26.800643920898438
+      },
+      "validationMs": {
+        "median": 216.20772300000002,
+        "min": 207.98886200000004,
+        "max": 234.01151800000002
+      }
+    }
+  },
+  "comparatorSha": "f3c994374c6ed5b31587b8f7e053a695d238ae63ba77049dca58cf9da0bf93cb",
+  "measurementRunnerSha": "71bc9714dc5f54d0f566c5e8663089815e5744ddf86ec2f6014498069d2dd9ee",
+  "codeCommit": "0fe93830045c98e4d9adf46deba8fe1b7f0420c1",
+  "nodeFlags": [
+    "--max-old-space-size=512"
+  ],
+  "order": [
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B"
+  ],
+  "sourceFileSha": "ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4"
+}

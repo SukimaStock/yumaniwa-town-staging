@@ -1,0 +1,1608 @@
+PASS [*] guide.mood-definitions: WORK_GUIDE_MOODS requires unique valid ids and nonempty labels
+PASS [pumpoko] guide.metadata: every open work requires WORK_GUIDE_META[pumpoko] so the terminal can include it
+PASS [pumpoko] guide.duration: Guide Ready requires a nonempty duration
+PASS [pumpoko] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [pumpoko] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [orbit] guide.metadata: every open work requires WORK_GUIDE_META[orbit] so the terminal can include it
+PASS [orbit] guide.duration: Guide Ready requires a nonempty duration
+PASS [orbit] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [orbit] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [diorama-calendar] guide.metadata: every open work requires WORK_GUIDE_META[diorama-calendar] so the terminal can include it
+PASS [diorama-calendar] guide.duration: Guide Ready requires a nonempty duration
+PASS [diorama-calendar] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [diorama-calendar] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [coffee-factory] guide.metadata: every open work requires WORK_GUIDE_META[coffee-factory] so the terminal can include it
+PASS [coffee-factory] guide.duration: Guide Ready requires a nonempty duration
+PASS [coffee-factory] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [coffee-factory] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [rojiura-masala] guide.metadata: every open work requires WORK_GUIDE_META[rojiura-masala] so the terminal can include it
+PASS [rojiura-masala] guide.duration: Guide Ready requires a nonempty duration
+PASS [rojiura-masala] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [rojiura-masala] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [steamclock] guide.metadata: every open work requires WORK_GUIDE_META[steamclock] so the terminal can include it
+PASS [steamclock] guide.duration: Guide Ready requires a nonempty duration
+PASS [steamclock] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [steamclock] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [dotweather] guide.metadata: every open work requires WORK_GUIDE_META[dotweather] so the terminal can include it
+PASS [dotweather] guide.duration: Guide Ready requires a nonempty duration
+PASS [dotweather] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [dotweather] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [junkissa-dive] guide.metadata: every open work requires WORK_GUIDE_META[junkissa-dive] so the terminal can include it
+PASS [junkissa-dive] guide.duration: Guide Ready requires a nonempty duration
+PASS [junkissa-dive] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [junkissa-dive] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [midnight-cola] guide.metadata: every open work requires WORK_GUIDE_META[midnight-cola] so the terminal can include it
+PASS [midnight-cola] guide.duration: Guide Ready requires a nonempty duration
+PASS [midnight-cola] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [midnight-cola] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [yakitori-wars] guide.metadata: every open work requires WORK_GUIDE_META[yakitori-wars] so the terminal can include it
+PASS [yakitori-wars] guide.duration: Guide Ready requires a nonempty duration
+PASS [yakitori-wars] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [yakitori-wars] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [rainy-window] guide.metadata: every open work requires WORK_GUIDE_META[rainy-window] so the terminal can include it
+PASS [rainy-window] guide.duration: Guide Ready requires a nonempty duration
+PASS [rainy-window] guide.guide-line: Guide Ready requires a nonempty guideLine
+PASS [rainy-window] guide.moods: Guide Ready requires one or more unique moods declared in WORK_GUIDE_MOODS
+PASS [*] guide.featured: WORK_GUIDE_FEATURED requires unique valid work ids
+PASS [orbit] guide.featured: featured work must exist, be open, and have guide metadata
+PASS [diorama-calendar] guide.featured: featured work must exist, be open, and have guide metadata
+PASS [rojiura-masala] guide.featured: featured work must exist, be open, and have guide metadata
+PASS [orbit] release.member: publication set member must exist and be open in the candidate
+PASS [diorama-calendar] release.member: publication set member must exist and be open in the candidate
+PASS [rojiura-masala] release.member: publication set member must exist and be open in the candidate
+PASS [steamclock] release.member: publication set member must exist and be open in the candidate
+PASS [dotweather] release.member: publication set member must exist and be open in the candidate
+PASS [junkissa-dive] release.member: publication set member must exist and be open in the candidate
+PASS [midnight-cola] release.member: publication set member must exist and be open in the candidate
+PASS [yakitori-wars] release.member: publication set member must exist and be open in the candidate
+PASS [rainy-window] release.member: publication set member must exist and be open in the candidate
+PASS [pumpoko] release.member: publication set member must exist and be open in the candidate
+PASS [*] sitemap.file: staging intentionally has no sitemap
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.index-selection: article index contains exactly selected articles
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/pumpkin-jam/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/pumpkin-jam/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/orbit-remaking/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/orbit-remaking/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/curry-delivery/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/curry-delivery/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/first-public-app/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/first-public-app/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/no-right-answer/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/no-right-answer/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/making-like-craft/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/making-like-craft/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/town-beginning/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/town-beginning/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/touch-doodles/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/touch-doodles/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/yakitori-remake/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/yakitori-remake/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/game-app-in-between/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/game-app-in-between/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/board-game-making/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/board-game-making/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/leftover-details/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/leftover-details/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/weather-air/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/weather-air/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [*] articles.file: selected article/index exists: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/coffee-factory/
+PASS [*] articles.canonical: article/index canonical matches environment: https://sukimastock.github.io/yumaniwa-town-staging/shinpo/coffee-factory/
+PASS [*] articles.robots: article/index robots match environment
+PASS [*] articles.og-url: article OGP URL matches canonical
+PASS [*] articles.og-image: one article OGP image required
+PASS [*] articles.og-image: article OGP image belongs to current environment and exists
+PASS [orbit] metadata.title: nonempty title required
+PASS [orbit] metadata.description: nonempty description required
+PASS [orbit] metadata.venue: nonempty venue required
+PASS [orbit] metadata.kind: nonempty kind required
+PASS [orbit] metadata.status: nonempty status required
+PASS [orbit] metadata.launch: nonempty launch required
+PASS [orbit] metadata.frameMode: nonempty frameMode required
+PASS [orbit] metadata.status-open: release target must be open
+PASS [orbit] guide.image: selected release work requires canonical assets/works/orbit/ogp.jpg or icon.png
+PASS [orbit] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: orbit
+PASS [orbit] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[orbit] line
+PASS [orbit] launch.entry: embedded entry must be a local ./works/ path
+PASS [orbit] launch.file: entry file exists: ./works/orbit/index.html
+PASS [orbit] launch.folder: works/orbit/ exists
+PASS [orbit] launch.identity: entry belongs to work ID folder
+PASS [orbit] search.metadata-source: Search/Share metadata required for selected work
+PASS [orbit] search.metadata-source: alternateNames must be a string array
+PASS [orbit] search.locale-ja: metadata locale required: ja
+PASS [orbit] search.metadata-source: ja.pageTitle must be nonempty
+PASS [orbit] search.metadata-source: ja.metaDescription must be nonempty
+PASS [orbit] search.metadata-source: ja.body must be nonempty
+PASS [orbit] search.metadata-source: ja.shareTitle must be nonempty
+PASS [orbit] search.metadata-source: ja.shareDescription must be nonempty
+PASS [orbit] search.metadata-source: ja.imageAlt must be nonempty
+PASS [orbit] search.metadata-source: ja.genres must be a nonempty string array
+PASS [orbit] search.metadata-source: ja.terms must be a nonempty string array
+PASS [orbit] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [orbit] search.locale-ja: html lang must equal ja
+PASS [orbit] search.localized-metadata: ja title must match metadata source
+PASS [orbit] search.localized-metadata: ja description must match metadata source
+PASS [orbit] search.localized-metadata: ja og:title must match metadata source
+PASS [orbit] search.localized-metadata: ja og:description must match metadata source
+PASS [orbit] search.localized-metadata: ja twitter:title must match metadata source
+PASS [orbit] search.localized-metadata: ja twitter:description must match metadata source
+PASS [orbit] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [orbit] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [orbit] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [orbit] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [orbit] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [orbit] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [orbit] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [orbit] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/orbit/
+PASS [orbit] search.locale-og-url: ja og:url must equal canonical
+PASS [orbit] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [orbit] search.x-default: ja x-default must point to Japanese canonical
+PASS [orbit] search.localized-robots: ja staging page requires noindex
+PASS [orbit] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [orbit] search.structured-data: ja VideoGame must declare Web Browser platform
+PASS [orbit] search.localized-links: ja page requires static town launch link
+PASS [orbit] search.localized-links: ja page requires static town root link
+PASS [orbit] search.localized-links: ja page requires static language-switch link
+PASS [orbit] search.localized-redirect: ja ordinary visit must not redirect
+PASS [orbit] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [orbit] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/orbit/
+PASS [orbit] search.locale-en: metadata locale required: en
+PASS [orbit] search.metadata-source: en.pageTitle must be nonempty
+PASS [orbit] search.metadata-source: en.metaDescription must be nonempty
+PASS [orbit] search.metadata-source: en.body must be nonempty
+PASS [orbit] search.metadata-source: en.shareTitle must be nonempty
+PASS [orbit] search.metadata-source: en.shareDescription must be nonempty
+PASS [orbit] search.metadata-source: en.imageAlt must be nonempty
+PASS [orbit] search.metadata-source: en.genres must be a nonempty string array
+PASS [orbit] search.metadata-source: en.terms must be a nonempty string array
+PASS [orbit] search.generated-en: generated en page must exactly match metadata + generator
+PASS [orbit] search.locale-en: html lang must equal en
+PASS [orbit] search.localized-metadata: en title must match metadata source
+PASS [orbit] search.localized-metadata: en description must match metadata source
+PASS [orbit] search.localized-metadata: en og:title must match metadata source
+PASS [orbit] search.localized-metadata: en og:description must match metadata source
+PASS [orbit] search.localized-metadata: en twitter:title must match metadata source
+PASS [orbit] search.localized-metadata: en twitter:description must match metadata source
+PASS [orbit] search.localized-metadata: en og:image:alt must match metadata source
+PASS [orbit] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [orbit] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [orbit] search.localized-metadata: en X image must match metadata OGP contract
+PASS [orbit] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [orbit] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [orbit] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [orbit] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/orbit/
+PASS [orbit] search.locale-og-url: en og:url must equal canonical
+PASS [orbit] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [orbit] search.x-default: en x-default must point to Japanese canonical
+PASS [orbit] search.localized-robots: en staging page requires noindex
+PASS [orbit] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [orbit] search.structured-data: en VideoGame must declare Web Browser platform
+PASS [orbit] search.localized-links: en page requires static town launch link
+PASS [orbit] search.localized-links: en page requires static town root link
+PASS [orbit] search.localized-links: en page requires static language-switch link
+PASS [orbit] search.localized-redirect: en ordinary visit must not redirect
+PASS [orbit] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [orbit] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/orbit/
+PASS [orbit] search.title: one nonempty title required
+PASS [orbit] search.description: one nonempty description required
+PASS [orbit] search.og:title: one nonempty og:title required
+PASS [orbit] search.og:description: one nonempty og:description required
+PASS [orbit] search.h1: nonempty h1 required
+PASS [orbit] search.body: introductory paragraph required, not just a launch link
+PASS [orbit] search.launch-link: static town launch link required
+PASS [orbit] search.town-link: static town root link required
+PASS [orbit] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/orbit/
+PASS [orbit] search.og:url: one nonempty og:url required
+PASS [orbit] search.og-url: og:url must equal canonical
+PASS [orbit] search.robots: staging requires noindex (correct environment policy)
+PASS [orbit] search.meta-refresh: no automatic meta refresh
+PASS [orbit] search.redirect: ordinary visit must not redirect
+PASS [orbit] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [orbit] search.og:image: one nonempty og:image required
+PASS [orbit] search.twitter:image: one nonempty twitter:image required
+PASS [orbit] search.og:image:alt: one nonempty og:image:alt required
+PASS [orbit] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [orbit] search.twitter:card: one nonempty twitter:card required
+PASS [orbit] share.card: supported X card required
+PASS [orbit] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [orbit] ogp.identity: image URL belongs to assets/works/orbit/
+PASS [orbit] ogp.file: declared image file exists
+PASS [orbit] search.og:image:type: one nonempty og:image:type required
+PASS [orbit] ogp.mime: declared MIME matches image bytes
+PASS [orbit] search.og:image:width: one nonempty og:image:width required
+PASS [orbit] search.og:image:height: one nonempty og:image:height required
+PASS [orbit] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [orbit] ogp.extension: extension matches bytes
+PASS [orbit] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/orbit/ required
+PASS [orbit] install.contract: existing install script must resolve this work manifest
+PASS [orbit] manifest.id: id must resolve to town work URL
+PASS [orbit] manifest.start_url: start_url must resolve to town work URL
+PASS [orbit] manifest.scope: scope must resolve to town root
+PASS [orbit] install.icon-identity: icon must belong to this work
+PASS [orbit] install.icon: icon exists: ./assets/works/orbit/icon.png
+PASS [orbit] install.icon-identity: icon must belong to this work
+PASS [orbit] install.icon: icon exists: ../../assets/works/orbit/icon.png
+PASS [orbit] manifest.icons: non-iconless work requires manifest icons
+WARNING [orbit] scene.menu-only: no physical trigger; treated as menu-only; confirm placement intent in release record
+PASS [orbit] analytics.name: existing tracker emits Work Open: orbit
+EXTERNAL_CHECK_REQUIRED [orbit] analytics.goal: UNVERIFIED Plausible Goal: Work Open: orbit
+PASS [orbit] analytics.name: existing tracker emits Work Close: orbit
+EXTERNAL_CHECK_REQUIRED [orbit] analytics.goal: UNVERIFIED Plausible Goal: Work Close: orbit
+PASS [orbit] analytics.name: existing tracker emits Share: orbit
+EXTERNAL_CHECK_REQUIRED [orbit] analytics.goal: UNVERIFIED Plausible Goal: Share: orbit (native share success only; applicability requires review)
+PASS [orbit] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [orbit] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [orbit] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [orbit] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [diorama-calendar] metadata.title: nonempty title required
+PASS [diorama-calendar] metadata.description: nonempty description required
+PASS [diorama-calendar] metadata.venue: nonempty venue required
+PASS [diorama-calendar] metadata.kind: nonempty kind required
+PASS [diorama-calendar] metadata.status: nonempty status required
+PASS [diorama-calendar] metadata.launch: nonempty launch required
+PASS [diorama-calendar] metadata.frameMode: nonempty frameMode required
+PASS [diorama-calendar] metadata.status-open: release target must be open
+PASS [diorama-calendar] guide.image: selected release work requires canonical assets/works/diorama-calendar/ogp.jpg or icon.png
+PASS [diorama-calendar] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: diorama-calendar
+PASS [diorama-calendar] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[diorama-calendar] line
+PASS [diorama-calendar] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [diorama-calendar] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [diorama-calendar] launch.entry: embedded entry must be a local ./works/ path
+PASS [diorama-calendar] launch.file: entry file exists: ./works/diorama-calendar/index.html
+PASS [diorama-calendar] launch.folder: works/diorama-calendar/ exists
+PASS [diorama-calendar] launch.identity: entry belongs to work ID folder
+PASS [diorama-calendar] search.metadata-source: Search/Share metadata required for selected work
+PASS [diorama-calendar] search.metadata-source: alternateNames must be a string array
+PASS [diorama-calendar] search.locale-ja: metadata locale required: ja
+PASS [diorama-calendar] search.metadata-source: ja.pageTitle must be nonempty
+PASS [diorama-calendar] search.metadata-source: ja.metaDescription must be nonempty
+PASS [diorama-calendar] search.metadata-source: ja.body must be nonempty
+PASS [diorama-calendar] search.metadata-source: ja.shareTitle must be nonempty
+PASS [diorama-calendar] search.metadata-source: ja.shareDescription must be nonempty
+PASS [diorama-calendar] search.metadata-source: ja.imageAlt must be nonempty
+PASS [diorama-calendar] search.metadata-source: ja.genres must be a nonempty string array
+PASS [diorama-calendar] search.metadata-source: ja.terms must be a nonempty string array
+PASS [diorama-calendar] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [diorama-calendar] search.locale-ja: html lang must equal ja
+PASS [diorama-calendar] search.localized-metadata: ja title must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja description must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja og:title must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja og:description must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja twitter:title must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja twitter:description must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [diorama-calendar] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [diorama-calendar] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [diorama-calendar] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [diorama-calendar] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [diorama-calendar] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [diorama-calendar] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/diorama-calendar/
+PASS [diorama-calendar] search.locale-og-url: ja og:url must equal canonical
+PASS [diorama-calendar] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [diorama-calendar] search.x-default: ja x-default must point to Japanese canonical
+PASS [diorama-calendar] search.localized-robots: ja staging page requires noindex
+PASS [diorama-calendar] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [diorama-calendar] search.structured-data: ja SoftwareApplication must declare Web Browser OS
+PASS [diorama-calendar] search.localized-links: ja page requires static town launch link
+PASS [diorama-calendar] search.localized-links: ja page requires static town root link
+PASS [diorama-calendar] search.localized-links: ja page requires static language-switch link
+PASS [diorama-calendar] search.localized-redirect: ja ordinary visit must not redirect
+PASS [diorama-calendar] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [diorama-calendar] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/diorama-calendar/
+PASS [diorama-calendar] search.locale-en: metadata locale required: en
+PASS [diorama-calendar] search.metadata-source: en.pageTitle must be nonempty
+PASS [diorama-calendar] search.metadata-source: en.metaDescription must be nonempty
+PASS [diorama-calendar] search.metadata-source: en.body must be nonempty
+PASS [diorama-calendar] search.metadata-source: en.shareTitle must be nonempty
+PASS [diorama-calendar] search.metadata-source: en.shareDescription must be nonempty
+PASS [diorama-calendar] search.metadata-source: en.imageAlt must be nonempty
+PASS [diorama-calendar] search.metadata-source: en.genres must be a nonempty string array
+PASS [diorama-calendar] search.metadata-source: en.terms must be a nonempty string array
+PASS [diorama-calendar] search.generated-en: generated en page must exactly match metadata + generator
+PASS [diorama-calendar] search.locale-en: html lang must equal en
+PASS [diorama-calendar] search.localized-metadata: en title must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en description must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en og:title must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en og:description must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en twitter:title must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en twitter:description must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en og:image:alt must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [diorama-calendar] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [diorama-calendar] search.localized-metadata: en X image must match metadata OGP contract
+PASS [diorama-calendar] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [diorama-calendar] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [diorama-calendar] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [diorama-calendar] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/diorama-calendar/
+PASS [diorama-calendar] search.locale-og-url: en og:url must equal canonical
+PASS [diorama-calendar] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [diorama-calendar] search.x-default: en x-default must point to Japanese canonical
+PASS [diorama-calendar] search.localized-robots: en staging page requires noindex
+PASS [diorama-calendar] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [diorama-calendar] search.structured-data: en SoftwareApplication must declare Web Browser OS
+PASS [diorama-calendar] search.localized-links: en page requires static town launch link
+PASS [diorama-calendar] search.localized-links: en page requires static town root link
+PASS [diorama-calendar] search.localized-links: en page requires static language-switch link
+PASS [diorama-calendar] search.localized-redirect: en ordinary visit must not redirect
+PASS [diorama-calendar] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [diorama-calendar] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/diorama-calendar/
+PASS [diorama-calendar] search.title: one nonempty title required
+PASS [diorama-calendar] search.description: one nonempty description required
+PASS [diorama-calendar] search.og:title: one nonempty og:title required
+PASS [diorama-calendar] search.og:description: one nonempty og:description required
+PASS [diorama-calendar] search.h1: nonempty h1 required
+PASS [diorama-calendar] search.body: introductory paragraph required, not just a launch link
+PASS [diorama-calendar] search.launch-link: static town launch link required
+PASS [diorama-calendar] search.town-link: static town root link required
+PASS [diorama-calendar] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/diorama-calendar/
+PASS [diorama-calendar] search.og:url: one nonempty og:url required
+PASS [diorama-calendar] search.og-url: og:url must equal canonical
+PASS [diorama-calendar] search.robots: staging requires noindex (correct environment policy)
+PASS [diorama-calendar] search.meta-refresh: no automatic meta refresh
+PASS [diorama-calendar] search.redirect: ordinary visit must not redirect
+PASS [diorama-calendar] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [diorama-calendar] search.og:image: one nonempty og:image required
+PASS [diorama-calendar] search.twitter:image: one nonempty twitter:image required
+PASS [diorama-calendar] search.og:image:alt: one nonempty og:image:alt required
+PASS [diorama-calendar] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [diorama-calendar] search.twitter:card: one nonempty twitter:card required
+PASS [diorama-calendar] share.card: supported X card required
+PASS [diorama-calendar] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [diorama-calendar] ogp.identity: image URL belongs to assets/works/diorama-calendar/
+PASS [diorama-calendar] ogp.file: declared image file exists
+PASS [diorama-calendar] search.og:image:type: one nonempty og:image:type required
+PASS [diorama-calendar] ogp.mime: declared MIME matches image bytes
+PASS [diorama-calendar] search.og:image:width: one nonempty og:image:width required
+PASS [diorama-calendar] search.og:image:height: one nonempty og:image:height required
+PASS [diorama-calendar] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [diorama-calendar] ogp.extension: extension matches bytes
+PASS [diorama-calendar] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/diorama-calendar/ required
+PASS [diorama-calendar] install.contract: existing install script must resolve this work manifest
+PASS [diorama-calendar] manifest.id: id must resolve to town work URL
+PASS [diorama-calendar] manifest.start_url: start_url must resolve to town work URL
+PASS [diorama-calendar] manifest.scope: scope must resolve to town root
+PASS [diorama-calendar] install.icon-identity: icon must belong to this work
+PASS [diorama-calendar] install.icon: icon exists: ./assets/works/diorama-calendar/icon.png
+PASS [diorama-calendar] install.icon-identity: icon must belong to this work
+PASS [diorama-calendar] install.icon: icon exists: ../../assets/works/diorama-calendar/icon.png
+PASS [diorama-calendar] manifest.icons: non-iconless work requires manifest icons
+PASS [diorama-calendar] scene.contract: leisure_center_map: existing scene contract valid
+PASS [diorama-calendar] scene.prop: leisure_center_map/leisure_work_diorama_calendar needs linked enabled prop
+PASS [diorama-calendar] scene.tap: leisure_exhibit_diorama_calendar tap enabled
+PASS [diorama-calendar] scene.object: leisure_exhibit_diorama_calendar_01 image exists
+PASS [diorama-calendar] analytics.name: existing tracker emits Work Open: diorama-calendar
+EXTERNAL_CHECK_REQUIRED [diorama-calendar] analytics.goal: UNVERIFIED Plausible Goal: Work Open: diorama-calendar
+PASS [diorama-calendar] analytics.name: existing tracker emits Work Close: diorama-calendar
+EXTERNAL_CHECK_REQUIRED [diorama-calendar] analytics.goal: UNVERIFIED Plausible Goal: Work Close: diorama-calendar
+PASS [diorama-calendar] analytics.name: existing tracker emits Share: diorama-calendar
+EXTERNAL_CHECK_REQUIRED [diorama-calendar] analytics.goal: UNVERIFIED Plausible Goal: Share: diorama-calendar (native share success only; applicability requires review)
+PASS [diorama-calendar] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [diorama-calendar] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [diorama-calendar] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [diorama-calendar] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [rojiura-masala] metadata.title: nonempty title required
+PASS [rojiura-masala] metadata.description: nonempty description required
+PASS [rojiura-masala] metadata.venue: nonempty venue required
+PASS [rojiura-masala] metadata.kind: nonempty kind required
+PASS [rojiura-masala] metadata.status: nonempty status required
+PASS [rojiura-masala] metadata.launch: nonempty launch required
+PASS [rojiura-masala] metadata.frameMode: nonempty frameMode required
+PASS [rojiura-masala] metadata.status-open: release target must be open
+PASS [rojiura-masala] guide.image: selected release work requires canonical assets/works/rojiura-masala/ogp.jpg or icon.png
+PASS [rojiura-masala] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: rojiura-masala
+PASS [rojiura-masala] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[rojiura-masala] line
+PASS [rojiura-masala] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [rojiura-masala] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [rojiura-masala] launch.entry: embedded entry must be a local ./works/ path
+PASS [rojiura-masala] launch.file: entry file exists: ./works/rojiura-masala/index.html
+PASS [rojiura-masala] launch.folder: works/rojiura-masala/ exists
+PASS [rojiura-masala] launch.identity: entry belongs to work ID folder
+PASS [rojiura-masala] search.metadata-source: Search/Share metadata required for selected work
+PASS [rojiura-masala] search.metadata-source: alternateNames must be a string array
+PASS [rojiura-masala] search.locale-ja: metadata locale required: ja
+PASS [rojiura-masala] search.metadata-source: ja.pageTitle must be nonempty
+PASS [rojiura-masala] search.metadata-source: ja.metaDescription must be nonempty
+PASS [rojiura-masala] search.metadata-source: ja.body must be nonempty
+PASS [rojiura-masala] search.metadata-source: ja.shareTitle must be nonempty
+PASS [rojiura-masala] search.metadata-source: ja.shareDescription must be nonempty
+PASS [rojiura-masala] search.metadata-source: ja.imageAlt must be nonempty
+PASS [rojiura-masala] search.metadata-source: ja.genres must be a nonempty string array
+PASS [rojiura-masala] search.metadata-source: ja.terms must be a nonempty string array
+PASS [rojiura-masala] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [rojiura-masala] search.locale-ja: html lang must equal ja
+PASS [rojiura-masala] search.localized-metadata: ja title must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja description must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja og:title must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja og:description must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja twitter:title must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja twitter:description must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [rojiura-masala] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [rojiura-masala] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [rojiura-masala] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [rojiura-masala] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [rojiura-masala] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [rojiura-masala] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/rojiura-masala/
+PASS [rojiura-masala] search.locale-og-url: ja og:url must equal canonical
+PASS [rojiura-masala] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [rojiura-masala] search.x-default: ja x-default must point to Japanese canonical
+PASS [rojiura-masala] search.localized-robots: ja staging page requires noindex
+PASS [rojiura-masala] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [rojiura-masala] search.structured-data: ja VideoGame must declare Web Browser platform
+PASS [rojiura-masala] search.localized-links: ja page requires static town launch link
+PASS [rojiura-masala] search.localized-links: ja page requires static town root link
+PASS [rojiura-masala] search.localized-links: ja page requires static language-switch link
+PASS [rojiura-masala] search.localized-redirect: ja ordinary visit must not redirect
+PASS [rojiura-masala] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [rojiura-masala] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/rojiura-masala/
+PASS [rojiura-masala] search.locale-en: metadata locale required: en
+PASS [rojiura-masala] search.metadata-source: en.pageTitle must be nonempty
+PASS [rojiura-masala] search.metadata-source: en.metaDescription must be nonempty
+PASS [rojiura-masala] search.metadata-source: en.body must be nonempty
+PASS [rojiura-masala] search.metadata-source: en.shareTitle must be nonempty
+PASS [rojiura-masala] search.metadata-source: en.shareDescription must be nonempty
+PASS [rojiura-masala] search.metadata-source: en.imageAlt must be nonempty
+PASS [rojiura-masala] search.metadata-source: en.genres must be a nonempty string array
+PASS [rojiura-masala] search.metadata-source: en.terms must be a nonempty string array
+PASS [rojiura-masala] search.generated-en: generated en page must exactly match metadata + generator
+PASS [rojiura-masala] search.locale-en: html lang must equal en
+PASS [rojiura-masala] search.localized-metadata: en title must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en description must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en og:title must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en og:description must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en twitter:title must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en twitter:description must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en og:image:alt must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [rojiura-masala] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [rojiura-masala] search.localized-metadata: en X image must match metadata OGP contract
+PASS [rojiura-masala] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [rojiura-masala] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [rojiura-masala] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [rojiura-masala] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/rojiura-masala/
+PASS [rojiura-masala] search.locale-og-url: en og:url must equal canonical
+PASS [rojiura-masala] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [rojiura-masala] search.x-default: en x-default must point to Japanese canonical
+PASS [rojiura-masala] search.localized-robots: en staging page requires noindex
+PASS [rojiura-masala] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [rojiura-masala] search.structured-data: en VideoGame must declare Web Browser platform
+PASS [rojiura-masala] search.localized-links: en page requires static town launch link
+PASS [rojiura-masala] search.localized-links: en page requires static town root link
+PASS [rojiura-masala] search.localized-links: en page requires static language-switch link
+PASS [rojiura-masala] search.localized-redirect: en ordinary visit must not redirect
+PASS [rojiura-masala] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [rojiura-masala] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/rojiura-masala/
+PASS [rojiura-masala] search.title: one nonempty title required
+PASS [rojiura-masala] search.description: one nonempty description required
+PASS [rojiura-masala] search.og:title: one nonempty og:title required
+PASS [rojiura-masala] search.og:description: one nonempty og:description required
+PASS [rojiura-masala] search.h1: nonempty h1 required
+PASS [rojiura-masala] search.body: introductory paragraph required, not just a launch link
+PASS [rojiura-masala] search.launch-link: static town launch link required
+PASS [rojiura-masala] search.town-link: static town root link required
+PASS [rojiura-masala] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/rojiura-masala/
+PASS [rojiura-masala] search.og:url: one nonempty og:url required
+PASS [rojiura-masala] search.og-url: og:url must equal canonical
+PASS [rojiura-masala] search.robots: staging requires noindex (correct environment policy)
+PASS [rojiura-masala] search.meta-refresh: no automatic meta refresh
+PASS [rojiura-masala] search.redirect: ordinary visit must not redirect
+PASS [rojiura-masala] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [rojiura-masala] search.og:image: one nonempty og:image required
+PASS [rojiura-masala] search.twitter:image: one nonempty twitter:image required
+PASS [rojiura-masala] search.og:image:alt: one nonempty og:image:alt required
+PASS [rojiura-masala] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [rojiura-masala] search.twitter:card: one nonempty twitter:card required
+PASS [rojiura-masala] share.card: supported X card required
+PASS [rojiura-masala] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [rojiura-masala] ogp.identity: image URL belongs to assets/works/rojiura-masala/
+PASS [rojiura-masala] ogp.file: declared image file exists
+PASS [rojiura-masala] search.og:image:type: one nonempty og:image:type required
+PASS [rojiura-masala] ogp.mime: declared MIME matches image bytes
+PASS [rojiura-masala] search.og:image:width: one nonempty og:image:width required
+PASS [rojiura-masala] search.og:image:height: one nonempty og:image:height required
+PASS [rojiura-masala] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [rojiura-masala] ogp.extension: extension matches bytes
+PASS [rojiura-masala] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/rojiura-masala/ required
+PASS [rojiura-masala] install.contract: existing install script must resolve this work manifest
+PASS [rojiura-masala] manifest.id: id must resolve to town work URL
+PASS [rojiura-masala] manifest.start_url: start_url must resolve to town work URL
+PASS [rojiura-masala] manifest.scope: scope must resolve to town root
+PASS [rojiura-masala] install.icon-identity: icon must belong to this work
+PASS [rojiura-masala] install.icon: icon exists: ./assets/works/rojiura-masala/icon.png
+PASS [rojiura-masala] install.icon-identity: icon must belong to this work
+PASS [rojiura-masala] install.icon: icon exists: ../../assets/works/rojiura-masala/icon.png
+PASS [rojiura-masala] manifest.icons: non-iconless work requires manifest icons
+PASS [rojiura-masala] scene.contract: tomogushi_alley_map: existing scene contract valid
+PASS [rojiura-masala] scene.prop: tomogushi_alley_map/rojiura_masala_booth needs linked enabled prop
+PASS [rojiura-masala] scene.tap: rojiura_masala_shop tap enabled
+PASS [rojiura-masala] scene.object: curry_shop_01 image exists
+PASS [rojiura-masala] analytics.name: existing tracker emits Work Open: rojiura-masala
+EXTERNAL_CHECK_REQUIRED [rojiura-masala] analytics.goal: UNVERIFIED Plausible Goal: Work Open: rojiura-masala
+PASS [rojiura-masala] analytics.name: existing tracker emits Work Close: rojiura-masala
+EXTERNAL_CHECK_REQUIRED [rojiura-masala] analytics.goal: UNVERIFIED Plausible Goal: Work Close: rojiura-masala
+PASS [rojiura-masala] analytics.name: existing tracker emits Share: rojiura-masala
+EXTERNAL_CHECK_REQUIRED [rojiura-masala] analytics.goal: UNVERIFIED Plausible Goal: Share: rojiura-masala (native share success only; applicability requires review)
+PASS [rojiura-masala] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [rojiura-masala] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [rojiura-masala] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [rojiura-masala] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [steamclock] metadata.title: nonempty title required
+PASS [steamclock] metadata.description: nonempty description required
+PASS [steamclock] metadata.venue: nonempty venue required
+PASS [steamclock] metadata.kind: nonempty kind required
+PASS [steamclock] metadata.status: nonempty status required
+PASS [steamclock] metadata.launch: nonempty launch required
+PASS [steamclock] metadata.frameMode: nonempty frameMode required
+PASS [steamclock] metadata.status-open: release target must be open
+PASS [steamclock] guide.image: selected release work requires canonical assets/works/steamclock/ogp.jpg or icon.png
+PASS [steamclock] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: steamclock
+PASS [steamclock] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[steamclock] line
+PASS [steamclock] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [steamclock] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [steamclock] launch.entry: embedded entry must be a local ./works/ path
+PASS [steamclock] launch.file: entry file exists: ./works/steamclock/index.html
+PASS [steamclock] launch.folder: works/steamclock/ exists
+PASS [steamclock] launch.identity: entry belongs to work ID folder
+PASS [steamclock] search.metadata-source: Search/Share metadata required for selected work
+PASS [steamclock] search.metadata-source: alternateNames must be a string array
+PASS [steamclock] search.locale-ja: metadata locale required: ja
+PASS [steamclock] search.metadata-source: ja.pageTitle must be nonempty
+PASS [steamclock] search.metadata-source: ja.metaDescription must be nonempty
+PASS [steamclock] search.metadata-source: ja.body must be nonempty
+PASS [steamclock] search.metadata-source: ja.shareTitle must be nonempty
+PASS [steamclock] search.metadata-source: ja.shareDescription must be nonempty
+PASS [steamclock] search.metadata-source: ja.imageAlt must be nonempty
+PASS [steamclock] search.metadata-source: ja.genres must be a nonempty string array
+PASS [steamclock] search.metadata-source: ja.terms must be a nonempty string array
+PASS [steamclock] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [steamclock] search.locale-ja: html lang must equal ja
+PASS [steamclock] search.localized-metadata: ja title must match metadata source
+PASS [steamclock] search.localized-metadata: ja description must match metadata source
+PASS [steamclock] search.localized-metadata: ja og:title must match metadata source
+PASS [steamclock] search.localized-metadata: ja og:description must match metadata source
+PASS [steamclock] search.localized-metadata: ja twitter:title must match metadata source
+PASS [steamclock] search.localized-metadata: ja twitter:description must match metadata source
+PASS [steamclock] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [steamclock] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [steamclock] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [steamclock] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [steamclock] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [steamclock] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [steamclock] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [steamclock] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/steamclock/
+PASS [steamclock] search.locale-og-url: ja og:url must equal canonical
+PASS [steamclock] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [steamclock] search.x-default: ja x-default must point to Japanese canonical
+PASS [steamclock] search.localized-robots: ja staging page requires noindex
+PASS [steamclock] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [steamclock] search.structured-data: ja SoftwareApplication must declare Web Browser OS
+PASS [steamclock] search.localized-links: ja page requires static town launch link
+PASS [steamclock] search.localized-links: ja page requires static town root link
+PASS [steamclock] search.localized-links: ja page requires static language-switch link
+PASS [steamclock] search.localized-redirect: ja ordinary visit must not redirect
+PASS [steamclock] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [steamclock] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/steamclock/
+PASS [steamclock] search.locale-en: metadata locale required: en
+PASS [steamclock] search.metadata-source: en.pageTitle must be nonempty
+PASS [steamclock] search.metadata-source: en.metaDescription must be nonempty
+PASS [steamclock] search.metadata-source: en.body must be nonempty
+PASS [steamclock] search.metadata-source: en.shareTitle must be nonempty
+PASS [steamclock] search.metadata-source: en.shareDescription must be nonempty
+PASS [steamclock] search.metadata-source: en.imageAlt must be nonempty
+PASS [steamclock] search.metadata-source: en.genres must be a nonempty string array
+PASS [steamclock] search.metadata-source: en.terms must be a nonempty string array
+PASS [steamclock] search.generated-en: generated en page must exactly match metadata + generator
+PASS [steamclock] search.locale-en: html lang must equal en
+PASS [steamclock] search.localized-metadata: en title must match metadata source
+PASS [steamclock] search.localized-metadata: en description must match metadata source
+PASS [steamclock] search.localized-metadata: en og:title must match metadata source
+PASS [steamclock] search.localized-metadata: en og:description must match metadata source
+PASS [steamclock] search.localized-metadata: en twitter:title must match metadata source
+PASS [steamclock] search.localized-metadata: en twitter:description must match metadata source
+PASS [steamclock] search.localized-metadata: en og:image:alt must match metadata source
+PASS [steamclock] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [steamclock] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [steamclock] search.localized-metadata: en X image must match metadata OGP contract
+PASS [steamclock] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [steamclock] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [steamclock] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [steamclock] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/steamclock/
+PASS [steamclock] search.locale-og-url: en og:url must equal canonical
+PASS [steamclock] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [steamclock] search.x-default: en x-default must point to Japanese canonical
+PASS [steamclock] search.localized-robots: en staging page requires noindex
+PASS [steamclock] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [steamclock] search.structured-data: en SoftwareApplication must declare Web Browser OS
+PASS [steamclock] search.localized-links: en page requires static town launch link
+PASS [steamclock] search.localized-links: en page requires static town root link
+PASS [steamclock] search.localized-links: en page requires static language-switch link
+PASS [steamclock] search.localized-redirect: en ordinary visit must not redirect
+PASS [steamclock] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [steamclock] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/steamclock/
+PASS [steamclock] search.title: one nonempty title required
+PASS [steamclock] search.description: one nonempty description required
+PASS [steamclock] search.og:title: one nonempty og:title required
+PASS [steamclock] search.og:description: one nonempty og:description required
+PASS [steamclock] search.h1: nonempty h1 required
+PASS [steamclock] search.body: introductory paragraph required, not just a launch link
+PASS [steamclock] search.launch-link: static town launch link required
+PASS [steamclock] search.town-link: static town root link required
+PASS [steamclock] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/steamclock/
+PASS [steamclock] search.og:url: one nonempty og:url required
+PASS [steamclock] search.og-url: og:url must equal canonical
+PASS [steamclock] search.robots: staging requires noindex (correct environment policy)
+PASS [steamclock] search.meta-refresh: no automatic meta refresh
+PASS [steamclock] search.redirect: ordinary visit must not redirect
+PASS [steamclock] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [steamclock] search.og:image: one nonempty og:image required
+PASS [steamclock] search.twitter:image: one nonempty twitter:image required
+PASS [steamclock] search.og:image:alt: one nonempty og:image:alt required
+PASS [steamclock] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [steamclock] search.twitter:card: one nonempty twitter:card required
+PASS [steamclock] share.card: supported X card required
+PASS [steamclock] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [steamclock] ogp.identity: image URL belongs to assets/works/steamclock/
+PASS [steamclock] ogp.file: declared image file exists
+PASS [steamclock] search.og:image:type: one nonempty og:image:type required
+PASS [steamclock] ogp.mime: declared MIME matches image bytes
+PASS [steamclock] search.og:image:width: one nonempty og:image:width required
+PASS [steamclock] search.og:image:height: one nonempty og:image:height required
+PASS [steamclock] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [steamclock] ogp.extension: extension matches bytes
+PASS [steamclock] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/steamclock/ required
+PASS [steamclock] install.contract: existing install script must resolve this work manifest
+PASS [steamclock] manifest.id: id must resolve to town work URL
+PASS [steamclock] manifest.start_url: start_url must resolve to town work URL
+PASS [steamclock] manifest.scope: scope must resolve to town root
+PASS [steamclock] install.icon-identity: icon must belong to this work
+PASS [steamclock] install.icon: icon exists: ./assets/works/steamclock/icon.png?v=20261003-steamclock-icon
+PASS [steamclock] install.icon-identity: icon must belong to this work
+PASS [steamclock] install.icon: icon exists: ../../assets/works/steamclock/icon.png?v=20261003-steamclock-icon
+PASS [steamclock] manifest.icons: non-iconless work requires manifest icons
+PASS [steamclock] scene.contract: leisure_center_map: existing scene contract valid
+PASS [steamclock] scene.prop: leisure_center_map/leisure_work_steamclock needs linked enabled prop
+PASS [steamclock] scene.tap: leisure_exhibit_steamclock tap enabled
+PASS [steamclock] scene.object: leisure_exhibit_steamclock_01 image exists
+PASS [steamclock] analytics.name: existing tracker emits Work Open: steamclock
+EXTERNAL_CHECK_REQUIRED [steamclock] analytics.goal: UNVERIFIED Plausible Goal: Work Open: steamclock
+PASS [steamclock] analytics.name: existing tracker emits Work Close: steamclock
+EXTERNAL_CHECK_REQUIRED [steamclock] analytics.goal: UNVERIFIED Plausible Goal: Work Close: steamclock
+PASS [steamclock] analytics.name: existing tracker emits Share: steamclock
+EXTERNAL_CHECK_REQUIRED [steamclock] analytics.goal: UNVERIFIED Plausible Goal: Share: steamclock (native share success only; applicability requires review)
+PASS [steamclock] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [steamclock] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [steamclock] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [steamclock] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [dotweather] metadata.title: nonempty title required
+PASS [dotweather] metadata.description: nonempty description required
+PASS [dotweather] metadata.venue: nonempty venue required
+PASS [dotweather] metadata.kind: nonempty kind required
+PASS [dotweather] metadata.status: nonempty status required
+PASS [dotweather] metadata.launch: nonempty launch required
+PASS [dotweather] metadata.frameMode: nonempty frameMode required
+PASS [dotweather] metadata.status-open: release target must be open
+PASS [dotweather] guide.image: selected release work requires canonical assets/works/dotweather/ogp.jpg or icon.png
+PASS [dotweather] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: dotweather
+PASS [dotweather] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[dotweather] line
+PASS [dotweather] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [dotweather] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [dotweather] launch.entry: embedded entry must be a local ./works/ path
+PASS [dotweather] launch.file: entry file exists: ./works/dotweather/index.html
+PASS [dotweather] launch.folder: works/dotweather/ exists
+PASS [dotweather] launch.identity: entry belongs to work ID folder
+PASS [dotweather] search.metadata-source: Search/Share metadata required for selected work
+PASS [dotweather] search.metadata-source: alternateNames must be a string array
+PASS [dotweather] search.locale-ja: metadata locale required: ja
+PASS [dotweather] search.metadata-source: ja.pageTitle must be nonempty
+PASS [dotweather] search.metadata-source: ja.metaDescription must be nonempty
+PASS [dotweather] search.metadata-source: ja.body must be nonempty
+PASS [dotweather] search.metadata-source: ja.shareTitle must be nonempty
+PASS [dotweather] search.metadata-source: ja.shareDescription must be nonempty
+PASS [dotweather] search.metadata-source: ja.imageAlt must be nonempty
+PASS [dotweather] search.metadata-source: ja.genres must be a nonempty string array
+PASS [dotweather] search.metadata-source: ja.terms must be a nonempty string array
+PASS [dotweather] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [dotweather] search.locale-ja: html lang must equal ja
+PASS [dotweather] search.localized-metadata: ja title must match metadata source
+PASS [dotweather] search.localized-metadata: ja description must match metadata source
+PASS [dotweather] search.localized-metadata: ja og:title must match metadata source
+PASS [dotweather] search.localized-metadata: ja og:description must match metadata source
+PASS [dotweather] search.localized-metadata: ja twitter:title must match metadata source
+PASS [dotweather] search.localized-metadata: ja twitter:description must match metadata source
+PASS [dotweather] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [dotweather] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [dotweather] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [dotweather] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [dotweather] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [dotweather] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [dotweather] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [dotweather] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/dotweather/
+PASS [dotweather] search.locale-og-url: ja og:url must equal canonical
+PASS [dotweather] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [dotweather] search.x-default: ja x-default must point to Japanese canonical
+PASS [dotweather] search.localized-robots: ja staging page requires noindex
+PASS [dotweather] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [dotweather] search.structured-data: ja SoftwareApplication must declare Web Browser OS
+PASS [dotweather] search.localized-links: ja page requires static town launch link
+PASS [dotweather] search.localized-links: ja page requires static town root link
+PASS [dotweather] search.localized-links: ja page requires static language-switch link
+PASS [dotweather] search.localized-redirect: ja ordinary visit must not redirect
+PASS [dotweather] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [dotweather] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/dotweather/
+PASS [dotweather] search.locale-en: metadata locale required: en
+PASS [dotweather] search.metadata-source: en.pageTitle must be nonempty
+PASS [dotweather] search.metadata-source: en.metaDescription must be nonempty
+PASS [dotweather] search.metadata-source: en.body must be nonempty
+PASS [dotweather] search.metadata-source: en.shareTitle must be nonempty
+PASS [dotweather] search.metadata-source: en.shareDescription must be nonempty
+PASS [dotweather] search.metadata-source: en.imageAlt must be nonempty
+PASS [dotweather] search.metadata-source: en.genres must be a nonempty string array
+PASS [dotweather] search.metadata-source: en.terms must be a nonempty string array
+PASS [dotweather] search.generated-en: generated en page must exactly match metadata + generator
+PASS [dotweather] search.locale-en: html lang must equal en
+PASS [dotweather] search.localized-metadata: en title must match metadata source
+PASS [dotweather] search.localized-metadata: en description must match metadata source
+PASS [dotweather] search.localized-metadata: en og:title must match metadata source
+PASS [dotweather] search.localized-metadata: en og:description must match metadata source
+PASS [dotweather] search.localized-metadata: en twitter:title must match metadata source
+PASS [dotweather] search.localized-metadata: en twitter:description must match metadata source
+PASS [dotweather] search.localized-metadata: en og:image:alt must match metadata source
+PASS [dotweather] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [dotweather] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [dotweather] search.localized-metadata: en X image must match metadata OGP contract
+PASS [dotweather] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [dotweather] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [dotweather] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [dotweather] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/dotweather/
+PASS [dotweather] search.locale-og-url: en og:url must equal canonical
+PASS [dotweather] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [dotweather] search.x-default: en x-default must point to Japanese canonical
+PASS [dotweather] search.localized-robots: en staging page requires noindex
+PASS [dotweather] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [dotweather] search.structured-data: en SoftwareApplication must declare Web Browser OS
+PASS [dotweather] search.localized-links: en page requires static town launch link
+PASS [dotweather] search.localized-links: en page requires static town root link
+PASS [dotweather] search.localized-links: en page requires static language-switch link
+PASS [dotweather] search.localized-redirect: en ordinary visit must not redirect
+PASS [dotweather] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [dotweather] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/dotweather/
+PASS [dotweather] search.title: one nonempty title required
+PASS [dotweather] search.description: one nonempty description required
+PASS [dotweather] search.og:title: one nonempty og:title required
+PASS [dotweather] search.og:description: one nonempty og:description required
+PASS [dotweather] search.h1: nonempty h1 required
+PASS [dotweather] search.body: introductory paragraph required, not just a launch link
+PASS [dotweather] search.launch-link: static town launch link required
+PASS [dotweather] search.town-link: static town root link required
+PASS [dotweather] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/dotweather/
+PASS [dotweather] search.og:url: one nonempty og:url required
+PASS [dotweather] search.og-url: og:url must equal canonical
+PASS [dotweather] search.robots: staging requires noindex (correct environment policy)
+PASS [dotweather] search.meta-refresh: no automatic meta refresh
+PASS [dotweather] search.redirect: ordinary visit must not redirect
+PASS [dotweather] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [dotweather] search.og:image: one nonempty og:image required
+PASS [dotweather] search.twitter:image: one nonempty twitter:image required
+PASS [dotweather] search.og:image:alt: one nonempty og:image:alt required
+PASS [dotweather] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [dotweather] search.twitter:card: one nonempty twitter:card required
+PASS [dotweather] share.card: supported X card required
+PASS [dotweather] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [dotweather] ogp.identity: image URL belongs to assets/works/dotweather/
+PASS [dotweather] ogp.file: declared image file exists
+PASS [dotweather] search.og:image:type: one nonempty og:image:type required
+PASS [dotweather] ogp.mime: declared MIME matches image bytes
+PASS [dotweather] search.og:image:width: one nonempty og:image:width required
+PASS [dotweather] search.og:image:height: one nonempty og:image:height required
+PASS [dotweather] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [dotweather] ogp.extension: extension matches bytes
+PASS [dotweather] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/dotweather/ required
+PASS [dotweather] install.contract: existing install script must resolve this work manifest
+PASS [dotweather] manifest.id: id must resolve to town work URL
+PASS [dotweather] manifest.start_url: start_url must resolve to town work URL
+PASS [dotweather] manifest.scope: scope must resolve to town root
+PASS [dotweather] install.icon-identity: icon must belong to this work
+PASS [dotweather] install.icon: icon exists: ./assets/works/dotweather/icon.png
+PASS [dotweather] install.icon-identity: icon must belong to this work
+PASS [dotweather] install.icon: icon exists: ../../assets/works/dotweather/icon.png
+PASS [dotweather] manifest.icons: non-iconless work requires manifest icons
+PASS [dotweather] scene.contract: leisure_center_map: existing scene contract valid
+PASS [dotweather] scene.prop: leisure_center_map/leisure_work_dotweather needs linked enabled prop
+PASS [dotweather] scene.tap: leisure_exhibit_dotweather tap enabled
+PASS [dotweather] scene.object: leisure_exhibit_dotweather_01 image exists
+PASS [dotweather] analytics.name: existing tracker emits Work Open: dotweather
+EXTERNAL_CHECK_REQUIRED [dotweather] analytics.goal: UNVERIFIED Plausible Goal: Work Open: dotweather
+PASS [dotweather] analytics.name: existing tracker emits Work Close: dotweather
+EXTERNAL_CHECK_REQUIRED [dotweather] analytics.goal: UNVERIFIED Plausible Goal: Work Close: dotweather
+PASS [dotweather] analytics.name: existing tracker emits Share: dotweather
+EXTERNAL_CHECK_REQUIRED [dotweather] analytics.goal: UNVERIFIED Plausible Goal: Share: dotweather (native share success only; applicability requires review)
+PASS [dotweather] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [dotweather] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [dotweather] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [dotweather] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [junkissa-dive] metadata.title: nonempty title required
+PASS [junkissa-dive] metadata.description: nonempty description required
+PASS [junkissa-dive] metadata.venue: nonempty venue required
+PASS [junkissa-dive] metadata.kind: nonempty kind required
+PASS [junkissa-dive] metadata.status: nonempty status required
+PASS [junkissa-dive] metadata.launch: nonempty launch required
+PASS [junkissa-dive] metadata.frameMode: nonempty frameMode required
+PASS [junkissa-dive] metadata.status-open: release target must be open
+PASS [junkissa-dive] guide.image: selected release work requires canonical assets/works/junkissa-dive/ogp.jpg or icon.png
+PASS [junkissa-dive] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: junkissa-dive
+PASS [junkissa-dive] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[junkissa-dive] line
+PASS [junkissa-dive] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [junkissa-dive] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [junkissa-dive] launch.entry: embedded entry must be a local ./works/ path
+PASS [junkissa-dive] launch.file: entry file exists: ./works/junkissa-dive/index.html
+PASS [junkissa-dive] launch.folder: works/junkissa-dive/ exists
+PASS [junkissa-dive] launch.identity: entry belongs to work ID folder
+PASS [junkissa-dive] search.metadata-source: Search/Share metadata required for selected work
+PASS [junkissa-dive] search.metadata-source: alternateNames must be a string array
+PASS [junkissa-dive] search.locale-ja: metadata locale required: ja
+PASS [junkissa-dive] search.metadata-source: ja.pageTitle must be nonempty
+PASS [junkissa-dive] search.metadata-source: ja.metaDescription must be nonempty
+PASS [junkissa-dive] search.metadata-source: ja.body must be nonempty
+PASS [junkissa-dive] search.metadata-source: ja.shareTitle must be nonempty
+PASS [junkissa-dive] search.metadata-source: ja.shareDescription must be nonempty
+PASS [junkissa-dive] search.metadata-source: ja.imageAlt must be nonempty
+PASS [junkissa-dive] search.metadata-source: ja.genres must be a nonempty string array
+PASS [junkissa-dive] search.metadata-source: ja.terms must be a nonempty string array
+PASS [junkissa-dive] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [junkissa-dive] search.locale-ja: html lang must equal ja
+PASS [junkissa-dive] search.localized-metadata: ja title must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja description must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja og:title must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja og:description must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja twitter:title must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja twitter:description must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [junkissa-dive] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [junkissa-dive] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [junkissa-dive] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [junkissa-dive] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [junkissa-dive] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [junkissa-dive] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/junkissa-dive/
+PASS [junkissa-dive] search.locale-og-url: ja og:url must equal canonical
+PASS [junkissa-dive] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [junkissa-dive] search.x-default: ja x-default must point to Japanese canonical
+PASS [junkissa-dive] search.localized-robots: ja staging page requires noindex
+PASS [junkissa-dive] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [junkissa-dive] search.structured-data: ja VideoGame must declare Web Browser platform
+PASS [junkissa-dive] search.localized-links: ja page requires static town launch link
+PASS [junkissa-dive] search.localized-links: ja page requires static town root link
+PASS [junkissa-dive] search.localized-links: ja page requires static language-switch link
+PASS [junkissa-dive] search.localized-redirect: ja ordinary visit must not redirect
+PASS [junkissa-dive] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [junkissa-dive] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/junkissa-dive/
+PASS [junkissa-dive] search.locale-en: metadata locale required: en
+PASS [junkissa-dive] search.metadata-source: en.pageTitle must be nonempty
+PASS [junkissa-dive] search.metadata-source: en.metaDescription must be nonempty
+PASS [junkissa-dive] search.metadata-source: en.body must be nonempty
+PASS [junkissa-dive] search.metadata-source: en.shareTitle must be nonempty
+PASS [junkissa-dive] search.metadata-source: en.shareDescription must be nonempty
+PASS [junkissa-dive] search.metadata-source: en.imageAlt must be nonempty
+PASS [junkissa-dive] search.metadata-source: en.genres must be a nonempty string array
+PASS [junkissa-dive] search.metadata-source: en.terms must be a nonempty string array
+PASS [junkissa-dive] search.generated-en: generated en page must exactly match metadata + generator
+PASS [junkissa-dive] search.locale-en: html lang must equal en
+PASS [junkissa-dive] search.localized-metadata: en title must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en description must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en og:title must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en og:description must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en twitter:title must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en twitter:description must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en og:image:alt must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [junkissa-dive] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [junkissa-dive] search.localized-metadata: en X image must match metadata OGP contract
+PASS [junkissa-dive] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [junkissa-dive] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [junkissa-dive] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [junkissa-dive] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/junkissa-dive/
+PASS [junkissa-dive] search.locale-og-url: en og:url must equal canonical
+PASS [junkissa-dive] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [junkissa-dive] search.x-default: en x-default must point to Japanese canonical
+PASS [junkissa-dive] search.localized-robots: en staging page requires noindex
+PASS [junkissa-dive] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [junkissa-dive] search.structured-data: en VideoGame must declare Web Browser platform
+PASS [junkissa-dive] search.localized-links: en page requires static town launch link
+PASS [junkissa-dive] search.localized-links: en page requires static town root link
+PASS [junkissa-dive] search.localized-links: en page requires static language-switch link
+PASS [junkissa-dive] search.localized-redirect: en ordinary visit must not redirect
+PASS [junkissa-dive] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [junkissa-dive] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/junkissa-dive/
+PASS [junkissa-dive] search.title: one nonempty title required
+PASS [junkissa-dive] search.description: one nonempty description required
+PASS [junkissa-dive] search.og:title: one nonempty og:title required
+PASS [junkissa-dive] search.og:description: one nonempty og:description required
+PASS [junkissa-dive] search.h1: nonempty h1 required
+PASS [junkissa-dive] search.body: introductory paragraph required, not just a launch link
+PASS [junkissa-dive] search.launch-link: static town launch link required
+PASS [junkissa-dive] search.town-link: static town root link required
+PASS [junkissa-dive] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/junkissa-dive/
+PASS [junkissa-dive] search.og:url: one nonempty og:url required
+PASS [junkissa-dive] search.og-url: og:url must equal canonical
+PASS [junkissa-dive] search.robots: staging requires noindex (correct environment policy)
+PASS [junkissa-dive] search.meta-refresh: no automatic meta refresh
+PASS [junkissa-dive] search.redirect: ordinary visit must not redirect
+PASS [junkissa-dive] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [junkissa-dive] search.og:image: one nonempty og:image required
+PASS [junkissa-dive] search.twitter:image: one nonempty twitter:image required
+PASS [junkissa-dive] search.og:image:alt: one nonempty og:image:alt required
+PASS [junkissa-dive] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [junkissa-dive] search.twitter:card: one nonempty twitter:card required
+PASS [junkissa-dive] share.card: supported X card required
+PASS [junkissa-dive] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [junkissa-dive] ogp.identity: image URL belongs to assets/works/junkissa-dive/
+PASS [junkissa-dive] ogp.file: declared image file exists
+PASS [junkissa-dive] search.og:image:type: one nonempty og:image:type required
+PASS [junkissa-dive] ogp.mime: declared MIME matches image bytes
+PASS [junkissa-dive] search.og:image:width: one nonempty og:image:width required
+PASS [junkissa-dive] search.og:image:height: one nonempty og:image:height required
+PASS [junkissa-dive] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [junkissa-dive] ogp.extension: extension matches bytes
+PASS [junkissa-dive] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/junkissa-dive/ required
+PASS [junkissa-dive] install.contract: existing install script must resolve this work manifest
+PASS [junkissa-dive] manifest.id: id must resolve to town work URL
+PASS [junkissa-dive] manifest.start_url: start_url must resolve to town work URL
+PASS [junkissa-dive] manifest.scope: scope must resolve to town root
+PASS [junkissa-dive] install.icon-identity: icon must belong to this work
+PASS [junkissa-dive] install.icon: icon exists: ./assets/works/junkissa-dive/icon.png
+PASS [junkissa-dive] install.icon-identity: icon must belong to this work
+PASS [junkissa-dive] install.icon: icon exists: ../../assets/works/junkissa-dive/icon.png
+PASS [junkissa-dive] manifest.icons: non-iconless work requires manifest icons
+PASS [junkissa-dive] scene.contract: tomogushi_alley_map: existing scene contract valid
+PASS [junkissa-dive] scene.prop: tomogushi_alley_map/junkissa_dive_booth needs linked enabled prop
+PASS [junkissa-dive] scene.tap: junkissa_dive_shop tap enabled
+PASS [junkissa-dive] scene.object: kissaten_shop_01 image exists
+PASS [junkissa-dive] analytics.name: existing tracker emits Work Open: junkissa-dive
+EXTERNAL_CHECK_REQUIRED [junkissa-dive] analytics.goal: UNVERIFIED Plausible Goal: Work Open: junkissa-dive
+PASS [junkissa-dive] analytics.name: existing tracker emits Work Close: junkissa-dive
+EXTERNAL_CHECK_REQUIRED [junkissa-dive] analytics.goal: UNVERIFIED Plausible Goal: Work Close: junkissa-dive
+PASS [junkissa-dive] analytics.name: existing tracker emits Share: junkissa-dive
+EXTERNAL_CHECK_REQUIRED [junkissa-dive] analytics.goal: UNVERIFIED Plausible Goal: Share: junkissa-dive (native share success only; applicability requires review)
+PASS [junkissa-dive] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [junkissa-dive] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [junkissa-dive] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [junkissa-dive] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [midnight-cola] metadata.title: nonempty title required
+PASS [midnight-cola] metadata.description: nonempty description required
+PASS [midnight-cola] metadata.venue: nonempty venue required
+PASS [midnight-cola] metadata.kind: nonempty kind required
+PASS [midnight-cola] metadata.status: nonempty status required
+PASS [midnight-cola] metadata.launch: nonempty launch required
+PASS [midnight-cola] metadata.frameMode: nonempty frameMode required
+PASS [midnight-cola] metadata.status-open: release target must be open
+PASS [midnight-cola] guide.image: selected release work requires canonical assets/works/midnight-cola/ogp.jpg or icon.png
+PASS [midnight-cola] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: midnight-cola
+PASS [midnight-cola] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[midnight-cola] line
+PASS [midnight-cola] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [midnight-cola] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [midnight-cola] launch.entry: embedded entry must be a local ./works/ path
+PASS [midnight-cola] launch.file: entry file exists: ./works/midnight-cola/index.html
+PASS [midnight-cola] launch.folder: works/midnight-cola/ exists
+PASS [midnight-cola] launch.identity: entry belongs to work ID folder
+PASS [midnight-cola] search.metadata-source: Search/Share metadata required for selected work
+PASS [midnight-cola] search.metadata-source: alternateNames must be a string array
+PASS [midnight-cola] search.locale-ja: metadata locale required: ja
+PASS [midnight-cola] search.metadata-source: ja.pageTitle must be nonempty
+PASS [midnight-cola] search.metadata-source: ja.metaDescription must be nonempty
+PASS [midnight-cola] search.metadata-source: ja.body must be nonempty
+PASS [midnight-cola] search.metadata-source: ja.shareTitle must be nonempty
+PASS [midnight-cola] search.metadata-source: ja.shareDescription must be nonempty
+PASS [midnight-cola] search.metadata-source: ja.imageAlt must be nonempty
+PASS [midnight-cola] search.metadata-source: ja.genres must be a nonempty string array
+PASS [midnight-cola] search.metadata-source: ja.terms must be a nonempty string array
+PASS [midnight-cola] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [midnight-cola] search.locale-ja: html lang must equal ja
+PASS [midnight-cola] search.localized-metadata: ja title must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja description must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja og:title must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja og:description must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja twitter:title must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja twitter:description must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [midnight-cola] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [midnight-cola] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [midnight-cola] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [midnight-cola] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [midnight-cola] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [midnight-cola] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/midnight-cola/
+PASS [midnight-cola] search.locale-og-url: ja og:url must equal canonical
+PASS [midnight-cola] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [midnight-cola] search.x-default: ja x-default must point to Japanese canonical
+PASS [midnight-cola] search.localized-robots: ja staging page requires noindex
+PASS [midnight-cola] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [midnight-cola] search.structured-data: ja VideoGame must declare Web Browser platform
+PASS [midnight-cola] search.localized-links: ja page requires static town launch link
+PASS [midnight-cola] search.localized-links: ja page requires static town root link
+PASS [midnight-cola] search.localized-links: ja page requires static language-switch link
+PASS [midnight-cola] search.localized-redirect: ja ordinary visit must not redirect
+PASS [midnight-cola] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [midnight-cola] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/midnight-cola/
+PASS [midnight-cola] search.locale-en: metadata locale required: en
+PASS [midnight-cola] search.metadata-source: en.pageTitle must be nonempty
+PASS [midnight-cola] search.metadata-source: en.metaDescription must be nonempty
+PASS [midnight-cola] search.metadata-source: en.body must be nonempty
+PASS [midnight-cola] search.metadata-source: en.shareTitle must be nonempty
+PASS [midnight-cola] search.metadata-source: en.shareDescription must be nonempty
+PASS [midnight-cola] search.metadata-source: en.imageAlt must be nonempty
+PASS [midnight-cola] search.metadata-source: en.genres must be a nonempty string array
+PASS [midnight-cola] search.metadata-source: en.terms must be a nonempty string array
+PASS [midnight-cola] search.generated-en: generated en page must exactly match metadata + generator
+PASS [midnight-cola] search.locale-en: html lang must equal en
+PASS [midnight-cola] search.localized-metadata: en title must match metadata source
+PASS [midnight-cola] search.localized-metadata: en description must match metadata source
+PASS [midnight-cola] search.localized-metadata: en og:title must match metadata source
+PASS [midnight-cola] search.localized-metadata: en og:description must match metadata source
+PASS [midnight-cola] search.localized-metadata: en twitter:title must match metadata source
+PASS [midnight-cola] search.localized-metadata: en twitter:description must match metadata source
+PASS [midnight-cola] search.localized-metadata: en og:image:alt must match metadata source
+PASS [midnight-cola] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [midnight-cola] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [midnight-cola] search.localized-metadata: en X image must match metadata OGP contract
+PASS [midnight-cola] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [midnight-cola] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [midnight-cola] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [midnight-cola] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/midnight-cola/
+PASS [midnight-cola] search.locale-og-url: en og:url must equal canonical
+PASS [midnight-cola] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [midnight-cola] search.x-default: en x-default must point to Japanese canonical
+PASS [midnight-cola] search.localized-robots: en staging page requires noindex
+PASS [midnight-cola] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [midnight-cola] search.structured-data: en VideoGame must declare Web Browser platform
+PASS [midnight-cola] search.localized-links: en page requires static town launch link
+PASS [midnight-cola] search.localized-links: en page requires static town root link
+PASS [midnight-cola] search.localized-links: en page requires static language-switch link
+PASS [midnight-cola] search.localized-redirect: en ordinary visit must not redirect
+PASS [midnight-cola] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [midnight-cola] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/midnight-cola/
+PASS [midnight-cola] search.title: one nonempty title required
+PASS [midnight-cola] search.description: one nonempty description required
+PASS [midnight-cola] search.og:title: one nonempty og:title required
+PASS [midnight-cola] search.og:description: one nonempty og:description required
+PASS [midnight-cola] search.h1: nonempty h1 required
+PASS [midnight-cola] search.body: introductory paragraph required, not just a launch link
+PASS [midnight-cola] search.launch-link: static town launch link required
+PASS [midnight-cola] search.town-link: static town root link required
+PASS [midnight-cola] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/midnight-cola/
+PASS [midnight-cola] search.og:url: one nonempty og:url required
+PASS [midnight-cola] search.og-url: og:url must equal canonical
+PASS [midnight-cola] search.robots: staging requires noindex (correct environment policy)
+PASS [midnight-cola] search.meta-refresh: no automatic meta refresh
+PASS [midnight-cola] search.redirect: ordinary visit must not redirect
+PASS [midnight-cola] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [midnight-cola] search.og:image: one nonempty og:image required
+PASS [midnight-cola] search.twitter:image: one nonempty twitter:image required
+PASS [midnight-cola] search.og:image:alt: one nonempty og:image:alt required
+PASS [midnight-cola] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [midnight-cola] search.twitter:card: one nonempty twitter:card required
+PASS [midnight-cola] share.card: supported X card required
+PASS [midnight-cola] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [midnight-cola] ogp.identity: image URL belongs to assets/works/midnight-cola/
+PASS [midnight-cola] ogp.file: declared image file exists
+PASS [midnight-cola] search.og:image:type: one nonempty og:image:type required
+PASS [midnight-cola] ogp.mime: declared MIME matches image bytes
+PASS [midnight-cola] search.og:image:width: one nonempty og:image:width required
+PASS [midnight-cola] search.og:image:height: one nonempty og:image:height required
+PASS [midnight-cola] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [midnight-cola] ogp.extension: extension matches bytes
+PASS [midnight-cola] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/midnight-cola/ required
+PASS [midnight-cola] install.contract: existing install script must resolve this work manifest
+PASS [midnight-cola] manifest.id: id must resolve to town work URL
+PASS [midnight-cola] manifest.start_url: start_url must resolve to town work URL
+PASS [midnight-cola] manifest.scope: scope must resolve to town root
+PASS [midnight-cola] install.icon-identity: icon must belong to this work
+PASS [midnight-cola] install.icon: icon exists: ./assets/works/midnight-cola/icon.png
+PASS [midnight-cola] install.icon-identity: icon must belong to this work
+PASS [midnight-cola] install.icon: icon exists: ../../assets/works/midnight-cola/icon.png
+PASS [midnight-cola] manifest.icons: non-iconless work requires manifest icons
+PASS [midnight-cola] scene.contract: tomogushi_alley_map: existing scene contract valid
+PASS [midnight-cola] scene.prop: tomogushi_alley_map/midnight_cola_booth needs linked enabled prop
+PASS [midnight-cola] scene.tap: craft_cola_shop tap enabled
+PASS [midnight-cola] scene.object: craft_cola_shop_01 image exists
+PASS [midnight-cola] analytics.name: existing tracker emits Work Open: midnight-cola
+EXTERNAL_CHECK_REQUIRED [midnight-cola] analytics.goal: UNVERIFIED Plausible Goal: Work Open: midnight-cola
+PASS [midnight-cola] analytics.name: existing tracker emits Work Close: midnight-cola
+EXTERNAL_CHECK_REQUIRED [midnight-cola] analytics.goal: UNVERIFIED Plausible Goal: Work Close: midnight-cola
+PASS [midnight-cola] analytics.name: existing tracker emits Share: midnight-cola
+EXTERNAL_CHECK_REQUIRED [midnight-cola] analytics.goal: UNVERIFIED Plausible Goal: Share: midnight-cola (native share success only; applicability requires review)
+PASS [midnight-cola] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [midnight-cola] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [midnight-cola] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [midnight-cola] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [yakitori-wars] metadata.title: nonempty title required
+PASS [yakitori-wars] metadata.description: nonempty description required
+PASS [yakitori-wars] metadata.venue: nonempty venue required
+PASS [yakitori-wars] metadata.kind: nonempty kind required
+PASS [yakitori-wars] metadata.status: nonempty status required
+PASS [yakitori-wars] metadata.launch: nonempty launch required
+PASS [yakitori-wars] metadata.frameMode: nonempty frameMode required
+PASS [yakitori-wars] metadata.status-open: release target must be open
+PASS [yakitori-wars] guide.image: selected release work requires canonical assets/works/yakitori-wars/ogp.jpg or icon.png
+PASS [yakitori-wars] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: yakitori-wars
+PASS [yakitori-wars] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[yakitori-wars] line
+PASS [yakitori-wars] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [yakitori-wars] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [yakitori-wars] launch.entry: embedded entry must be a local ./works/ path
+PASS [yakitori-wars] launch.file: entry file exists: ./works/yakitori-wars/index.html
+PASS [yakitori-wars] launch.folder: works/yakitori-wars/ exists
+PASS [yakitori-wars] launch.identity: entry belongs to work ID folder
+PASS [yakitori-wars] search.metadata-source: Search/Share metadata required for selected work
+PASS [yakitori-wars] search.metadata-source: alternateNames must be a string array
+PASS [yakitori-wars] search.locale-ja: metadata locale required: ja
+PASS [yakitori-wars] search.metadata-source: ja.pageTitle must be nonempty
+PASS [yakitori-wars] search.metadata-source: ja.metaDescription must be nonempty
+PASS [yakitori-wars] search.metadata-source: ja.body must be nonempty
+PASS [yakitori-wars] search.metadata-source: ja.shareTitle must be nonempty
+PASS [yakitori-wars] search.metadata-source: ja.shareDescription must be nonempty
+PASS [yakitori-wars] search.metadata-source: ja.imageAlt must be nonempty
+PASS [yakitori-wars] search.metadata-source: ja.genres must be a nonempty string array
+PASS [yakitori-wars] search.metadata-source: ja.terms must be a nonempty string array
+PASS [yakitori-wars] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [yakitori-wars] search.locale-ja: html lang must equal ja
+PASS [yakitori-wars] search.localized-metadata: ja title must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja description must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja og:title must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja og:description must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja twitter:title must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja twitter:description must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [yakitori-wars] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [yakitori-wars] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [yakitori-wars] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [yakitori-wars] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [yakitori-wars] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [yakitori-wars] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/yakitori-wars/
+PASS [yakitori-wars] search.locale-og-url: ja og:url must equal canonical
+PASS [yakitori-wars] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [yakitori-wars] search.x-default: ja x-default must point to Japanese canonical
+PASS [yakitori-wars] search.localized-robots: ja staging page requires noindex
+PASS [yakitori-wars] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [yakitori-wars] search.structured-data: ja VideoGame must declare Web Browser platform
+PASS [yakitori-wars] search.localized-links: ja page requires static town launch link
+PASS [yakitori-wars] search.localized-links: ja page requires static town root link
+PASS [yakitori-wars] search.localized-links: ja page requires static language-switch link
+PASS [yakitori-wars] search.localized-redirect: ja ordinary visit must not redirect
+PASS [yakitori-wars] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [yakitori-wars] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/yakitori-wars/
+PASS [yakitori-wars] search.locale-en: metadata locale required: en
+PASS [yakitori-wars] search.metadata-source: en.pageTitle must be nonempty
+PASS [yakitori-wars] search.metadata-source: en.metaDescription must be nonempty
+PASS [yakitori-wars] search.metadata-source: en.body must be nonempty
+PASS [yakitori-wars] search.metadata-source: en.shareTitle must be nonempty
+PASS [yakitori-wars] search.metadata-source: en.shareDescription must be nonempty
+PASS [yakitori-wars] search.metadata-source: en.imageAlt must be nonempty
+PASS [yakitori-wars] search.metadata-source: en.genres must be a nonempty string array
+PASS [yakitori-wars] search.metadata-source: en.terms must be a nonempty string array
+PASS [yakitori-wars] search.generated-en: generated en page must exactly match metadata + generator
+PASS [yakitori-wars] search.locale-en: html lang must equal en
+PASS [yakitori-wars] search.localized-metadata: en title must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en description must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en og:title must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en og:description must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en twitter:title must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en twitter:description must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en og:image:alt must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [yakitori-wars] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [yakitori-wars] search.localized-metadata: en X image must match metadata OGP contract
+PASS [yakitori-wars] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [yakitori-wars] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [yakitori-wars] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [yakitori-wars] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/yakitori-wars/
+PASS [yakitori-wars] search.locale-og-url: en og:url must equal canonical
+PASS [yakitori-wars] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [yakitori-wars] search.x-default: en x-default must point to Japanese canonical
+PASS [yakitori-wars] search.localized-robots: en staging page requires noindex
+PASS [yakitori-wars] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [yakitori-wars] search.structured-data: en VideoGame must declare Web Browser platform
+PASS [yakitori-wars] search.localized-links: en page requires static town launch link
+PASS [yakitori-wars] search.localized-links: en page requires static town root link
+PASS [yakitori-wars] search.localized-links: en page requires static language-switch link
+PASS [yakitori-wars] search.localized-redirect: en ordinary visit must not redirect
+PASS [yakitori-wars] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [yakitori-wars] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/yakitori-wars/
+PASS [yakitori-wars] search.title: one nonempty title required
+PASS [yakitori-wars] search.description: one nonempty description required
+PASS [yakitori-wars] search.og:title: one nonempty og:title required
+PASS [yakitori-wars] search.og:description: one nonempty og:description required
+PASS [yakitori-wars] search.h1: nonempty h1 required
+PASS [yakitori-wars] search.body: introductory paragraph required, not just a launch link
+PASS [yakitori-wars] search.launch-link: static town launch link required
+PASS [yakitori-wars] search.town-link: static town root link required
+PASS [yakitori-wars] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/yakitori-wars/
+PASS [yakitori-wars] search.og:url: one nonempty og:url required
+PASS [yakitori-wars] search.og-url: og:url must equal canonical
+PASS [yakitori-wars] search.robots: staging requires noindex (correct environment policy)
+PASS [yakitori-wars] search.meta-refresh: no automatic meta refresh
+PASS [yakitori-wars] search.redirect: ordinary visit must not redirect
+PASS [yakitori-wars] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [yakitori-wars] search.og:image: one nonempty og:image required
+PASS [yakitori-wars] search.twitter:image: one nonempty twitter:image required
+PASS [yakitori-wars] search.og:image:alt: one nonempty og:image:alt required
+PASS [yakitori-wars] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [yakitori-wars] search.twitter:card: one nonempty twitter:card required
+PASS [yakitori-wars] share.card: supported X card required
+PASS [yakitori-wars] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [yakitori-wars] ogp.identity: image URL belongs to assets/works/yakitori-wars/
+PASS [yakitori-wars] ogp.file: declared image file exists
+PASS [yakitori-wars] search.og:image:type: one nonempty og:image:type required
+PASS [yakitori-wars] ogp.mime: declared MIME matches image bytes
+PASS [yakitori-wars] search.og:image:width: one nonempty og:image:width required
+PASS [yakitori-wars] search.og:image:height: one nonempty og:image:height required
+PASS [yakitori-wars] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [yakitori-wars] ogp.extension: extension matches bytes
+PASS [yakitori-wars] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/yakitori-wars/ required
+PASS [yakitori-wars] install.contract: existing install script must resolve this work manifest
+PASS [yakitori-wars] manifest.id: id must resolve to town work URL
+PASS [yakitori-wars] manifest.start_url: start_url must resolve to town work URL
+PASS [yakitori-wars] manifest.scope: scope must resolve to town root
+PASS [yakitori-wars] install.icon-identity: icon must belong to this work
+PASS [yakitori-wars] install.icon: icon exists: ./assets/works/yakitori-wars/icon.png
+PASS [yakitori-wars] install.icon-identity: icon must belong to this work
+PASS [yakitori-wars] install.icon: icon exists: ../../assets/works/yakitori-wars/icon.png
+PASS [yakitori-wars] manifest.icons: non-iconless work requires manifest icons
+PASS [yakitori-wars] scene.contract: tomogushi_alley_map: existing scene contract valid
+PASS [yakitori-wars] scene.prop: tomogushi_alley_map/yakitori_wars_booth needs linked enabled prop
+PASS [yakitori-wars] scene.tap: yakitori_yumado_shop tap enabled
+PASS [yakitori-wars] scene.object: yakitori_shop_01 image exists
+PASS [yakitori-wars] analytics.name: existing tracker emits Work Open: yakitori-wars
+EXTERNAL_CHECK_REQUIRED [yakitori-wars] analytics.goal: UNVERIFIED Plausible Goal: Work Open: yakitori-wars
+PASS [yakitori-wars] analytics.name: existing tracker emits Work Close: yakitori-wars
+EXTERNAL_CHECK_REQUIRED [yakitori-wars] analytics.goal: UNVERIFIED Plausible Goal: Work Close: yakitori-wars
+PASS [yakitori-wars] analytics.name: existing tracker emits Share: yakitori-wars
+EXTERNAL_CHECK_REQUIRED [yakitori-wars] analytics.goal: UNVERIFIED Plausible Goal: Share: yakitori-wars (native share success only; applicability requires review)
+PASS [yakitori-wars] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [yakitori-wars] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [yakitori-wars] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [yakitori-wars] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [rainy-window] metadata.title: nonempty title required
+PASS [rainy-window] metadata.description: nonempty description required
+PASS [rainy-window] metadata.venue: nonempty venue required
+PASS [rainy-window] metadata.kind: nonempty kind required
+PASS [rainy-window] metadata.status: nonempty status required
+PASS [rainy-window] metadata.launch: nonempty launch required
+PASS [rainy-window] metadata.frameMode: nonempty frameMode required
+PASS [rainy-window] metadata.status-open: release target must be open
+PASS [rainy-window] guide.image: selected release work requires canonical assets/works/rainy-window/ogp.jpg or icon.png
+PASS [rainy-window] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: rainy-window
+PASS [rainy-window] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[rainy-window] line
+PASS [rainy-window] launch.entry: embedded entry must be a local ./works/ path
+PASS [rainy-window] launch.file: entry file exists: ./works/rainy-window/index.html
+PASS [rainy-window] launch.folder: works/rainy-window/ exists
+PASS [rainy-window] launch.identity: entry belongs to work ID folder
+PASS [rainy-window] search.metadata-source: Search/Share metadata required for selected work
+PASS [rainy-window] search.metadata-source: alternateNames must be a string array
+PASS [rainy-window] search.locale-ja: metadata locale required: ja
+PASS [rainy-window] search.metadata-source: ja.pageTitle must be nonempty
+PASS [rainy-window] search.metadata-source: ja.metaDescription must be nonempty
+PASS [rainy-window] search.metadata-source: ja.body must be nonempty
+PASS [rainy-window] search.metadata-source: ja.shareTitle must be nonempty
+PASS [rainy-window] search.metadata-source: ja.shareDescription must be nonempty
+PASS [rainy-window] search.metadata-source: ja.imageAlt must be nonempty
+PASS [rainy-window] search.metadata-source: ja.genres must be a nonempty string array
+PASS [rainy-window] search.metadata-source: ja.terms must be a nonempty string array
+PASS [rainy-window] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [rainy-window] search.locale-ja: html lang must equal ja
+PASS [rainy-window] search.localized-metadata: ja title must match metadata source
+PASS [rainy-window] search.localized-metadata: ja description must match metadata source
+PASS [rainy-window] search.localized-metadata: ja og:title must match metadata source
+PASS [rainy-window] search.localized-metadata: ja og:description must match metadata source
+PASS [rainy-window] search.localized-metadata: ja twitter:title must match metadata source
+PASS [rainy-window] search.localized-metadata: ja twitter:description must match metadata source
+PASS [rainy-window] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [rainy-window] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [rainy-window] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [rainy-window] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [rainy-window] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [rainy-window] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [rainy-window] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [rainy-window] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/rainy-window/
+PASS [rainy-window] search.locale-og-url: ja og:url must equal canonical
+PASS [rainy-window] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [rainy-window] search.x-default: ja x-default must point to Japanese canonical
+PASS [rainy-window] search.localized-robots: ja staging page requires noindex
+PASS [rainy-window] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [rainy-window] search.localized-links: ja page requires static town launch link
+PASS [rainy-window] search.localized-links: ja page requires static town root link
+PASS [rainy-window] search.localized-links: ja page requires static language-switch link
+PASS [rainy-window] search.localized-redirect: ja ordinary visit must not redirect
+PASS [rainy-window] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [rainy-window] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/rainy-window/
+PASS [rainy-window] search.locale-en: metadata locale required: en
+PASS [rainy-window] search.metadata-source: en.pageTitle must be nonempty
+PASS [rainy-window] search.metadata-source: en.metaDescription must be nonempty
+PASS [rainy-window] search.metadata-source: en.body must be nonempty
+PASS [rainy-window] search.metadata-source: en.shareTitle must be nonempty
+PASS [rainy-window] search.metadata-source: en.shareDescription must be nonempty
+PASS [rainy-window] search.metadata-source: en.imageAlt must be nonempty
+PASS [rainy-window] search.metadata-source: en.genres must be a nonempty string array
+PASS [rainy-window] search.metadata-source: en.terms must be a nonempty string array
+PASS [rainy-window] search.generated-en: generated en page must exactly match metadata + generator
+PASS [rainy-window] search.locale-en: html lang must equal en
+PASS [rainy-window] search.localized-metadata: en title must match metadata source
+PASS [rainy-window] search.localized-metadata: en description must match metadata source
+PASS [rainy-window] search.localized-metadata: en og:title must match metadata source
+PASS [rainy-window] search.localized-metadata: en og:description must match metadata source
+PASS [rainy-window] search.localized-metadata: en twitter:title must match metadata source
+PASS [rainy-window] search.localized-metadata: en twitter:description must match metadata source
+PASS [rainy-window] search.localized-metadata: en og:image:alt must match metadata source
+PASS [rainy-window] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [rainy-window] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [rainy-window] search.localized-metadata: en X image must match metadata OGP contract
+PASS [rainy-window] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [rainy-window] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [rainy-window] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [rainy-window] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/rainy-window/
+PASS [rainy-window] search.locale-og-url: en og:url must equal canonical
+PASS [rainy-window] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [rainy-window] search.x-default: en x-default must point to Japanese canonical
+PASS [rainy-window] search.localized-robots: en staging page requires noindex
+PASS [rainy-window] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [rainy-window] search.localized-links: en page requires static town launch link
+PASS [rainy-window] search.localized-links: en page requires static town root link
+PASS [rainy-window] search.localized-links: en page requires static language-switch link
+PASS [rainy-window] search.localized-redirect: en ordinary visit must not redirect
+PASS [rainy-window] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [rainy-window] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/rainy-window/
+PASS [rainy-window] search.title: one nonempty title required
+PASS [rainy-window] search.description: one nonempty description required
+PASS [rainy-window] search.og:title: one nonempty og:title required
+PASS [rainy-window] search.og:description: one nonempty og:description required
+PASS [rainy-window] search.h1: nonempty h1 required
+PASS [rainy-window] search.body: introductory paragraph required, not just a launch link
+PASS [rainy-window] search.launch-link: static town launch link required
+PASS [rainy-window] search.town-link: static town root link required
+PASS [rainy-window] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/rainy-window/
+PASS [rainy-window] search.og:url: one nonempty og:url required
+PASS [rainy-window] search.og-url: og:url must equal canonical
+PASS [rainy-window] search.robots: staging requires noindex (correct environment policy)
+PASS [rainy-window] search.meta-refresh: no automatic meta refresh
+PASS [rainy-window] search.redirect: ordinary visit must not redirect
+PASS [rainy-window] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [rainy-window] search.og:image: one nonempty og:image required
+PASS [rainy-window] search.twitter:image: one nonempty twitter:image required
+PASS [rainy-window] search.og:image:alt: one nonempty og:image:alt required
+PASS [rainy-window] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [rainy-window] search.twitter:card: one nonempty twitter:card required
+PASS [rainy-window] share.card: supported X card required
+PASS [rainy-window] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [rainy-window] ogp.identity: image URL belongs to assets/works/rainy-window/
+PASS [rainy-window] ogp.file: declared image file exists
+PASS [rainy-window] search.og:image:type: one nonempty og:image:type required
+PASS [rainy-window] ogp.mime: declared MIME matches image bytes
+PASS [rainy-window] search.og:image:width: one nonempty og:image:width required
+PASS [rainy-window] search.og:image:height: one nonempty og:image:height required
+PASS [rainy-window] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [rainy-window] ogp.extension: extension matches bytes
+PASS [rainy-window] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/rainy-window/ required
+PASS [rainy-window] install.contract: existing install script must resolve this work manifest
+PASS [rainy-window] manifest.id: id must resolve to town work URL
+PASS [rainy-window] manifest.start_url: start_url must resolve to town work URL
+PASS [rainy-window] manifest.scope: scope must resolve to town root
+PASS [rainy-window] install.icon-identity: icon must belong to this work
+PASS [rainy-window] install.icon: icon exists: ./assets/works/rainy-window/icon.png
+PASS [rainy-window] install.icon-identity: icon must belong to this work
+PASS [rainy-window] install.icon: icon exists: ../../assets/works/rainy-window/icon.png
+PASS [rainy-window] manifest.icons: non-iconless work requires manifest icons
+WARNING [rainy-window] scene.menu-only: no physical trigger; treated as menu-only; confirm placement intent in release record
+PASS [rainy-window] analytics.name: existing tracker emits Work Open: rainy-window
+EXTERNAL_CHECK_REQUIRED [rainy-window] analytics.goal: UNVERIFIED Plausible Goal: Work Open: rainy-window
+PASS [rainy-window] analytics.name: existing tracker emits Work Close: rainy-window
+EXTERNAL_CHECK_REQUIRED [rainy-window] analytics.goal: UNVERIFIED Plausible Goal: Work Close: rainy-window
+PASS [rainy-window] analytics.name: existing tracker emits Share: rainy-window
+EXTERNAL_CHECK_REQUIRED [rainy-window] analytics.goal: UNVERIFIED Plausible Goal: Share: rainy-window (native share success only; applicability requires review)
+PASS [rainy-window] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [rainy-window] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [rainy-window] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [rainy-window] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+PASS [pumpoko] metadata.title: nonempty title required
+PASS [pumpoko] metadata.description: nonempty description required
+PASS [pumpoko] metadata.venue: nonempty venue required
+PASS [pumpoko] metadata.kind: nonempty kind required
+PASS [pumpoko] metadata.status: nonempty status required
+PASS [pumpoko] metadata.launch: nonempty launch required
+PASS [pumpoko] metadata.frameMode: nonempty frameMode required
+PASS [pumpoko] metadata.status-open: release target must be open
+PASS [pumpoko] guide.image: selected release work requires canonical assets/works/pumpoko/ogp.jpg or icon.png
+PASS [pumpoko] town.update-history: new/open work requires a nonempty TOWN_UPDATES record linked by workIds: pumpoko
+PASS [pumpoko] town.ghost-dialogue: new/open work requires at least one nonempty GHOST_DIALOGUE.works[pumpoko] line
+PASS [pumpoko] metadata.playerWidth: positive numeric playerWidth required for phone
+PASS [pumpoko] metadata.playerHeight: positive numeric playerHeight required for phone
+PASS [pumpoko] launch.entry: embedded entry must be a local ./works/ path
+PASS [pumpoko] launch.file: entry file exists: ./works/pumpoko/index.html
+PASS [pumpoko] launch.folder: works/pumpoko/ exists
+PASS [pumpoko] launch.identity: entry belongs to work ID folder
+PASS [pumpoko] search.metadata-source: Search/Share metadata required for selected work
+PASS [pumpoko] search.metadata-source: alternateNames must be a string array
+PASS [pumpoko] search.locale-ja: metadata locale required: ja
+PASS [pumpoko] search.metadata-source: ja.pageTitle must be nonempty
+PASS [pumpoko] search.metadata-source: ja.metaDescription must be nonempty
+PASS [pumpoko] search.metadata-source: ja.body must be nonempty
+PASS [pumpoko] search.metadata-source: ja.shareTitle must be nonempty
+PASS [pumpoko] search.metadata-source: ja.shareDescription must be nonempty
+PASS [pumpoko] search.metadata-source: ja.imageAlt must be nonempty
+PASS [pumpoko] search.metadata-source: ja.genres must be a nonempty string array
+PASS [pumpoko] search.metadata-source: ja.terms must be a nonempty string array
+PASS [pumpoko] search.generated-ja: generated ja page must exactly match metadata + generator
+PASS [pumpoko] search.locale-ja: html lang must equal ja
+PASS [pumpoko] search.localized-metadata: ja title must match metadata source
+PASS [pumpoko] search.localized-metadata: ja description must match metadata source
+PASS [pumpoko] search.localized-metadata: ja og:title must match metadata source
+PASS [pumpoko] search.localized-metadata: ja og:description must match metadata source
+PASS [pumpoko] search.localized-metadata: ja twitter:title must match metadata source
+PASS [pumpoko] search.localized-metadata: ja twitter:description must match metadata source
+PASS [pumpoko] search.localized-metadata: ja og:image:alt must match metadata source
+PASS [pumpoko] search.localized-metadata: ja twitter:image:alt must match metadata source
+PASS [pumpoko] search.localized-metadata: ja OGP image must match metadata OGP contract
+PASS [pumpoko] search.localized-metadata: ja X image must match metadata OGP contract
+PASS [pumpoko] search.localized-metadata: ja OGP MIME must match metadata OGP contract
+PASS [pumpoko] search.localized-metadata: ja OGP dimensions must match metadata OGP contract
+PASS [pumpoko] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [pumpoko] search.locale-canonical: ja canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/pumpoko/
+PASS [pumpoko] search.locale-og-url: ja og:url must equal canonical
+PASS [pumpoko] search.hreflang-reciprocal: ja page must declare reciprocal ja/en hreflang URLs
+PASS [pumpoko] search.x-default: ja x-default must point to Japanese canonical
+PASS [pumpoko] search.localized-robots: ja staging page requires noindex
+PASS [pumpoko] search.structured-data: ja JSON-LD must match Search metadata, canonical and OGP
+PASS [pumpoko] search.structured-data: ja VideoGame must declare Web Browser platform
+PASS [pumpoko] search.localized-links: ja page requires static town launch link
+PASS [pumpoko] search.localized-links: ja page requires static town root link
+PASS [pumpoko] search.localized-links: ja page requires static language-switch link
+PASS [pumpoko] search.localized-redirect: ja ordinary visit must not redirect
+PASS [pumpoko] search.localized-open-shortcut: ja open=1 must target this work in town shell
+PASS [pumpoko] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/w/pumpoko/
+PASS [pumpoko] search.locale-en: metadata locale required: en
+PASS [pumpoko] search.metadata-source: en.pageTitle must be nonempty
+PASS [pumpoko] search.metadata-source: en.metaDescription must be nonempty
+PASS [pumpoko] search.metadata-source: en.body must be nonempty
+PASS [pumpoko] search.metadata-source: en.shareTitle must be nonempty
+PASS [pumpoko] search.metadata-source: en.shareDescription must be nonempty
+PASS [pumpoko] search.metadata-source: en.imageAlt must be nonempty
+PASS [pumpoko] search.metadata-source: en.genres must be a nonempty string array
+PASS [pumpoko] search.metadata-source: en.terms must be a nonempty string array
+PASS [pumpoko] search.generated-en: generated en page must exactly match metadata + generator
+PASS [pumpoko] search.locale-en: html lang must equal en
+PASS [pumpoko] search.localized-metadata: en title must match metadata source
+PASS [pumpoko] search.localized-metadata: en description must match metadata source
+PASS [pumpoko] search.localized-metadata: en og:title must match metadata source
+PASS [pumpoko] search.localized-metadata: en og:description must match metadata source
+PASS [pumpoko] search.localized-metadata: en twitter:title must match metadata source
+PASS [pumpoko] search.localized-metadata: en twitter:description must match metadata source
+PASS [pumpoko] search.localized-metadata: en og:image:alt must match metadata source
+PASS [pumpoko] search.localized-metadata: en twitter:image:alt must match metadata source
+PASS [pumpoko] search.localized-metadata: en OGP image must match metadata OGP contract
+PASS [pumpoko] search.localized-metadata: en X image must match metadata OGP contract
+PASS [pumpoko] search.localized-metadata: en OGP MIME must match metadata OGP contract
+PASS [pumpoko] search.localized-metadata: en OGP dimensions must match metadata OGP contract
+PASS [pumpoko] search.meta-keywords: do not emit meta keywords; terms live in Search metadata / structured data
+PASS [pumpoko] search.locale-canonical: en canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/en/w/pumpoko/
+PASS [pumpoko] search.locale-og-url: en og:url must equal canonical
+PASS [pumpoko] search.hreflang-reciprocal: en page must declare reciprocal ja/en hreflang URLs
+PASS [pumpoko] search.x-default: en x-default must point to Japanese canonical
+PASS [pumpoko] search.localized-robots: en staging page requires noindex
+PASS [pumpoko] search.structured-data: en JSON-LD must match Search metadata, canonical and OGP
+PASS [pumpoko] search.structured-data: en VideoGame must declare Web Browser platform
+PASS [pumpoko] search.localized-links: en page requires static town launch link
+PASS [pumpoko] search.localized-links: en page requires static town root link
+PASS [pumpoko] search.localized-links: en page requires static language-switch link
+PASS [pumpoko] search.localized-redirect: en ordinary visit must not redirect
+PASS [pumpoko] search.localized-open-shortcut: en open=1 must target this work in town shell
+PASS [pumpoko] search.localized-discovery: static followable path from root required for https://sukimastock.github.io/yumaniwa-town-staging/en/w/pumpoko/
+PASS [pumpoko] search.title: one nonempty title required
+PASS [pumpoko] search.description: one nonempty description required
+PASS [pumpoko] search.og:title: one nonempty og:title required
+PASS [pumpoko] search.og:description: one nonempty og:description required
+PASS [pumpoko] search.h1: nonempty h1 required
+PASS [pumpoko] search.body: introductory paragraph required, not just a launch link
+PASS [pumpoko] search.launch-link: static town launch link required
+PASS [pumpoko] search.town-link: static town root link required
+PASS [pumpoko] search.canonical: canonical must equal https://sukimastock.github.io/yumaniwa-town-staging/w/pumpoko/
+PASS [pumpoko] search.og:url: one nonempty og:url required
+PASS [pumpoko] search.og-url: og:url must equal canonical
+PASS [pumpoko] search.robots: staging requires noindex (correct environment policy)
+PASS [pumpoko] search.meta-refresh: no automatic meta refresh
+PASS [pumpoko] search.redirect: ordinary visit must not redirect
+PASS [pumpoko] search.open-shortcut: open=1 shortcut must target this work in town shell
+PASS [pumpoko] search.og:image: one nonempty og:image required
+PASS [pumpoko] search.twitter:image: one nonempty twitter:image required
+PASS [pumpoko] search.og:image:alt: one nonempty og:image:alt required
+PASS [pumpoko] search.twitter:image:alt: one nonempty twitter:image:alt required
+PASS [pumpoko] search.twitter:card: one nonempty twitter:card required
+PASS [pumpoko] share.card: supported X card required
+PASS [pumpoko] ogp.same-image: OGP and X image must reference the same adopted image
+PASS [pumpoko] ogp.identity: image URL belongs to assets/works/pumpoko/
+PASS [pumpoko] ogp.file: declared image file exists
+PASS [pumpoko] search.og:image:type: one nonempty og:image:type required
+PASS [pumpoko] ogp.mime: declared MIME matches image bytes
+PASS [pumpoko] search.og:image:width: one nonempty og:image:width required
+PASS [pumpoko] search.og:image:height: one nonempty og:image:height required
+PASS [pumpoko] ogp.dimensions: declared dimensions match bytes: 1200x630
+PASS [pumpoko] ogp.extension: extension matches bytes
+PASS [pumpoko] search.discovery: static followable link path from root to https://sukimastock.github.io/yumaniwa-town-staging/w/pumpoko/ required
+PASS [pumpoko] install.contract: existing install script must resolve this work manifest
+PASS [pumpoko] manifest.id: id must resolve to town work URL
+PASS [pumpoko] manifest.start_url: start_url must resolve to town work URL
+PASS [pumpoko] manifest.scope: scope must resolve to town root
+PASS [pumpoko] install.icon-identity: icon must belong to this work
+PASS [pumpoko] install.icon: icon exists: ./assets/works/pumpoko/icon.png
+PASS [pumpoko] install.icon-identity: icon must belong to this work
+PASS [pumpoko] install.icon: icon exists: ../../assets/works/pumpoko/icon.png
+PASS [pumpoko] manifest.icons: non-iconless work requires manifest icons
+WARNING [pumpoko] scene.menu-only: no physical trigger; treated as menu-only; confirm placement intent in release record
+PASS [pumpoko] analytics.name: existing tracker emits Work Open: pumpoko
+EXTERNAL_CHECK_REQUIRED [pumpoko] analytics.goal: UNVERIFIED Plausible Goal: Work Open: pumpoko
+PASS [pumpoko] analytics.name: existing tracker emits Work Close: pumpoko
+EXTERNAL_CHECK_REQUIRED [pumpoko] analytics.goal: UNVERIFIED Plausible Goal: Work Close: pumpoko
+PASS [pumpoko] analytics.name: existing tracker emits Share: pumpoko
+EXTERNAL_CHECK_REQUIRED [pumpoko] analytics.goal: UNVERIFIED Plausible Goal: Share: pumpoko (native share success only; applicability requires review)
+PASS [pumpoko] analytics.environment: staging probe injects no tracker script
+EXTERNAL_CHECK_REQUIRED [pumpoko] analytics.runtime: UNVERIFIED actual launch/close hooks, core action applicability and production delivery; Work Open means attempt, not completion
+EXTERNAL_CHECK_REQUIRED [pumpoko] town.runtime: UNVERIFIED mobile/PC main action, return, controls, physical reachability, cache/revisit
+EXTERNAL_CHECK_REQUIRED [pumpoko] share.handoff: UNVERIFIED adopted Japanese copy, controls, required English/media and external handoff
+EXTERNAL_CHECK_REQUIRED [*] release.record: UNVERIFIED base/staging/candidate SHA, exclusions, dependencies, environment differences, validation and rollback; validator success is NOT Release Complete
+EXTERNAL_CHECK_REQUIRED [*] release.live: UNVERIFIED Pages SHA success, live headers/card/links, six Ready confirmations and selected announcement/handoff
+
+{"PASS":1540,"FAIL":0,"WARNING":3,"HQ_REQUIRED":0,"EXTERNAL_CHECK_REQUIRED":62}
+Release Complete: UNVERIFIED (never certified by this tool)

@@ -1,0 +1,196 @@
+TAP version 13
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: direct sidecar town
+ok 1 - accepted alias keeps identical candidate bytes and B0 parity: direct sidecar town
+  ---
+  duration_ms: 12.603002
+  type: 'test'
+  ...
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: nested sidecar town
+ok 2 - accepted alias keeps identical candidate bytes and B0 parity: nested sidecar town
+  ---
+  duration_ms: 5.455025
+  type: 'test'
+  ...
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: shared town ancestor
+ok 3 - accepted alias keeps identical candidate bytes and B0 parity: shared town ancestor
+  ---
+  duration_ms: 3.761842
+  type: 'test'
+  ...
+# Subtest: accepted alias keeps identical candidate bytes and B0 parity: game sibling town
+ok 4 - accepted alias keeps identical candidate bytes and B0 parity: game sibling town
+  ---
+  duration_ms: 3.245302
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 1
+ok 5 - game boundary hashes across all seven root positions, capacity 1
+  ---
+  duration_ms: 11.110454
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 2
+ok 6 - game boundary hashes across all seven root positions, capacity 2
+  ---
+  duration_ms: 7.67258
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 7
+ok 7 - game boundary hashes across all seven root positions, capacity 7
+  ---
+  duration_ms: 6.837788
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 4096
+ok 8 - game boundary hashes across all seven root positions, capacity 4096
+  ---
+  duration_ms: 8.576002
+  type: 'test'
+  ...
+# Subtest: game boundary hashes across all seven root positions, capacity 16384
+ok 9 - game boundary hashes across all seven root positions, capacity 16384
+  ---
+  duration_ms: 3.661201
+  type: 'test'
+  ...
+# Subtest: exact game output length 4096 -1
+ok 10 - exact game output length 4096 -1
+  ---
+  duration_ms: 1.496775
+  type: 'test'
+  ...
+# Subtest: exact game output length 4096 0
+ok 11 - exact game output length 4096 0
+  ---
+  duration_ms: 1.458948
+  type: 'test'
+  ...
+# Subtest: exact game output length 4096 1
+ok 12 - exact game output length 4096 1
+  ---
+  duration_ms: 1.260208
+  type: 'test'
+  ...
+# Subtest: exact game output length 16384 -1
+ok 13 - exact game output length 16384 -1
+  ---
+  duration_ms: 2.942963
+  type: 'test'
+  ...
+# Subtest: exact game output length 16384 0
+ok 14 - exact game output length 16384 0
+  ---
+  duration_ms: 2.23974
+  type: 'test'
+  ...
+# Subtest: exact game output length 16384 1
+ok 15 - exact game output length 16384 1
+  ---
+  duration_ms: 2.893478
+  type: 'test'
+  ...
+# Subtest: every ASCII content mismatch and truncation offset matches B0, capacity 1
+ok 16 - every ASCII content mismatch and truncation offset matches B0, capacity 1
+  ---
+  duration_ms: 440.55242
+  type: 'test'
+  ...
+# Subtest: every ASCII content mismatch and truncation offset matches B0, capacity 7
+ok 17 - every ASCII content mismatch and truncation offset matches B0, capacity 7
+  ---
+  duration_ms: 316.88251
+  type: 'test'
+  ...
+# Subtest: every ASCII content mismatch and truncation offset matches B0, capacity 16384
+ok 18 - every ASCII content mismatch and truncation offset matches B0, capacity 16384
+  ---
+  duration_ms: 303.071618
+  type: 'test'
+  ...
+# Subtest: during-read raw hash rejects bytes changed to identical decoded Unicode
+ok 19 - during-read raw hash rejects bytes changed to identical decoded Unicode
+  ---
+  duration_ms: 1.288641
+  type: 'test'
+  ...
+# Subtest: EOF verification reads beyond an exact 64KiB reference block
+ok 20 - EOF verification reads beyond an exact 64KiB reference block
+  ---
+  duration_ms: 6.95836
+  type: 'test'
+  ...
+# Subtest: comparison hash feeds stay bounded independent of scalar size and Unicode byte width
+ok 21 - comparison hash feeds stay bounded independent of scalar size and Unicode byte width
+  ---
+  duration_ms: 27.469271
+  type: 'test'
+  ...
+# Subtest: alternating row layouts and integer-index keys preserve all values and arrivals
+ok 22 - alternating row layouts and integer-index keys preserve all values and arrivals
+  ---
+  duration_ms: 45.048584
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: negative zero
+ok 23 - unchanged strict JSON-domain rejection before reference read: negative zero
+  ---
+  duration_ms: 0.569011
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: NaN
+ok 24 - unchanged strict JSON-domain rejection before reference read: NaN
+  ---
+  duration_ms: 0.326454
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: Infinity
+ok 25 - unchanged strict JSON-domain rejection before reference read: Infinity
+  ---
+  duration_ms: 0.181054
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: sparse array
+ok 26 - unchanged strict JSON-domain rejection before reference read: sparse array
+  ---
+  duration_ms: 0.266654
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: array extra key
+ok 27 - unchanged strict JSON-domain rejection before reference read: array extra key
+  ---
+  duration_ms: 0.342599
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: accessor
+ok 28 - unchanged strict JSON-domain rejection before reference read: accessor
+  ---
+  duration_ms: 0.20503
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: symbol
+ok 29 - unchanged strict JSON-domain rejection before reference read: symbol
+  ---
+  duration_ms: 0.293615
+  type: 'test'
+  ...
+# Subtest: unchanged strict JSON-domain rejection before reference read: function
+ok 30 - unchanged strict JSON-domain rejection before reference read: function
+  ---
+  duration_ms: 0.269819
+  type: 'test'
+  ...
+# Subtest: independent anchors, immutable arrays and logical content survive a fresh round-trip
+ok 31 - independent anchors, immutable arrays and logical content survive a fresh round-trip
+  ---
+  duration_ms: 0.525785
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1333.970328

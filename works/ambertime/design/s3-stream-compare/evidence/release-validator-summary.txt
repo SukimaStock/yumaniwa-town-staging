@@ -1,0 +1,7 @@
+Full successful validator log retained at /workspace/shared/ambertime-stream-full-release-validator.txt
+SHA256 b686d28262bba6989cc55d2fd4357498c208b7e59d325ee10dc0b37929104acf
+EXTERNAL_CHECK_REQUIRED [*] release.record: UNVERIFIED base/staging/candidate SHA, exclusions, dependencies, environment differences, validation and rollback; validator success is NOT Release Complete
+EXTERNAL_CHECK_REQUIRED [*] release.live: UNVERIFIED Pages SHA success, live headers/card/links, six Ready confirmations and selected announcement/handoff
+
+{"PASS":1540,"FAIL":0,"WARNING":3,"HQ_REQUIRED":0,"EXTERNAL_CHECK_REQUIRED":62}
+Release Complete: UNVERIFIED (never certified by this tool)

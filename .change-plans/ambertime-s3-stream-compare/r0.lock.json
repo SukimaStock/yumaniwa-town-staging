@@ -1,0 +1,129 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "25ea6fc218a998e9dc13f6cbcd0507be49115092784afef65af15c5b2797dd75",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-s3-stream-compare",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Independent sequential comparison research; corrected WORK/Standard plan after refused approval wording",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b57ce881b5f5f68bc12ff1f15634178118496958",
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "PR856 head 715a6b9fa88cd19a8054e59ba7035c7f3cc499f1",
+      "User 2026-11-08 sequential comparison request and explicit separate research Draft PR permission"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-stream-compare/r0.lock.json",
+      "works/ambertime/design/s3-d1/codec.mjs",
+      "works/ambertime/tests/s3-d1-codec.test.mjs",
+      "works/ambertime/tests/s3-d1-r-structure.test.mjs",
+      "works/ambertime/design/s3-stream-compare/**",
+      "works/ambertime/tests/s3-stream-*.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/index.html",
+      "works/ambertime/room-scene.css",
+      ".change-plans/ambertime-s3-d1-canonical/**",
+      ".change-plans/ambertime-s3-d1-r-canonical/**",
+      ".change-plans/ambertime-s3-d1-f/**",
+      ".change-plans/ambertime-s3-overnight/**"
+    ],
+    "problem": "Whole hydrate and full JSON comparison add memory to 100-year canonical research. Existing PR has four locks and cannot satisfy fresh-r0 gate without breaking preservation requirements.",
+    "currentContract": "Existing formal v8, model, caps and D1-R codec unchanged. Candidate validation requires strict structure/reference checks and independently supplied known-input anchors. Contents equality is not replay provenance or storage durability.",
+    "whyExistingIsInsufficient": "Existing decode duplicates records and arrivals and constructs complete strings. Existing PR evidence is valuable but its chronological gate failures cannot be retrospectively corrected.",
+    "design": "Start from current main with one lock-only first commit. Copy codec and its two tests byte-for-byte from exact PR856 SHA with provenance. Independent module validates candidate using unchanged codec, then walks active data, schema row views and arrival ordinals in JSON enumeration order, emitting bounded chunks directly to an independent reference comparison with first-difference positions. No full legacy hydrate, complete output concatenate or cloned arrivals in streaming comparator. Existing validator hash stringify allocations remain in measurements. Reference research file is external known-SHA input, not reconstructed from candidate. Small cases compare directly with JSON.stringify. Large cases compare against original file content sequentially; game and sidecar scope explicit. No production imports from research. Full-input raw compact original is the normal reference, including all sidecars. A separate game-only reference may be prepared once from original input, with its stringify/preparation cost disclosed separately. Game digest is checked in full-input mode too. Strings, including keys, are escaped incrementally; no giant scalar JSON.stringify then slice. Numeric scalar representation uses native JSON.stringify. Emitted chunks at most16384 UTF-16 units (at most64KiB UTF-8); reference reads at most64KiB. No array-wide Object.keys/map or whole output join; auxiliary state depends on depth, object-key/schema width, not a whole-process O(1) claim. Independent anchors remain outside candidate, exact comparison requires both EOF, reports first difference in UTF-16 units and logical path, and candidate remains unchanged throughout synchronous emission/consumption. Reference raw/full-input SHA is ee2849503b2b9113b388a2c8049a1c8b650afc64821719ad7c42703fa9f14cf4, 11873989 bytes, including all six non-game top-level fields: userPaused, elapsed, caskSlots, recentLedger, historyRecord, recallRecord. Verify its SHA before comparison; optional game reference is native JSON.stringify of that verified original, not of candidate. Report its preparation timing and peak separately. Existing validator full body/candidate strings, ID Map and arrival-position array remain measured. MaxRSS is process-lifetime, not phase-isolated.",
+    "expectedChanges": [
+      "Correct approval wording without changing research scope; save reviewed technical plan through existing write review; one lock-only first commit verified on GitHub before code imports/tests; preserve original PR856 and prior refusal history.",
+      "Import exact unchanged D1-R codec and regression tests as research baseline only.",
+      "Small JSON-derived enumeration, Unicode/escaping/number/chunk/strict-rejection tests, then existing 100-year SHA fixture full-input and game comparison.",
+      "Read-only original v8 protection using verified existing wire if found; if absent record unperformed rather than invent existence. A separately marked new short formal input may provide additional bounded evidence without claiming old wire rediscovered.",
+      "Sequential independent-process A full-hydrate versus B stream measurements over same input and validation scope, report preparation and validator allocation costs.",
+      "Independent code review, local Scope/Risk/Impact, exact-SHA CI and Draft-only report; no merge or D1/S3 completion."
+    ],
+    "ownerDecisions": [
+      "User explicitly authorized separate research Draft PR from latest main; original PR856 stays unchanged and Draft; no merge, production, formal save or model edits.",
+      "User explicitly requested correction of approval wording, submission once to the existing write review without changing route/permissions/rules, and research only after accepted lock-only first commit and actual remote SHA confirmation. Rejection must stop implementation."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "CHANGE-PLAN fresh r0 single immutable lock-only first commit; no plan.json added because lock embeds complete plan per documented normal create workflow, not moving/deleting previous plans.",
+      "Research-only contract, original known input and all individual historical records preserved.",
+      "Expression audit: research has no new UI/copy; concise factual docs without decorative prose.",
+      "Classification correction based on trusted main tools/change-risk-policy.cjs89-96/162-175 and CHANGE-PLAN358: exact work-local observational research is WORK/Standard. No formal-save acceptance or canonical-policy contract changes.",
+      "Independent AI technical evaluation was performed for the bounded proposed design and classification. It is technical evidence, NOT HQ/Owner approval. No HQ approval was obtained or asserted. Prior Full/HQ draft and refused write remain historical evidence, not retroactively accepted."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "PLANNED: independent implementation review, imported blob identities and no runtime imports of research; first-difference/malformed evidence; browser/Safari unverified. COMPLETED: independent preimplementation technical design evaluation and read-only classification audit only."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "migration": "None; no formal migration or player-storage writes. Fresh research branch preserves old branch and references exact artifacts.",
+    "compatibility": "Baseline codec byte-exact import. JSON-derived objects only. Existing formal reader/writer/model/caps and original fixtures immutable.",
+    "rollback": "Do not merge. Drop new research branch if rejected; old PR and all formal code/data unchanged.",
+    "promotionRisk": "No promotion, Pages, Draft removal or merge authorized; research success is not formal save success.",
+    "alternativesRejected": [
+      "Rewrite old locks/history or weaken CI/classifier",
+      "Change tested D1-R codec",
+      "Full output join disguised as streaming",
+      "Treat hashes or same-writer expectations as formal provenance",
+      "Regenerate full 100-year scenario"
+    ],
+    "boundaryCases": [
+      "Integer-index property enumeration, missing versus null, empty arrays/objects, decimals, quotations, control characters, lone surrogates/pairs across chunks, UTF16 versus UTF8",
+      "Shadow active histories, unknown fields, invalid schemas/columns/ordinal/IDs/source/arrivals/townKeys, recomputed integrity; preserve rejection before output",
+      "Input absent or changed SHA, sidecar versus game scope, no-original safe stop, truncated candidate/reference, late mismatch",
+      "STOP if tested codec/formal model must change, original bytes lost, semantic difference unresolved, plan gate unmet, or resource use uncontrolled; no bulk long simulations.",
+      "Resource budget: fresh processes run sequentially with --max-old-space-size=512 and 120-second timeout; peak RSS above768MiB stops further heavy comparisons and is reported, not treated as pass. Three repetitions per mode maximum; no browser-memory threshold inferred."
+    ],
+    "testPlan": [
+      "Preimplementation technical design review and read-only classification audit completed; no HQ approval obtained. This corrected plan is submitted to the same existing write review once; only accepted remote lock-only commit/SHA/blob unlock research. Implementation review and all new tests remain planned, not completed.",
+      "Small normal and adversarial tests first; preserved baseline80tests; independent reviewer mutation tests.",
+      "Reuse SHA b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55 existing100year game plus full sidecar anchor; no new simulation.",
+      "Separate preparation/validation/hydrate-or-stream/memory phases; three fresh processes per A/B sequentially, not formal cold replay claims.",
+      "Formal24month wire if actually present, otherwise explicitly report absent and separately bounded new normal wire where useful; read-only original checksum before/after rejection and existing reader.",
+      "Independent final review; Scope then Risk then Impact; repository validate; exact SHA checks; preserve failures and limits."
+    ],
+    "outOfScope": [
+      "Formal save/model/validator/caps, D1-R modifications, UI/Canvas, storage keys",
+      "D1 completion, 9-condition long simulation, D2 implementation, IndexedDB/checkpoint",
+      "PR856 changes or retroactive compliance, CI/settings, merge/Pages/production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "D1 multistrategy nine boundaries",
+      "Formal100year save/replay",
+      "Persistent provenance/durability, browser/iPhone Safari"
+    ]
+  }
+}
