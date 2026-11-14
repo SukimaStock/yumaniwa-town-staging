@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "9c48481534c16124404e6287a1689322e47cdaab7ee915fc0b802203cdc2d852",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+    "changeId": "ambertime-l100-4a-2",
+    "revision": 0,
+    "change": "Research arrivals accessor runtime equivalence and memory",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-4a-2/r0.lock.json",
+      "works/ambertime/l100-4a-2/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Isolated accessor prototype, contract and boundary tests",
+      "12 baseline comparisons and future town transitions",
+      "Report memory/performance and remaining formal boundaries; Draft only"
+    ],
+    "ownerDecisions": [
+      "User specification libfile_27739e595b6c8191b72e9a8bbd940da5 permits isolated research and Draft PR; prohibits merge and formal changes."
+    ],
+    "hqDecisions": [
+      "No formal adoption. Research objects never enter official storage. Formal model/save/caps/RNG/history/UI remain unchanged."
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Research only; real browser and physical Safari not certified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove only isolated research files and Plan Lock; player data unchanged.",
+    "outOfScope": [
+      "Production, merges, player data",
+      "Save version, size cap, persistence backend, replay semantics, recall selection, canvas",
+      "New external permissions or browser safety bypass"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No formal adoption or persistent archive durability certification"
+    ],
+    "alternativesRejected": [
+      "Delete historical records",
+      "Increase or bypass cap",
+      "Treat wire-only reduction as formal-state improvement"
+    ],
+    "boundaryCases": [
+      "Missing corrupt archive rejects without partial adoption",
+      "Repeated identities and property order preserve exact JSON",
+      "No future comparison beyond existing formal cap"
+    ],
+    "testPlan": [
+      "12 baseline exact ordered values and reconstruction",
+      "Unmodified town transitions with live accessor and explicit full-model boundary failures",
+      "Repeated timing and Node heap; source integrity; Scope Risk Impact"
+    ],
+    "problem": "Town arrays dominate formal-state growth and approach cap after wide103 years.",
+    "currentContract": "Formal v8/game20 validates full expanded JSON below6016384 units.",
+    "whyExistingIsInsufficient": "Near-limit town histories grow indefinitely.",
+    "design": "A normal array; B ordered event-index references; C compact delta index lazy access. Unmodified town transitions, explicit hydrate boundaries, honest full-runtime incompatibility.",
+    "migration": "None",
+    "compatibility": "Inputs read-only and untouched; research representations are not formal saves.",
+    "promotionRisk": "Draft PR only; do not merge."
+  }
+}

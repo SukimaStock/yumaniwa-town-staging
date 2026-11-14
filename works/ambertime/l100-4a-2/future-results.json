@@ -1,0 +1,128 @@
+{
+  "wide": {
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "inputSha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+    "method": "Node official cold readSession; same full-model tick; collectors; exact session equality; official save/re-read. Not browser or compact-runtime continuation.",
+    "coldMs": 113248.06409100001,
+    "baselineTickMs": 131.142022,
+    "saveMs": 568.9906570000021,
+    "from": 1200,
+    "to": 1201,
+    "monthAdvanced": true,
+    "officialSaveReRead": true,
+    "sourceUnchanged": true,
+    "rows": [
+      {
+        "method": "A",
+        "fullSessionExact": true,
+        "fullTickMs": 114.50306799999089,
+        "gameHash": "b66963e26c55c7847a7c97b2533005d0d0be3cd53671c2e29f5fa6d3569052fb",
+        "historyHash": "d13669a887e19cd0ec013851a0696ecf62912a6718360bc3534e1a89331c80b2",
+        "recallHash": "e2ada21da7d088473b41c4d90ea86582979811c827709fdf2ef8ce08fb725d72",
+        "ledgerHash": "a06b362980db000ddd3d326740925bb60a47479ec75a41c01df75d52daefdb83"
+      },
+      {
+        "method": "B",
+        "fullSessionExact": true,
+        "fullTickMs": 90.02357399999164,
+        "gameHash": "b66963e26c55c7847a7c97b2533005d0d0be3cd53671c2e29f5fa6d3569052fb",
+        "historyHash": "d13669a887e19cd0ec013851a0696ecf62912a6718360bc3534e1a89331c80b2",
+        "recallHash": "e2ada21da7d088473b41c4d90ea86582979811c827709fdf2ef8ce08fb725d72",
+        "ledgerHash": "a06b362980db000ddd3d326740925bb60a47479ec75a41c01df75d52daefdb83"
+      },
+      {
+        "method": "C",
+        "fullSessionExact": true,
+        "fullTickMs": 83.4019319999934,
+        "gameHash": "b66963e26c55c7847a7c97b2533005d0d0be3cd53671c2e29f5fa6d3569052fb",
+        "historyHash": "d13669a887e19cd0ec013851a0696ecf62912a6718360bc3534e1a89331c80b2",
+        "recallHash": "e2ada21da7d088473b41c4d90ea86582979811c827709fdf2ef8ce08fb725d72",
+        "ledgerHash": "a06b362980db000ddd3d326740925bb60a47479ec75a41c01df75d52daefdb83"
+      }
+    ]
+  },
+  "mixed": {
+    "file": "ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+    "inputSha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+    "method": "Node official cold readSession; same full-model tick; collectors; exact session equality; official save/re-read. Not browser or compact-runtime continuation.",
+    "coldMs": 86211.189064,
+    "baselineTickMs": 133.94282699999167,
+    "saveMs": 722.8470569999918,
+    "from": 1200,
+    "to": 1201,
+    "monthAdvanced": true,
+    "officialSaveReRead": true,
+    "sourceUnchanged": true,
+    "rows": [
+      {
+        "method": "A",
+        "fullSessionExact": true,
+        "fullTickMs": 202.37930800000322,
+        "gameHash": "dc1a6fcb9e9a1db105bad0673dfb0211ed6cab60efe8a2639cd9ebd276c5e996",
+        "historyHash": "91cbf78327ef379fbc1d36af147a1cf8e63a8cc40659255c2cc4ce025838d96a",
+        "recallHash": "7ed7364176b21ee41a60c70e36c77f316b65681b653b43be9d47d68ab07394a5",
+        "ledgerHash": "af4d9ff58b8e5d6d029a6564bec8baffac0107bce8a1f9caae4a368166282e12"
+      },
+      {
+        "method": "B",
+        "fullSessionExact": true,
+        "fullTickMs": 138.39128300000448,
+        "gameHash": "dc1a6fcb9e9a1db105bad0673dfb0211ed6cab60efe8a2639cd9ebd276c5e996",
+        "historyHash": "91cbf78327ef379fbc1d36af147a1cf8e63a8cc40659255c2cc4ce025838d96a",
+        "recallHash": "7ed7364176b21ee41a60c70e36c77f316b65681b653b43be9d47d68ab07394a5",
+        "ledgerHash": "af4d9ff58b8e5d6d029a6564bec8baffac0107bce8a1f9caae4a368166282e12"
+      },
+      {
+        "method": "C",
+        "fullSessionExact": true,
+        "fullTickMs": 133.23899399999937,
+        "gameHash": "dc1a6fcb9e9a1db105bad0673dfb0211ed6cab60efe8a2639cd9ebd276c5e996",
+        "historyHash": "91cbf78327ef379fbc1d36af147a1cf8e63a8cc40659255c2cc4ce025838d96a",
+        "recallHash": "7ed7364176b21ee41a60c70e36c77f316b65681b653b43be9d47d68ab07394a5",
+        "ledgerHash": "af4d9ff58b8e5d6d029a6564bec8baffac0107bce8a1f9caae4a368166282e12"
+      }
+    ]
+  },
+  "local": {
+    "file": "ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+    "inputSha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+    "method": "Node official cold readSession; same full-model tick; collectors; exact session equality; official save/re-read. Not browser or compact-runtime continuation.",
+    "coldMs": 56040.576381,
+    "baselineTickMs": 137.35927800000354,
+    "saveMs": 587.8244150000028,
+    "from": 1200,
+    "to": 1201,
+    "monthAdvanced": true,
+    "officialSaveReRead": true,
+    "sourceUnchanged": true,
+    "rows": [
+      {
+        "method": "A",
+        "fullSessionExact": true,
+        "fullTickMs": 123.6529109999974,
+        "gameHash": "45d56837277ac84a9ba2a6620c023d8f1ea4e751859220103dd3c857e1a43645",
+        "historyHash": "1870a91bf3f2b430818edc3ba5a99c5e055733adb30c8c20536b4ed627068c80",
+        "recallHash": "3b103d742c35cf3935519a802558856f5031e5f7cd072b2a224630ccfb41d895",
+        "ledgerHash": "68985a1c0f0c9a7bfb040b61aaa6d42f2c4d613365807d6ba13f1c98e0502c76"
+      },
+      {
+        "method": "B",
+        "fullSessionExact": true,
+        "fullTickMs": 104.60375299999578,
+        "gameHash": "45d56837277ac84a9ba2a6620c023d8f1ea4e751859220103dd3c857e1a43645",
+        "historyHash": "1870a91bf3f2b430818edc3ba5a99c5e055733adb30c8c20536b4ed627068c80",
+        "recallHash": "3b103d742c35cf3935519a802558856f5031e5f7cd072b2a224630ccfb41d895",
+        "ledgerHash": "68985a1c0f0c9a7bfb040b61aaa6d42f2c4d613365807d6ba13f1c98e0502c76"
+      },
+      {
+        "method": "C",
+        "fullSessionExact": true,
+        "fullTickMs": 89.29808399999456,
+        "gameHash": "45d56837277ac84a9ba2a6620c023d8f1ea4e751859220103dd3c857e1a43645",
+        "historyHash": "1870a91bf3f2b430818edc3ba5a99c5e055733adb30c8c20536b4ed627068c80",
+        "recallHash": "3b103d742c35cf3935519a802558856f5031e5f7cd072b2a224630ccfb41d895",
+        "ledgerHash": "68985a1c0f0c9a7bfb040b61aaa6d42f2c4d613365807d6ba13f1c98e0502c76"
+      }
+    ]
+  }
+}
