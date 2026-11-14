@@ -1,0 +1,116 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "84e364627e2bbcb67a466e83ce561077083cf1cd9316a7eae5eb57e35084a2d3",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "2df1ca9db957de576fbf9fa7e29b762c83023cb3",
+    "changeId": "ambertime-h3-1",
+    "revision": 0,
+    "change": "世代単位の世界回想候補と保存方式の比較研究",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/distillery-history.mjs",
+      "works/ambertime/generation-summary.mjs",
+      "works/ambertime/shop-ledger.mjs",
+      "works/ambertime/town-connection.mjs",
+      "works/ambertime/world-map-view.mjs",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "works/ambertime/history-lab/analysis.mjs",
+      "works/ambertime/history-lab/fixtures.json",
+      "works/ambertime/history-lab/REPORT.md",
+      "works/ambertime/player-news.mjs",
+      "works/ambertime/memory-lab/connections.json",
+      "works/ambertime/memory-lab/scene.mjs",
+      "works/ambertime/chronicle-lab/H25.md",
+      "works/ambertime/chronicle-lab/recall-snapshots.mjs",
+      "works/ambertime/s4/h2-comparison.md",
+      "works/ambertime/s4/h2-comparison-actual.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-h3-1/r0.lock.json",
+      "works/ambertime/h3-1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/*.mjs",
+      "works/ambertime/*.css",
+      "works/ambertime/index.html",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/works.js",
+      "works/ambertime/history-lab/**"
+    ],
+    "expectedChanges": [
+      "研究専用A/B/C選定、保存方式試作、比較JSON、全文、テスト、研究報告"
+    ],
+    "ownerDecisions": [
+      "今回のユーザー指示：H3-1研究とDraft PRのみ。マージ禁止。表示体験は確定仕様を記録"
+    ],
+    "hqDecisions": [
+      "本編と既存H2に接続しない独立研究。H2-5の公開確定候補から比較し、保持前資料がない結果は明記"
+    ],
+    "rulesApplied": [
+      "Plan Lock → Scope → Risk → Impact、既存LAB generator",
+      "表現監査に従い事実・期間・操作案内に必要な文章のみ"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "回想全文・因果と再登場・表現監査の読取レビュー"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "研究ブランチの追加ディレクトリのみを取り消す",
+    "outOfScope": [
+      "本編UI・正式保存・S4規則・経済・既存H2資料期待値・全操作削除・Stagingマージ・Production"
+    ],
+    "promotion": "none; draft PR only",
+    "unverified": [
+      "実ブラウザー、iPhone実機、完全な進行時collector性能は別途明記"
+    ],
+    "alternativesRejected": [
+      "本編への常時追加",
+      "架空の感情や因果",
+      "閲覧時の長期再生"
+    ],
+    "boundaryCases": [
+      "候補ゼロ・少数、同じ月と操作内順序、同じ地域の非因果、別発売・同一銘柄、未来追記、過去参照"
+    ],
+    "testPlan": [
+      "公開A基準完全一致、12交代比較、未来追加不変、同操作境界、因果整合、保存復元失敗、関連H2回帰、Scope/Risk/Impact/CI"
+    ],
+    "problem": "歩みと役割を分けた世代回想の選定と最小保持方式が未確定",
+    "currentContract": "既存C-3/D1.1/D1.2/H2-5とS1〜S4を不変",
+    "whyExistingIsInsufficient": "累積回想では退く世代と世界の出来事が中心にならない",
+    "design": "公開30/100年の確定済み候補でA基準を保持し、世代限定B/Cと小事実・世代確定保存を研究比較",
+    "migration": "なし",
+    "compatibility": "既存の元記録・セーブ・経済・乱数は変更せず、A/B/Cは維持。編集ルール版D1.1を付与",
+    "promotionRisk": "StagingのLabに限定。実機未確認"
+  }
+}
