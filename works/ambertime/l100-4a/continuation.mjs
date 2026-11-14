@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const [inputFile,policy,outputDir,targetMonths='1440']=process.argv.slice(2);
+assert(inputFile&&policy&&outputDir,'usage: node continuation.mjs INPUT POLICY OUTPUT_DIR [TARGET_MONTH]');
+fs.mkdirSync(outputDir,{recursive:true});
+const root=new URL('../',import.meta.url),out=pathToFileURL(outputDir.replace(/\/$/,'')+'/');
+const N=await import(new URL('partner-orders.mjs',root));
+const {initializeRecall,advanceRecall,prepareRecall}=await import(new URL('recall/collector.mjs',root));
+const {advanceHistoryRecord}=await import(new URL('history-record.mjs',root));
+const {advanceRecentLedger}=await import(new URL('recent-ledger.mjs',root));
+const {reconcileCaskSlots}=await import(new URL('cask-slots.mjs',root));
+const {readSession,serializeSession}=await import(new URL('development-save.mjs',root));
+const {PARALLEL_PARAMETERS:P}=await import(new URL('economy-parameters.mjs',root));
+const id=policy,options={enabled:true,serialize:N.serializeDistillery,restore:N.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
+const source=pathToFileURL(inputFile);
+const input=fs.readFileSync(source,'utf8'),sha=s=>createHash('sha256').update(s).digest('hex');
+const evidence={policy:id,environment:'Node isolated copied save, not browser',sourceSha256:sha(input),guardCodeUnits:6000000,formalCapExclusive:6016384,checkpoints:[],steps:[],stopped:null};
+console.log(JSON.stringify({stage:'cold-read-start',policy:id,sourceSha256:sha(input)}));
+let started=performance.now(),session=readSession(input,options);evidence.coldInitialReadMs=performance.now()-started;
+const originalCompleted=JSON.stringify(session.recallRecord.completed);
+function checkpoint(label){const a=performance.now(),text=serializeSession(session.game,session,options),b=performance.now(),restored=readSession(text,options),c=performance.now();assert.deepEqual(restored,session);assert.equal(JSON.stringify(restored.recallRecord.completed.slice(0,JSON.parse(originalCompleted).length)),originalCompleted);const expanded=N.serializeDistillery(session.game);const row={label,month:session.game.core.month,bytes:Buffer.byteLength(text),codeUnits:text.length,expandedCodeUnits:expanded.length,saveMs:b-a,warmReadMs:c-b,gameSha256:sha(expanded),saveSha256:sha(text),operations:session.game.operations.length,generation:session.game.generations.active.id,completed:session.recallRecord.completed.length,roundTripAllState:true};fs.writeFileSync(new URL(`${id}-${row.month}-v8.json`,out),text);evidence.checkpoints.push(row);console.log(JSON.stringify(row));fs.writeFileSync(new URL(`${id}-results.json`,out),JSON.stringify(evidence,null,2));}
+checkpoint('input baseline');
+let safeStop=false;
+const D=new Proxy(N,{get(target,key){const fn=target[key];if(typeof fn!=='function')return fn;return (...args)=>{const prior=session.game;const prepared=key==='handoverGeneration'?prepareRecall(session.recallRecord,prior,prior.operations.length):undefined;const a=performance.now(),value=fn(...args);if(value?.operations&&value!==prior&&args[0]===prior){const length=JSON.stringify(value).length;if(length>=evidence.guardCodeUnits){evidence.stopped={reason:'pre-cap safety guard; candidate not installed or saved',attemptedOperation:key,previousMonth:prior.core.month,candidateMonth:value.core.month,candidateExpandedCodeUnits:length,previousExpandedCodeUnits:JSON.stringify(prior).length};safeStop=true;throw Error('SAFE_CAP_STOP');}session={...session,game:value,caskSlots:reconcileCaskSlots(value,session.caskSlots),recentLedger:advanceRecentLedger(prior,value,session.recentLedger),historyRecord:advanceHistoryRecord(prior,value,session.historyRecord),recallRecord:advanceRecall(prior,value,session.recallRecord,{prepared})};if(key==='tickDistillery'){const row={month:value.core.month,operationMs:performance.now()-a,expandedCodeUnits:length};evidence.steps.push(row);console.log(JSON.stringify(row));}}return value;};}});
+let code=fs.readFileSync(new URL('history-lab/scenarios.mjs',root),'utf8');
+code=code.slice(code.indexOf('const SEED ='),code.indexOf('\nfunction checkpointRow'));
+code=code.replace('export function simulateScenario','function simulateScenario').replace('let game = D.newMarketRulesDistillery(SEED);','let game = session.game;').replace('let fills = 0;','let fills = game.operations.filter(o=>o.key===\'fill\').length;\n  const createdIds=[...new Set([...game.releases.map(r=>r.caskId),...game.core.casks.map(c=>c.id)])].sort((a,b)=>a-b);assert.equal(createdIds.length,fills,\'cannot reconstruct all fill identities\');for(const c of game.core.casks){const ordinal=createdIds.indexOf(c.id);assert(ordinal>=0);caskTargets.set(c.id,c.filledMonth<BOOTSTRAP_MONTHS?6:policy.targets[ordinal%policy.targets.length]);}').replace('for (let month = 0; month < months; month++)','for (let month = game.core.month; month < months; month++)');
+const run=new Function('D','assert','session','PARALLEL_PARAMETERS',code+'\nreturn simulateScenario;')(D,assert,session,P);
+try{run(id,Number(targetMonths),{checkpoints:[1380,Number(targetMonths)],onCheckpoint:()=>checkpoint('continued')});}catch(e){if(!safeStop){evidence.stopped={reason:e.message,stack:e.stack};throw e;}}finally{checkpoint(safeStop?'last safe checkpoint':'final');assert.equal(sha(fs.readFileSync(source,'utf8')),evidence.sourceSha256);evidence.sourceUnchanged=true;evidence.totalMs=performance.now()-started;fs.writeFileSync(new URL(`${id}-results.json`,out),JSON.stringify(evidence,null,2));}
