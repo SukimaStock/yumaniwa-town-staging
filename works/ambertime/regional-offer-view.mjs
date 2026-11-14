@@ -1,4 +1,4 @@
-import {regionalDeliveryMode,regionalDeliveryRows,regionalDeliveryHistory} from './regional-deliveries.mjs?world=world-network-v01';
+import {regionalDeliveryMode,regionalDeliveryRows,regionalDeliveryHistory} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01';
 // The existing offer dialog consumes this projection. No delivery controls or
 // game mutations belong here; a registry entry alone never proves a contract.
 import {tradingPartner} from './trading-partners.mjs?world=world-network-v01';

@@ -25,7 +25,7 @@ function harness(initial){
  ui.update({visible:true});return {ui,root,click,select,state:()=>s,setSaved:v=>saved=v};
 }
 
-test('contact state gates three map scopes; static definitions do not create partners or duplicate sales rows',()=>{
+test('contact state gates three map scopes; static definitions do not create partners or duplicate sales rows',async()=>{
  const legacy=D.newRegionalDeliveryDistillery(3);for(const stage of [4,5,6])assert.deepEqual(mapPartnerProjection(legacy,stage).partners,[]);
  // Explicit presentation-only fixture for all three contracts; not a replayable career.
  const s=D.newWorldNetworkDistillery(3);s.regionalPartners.contracts=WORLD_CONTACTS.map(c=>({id:'regional-contract:'+c.id,partnerId:c.id,regionId:c.regionId,brandId:1,startedMonth:0}));
@@ -39,7 +39,7 @@ test('contact state gates three map scopes; static definitions do not create par
  assert.equal(new Set(seen).size,3);assert.equal(JSON.stringify(s),before);
 });
 
-test('national and overseas schematic offices and decorations stay on unnamed land outside selection bounds',()=>{
+test('national and overseas schematic offices and decorations stay on unnamed land outside selection bounds',async()=>{
  for(const c of WORLD_CONTACTS.filter(c=>c.stage>=5)){
   const bounds=mapObservationBounds(c.stage)[c.id],partner={id:c.id,bounds,box:true,flowerStage:2,butterfly:true},scenery={stage:c.stage,partners:[partner]},base=pixels(c.stage),drawn=[];
   const ctx={fillStyle:'',fillRect(x,y,w,h){drawn.push([x,y,w,h]);}};drawMapScenery(ctx,scenery);
@@ -50,18 +50,18 @@ test('national and overseas schematic offices and decorations stay on unnamed la
  }
 });
 
-test('natural overseas inquiry uses existing dialog and market operations with no extra country screen',()=>{
+test('natural overseas inquiry uses existing dialog and market operations with no extra country screen',async()=>{
  let s=naturalWorldCraftFixture(27),offer=D.regionalOffers(s).find(o=>o.partnerId===WORLD_IDS.overseas);assert(offer);assert.equal(D.regionalContract(s,WORLD_IDS.national),null);
  const before=D.serializeDistillery(s),pending=mapPartnerProjection(s,6).partners[0];assert.equal(pending.status,'offer');assert.equal(pending.canTrade,false);assert.equal(mapSceneryProjection(s,6).partners[0].box,false);assert(regionalOfferView(s,offer));assert.equal(D.serializeDistillery(s),before);
  s=D.acceptRegionalOffer(s,offer.partnerId,offer.id);assert(regionalPartnerView(s,offer.partnerId,D.regionalContract(s,offer.partnerId)));
- const h=harness(s),id=s.result.productId;assert.deepEqual(h.ui.diagnostics().order,['retail',WORLD_IDS.overseas]);h.click({marketRelease:String(id)});
- for(const [choice,count]of [['1',1],['5',5],['all',5]]){h.click({marketPortion:choice});h.click({marketPlace:WORLD_IDS.overseas});assert.equal(D.regionalDeliveryRows(h.state(),WORLD_IDS.overseas)[0].count,count);h.click({marketStock:WORLD_IDS.overseas+':'+id});h.click({marketConfirm:'return'});assert.deepEqual(D.regionalDeliveryRows(h.state(),WORLD_IDS.overseas),[]);}
- h.click({marketPortion:'5'});h.click({marketPlace:WORLD_IDS.overseas});h.click({marketStock:WORLD_IDS.overseas+':'+id});const reserved=D.serializeDistillery(h.state());h.setSaved(false);h.click({marketConfirm:'deliver'});assert.equal(D.serializeDistillery(h.state()),reserved);h.setSaved(true);h.click({marketConfirm:'deliver'});
+ const h=harness(s),id=s.result.productId;assert.deepEqual(h.ui.diagnostics().order,['retail',WORLD_IDS.overseas]);await h.click({marketRelease:String(id)});
+ for(const [choice,count]of [['1',1],['5',5],['all',5]]){await h.click({marketPortion:choice});await h.click({marketPlace:WORLD_IDS.overseas});assert.equal(D.regionalDeliveryRows(h.state(),WORLD_IDS.overseas)[0].count,count);await h.click({marketStock:WORLD_IDS.overseas+':'+id});await h.click({marketConfirm:'return'});assert.deepEqual(D.regionalDeliveryRows(h.state(),WORLD_IDS.overseas),[]);}
+ await h.click({marketPortion:'5'});await h.click({marketPlace:WORLD_IDS.overseas});await h.click({marketStock:WORLD_IDS.overseas+':'+id});const reserved=D.serializeDistillery(h.state());h.setSaved(false);await h.click({marketConfirm:'deliver'});assert.equal(D.serializeDistillery(h.state()),reserved);h.setSaved(true);await h.click({marketConfirm:'deliver'});
  const receipt=D.regionalDeliveryHistory(h.state(),WORLD_IDS.overseas).at(-1);assert.equal(receipt.count,5);assert.equal(receipt.customerSales,null);assert(h.state().labConnection.town.shipments.some(r=>r.id===receipt.id));
  h.select(3);assert(!h.ui.diagnostics().order.includes(WORLD_IDS.overseas));h.select(6,WORLD_IDS.overseas);assert(h.ui.diagnostics().order.includes(WORLD_IDS.overseas));
 });
 
-test('one partner remains recently active when other partners evict its global recent-eight cache entry',()=>{
+test('one partner remains recently active when other partners evict its global recent-eight cache entry',async()=>{
  // Explicit presentation fixture for cache retention; not a validated native career.
  const s=D.newWorldNetworkDistillery(3);s.core.month=12;
  s.regionalPartners.contracts=WORLD_CONTACTS.slice(0,2).map(c=>({id:'regional-contract:'+c.id,partnerId:c.id,regionId:c.regionId,brandId:1,startedMonth:0}));

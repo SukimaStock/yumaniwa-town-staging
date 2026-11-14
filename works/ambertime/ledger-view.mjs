@@ -1,4 +1,5 @@
-import {regionalProductTotals} from './regional-deliveries.mjs';
+import {consignmentProductTotals} from './regional-consignment.mjs?consignment=night-stage4-v01';
+import {regionalProductTotals} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01';
 // Disposable ledger projection over existing facts. No replay, economic simulation or writes.
 const copy=value=>value==null?null:structuredClone(value);
 const present=value=>value!==undefined&&value!==null;
@@ -28,11 +29,13 @@ export function buildReleaseLedger(state,{facts}={}){
   const date=firstNumber(source.bottledMonth,record?.bottledMonth);
   // A release from the origin month may already predate the observed operation prefix.
   const covered=coverage.complete||receipt?.complete===true||(date!==null&&coverage.fromMonth!==null&&date>coverage.fromMonth);
+  const actualConsignment=consignmentProductTotals(state,productId),consignment={count:firstNumber(source.consigned,record?.consigned,actualConsignment.count),revenue:firstNumber(source.consignmentRevenue,record?.consignmentRevenue,actualConsignment.revenueCents/100)};
   const mirror={count:firstNumber(source.delivered,record?.delivered),revenue:firstNumber(source.deliveryRevenue,record?.deliveryRevenue)};
   let deliveries,deliveryComplete=false;
   if(present(productId)&&Array.isArray(state.shop?.deliveries)){
    const rows=state.shop.deliveries.filter(item=>item.productId===productId),regional=regionalProductTotals(state,productId);
    if(regional.count)rows.push({count:regional.count,revenue:regional.revenue});
+   if(consignment.count)rows.push(consignment);
    if(rows.length){
     deliveries={count:total(rows,'count'),revenue:total(rows,'revenue',true)};
     deliveryComplete=deliveries.count!==null&&deliveries.revenue!==null&&(covered||mirror.count===deliveries.count&&mirror.revenue===deliveries.revenue)&&
@@ -61,6 +64,7 @@ export function buildReleaseLedger(state,{facts}={}){
    bottles:bottledCount,stock,price:wholesale?firstNumber(source.unitPrice,product?.price,receipt?.currentPrice,source.price):firstNumber(product?.price,receipt?.currentPrice,source.price,record?.unitPrice),
    status:wholesale?'wholesale':stock===0?'sold-out':listed===true?'selling':listed===false?'stored':null,listed,
    ...(regionalProductTotals(state,productId).count?{regional:{...regionalProductTotals(state,productId),customerSales:null}}:{}),
+   ...(consignment.count?{consignment:{...consignment,customerSales:consignment.count}}:{}),
    retail,deliveries,deliveryComplete,wholesale:wholesale?{count:number(source.sold),revenue:number(source.revenue),partner:source.partner??null}:null,
    stopAt:number(fill?.stopAt),record:copy(record)
   };

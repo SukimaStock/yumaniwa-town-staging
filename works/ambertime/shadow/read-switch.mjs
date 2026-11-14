@@ -1,5 +1,5 @@
 // Staging diagnostic only. Native results remain the compatibility oracle.
-import {compactRemark,releaseLedgerAggregate,storeLedgerAggregate} from './read-contract.mjs';
+import {compactRemark,releaseLedgerAggregate,storeLedgerAggregate} from './read-contract.mjs?consignment=night-stage4-v01';
 import {canonical} from '../../ambertime-strategy-lab/internal/model.mjs';
 export const READ_FEATURES=Object.freeze(['remarks','releaseLedger','storeLedger','oldWineDialogue']);
 const pick=(row,keys)=>Object.fromEntries(keys.map(k=>[k,row[k]]));
