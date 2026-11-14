@@ -1,7 +1,7 @@
 import {planSales,affinity,RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 // Pure reservations and a deterministic monthly demand projection for the main game.
 // The host transaction owns cash, durable receipts, history and replay.
-import {placementInventory,storeMarketMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01';
+import {placementInventory,storeMarketMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01';
 import {SHOP,SHOPS,shopProductCondition} from './shop-model.mjs?v=bar-v01-1';
 import {NORMAL_SHOP_DEMAND,normalShopUnitPrice} from './shop-demand.mjs?v=bar-v01-1';
 import {townAffinity} from './town-connection.mjs?v=stage4-r2';

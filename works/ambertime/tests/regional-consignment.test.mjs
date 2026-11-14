@@ -1,0 +1,69 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as D from '../partner-orders.mjs';
+import {naturalDeliveryFixture,months,sessionFor} from './regional-delivery-helpers.mjs';
+import {settleConsignmentInto} from '../regional-consignment.mjs';
+const round=n=>Math.round(n*100)/100;
+function setup(){let s=D.enableConsignment(naturalDeliveryFixture());const productId=s.result.productId,desk=D.regionalDeliveryPartners(s)[0],q=D.regionalDeliveryQuote(s,productId,desk.id);s=D.assignRegionalProduct(s,{partnerId:desk.id,productId,contractId:desk.contractId,allocationId:q.nextAllocationId,count:q.maxCount});const row=D.regionalDeliveryRows(s,desk.id)[0],v={partnerId:desk.id,productId,contractId:desk.contractId,allocationIds:row.allocationIds,consignmentId:D.nextConsignmentId(s)};return {s,v,productId,desk};}
+function conservation(s){for(const p of s.core.products){const i=D.storeMarketInventory(s,p.id);assert.equal(i.hand+i.retail+i.assigned+i.held,p.stock);assert.ok(p.stock>=0);assert.equal(p.stock+p.sold,p.originalStock);}assert.equal(s.core.cash,round(1600+s.core.totals.revenue-s.core.totals.costs-s.core.totals.upkeep));}
+test('recorded migration retains old game and pending allocations; old save replays unchanged',()=>{const {s}=setup(),raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);const old=naturalDeliveryFixture(),oldraw=D.serializeDistillery(old),next=D.enableConsignment(old);assert.deepEqual(next.regionalDeliveries,old.regionalDeliveries);assert.deepEqual(next.core,old.core);assert.equal(next.regionalConsignment.rows.length,0);assert.equal(D.serializeDistillery(D.restoreDistillery(oldraw)),oldraw);});
+test('entrusting creates no money or sold bottles, reserves physical stock, cannot duplicate transfer',()=>{const {s,v,productId,desk}=setup(),next=D.consignRegionalProduct(s,v);assert.deepEqual(next.core,s.core);assert.equal(next.regionalDeliveries.allocations.length,0);assert.equal(D.consignmentRows(next,desk.id)[0].count,D.storeMarketInventory(s,productId).assigned);assert.equal(D.storeMarketInventory(next,productId).hand,0);assert.strictEqual(D.consignRegionalProduct(next,v),next);assert.throws(()=>D.consignRegionalProduct(next,{...v,productId:999}));conservation(next);assert.equal(D.serializeDistillery(D.restoreDistillery(D.serializeDistillery(next))),D.serializeDistillery(next));});
+test('monthly real sales pay exactly once; restore continues deterministically; tampering refused',()=>{const {s,v,desk}=setup();let next=D.consignRegionalProduct(s,v),old=structuredClone(next.core),sold=0;for(let n=0;n<24;n++){next=months(next,1);sold+=next.regionalConsignment.lastSales.reduce((n,x)=>n+x.count,0);conservation(next);const snapshot=D.serializeDistillery(next);assert.strictEqual(settleConsignmentInto(next),next);assert.equal(D.serializeDistillery(next),snapshot);assert.equal(D.serializeDistillery(D.restoreDistillery(snapshot)),snapshot);}assert.ok(sold>0);assert.equal(next.regionalConsignment.totalsByPartner[desk.id].count,sold);assert.ok(next.core.totals.revenue>old.totals.revenue);const bad=structuredClone(next);bad.regionalConsignment.serial++;assert.throws(()=>D.validateDistillery(bad));assert.throws(()=>D.tickDistillery(next,next.core.month-1));});
+
+test('official v8 roundtrip and cold-process resume preserve all sidecars and next save',async()=>{
+ const {serializeSession,readSession}=await import('../development-save.mjs');const {PARALLEL_PARAMETERS:P}=await import('../economy-parameters.mjs');const {execFileSync}=await import('node:child_process');
+ const opts={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:P.monthMs,stepMs:P.distillStepMs};
+ const {s,v}=setup();let game=months(D.consignRegionalProduct(s,v),3);const session=sessionFor(game),raw=serializeSession(game,session,opts),restored=readSession(raw,opts);assert.equal(serializeSession(restored.game,restored,opts),raw);
+ const script=`import fs from 'node:fs';import * as D from ${JSON.stringify(new URL('../partner-orders.mjs',import.meta.url).href)};import {readSession,serializeSession} from ${JSON.stringify(new URL('../development-save.mjs',import.meta.url).href)};const o={enabled:true,serialize:D.serializeDistillery,restore:D.restoreDistillery,monthMs:${P.monthMs},stepMs:${P.distillStepMs}};let s=readSession(fs.readFileSync(0,'utf8'),o);process.stdout.write(serializeSession(s.game,s,o));`;
+ assert.equal(execFileSync(process.execPath,['--input-type=module','-e',script],{input:raw,encoding:'utf8',maxBuffer:32e6}),raw);
+ const next=months(restored.game,1),nextSession=sessionFor(next),raw2=serializeSession(next,nextSession,opts);assert.equal(serializeSession(readSession(raw2,opts).game,nextSession,opts),raw2);
+});
+
+test('real UI commits consign not legacy paid delivery; entrusted stock cannot be withdrawn',async()=>{
+ const {createMarketUI,visibleMarketRows,savedMarketSales}=await import('../market-ui.mjs');
+ globalThis.matchMedia=()=>({matches:true,addEventListener(){}});globalThis.window={addEventListener(){}};
+ let current=D.enableConsignment(naturalDeliveryFixture()),save=true;const notices=[],listeners=new Map();
+ const root={hidden:true,style:{setProperty(){}},scrollTop:0,innerHTML:'',contains:()=>true,querySelector:()=>null,querySelectorAll:()=>[],addEventListener:(name,fn,capture=false)=>listeners.set(name+(capture?':capture':''),fn)};
+ const doc={hidden:false,activeElement:null,body:{append(){}},getElementById:id=>id==='market-board'?root:id==='scene-root'?{dataset:{viewport:'{"scale":1,"offsetX":0,"offsetY":0}'}}:null,addEventListener(){}};
+ const ui=createMarketUI({document:doc,model:D,state:()=>current,art:()=>'<svg></svg>',act:fn=>{const n=fn(current);if(save)current=n;return save;},openProduct(){},openStockist(){},announce:t=>notices.push(t),announceSaved:t=>notices.push(t)});
+ const click=dataset=>listeners.get('click')({target:{closest:()=>({dataset,disabled:false})}}),pid=current.result.productId,desk=D.regionalDeliveryPartners(current)[0].id;
+ ui.update({visible:true});click({marketRelease:String(pid)});click({marketPortion:'all'});click({marketPlace:desk});click({marketStock:desk+':'+pid});assert.match(root.innerHTML,/委託する/);const before=structuredClone(current);save=false;click({marketConfirm:'deliver'});assert.deepEqual(current,before);save=true;click({marketConfirm:'deliver'});assert.equal(current.operations.at(-1).key,'regional-consign');assert.equal(current.core.cash,before.core.cash);assert.match(root.innerHTML,/委託中/);click({marketStock:desk+':'+pid});assert.equal(ui.diagnostics().editing,null);assert.match(notices.at(-1),/販売を続け/);
+ const row=visibleMarketRows(current,D,desk)[0];assert.equal(row.pending,0);assert.ok(row.entrusted>0);
+ const after=months(current,12);assert.ok(after.regionalConsignment.totalsByPartner[desk].count>0);const feedback=savedMarketSales({...after,core:{...after.core,month:after.core.month-1}},after);assert(feedback.every(r=>r.shopId===desk||r.shopId==='retail'||r.shopId==='town-liquor'||r.shopId==='supermarket'));
+ let prior=current,paid;for(let i=0;i<24;i++){paid=months(prior,1);if(savedMarketSales(prior,paid).some(x=>x.shopId===desk))break;prior=paid;}assert(savedMarketSales(prior,paid).some(x=>x.shopId===desk));doc.hidden=true;current=paid;assert.doesNotThrow(()=>ui.consume(prior,paid));assert(notices.some(x=>x.includes(D.regionalDeliveryPartners(paid).find(x=>x.id===desk).name)));ui.reset();
+});
+
+test('formal async write failure never publishes entrusted candidate or changes old revision',async()=>{
+ const {FormalIdbCommitBoundary}=await import('../formal-idb-commit-boundary.mjs');const {s,v}=setup();const next=D.consignRegionalProduct(s,v);
+ for(const code of ['QuotaExceededError','AbortError','conflict','readback']){let live=s;const barrier=new FormalIdbCommitBoundary({revision:7,write:async()=>{throw Object.assign(Error(code),{code});}});await assert.rejects(barrier.commit({prepare:()=>({text:D.serializeDistillery(next),snapshot:next}),apply:x=>live=x.snapshot}));assert.strictEqual(live,s);assert.equal(barrier.status.revision,7);}
+});
+
+test('official release ledger counts mixed old procurement and real consignment separately',async()=>{
+ const {buildReleaseLedger}=await import('../ledger-view.mjs');let s=naturalDeliveryFixture(),pid=s.result.productId,desk=D.regionalDeliveryPartners(s)[0];
+ let q=D.regionalDeliveryQuote(s,pid,desk.id);s=D.assignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationId:q.nextAllocationId,count:5});q=D.regionalDeliveryQuote(s,pid,desk.id);s=D.deliverRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationIds:q.allocationIds,deliveryId:q.nextDeliveryId});
+ s=D.enableConsignment(s);q=D.regionalDeliveryQuote(s,pid,desk.id);s=D.assignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationId:q.nextAllocationId,count:q.maxCount});q=D.regionalDeliveryQuote(s,pid,desk.id);s=D.consignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationIds:q.allocationIds,consignmentId:D.nextConsignmentId(s)});s=months(s,12);
+ const facts=D.nearbyComparisonFacts(s,{productIds:[pid]}),entry=buildReleaseLedger(s,{facts}).entries.find(e=>e.productId===pid),actual=s.regionalConsignment.totalsByProduct[pid];assert.ok(actual.count>0);assert.equal(entry.retail.count,0);assert.equal(entry.regional.count,5);assert.equal(entry.regional.customerSales,null);assert.equal(entry.consignment.customerSales,actual.count);assert.equal(entry.deliveries.count,5+actual.count);assert.equal(entry.deliveryComplete,true);assert.equal(entry.deliveries.revenue,round(entry.regional.revenue+actual.revenueCents/100));
+ const raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
+});
+
+test('each actual sale publishes record and release mirrors immediately, including final sellout',async()=>{
+ const {buildReleaseLedger}=await import('../ledger-view.mjs');const {s,v,productId}=setup();let g=D.consignRegionalProduct(s,v),first=false,last=false;
+ for(let n=0;n<180&&!last;n++){g=months(g,1);const p=g.core.products.find(x=>x.id===productId),r=g.releases.find(x=>x.productId===productId),actual=g.regionalConsignment.totalsByProduct[productId];if(!actual?.count)continue;first=true;assert.equal(r.consigned,actual.count);assert.equal(r.consignmentRevenue,actual.revenueCents/100);assert.equal(r.delivered,actual.count);assert.equal(r.sold,0);assert.equal(r.status,p.stock?'selling':'sold-out');const record=g.records.find(x=>x.productId===productId);assert.equal(record.consigned,r.consigned);assert.equal(record.delivered,r.delivered);const ledger=buildReleaseLedger(g,{facts:D.nearbyComparisonFacts(g,{productIds:[productId]})}).entries.find(e=>e.productId===productId);assert.equal(ledger.deliveryComplete,true);assert.equal(ledger.deliveries.count,actual.count);if(!p.stock){last=true;assert.equal(ledger.stock,0);assert.equal(ledger.status,'sold-out');}}
+ assert(first&&last);const raw=D.serializeDistillery(g);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
+});
+
+test('lawful regional/national/overseas contracts sell entrusted bottles without duplicating shared stock',async()=>{
+ const {naturalWorldCraftFixture,naturalWorldNationalFixture,worldMonths}=await import('./world-network-helpers.mjs');
+ const seen=new Set();
+ for(const kind of ['national','overseas']){
+  let s=kind==='national'?naturalWorldNationalFixture(3):naturalWorldCraftFixture(27);
+  for(const o of D.regionalOffers(s))s=D.acceptRegionalOffer(s,o.partnerId,o.id);
+  s=D.enableConsignment(s);const pid=s.result.productId,retail=D.storeMarketInventory(s,pid).retail;if(retail)s=D.setMarketRetail(s,{productId:pid,count:0});
+  const desks=D.regionalDeliveryPartners(s).filter(d=>D.regionalDeliveryQuote(s,pid,d.id).ok);assert(desks.length>=1);
+  for(let i=0;i<desks.length;i++){const desk=desks[i],q=D.regionalDeliveryQuote(s,pid,desk.id),count=Math.max(1,Math.floor(q.maxCount/(desks.length-i)));s=D.assignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationId:q.nextAllocationId,count});s=D.consignRegionalProduct(s,{partnerId:desk.id,productId:pid,contractId:desk.contractId,allocationIds:D.regionalDeliveryQuote(s,pid,desk.id).allocationIds,consignmentId:D.nextConsignmentId(s)});}
+  const old=structuredClone(s.regionalDeliveries.totalsByPartner);s=worldMonths(s,24);
+  for(const desk of desks){assert.ok(s.regionalConsignment.totalsByPartner[desk.id]?.count>0,desk.id);seen.add(desk.id);}
+  assert.deepEqual(s.regionalDeliveries.totalsByPartner,old);conservation(s);const raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
+ }
+ assert.deepEqual([...seen].sort(),['national-specialist-desk','overseas-import-desk','trial-region-desk'].sort());
+});

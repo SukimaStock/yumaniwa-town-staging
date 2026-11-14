@@ -19,7 +19,7 @@ const moduleFiles={app:'shop-app.mjs',sessionEntry:'session-entry.mjs',diagnosti
 // These are code-controlled dependency identifiers, never session values.
 // Keep them exact even if a player's name happens to be "age" or "stage7".
 const queryValues={
- assignment:['night-stage2-v01'],night:['stage1'],reactions:['s1-1'],dialogue:['a6-1'],hiring:['s2-1'],staff:['s3-1'],package:['c1l-1'],'h4-2':['1'],'h3-3a':['1'],
+ consignment:['night-stage4-v01'],assignment:['night-stage2-v01'],night:['stage1'],reactions:['s1-1'],dialogue:['a6-1'],hiring:['s2-1'],staff:['s3-1'],package:['c1l-1'],'h4-2':['1'],'h3-3a':['1'],
  v:['market-layout-r1','all-stores-s2-1','bar-v01-1','entry-diagnostics-20261111-r1','entry-diagnostics-20261111-r2','entry-diagnostics-20261111-r4'],rooms:['stage3-r1'],touch:['1'],status:['1'],aging:['1'],
  readout:['r1-1'],geometry:['r2-1'],preparation:['r3-1'],warehouse:['r4-1'],history:['r5-1'],experience:['a2-2'],quantity:['a3-1'],
  save:['h1-b2-2'],startup:['s1-slots-1'],ledger:['s2-1'],saveDev:['s4-1'],debug:['a4-2'],firstBottle:['a5-1','a5-1\\'],bar:['1'],scroll:['s1-1'],
