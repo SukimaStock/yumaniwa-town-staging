@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {jsonTokens,inspectTokens,inspectFormal,validateReferences,indexedReader} from './save-boundary.mjs';
+const stream=v=>[...jsonTokens(v)].join('');
+for(const [name,value] of Object.entries({keys:JSON.parse('{"10":1,"2":2,"01":3,"4294967295":4,"__proto__":5,"constructor":6,"toJSON":7}'),unicode:['"\\\n\r\t\b\f\u0000','\ud800','\udfff','\ud83d\ude00','日本語'],numbers:[-0,1e-7,1e21,Number.MIN_VALUE,Number.MAX_VALUE],empty:[null,[],{}],sparse:[,,null],alias:(()=>{const a={x:1};return [a,a]})()}))test('native exact '+name,()=>{assert.equal(stream(value),JSON.stringify(value));const m=inspectTokens(jsonTokens(value),{expected:JSON.stringify(value)});assert.equal(m.utf8Bytes,Buffer.byteLength(JSON.stringify(value)));});
+for(const [name,value] of Object.entries({undefined:undefined,nan:NaN,infinity:Infinity,bigint:1n,function:()=>{},symbol:Symbol(),date:new Date(),getter:{get x(){return 1}},cycle:(()=>{const a={};a.a=a;return a})()}))test('restricted domain reject '+name,()=>assert.throws(()=>stream(value)));
+test('strict limit boundary',()=>{assert.throws(()=>inspectTokens(jsonTokens('x'),{limit:3}));assert.equal(inspectTokens(jsonTokens('x'),{limit:4}).utf16Units,3);});
+const town=()=>{const events=[{id:'e1',type:'arrival',v:1},{id:'e2',type:'reaction'},{id:'e3',type:'arrival',v:2}];return {events,arrivals:[events[0],events[2]]}};
+test('reference malformed indices reject without mutation',()=>{for(const index of [[0],[0,0],[0,1],[0,99],[2,0]]){const t=town(),before=JSON.stringify(t);assert.throws(()=>validateReferences(t,indexedReader(t.events,index)));assert.equal(JSON.stringify(t),before);}});
+test('missing duplicate bad IDs and changed values reject',()=>{for(const mutate of [t=>t.events.splice(0,1),t=>t.events[1].id='e1',t=>t.events[0].id='',t=>t.arrivals=[{...t.events[0],v:9},t.events[2]]]){const t=town();mutate(t);assert.throws(()=>validateReferences(t));}});
+test('local consistency deliberately does not claim operation provenance',()=>{const t=town();t.events[0].v=999;assert.doesNotThrow(()=>validateReferences(t));});
+test('dotted property names do not impersonate virtual slot',()=>{const v={'labConnection.town.arrivals':[1],labConnection:{town:{arrivals:null}}},arrivals={length:1,at:()=>2};assert.equal([...jsonTokens(v,{arrivals})].join(''),JSON.stringify({'labConnection.town.arrivals':[1],labConnection:{town:{arrivals:[2]}}}));});
+
+test("formal wrapper cannot relax official cap",()=>{const g={labConnection:{town:{events:[],arrivals:[]}},padding:"x".repeat(6016384)};assert.throws(()=>inspectFormal(g,{limit:Infinity}),/formal cap/);});
