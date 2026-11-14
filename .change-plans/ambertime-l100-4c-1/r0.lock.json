@@ -1,0 +1,111 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "42c2cfc497a6221401970436709d602a489bd4f3b11ebb3466f87d7a20068769",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+    "changeId": "ambertime-l100-4c-1",
+    "revision": 0,
+    "change": "Research persistent generation management and recovery without modifying formal saves",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/development-save.mjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-l100-4c-1/r0.lock.json",
+      "works/ambertime/l100-4c-1/**"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/ambertime/shop-app.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/partner-orders.mjs",
+      "works/ambertime/recall/**",
+      "engine/**",
+      "data/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Audit current storage and H1-A4 contracts; compare A single key B two generation C IDB D manifest split",
+      "Prototype isolated generation storage with failure injection and three 100-year byte-preserving inputs",
+      "Measure capacity/time and formal recovery identity; record actual browser limits; Draft PR only"
+    ],
+    "ownerDecisions": [
+      "User Sentinel_8d38b684ac4881919c40a5f017809a8e explicitly authorizes L100-4C-1 isolated storage research, tests and Draft PR; forbids formal changes, merge and Production"
+    ],
+    "hqDecisions": [
+      "No formal adoption. Research objects never enter official storage. Formal model/save/caps/RNG/history/UI remain unchanged."
+    ],
+    "rulesApplied": [
+      "Change OS Plan Lock → Scope → Risk → Impact",
+      "debug=1以外は入口・処理なし",
+      "EXPRESSION-AUDIT"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Research only; real browser and physical Safari not certified"
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Remove only isolated research files and Plan Lock; player data unchanged.",
+    "outOfScope": [
+      "Production, merges, player data",
+      "Save version, size cap, persistence backend, replay semantics, recall selection, canvas",
+      "New external permissions or browser safety bypass"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "No formal adoption or persistent archive durability certification"
+    ],
+    "alternativesRejected": [
+      "Delete historical records",
+      "Increase or bypass cap",
+      "Treat wire-only reduction as formal-state improvement"
+    ],
+    "boundaryCases": [
+      "Faults before/after commit, corrupt/missing/mixed generations, stale revisions and concurrent writers",
+      "Old verified generation remains; no automatic new game; hash is not authentication",
+      "Browser completion is not physical durability; total origin loss detection impossible locally"
+    ],
+    "testPlan": [
+      "Audit current storage and H1-A4 contracts; compare A single key B two generation C IDB D manifest split",
+      "Prototype isolated generation storage with failure injection and three 100-year byte-preserving inputs",
+      "Measure capacity/time and formal recovery identity; record actual browser limits; Draft PR only"
+    ],
+    "problem": "Single-key storage lacks durable previous normal generation after corruption.",
+    "currentContract": "Formal v8/game20 validates full expanded JSON below6016384 units.",
+    "whyExistingIsInsufficient": "Current write success cannot recover from post-write corruption or origin loss.",
+    "design": "Immutable v8 bytes in isolated C transactional generation and D manifest chunk adapters. Full authoritative validator remains mandatory; no official persistence changes.",
+    "migration": "None",
+    "compatibility": "Inputs read-only and untouched; research representations are not formal saves.",
+    "promotionRisk": "Draft PR only; do not merge."
+  }
+}
