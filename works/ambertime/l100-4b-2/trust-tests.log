@@ -1,0 +1,29 @@
+✔ valid prefix, first save, next save and detached roundtrip preserve formal session (460.708564ms)
+✔ reject empty capability without writes (306.363019ms)
+✔ reject cloned capability without writes (295.323914ms)
+✔ reject JSON token capability without writes (305.000794ms)
+✔ reject self-hashed receipt capability without writes (324.905507ms)
+✔ reject altered resealed context capability without writes (324.882458ms)
+✔ reject wrong model receipt capability without writes (313.896827ms)
+✔ reject wrong storage-generation receipt capability without writes (324.19221ms)
+✔ cross-instance and cross-source capabilities cannot be confused (418.055829ms)
+✔ reject changed prefix and retain old capability after failed update (440.571868ms)
+✔ reject missing tail and retain old capability after failed update (488.791964ms)
+✔ reject duplicate tail and retain old capability after failed update (490.68417ms)
+✔ reject RNG and retain old capability after failed update (455.388145ms)
+✔ reject generation and retain old capability after failed update (455.373568ms)
+✔ reject wrong history and retain old capability after failed update (480.225751ms)
+✔ reject wrong recall and retain old capability after failed update (590.280656ms)
+✔ reject wrong elapsed and retain old capability after failed update (537.486762ms)
+✔ reordered new tail is rejected (259.906637ms)
+✔ caller mutating state or inspect context never changes trusted private records (337.438696ms)
+✔ corrupt v8 and mismatched version cannot mint a capability (312.876624ms)
+✔ receipt cannot cross cold module lifetime; full original admission is required (345.172507ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8471.96861
