@@ -1,0 +1,65 @@
+{
+  "base": "6a1707c106afb4bf0658a274edf404bbc541de64",
+  "prs": [
+    {
+      "number": 828,
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/828",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "739754b57e80620235ca2550d2978f69c0813294",
+      "base": "29697583d15f4e4524ba39ba9052b790fd66ae9c",
+      "scope": "Reference only; no files cherry-picked"
+    },
+    {
+      "number": 831,
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/831",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "05d20df8148d14b6f5029e59b989d252b4d05923",
+      "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+      "scope": "Reference only; no files cherry-picked"
+    },
+    {
+      "number": 832,
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/832",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "03f8312f65cfffb869393bda431beabcec746aea",
+      "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+      "scope": "Reference only; no files cherry-picked"
+    },
+    {
+      "number": 833,
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/833",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "2b3dcc99b10cce336e1b39d4af451c5d867b2200",
+      "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+      "scope": "Reference only; no files cherry-picked"
+    },
+    {
+      "number": 834,
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/834",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "0e2df2f9b9d589bfe64a02fae90d1a6617b1e2f7",
+      "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+      "scope": "Reference only; no files cherry-picked"
+    },
+    {
+      "number": 835,
+      "url": "https://github.com/SukimaStock/yumaniwa-town-staging/pull/835",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head": "54071ffb2d4301360e61ebcbc8440de8aab74ced",
+      "base": "28f00c81cb1b374758da34dc79cf7f63dfe657c2",
+      "scope": "Reference only; no files cherry-picked"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "policy": "wide",
+  "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+  "inputSha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+  "runtime": "v24.22.1",
+  "method": "Node current v8 cold restore using source-seam instrumentation, then warm save. Not browser. Shared host; concurrent work possible. restoreMs includes expandMs; model phase timings are inclusive in fullSessionReadMs; cloneMs overlaps replay metrics. Independent parse/expand are separate diagnostic samples.",
+  "times": {
+    "independentJsonParseMs": 29.091585999999992,
+    "independentExpandMs": 82.37091799999999,
+    "fullSessionReadMs": 105820.31291200001,
+    "warmSerializeSessionMs": 1176.2903579999984
+  },
+  "phases": {
+    "expandMs": 85.345167,
+    "restoreMs": 105718.588955,
+    "caskSlotsMs": 0.1296650000003865,
+    "recentLedgerMs": 6.984576999995625,
+    "historyRecordMs": 4.942361000008532,
+    "recallRecordMs": 31.665372000003117
+  },
+  "detail": {
+    "coreValidationMs": 1.9429900000000089,
+    "applyOperationMs": 105425.24489700011,
+    "derivedMs": 30.58415799999409,
+    "equalityMs": 84.3145530000038,
+    "checkpointMs": 2.018290000007255,
+    "replayed": 1528
+  },
+  "cloneMs": 90598.6873119997,
+  "cloneCalls": 42236,
+  "byteRoundTripEqual": true,
+  "memory": {
+    "rss": 722423808,
+    "heapTotal": 459309056,
+    "heapUsed": 360931088,
+    "external": 4110102,
+    "arrayBuffers": 212115
+  },
+  "maxRssKiB": 728088
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/local-100-year-1200-v8.json",
+    "sha256": "5f0b2075d90a69a188d98fa9506c6ec39439baa73fb4b0b92b8720fddc8b1244",
+    "bytes": 3467349
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/local-30-year-360-v8.json",
+    "sha256": "0bc9e75c6d29140b8899a8a99f2020d9820b8e3c962aa46d4d5389d1c87c3dc9",
+    "bytes": 1542388
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/local-60-year-720-v8.json",
+    "sha256": "07394cf9aa7c0a31f39d75dec9a6a42d955eff9ebb194a2a8815511d439f8568",
+    "bytes": 2411833
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/local-90-year-1080-v8.json",
+    "sha256": "31a68b7d5153862668251cc5e7131fbaf73a503c23fd5c54934c00771b310bbc",
+    "bytes": 3154464
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/mixed-100-year-1200-v8.json",
+    "sha256": "0e0eb95dda554fd86c887c17d07ad539f71f3e9a00e27e0fb4cb1dd39c3e49cb",
+    "bytes": 4535936
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/mixed-30-year-360-v8.json",
+    "sha256": "4f042009960cc58785cce01bc7ee413c8503b72dc2e08a3b9f6dbc80bc1afde4",
+    "bytes": 1694892
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/mixed-60-year-720-v8.json",
+    "sha256": "c7a123afd6734977de4f46d244b7b4085c278128630e73d90156cd88095b4ff6",
+    "bytes": 2646568
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/mixed-90-year-1080-v8.json",
+    "sha256": "54fa50613773295f2fec14ce10d59ba51ee39cdfdd1de5bf23f1c52b5aada842",
+    "bytes": 4022134
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/wide-100-year-1200-v8.json",
+    "sha256": "c7baeda8b37cfefe79b33eaa6d535562a8a0426fab0ec68bba94b0a720595015",
+    "bytes": 5282030
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/wide-30-year-360-v8.json",
+    "sha256": "3e5464f100f92d25ca27e8f0c001e335aa13750b35e4ba7ef698bbb4ddd1d221",
+    "bytes": 2093869
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/wide-60-year-720-v8.json",
+    "sha256": "dda24b698d0c09ab6d6583c246a94f675d348c48a112da5aed927bb3a85e7711",
+    "bytes": 3323464
+  },
+  {
+    "file": "ambertime-l100-baseline/extracted/paused/wide-90-year-1080-v8.json",
+    "sha256": "d208a9133d736af8d2cc1af85efed8d436bf85c22abf6148719ce33e756f5e89",
+    "bytes": 4690748
+  },
+  {
+    "file": "l100-2/handover-fixtures/local-before-handover-321-v8-paused.json",
+    "sha256": "83e217b8b2a7a43908463e9bb9149e479af4ede8ef8d9f774630bcd49b0fa578",
+    "bytes": 1585051
+  },
+  {
+    "file": "l100-2/handover-fixtures/local-before-handover-636-v8-paused.json",
+    "sha256": "e806590176c9ceaba2d8abd4ba128c3d7f81aad7bf55ba3e571510049136be61",
+    "bytes": 2207667
+  },
+  {
+    "file": "l100-2/handover-fixtures/local-before-handover-955-v8-paused.json",
+    "sha256": "8d64036c967614778eb1408515302e5c5be5bc7fc9ad6a1f2d8dff89b90c094e",
+    "bytes": 2971486
+  },
+  {
+    "file": "l100-2/handover-fixtures/mixed-before-handover-306-v8-paused.json",
+    "sha256": "2ea66c5c0d5bc21a543c762374ee9c5c850867bf01f2547c23df3bfca653425a",
+    "bytes": 1669634
+  },
+  {
+    "file": "l100-2/handover-fixtures/mixed-before-handover-610-v8-paused.json",
+    "sha256": "e87f7513fe41612d9183b928cc3232d24254138f39f3c4f30125d6c3930b2987",
+    "bytes": 2445233
+  },
+  {
+    "file": "l100-2/handover-fixtures/mixed-before-handover-918-v8-paused.json",
+    "sha256": "eea966e7290c0baf623b9d7b17f778a4bb7dc32acdb86452a1a5945c2d75b634",
+    "bytes": 3465504
+  },
+  {
+    "file": "l100-2/handover-fixtures/wide-before-handover-314-v8-paused.json",
+    "sha256": "30bb56897e7869bae281354e9f7313007d8001f7564573cbc5c0cb03e6dbb67a",
+    "bytes": 2113704
+  },
+  {
+    "file": "l100-2/handover-fixtures/wide-before-handover-630-v8-paused.json",
+    "sha256": "d1a17a910b82c8a0fe1ea7108b26c80c54780eb0270d19cff1de466def48d89c",
+    "bytes": 3216306
+  },
+  {
+    "file": "l100-2/handover-fixtures/wide-before-handover-930-v8-paused.json",
+    "sha256": "cc00aebd002e61673b417b19448e8b3b35590b4e70287dd284a24dd149c9e516",
+    "bytes": 4206290
+  }
+]
