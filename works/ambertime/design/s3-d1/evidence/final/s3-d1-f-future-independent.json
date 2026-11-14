@@ -1,0 +1,233 @@
+{
+  "status": "complete",
+  "inputGameSha": "b5701cdac0a8277abe9be432cc5dd3ea126fcedc8438a62567bfce9a80d50d55",
+  "fullRoundtrip": true,
+  "steps": [
+    {
+      "name": "tickDistillery",
+      "month": 1200,
+      "index": 1730,
+      "afterMonth": 1201,
+      "stateSha": "20f384e06cda9d33292c8d57531cf2fd0a4c049e5fbe65ae6e43b278564c6cbd",
+      "operations": 1731
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1201,
+      "index": 1731,
+      "afterMonth": 1202,
+      "stateSha": "91390d30d3e47bb4895aa0d6ad3ba5562681ab31d09ec0946c29d9bebf432b92",
+      "operations": 1732
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1202,
+      "index": 1732,
+      "afterMonth": 1203,
+      "stateSha": "93fc4bc4be9df3e0e8e6b9ce6c188012ea296f4296aba02e00768e6a23552d50",
+      "operations": 1733
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1203,
+      "index": 1733,
+      "afterMonth": 1204,
+      "stateSha": "cff43d61a1c975bc47995f3530325d623337f9b897921f0a2ffa65bb09778226",
+      "operations": 1734
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1204,
+      "index": 1734,
+      "afterMonth": 1205,
+      "stateSha": "ce714c41ca4a6731a78731ef45511a7777038def2d2519376024381e8cac8c9e",
+      "operations": 1735
+    },
+    {
+      "name": "bottleBranded",
+      "month": 1205,
+      "index": 1735,
+      "afterMonth": 1205,
+      "stateSha": "1d19715afb479ed1734205c3e42d835f638ff604a198ff3e95e3489af24887ea",
+      "operations": 1736
+    },
+    {
+      "name": "listBottles",
+      "month": 1205,
+      "index": 1736,
+      "afterMonth": 1205,
+      "stateSha": "bbc3eca7b23a6fc649b9d6f7c27c2d23e3c2fc295d2205f5e3b4496af9b7fc0d",
+      "operations": 1737
+    },
+    {
+      "name": "setMarketRetail",
+      "month": 1205,
+      "index": 1737,
+      "afterMonth": 1205,
+      "stateSha": "24e9e9066a467b31b44d65b362e1795cdb46e1d44ed21e657399cc0b0823572d",
+      "operations": 1738
+    },
+    {
+      "name": "assignStoreProduct",
+      "month": 1205,
+      "index": 1738,
+      "afterMonth": 1205,
+      "stateSha": "04c984497244da170e21975df320518eb1819d7f7a5795f0f9809b491bd2d917",
+      "operations": 1739
+    },
+    {
+      "name": "assignStoreProduct",
+      "month": 1205,
+      "index": 1739,
+      "afterMonth": 1205,
+      "stateSha": "a6644275eac6ec5c6bd5ff870bf0e53f47e128901dd7dad4349f8227194dbc40",
+      "operations": 1740
+    },
+    {
+      "name": "assignStoreProduct",
+      "month": 1205,
+      "index": 1740,
+      "afterMonth": 1205,
+      "stateSha": "c9726cc842e86dce96bc2bec22f3997a1ada82a4d9ef53d1d65bf5f92b66278e",
+      "operations": 1741
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1205,
+      "index": 1741,
+      "afterMonth": 1206,
+      "stateSha": "357bae3f14377acca583cc4f31e052691bb8cb11dd9f5225a72b39d4af729753",
+      "operations": 1742
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1206,
+      "index": 1742,
+      "afterMonth": 1207,
+      "stateSha": "4a0a5c834877d1f069a7457e1c51ce60cf9cf503a7c53630b5f9fe0de9ca4a32",
+      "operations": 1743
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1207,
+      "index": 1743,
+      "afterMonth": 1208,
+      "stateSha": "5ea18ad2adbb10dde3bc8ccd16585ee32e76c4584d6f48ddc919666a0407901e",
+      "operations": 1744
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1208,
+      "index": 1744,
+      "afterMonth": 1209,
+      "stateSha": "4917f1abd06f26aba707a52cc0b49476c6325b0521c39dcc8a0b99e66054ce38",
+      "operations": 1745
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1209,
+      "index": 1745,
+      "afterMonth": 1210,
+      "stateSha": "a2aceb1906d149ed78a512c39ba72823cb267dc524db3ac3aa1d093fb2416704",
+      "operations": 1746
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1210,
+      "index": 1746,
+      "afterMonth": 1211,
+      "stateSha": "1debdd1f6e39d9287896cb1f2f6c368ba63aece4f5a32d1aaeaaaf6eb0211db7",
+      "operations": 1747
+    },
+    {
+      "name": "tickDistillery",
+      "month": 1211,
+      "index": 1747,
+      "afterMonth": 1212,
+      "stateSha": "82ec4f599a4bf126e4129467be05280d0286e57ff002a3c283cc346ec7a34226",
+      "operations": 1748
+    }
+  ],
+  "months": [
+    {
+      "month": 1201,
+      "game": "20f384e06cda9d33292c8d57531cf2fd0a4c049e5fbe65ae6e43b278564c6cbd",
+      "records": "8af43fac43c083646a9d161d790a31fb82ff64ebf5a3fec64e60b44997d5f3ad",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1202,
+      "game": "91390d30d3e47bb4895aa0d6ad3ba5562681ab31d09ec0946c29d9bebf432b92",
+      "records": "90251d7d4f9ba555715e9565e65da374d84b52c074e8855d7e1542f065a76858",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1203,
+      "game": "93fc4bc4be9df3e0e8e6b9ce6c188012ea296f4296aba02e00768e6a23552d50",
+      "records": "1789eca4b791f118cd954d508ab6a59d0aaf2b90607f8771c00cf43a96f7ff32",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1204,
+      "game": "cff43d61a1c975bc47995f3530325d623337f9b897921f0a2ffa65bb09778226",
+      "records": "97c6693982155080867d433871afa623c7dee7906a7cddf965e303d9c4f3217b",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1205,
+      "game": "ce714c41ca4a6731a78731ef45511a7777038def2d2519376024381e8cac8c9e",
+      "records": "c052e8af7a95aeaab76d17858937f28ea801eb77fbc1a5cd79a68d7e615bfb1d",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1206,
+      "game": "357bae3f14377acca583cc4f31e052691bb8cb11dd9f5225a72b39d4af729753",
+      "records": "c7fc953843bd6fe12a043532575167c05af621c5945a2929c00c2ecbafbe4dce",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1207,
+      "game": "4a0a5c834877d1f069a7457e1c51ce60cf9cf503a7c53630b5f9fe0de9ca4a32",
+      "records": "6109931361d02cc74d2de237ad89ae45292b5a6f8d9b675ac74e600d94412390",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1208,
+      "game": "5ea18ad2adbb10dde3bc8ccd16585ee32e76c4584d6f48ddc919666a0407901e",
+      "records": "2319d4d3ee8cfeda0d2077f731eab8fe1b5105c24e2e2ae2387ef2a233785e74",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1209,
+      "game": "4917f1abd06f26aba707a52cc0b49476c6325b0521c39dcc8a0b99e66054ce38",
+      "records": "bda9990497e1205c168e308bdd346202856062fee76f13bea1127aa55362c07a",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1210,
+      "game": "a2aceb1906d149ed78a512c39ba72823cb267dc524db3ac3aa1d093fb2416704",
+      "records": "7c5e559f9fa779dec90ab46fafa5636174b8ad43c41054d17a194d590a3828d2",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1211,
+      "game": "1debdd1f6e39d9287896cb1f2f6c368ba63aece4f5a32d1aaeaaaf6eb0211db7",
+      "records": "826c78715079785026fbe8efdb2bf43eb8fae83afc6194c5220e6bf7d062ca6c",
+      "dialogue": "4226d24a61406f0fe49111353dba85bff077e46042f187290c6d736760cf3d90"
+    },
+    {
+      "month": 1212,
+      "game": "82ec4f599a4bf126e4129467be05280d0286e57ff002a3c283cc346ec7a34226",
+      "records": "466f66234016f1ef484023543580f590a222cd924f28df642f042cda19497706",
+      "dialogue": "5e2c9337ad65183bed0685499b6e4e57abaa8e5d8745d8b537b0aa9f7433d43f"
+    }
+  ],
+  "newEvents": 154,
+  "newAttempts": 383,
+  "newArrivals": 119,
+  "newReleases": 1,
+  "newDeliveries": 13,
+  "finalGameSha": "82ec4f599a4bf126e4129467be05280d0286e57ff002a3c283cc346ec7a34226",
+  "finalInputSha": "0f7a8058449f4432c6e54834499a90ea2ff7d4b305f87e21ad14d5e946548b01",
+  "peakRssKiB": 1392268
+}

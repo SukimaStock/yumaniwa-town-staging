@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "31454ecd656f457e438dda0678c1c5e048164cff3a2b7d881f9872616c4b29c0",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-s3-d1-canonical",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "S3-D1 isolated canonical codec, exact full game roundtrip, future equivalence and fault evaluation",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "b7b5473b8081ae91f69744befe7bad13188a0994",
+    "canonicalSources": [
+      "User S3-D1 request 2026-11-07",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "PR #854 and #855"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-s3-d1-canonical/r0.lock.json",
+      "works/ambertime/design/s3-d1/**",
+      "works/ambertime/tests/s3-d1-*.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "works/ambertime/save-codec.mjs",
+      "works/ambertime/development-save.mjs",
+      "works/ambertime/partner-orders.mjs"
+    ],
+    "expectedChanges": [
+      "Independent JSON-derived history codec preserving all records and property order.",
+      "Exact roundtrip gate, public-operation future comparison, failure rejection and cold measurements.",
+      "Research reports and D2 decision only."
+    ],
+    "ownerDecisions": [
+      "User authorizes isolated D1 research and Staging research merge after tests/CI; no formal runtime or D2."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "Validation-only isolated runners; Plan Lock before repository changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Node only; no browser capacity claim."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert isolated research/test/report additions; runtime and saves unchanged.",
+    "outOfScope": [
+      "D2",
+      "Runtime/formal storage/caps",
+      "Production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Chromium actual storage",
+      "iPhone Safari"
+    ],
+    "alternativesRejected": [
+      "Truncate history or raise caps",
+      "Claim research codec is formal save"
+    ],
+    "boundaryCases": [
+      "Missing records, reordered IDs, cross-generation mix, untrusted checkpoint, old v8 compatibility."
+    ],
+    "testPlan": [
+      "Verify existing fixture SHA; full JSON exact roundtrip; gated future equivalence; corruption rejection and old original protection; independent review."
+    ]
+  }
+}

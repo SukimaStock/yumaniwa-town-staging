@@ -1,0 +1,108 @@
+✔ independent original JSON exact including container/property order and JSON boundary values (5.078602ms)
+✔ independent anchors mandatory (0.853836ms)
+✔ reject event missing, even after self-hash recomputation; original unchanged (0.573523ms)
+✔ reject attempt missing, even after self-hash recomputation; original unchanged (1.950388ms)
+✔ reject ID duplicate, even after self-hash recomputation; original unchanged (0.693505ms)
+✔ reject ordinal changed, even after self-hash recomputation; original unchanged (0.458557ms)
+✔ reject unknown schema, even after self-hash recomputation; original unchanged (0.469101ms)
+✔ reject columns missing, even after self-hash recomputation; original unchanged (0.465565ms)
+✔ reject value changed, even after self-hash recomputation; original unchanged (1.058634ms)
+✔ reject invalid source, even after self-hash recomputation; original unchanged (1.231326ms)
+✔ reject arrival changed, even after self-hash recomputation; original unchanged (0.508787ms)
+✔ reject mixed generation, even after self-hash recomputation; original unchanged (0.363604ms)
+✔ reject incomplete candidate, even after self-hash recomputation; original unchanged (0.279273ms)
+✔ reject version mismatch, even after self-hash recomputation; original unchanged (0.55751ms)
+✔ reject codec schema mismatch, even after self-hash recomputation; original unchanged (0.31202ms)
+✔ reject town property order, even after self-hash recomputation; original unchanged (1.574634ms)
+✔ shadowEvents, self-hash original rejected before hydrate (6.212507ms)
+✔ shadowEvents, self-hash recomputed rejected before hydrate (1.308704ms)
+✔ shadowAttempts, self-hash original rejected before hydrate (0.829512ms)
+✔ shadowAttempts, self-hash recomputed rejected before hydrate (0.71693ms)
+✔ shadowArrivals, self-hash original rejected before hydrate (1.156182ms)
+✔ shadowArrivals, self-hash recomputed rejected before hydrate (0.554012ms)
+✔ correctShadow, self-hash original rejected before hydrate (0.881673ms)
+✔ correctShadow, self-hash recomputed rejected before hydrate (0.533875ms)
+✔ unknownEnvelope, self-hash original rejected before hydrate (1.733693ms)
+✔ unknownEnvelope, self-hash recomputed rejected before hydrate (0.478671ms)
+✔ unknownTable, self-hash original rejected before hydrate (0.708066ms)
+✔ unknownTable, self-hash recomputed rejected before hydrate (0.440102ms)
+✔ unusedSchema, self-hash original rejected before hydrate (0.321471ms)
+✔ unusedSchema, self-hash recomputed rejected before hydrate (0.6314ms)
+✔ duplicateSchema, self-hash original rejected before hydrate (0.293793ms)
+✔ duplicateSchema, self-hash recomputed rejected before hydrate (0.373757ms)
+✔ emptySchema, self-hash original rejected before hydrate (0.532568ms)
+✔ emptySchema, self-hash recomputed rejected before hydrate (0.811674ms)
+✔ duplicateKey, self-hash original rejected before hydrate (0.296972ms)
+✔ duplicateKey, self-hash recomputed rejected before hydrate (0.313963ms)
+✔ schemaId, self-hash original rejected before hydrate (0.41199ms)
+✔ schemaId, self-hash recomputed rejected before hydrate (0.438483ms)
+✔ columns, self-hash original rejected before hydrate (0.676198ms)
+✔ columns, self-hash recomputed rejected before hydrate (0.330143ms)
+✔ missingOrdinal, self-hash original rejected before hydrate (0.468747ms)
+✔ missingOrdinal, self-hash recomputed rejected before hydrate (0.201069ms)
+✔ duplicateOrdinal, self-hash original rejected before hydrate (0.395233ms)
+✔ duplicateOrdinal, self-hash recomputed rejected before hydrate (0.369593ms)
+✔ reorderEvents, self-hash original rejected before hydrate (0.406587ms)
+✔ reorderEvents, self-hash recomputed rejected before hydrate (1.790816ms)
+✔ missingEvent, self-hash original rejected before hydrate (0.656674ms)
+✔ missingEvent, self-hash recomputed rejected before hydrate (0.637845ms)
+✔ duplicateRow, self-hash original rejected before hydrate (0.483103ms)
+✔ duplicateRow, self-hash recomputed rejected before hydrate (0.493648ms)
+✔ duplicateId, self-hash original rejected before hydrate (0.410307ms)
+✔ duplicateId, self-hash recomputed rejected before hydrate (0.609041ms)
+✔ wrongId, self-hash original rejected before hydrate (0.534593ms)
+✔ wrongId, self-hash recomputed rejected before hydrate (0.441505ms)
+✔ source, self-hash original rejected before hydrate (0.736285ms)
+✔ source, self-hash recomputed rejected before hydrate (0.46046ms)
+✔ futureSource, self-hash original rejected before hydrate (2.004455ms)
+✔ futureSource, self-hash recomputed rejected before hydrate (1.006789ms)
+✔ sourceTime, self-hash original rejected before hydrate (1.373204ms)
+✔ sourceTime, self-hash recomputed rejected before hydrate (0.685929ms)
+✔ attemptSource, self-hash original rejected before hydrate (0.830404ms)
+✔ attemptSource, self-hash recomputed rejected before hydrate (0.621573ms)
+✔ attemptTime, self-hash original rejected before hydrate (0.44088ms)
+✔ attemptTime, self-hash recomputed rejected before hydrate (0.409066ms)
+✔ missingArrival, self-hash original rejected before hydrate (0.437382ms)
+✔ missingArrival, self-hash recomputed rejected before hydrate (0.405935ms)
+✔ reorderArrivals, self-hash original rejected before hydrate (0.37758ms)
+✔ reorderArrivals, self-hash recomputed rejected before hydrate (0.390911ms)
+✔ wrongArrival, self-hash original rejected before hydrate (0.454316ms)
+✔ wrongArrival, self-hash recomputed rejected before hydrate (0.497703ms)
+✔ missingTownKey, self-hash original rejected before hydrate (0.390923ms)
+✔ missingTownKey, self-hash recomputed rejected before hydrate (0.544824ms)
+✔ duplicateTownKey, self-hash original rejected before hydrate (0.912103ms)
+✔ duplicateTownKey, self-hash recomputed rejected before hydrate (0.214162ms)
+✔ wrongTownKey, self-hash original rejected before hydrate (0.229111ms)
+✔ wrongTownKey, self-hash recomputed rejected before hydrate (0.195322ms)
+✔ integrity, self-hash original rejected before hydrate (0.260816ms)
+✖ integrity, self-hash recomputed rejected before hydrate (1.05665ms)
+✔ normal candidate preserves legitimate active game fields (0.568362ms)
+✔ non-JSON data cannot be silently normalized away (0.752011ms)
+ℹ tests 80
+ℹ suites 0
+ℹ pass 79
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 188.524211
+
+✖ failing tests:
+
+test at works/ambertime/tests/s3-d1-r-structure.test.mjs:19:82
+✖ integrity, self-hash recomputed rejected before hydrate (1.05665ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/de42cc6691b2/ambertime-d1/works/ambertime/tests/s3-d1-r-structure.test.mjs:19:317)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
