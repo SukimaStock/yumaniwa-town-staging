@@ -1,0 +1,33 @@
+YUMANIWA SCOPE GUARD v0.2
+Change: Isolated small-v8 independent replay and collector boundary investigation
+Base:   8f50ecac82066fcb02958f7514d64e79d19696f5
+Target: worktree (a20b157ac5d955812d755e50e07de694e587f1b9)
+Changed paths: 25
+
+PASS scope.allowed .change-plans/ambertime-independent-record-replay/r0.lock.json [.change-plans/ambertime-independent-record-replay/r0.lock.json] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/REPORT.md [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/filled-origin-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/final-scope-guard.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/impact-check.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/independent-review-results.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/independent-review.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/initial-run.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/related-tests.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/results-after-fix.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/results.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/review-collision-raw.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/review-original-collision.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/review-repeat-output.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/risk-check.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/scope-guard.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/tests-after-protection-fix.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/tests-first.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/reference.mjs [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/replay.mjs [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/run.mjs [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/independent-record-replay.test.mjs [works/ambertime/tests/independent-record-replay.test.mjs] — changed path is within allowedPaths
+
+Scope: PASS

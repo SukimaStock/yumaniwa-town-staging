@@ -1,0 +1,11 @@
+file:///workspace/scratch/de42cc6691b2/ambertime-independent-replay/works/ambertime/design/independent-record-replay/run.mjs:17
+ const path=resolve(process.env.AMBERTIME_NORMAL_V8),bytes=readFileSync(path),before=sha(bytes);if(before!=='48751764f194f0e9909abd1186db79fa9d50b832ecbb14a776b5b8eb94198693')throw Error('Unexpected original v8');
+                                                                                                                                                                                     ^
+
+Error: Unexpected original v8
+    at file:///workspace/scratch/de42cc6691b2/ambertime-independent-replay/works/ambertime/design/independent-record-replay/run.mjs:17:182
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1

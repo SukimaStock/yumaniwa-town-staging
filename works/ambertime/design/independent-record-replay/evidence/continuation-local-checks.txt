@@ -1,0 +1,76 @@
+Documentation-only continuation local checks against unchanged r0; worktree based on d79d4d654a47efe8e4f31ed7730b4dcd03271db6.
+No research code, formal code or existing evidence changes. Prior tests reused by unchanged code SHA.
+\nCOMMAND: node tools/change-scope-guard.cjs --plan /tmp/ambertime-record-replay-plan.json
+YUMANIWA SCOPE GUARD v0.2
+Change: Isolated small-v8 independent replay and collector boundary investigation
+Base:   8f50ecac82066fcb02958f7514d64e79d19696f5
+Target: worktree (d79d4d654a47efe8e4f31ed7730b4dcd03271db6)
+Changed paths: 28
+
+PASS scope.allowed .change-plans/ambertime-independent-record-replay/r0.lock.json [.change-plans/ambertime-independent-record-replay/r0.lock.json] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/REPORT.md [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/continuation-audit.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/filled-origin-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/final-impact-check.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/final-risk-check.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/final-scope-guard.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/impact-check.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/independent-review-results.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/independent-review.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/initial-run.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/related-tests.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/results-after-fix.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/results.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/review-collision-raw.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/review-original-collision.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/review-repeat-output.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/risk-check.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/scope-guard.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/tests-after-protection-fix.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/evidence/tests-first.txt [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/reference.mjs [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/replay.mjs [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/design/independent-record-replay/run.mjs [works/ambertime/design/independent-record-replay/**] — changed path is within allowedPaths
+PASS scope.allowed works/ambertime/tests/independent-record-replay.test.mjs [works/ambertime/tests/independent-record-replay.test.mjs] — changed path is within allowedPaths
+
+Scope: PASS
+\nCOMMAND: node tools/change-risk-check.cjs --plan /tmp/ambertime-record-replay-plan.json
+YUMANIWA RISK CHECK v0.2
+PASS risk.repository repository identity matches SukimaStock/yumaniwa-town-staging
+PASS risk.plan-level planLevel standard satisfies standard
+PASS risk.class required class WORK declared
+PASS risk.impact required impact is declared for checking
+PASS risk.impact required impact is declared for checking
+
+Risk: PASS
+\nCOMMAND: node tools/change-impact-check.cjs --plan /tmp/ambertime-record-replay-plan.json
+YUMANIWA IMPACT CHECK v0.2
+Change: Isolated small-v8 independent replay and collector boundary investigation
+Base:   8f50ecac82066fcb02958f7514d64e79d19696f5
+Target: worktree (d79d4d654a47efe8e4f31ed7730b4dcd03271db6)
+Changed paths: 28
+Rule-covered paths: 12
+
+PASS impact.declared work.regression [works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json, works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json, works/ambertime/design/independent-record-replay/evidence/continuation-audit.json, works/ambertime/design/independent-record-replay/evidence/filled-origin-v8.json, works/ambertime/design/independent-record-replay/evidence/independent-review-results.json, works/ambertime/design/independent-record-replay/evidence/results-after-fix.json, works/ambertime/design/independent-record-replay/evidence/results.json, works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json, works/ambertime/design/independent-record-replay/reference.mjs, works/ambertime/design/independent-record-replay/replay.mjs, works/ambertime/design/independent-record-replay/run.mjs, works/ambertime/tests/independent-record-replay.test.mjs] — impact is declared in impactChecks
+PASS impact.declared work.runtime [works/ambertime/design/independent-record-replay/evidence/cadence-batched-v8.json, works/ambertime/design/independent-record-replay/evidence/cadence-per-operation-v8.json, works/ambertime/design/independent-record-replay/evidence/continuation-audit.json, works/ambertime/design/independent-record-replay/evidence/filled-origin-v8.json, works/ambertime/design/independent-record-replay/evidence/independent-review-results.json, works/ambertime/design/independent-record-replay/evidence/results-after-fix.json, works/ambertime/design/independent-record-replay/evidence/results.json, works/ambertime/design/independent-record-replay/evidence/reused-24-month-v8.json, works/ambertime/design/independent-record-replay/reference.mjs, works/ambertime/design/independent-record-replay/replay.mjs, works/ambertime/design/independent-record-replay/run.mjs, works/ambertime/tests/independent-record-replay.test.mjs] — impact is declared in impactChecks
+INFO impact.no-rule [.change-plans/ambertime-independent-record-replay/r0.lock.json] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/REPORT.md] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/final-impact-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/final-risk-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/final-scope-guard.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/impact-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/independent-review.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/initial-run.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/related-tests.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/review-collision-raw.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/review-original-collision.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/review-repeat-output.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/risk-check.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/scope-guard.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/tests-after-protection-fix.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+INFO impact.no-rule [works/ambertime/design/independent-record-replay/evidence/tests-first.txt] — no v0.2 explicit or high-risk Impact Rule is registered for this path
+
+Impact: PASS

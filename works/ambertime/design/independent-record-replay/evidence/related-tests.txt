@@ -1,0 +1,27 @@
+✔ live outer calls preserve native results and observe both same-month UI operations (71.784035ms)
+✔ temporary nested native actions are not reported as durable operations (0.324761ms)
+✔ skipped operations, truncation, changed append boundary and wrong game are rejected (0.775684ms)
+✔ native and observation failures propagate; model calls are never retried (0.216588ms)
+✔ historical export projections are queries, not live transitions (20.06152ms)
+✔ v8 requires the recall record and rejects v7 before running the official reader (45.386506ms)
+✔ a post-write read exception does not claim failure left persistent state unchanged (16.861597ms)
+✔ a changed readback rejects success and preserves the competing writer for recovery (18.495851ms)
+✔ quota failure leaves the complete old session and retry commits the complete candidate (17.642088ms)
+✔ original v5 filling fixture is unmodified and both cask choices retain official state through save/restart (141.816489ms)
+✔ current format cold restore preserves game clock pause slots and ledger exactly (195.244685ms)
+✔ old formats reject before formal restore and never migrate by normal reader (15.8987ms)
+✔ current format retains formal replay validation and strict sidecar/clock contracts (20.650121ms)
+✔ candidate write protects quota failure, stale tab, wrong key and reports failed readback (15.36268ms)
+✔ fresh candidate can replace confirmed broken or old records atomically without old clock casks or notebook (55.639357ms)
+✔ saved recipe partial/full bottling sale and reused slot remain official across each automatic-save transaction (420.559948ms)
+✔ v8 never supplies missing history or converts a v7 save (32.337688ms)
+✔ history is part of the same candidate and stale history cannot accompany a later game (32.003552ms)
+✔ first distillation and each release survive readback without duplicate facts or game changes (260.808961ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1038.290058

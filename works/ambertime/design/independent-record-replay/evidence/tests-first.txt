@@ -1,0 +1,47 @@
+✔ actual current initializer, nonempty records, and exact independent game/records (38.822525ms)
+✔ same allowed inputs and formal game, two accepted v8 histories due save cadence (73.092763ms)
+✔ repeated candidate creation without operation is byte-stable (38.779962ms)
+✔ save, formal reload, then public continuation preserves independent records (70.598317ms)
+✔ partial extraction is explicit constrained input, no appended operation (44.599948ms)
+✔ recorded tasting and endTasting are valid auxiliary boundary states (66.368207ms)
+✔ valid pause, clock and cask layout differences are not economic replay corruption (30.675567ms)
+✔ unsupported input: model (1.021697ms)
+✔ unsupported input: session (0.524214ms)
+✔ unsupported input: origin (0.584865ms)
+✔ unsupported input: initializer (0.41669ms)
+✔ unsupported input: ledger-version (4.805682ms)
+✔ unsupported input: history-version (4.201839ms)
+✔ unsupported input: recall-version (4.838982ms)
+✔ forbidden replay hint: final-game (0.682813ms)
+✔ forbidden replay hint: final-RNG (0.392704ms)
+✔ forbidden replay hint: collector (0.566286ms)
+✔ forbidden replay hint: cursor (0.413466ms)
+✔ forbidden replay hint: schedule (0.39609ms)
+✔ forbidden replay hint: known-hash (0.722473ms)
+✔ unchanged formal reader rejects mutation: operation (7.55378ms)
+✔ unchanged formal reader rejects mutation: final-game (8.014217ms)
+✔ unchanged formal reader rejects mutation: history-missing (8.020707ms)
+✔ unchanged formal reader rejects mutation: history-duplicate (1.879964ms)
+✔ unchanged formal reader rejects mutation: history-reference (2.040257ms)
+✔ unchanged formal reader rejects mutation: history-cursor (1.785592ms)
+✔ unchanged formal reader rejects mutation: ledger-cursor (2.22006ms)
+✔ unchanged formal reader rejects mutation: recall-cursor (1.768286ms)
+✔ unchanged formal reader rejects mutation: recall-missing (1.629156ms)
+✔ unchanged formal reader rejects mutation: pause-type (0.504954ms)
+✔ unchanged formal reader rejects mutation: clock-range (0.471573ms)
+✔ unchanged formal reader rejects mutation: slots-duplicate (1.758541ms)
+✔ formally admitted changed derived text is seen by independent content comparison (24.586388ms)
+✔ invalid auxiliary: extra-final-state (4.876859ms)
+✔ invalid auxiliary: unrecorded-tasting (23.776303ms)
+✔ invalid auxiliary: progress-without-distilling (24.110044ms)
+✔ invalid auxiliary: fractional-progress (24.551711ms)
+✔ original bytes survive rejected/truncated candidates and missing-original safe stop (9.983256ms)
+✔ existing verified 24-month v8 is optional and never silently replaced (922.210028ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1742.541107
