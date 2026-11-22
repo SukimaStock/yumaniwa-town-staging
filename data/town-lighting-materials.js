@@ -138,5 +138,51 @@
         )
     };
 
-    root.YUMANIWA_TOWN_LIGHTING_MATERIALS = { version: 'town-2', objects };
+    // Noon-only support footprints, measured in the original logical PNG grid.
+    // Ground geometry is independent of the sprite material and its opaque bounds.
+    function contacts(width, height, ...shapes) {
+        return { width, height, shapes };
+    }
+
+    const noonContacts = {
+        // The platform stands slightly above the ground on four visible piers.
+        station_building_01: contacts(128, 128,
+            footprint(12, 124.5, 6.5, 2), footprint(45.5, 124.5, 5.5, 2),
+            footprint(82, 124.5, 6, 2), footprint(115, 124.5, 6.5, 2)),
+        // The beige pixels to the right of this post are already painted into the PNG.
+        street_lamp_01: contacts(32, 56, footprint(15, 53.5, 5.5, 1.75)),
+        bench_wood_01: contacts(56, 56,
+            footprint(3, 53.5, 4.5, 2), footprint(52.5, 53.5, 4, 2)),
+        notice_board_01: contacts(96, 96,
+            footprint(9, 92.5, 7.5, 2), footprint(87.5, 92.5, 7.5, 2)),
+        tourist_map_01: contacts(64, 64,
+            footprint(13, 60.5, 5, 1.75), footprint(49, 60.5, 5, 1.75)),
+        standing_sign_01: contacts(32, 32,
+            footprint(8, 29.5, 3, 1.5), footprint(24, 29.5, 3, 1.5)),
+        planter_01: contacts(32, 32, footprint(16, 29.5, 6.5, 1.75)),
+        post_box_01: contacts(32, 32, footprint(16.5, 29.5, 4.5, 1.5)),
+        onsen_no_entry_barrier_01: contacts(64, 64,
+            footprint(12, 60.5, 7, 2), footprint(52.5, 60.5, 7, 2)),
+
+        // The long wood sill, not the edge of the transparent 96px image.
+        craft_cola_shop_01: contacts(96, 96,
+            footprint(48.5, 89.5, 35, 2.25), footprint(9, 91, 6, 1.5)),
+        yakitori_shop_01: contacts(96, 96, footprint(48, 90.5, 36, 2.25)),
+        kissaten_shop_01: contacts(96, 96, footprint(46.5, 90, 37.5, 2)),
+        curry_shop_01: contacts(96, 96, footprint(48, 90, 37, 2)),
+
+        // Indoors the counter and exhibit cases meet the tiled floor at their plinths.
+        leisure_counter_01: contacts(96, 96, footprint(50, 93.5, 39, 2)),
+        leisure_pickup_shelf_01: contacts(96, 96, footprint(47, 93, 32.5, 2)),
+        leisure_exhibit_steamclock_01: contacts(56, 56, footprint(28, 53.5, 17, 1.75)),
+        leisure_exhibit_dotweather_01: contacts(56, 56, footprint(28, 53.5, 17, 1.75)),
+        leisure_exhibit_coffeefactory_01: contacts(64, 64, footprint(32, 60.5, 25, 2)),
+        // Follow the sloping front edges of these two three-quarter-view bases.
+        leisure_exhibit_diorama_calendar_01: contacts(56, 56,
+            footprint(20, 51.5, 14, 1.5), footprint(39, 53, 9, 1.5)),
+        leisure_catalog_terminal_01: contacts(56, 56,
+            footprint(21, 50, 8.5, 1.5), footprint(34.5, 52, 8.5, 1.5))
+    };
+
+    root.YUMANIWA_TOWN_LIGHTING_MATERIALS = { version: 'town-3', objects, noonContacts };
 })(typeof globalThis !== 'undefined' ? globalThis : window);

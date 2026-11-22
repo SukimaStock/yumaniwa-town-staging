@@ -17,11 +17,13 @@
     // a street sign, a shop exterior and the player's dark walking poses.
     const objectNight = ready ? {...night, ambient: 0.78} : null;
     const playerNight = ready ? {...night, ambient: 0.88} : null;
+    const highSun = ready ? {...renderer.PERIODS.noon, altitude: 0.93, azimuth: 0.22, sun: 0.18} : null;
     const maxEntries = 96;
     const maxPixels = 4 * 1024 * 1024;
     const cache = new Map();
     const ambientTables = new Map();
     let period = 'off';
+    let requestSoftShadows = false;
     let pixels = 0;
     let stamp = 0;
     let hits = 0;
@@ -37,13 +39,19 @@
 
     try {
         const query = new URLSearchParams(root.location.search);
+        requestSoftShadows = query.get('shadows') === 'soft' && !!materials?.noonContacts;
         setPeriod(query.has('lighting') ? query.get('lighting') : 'noon');
     } catch (_) {
         // Unsupported URL parsing leaves the original town available.
     }
 
+    function softNoon() {
+        return period === 'noon' && requestSoftShadows;
+    }
+
     function active(sceneId) {
-        return period !== 'off' && outdoor.has(sceneId);
+        return (period !== 'off' && outdoor.has(sceneId)) ||
+            (softNoon() && sceneId === 'leisure_center_map');
     }
 
     function lightingState(objectId) {
@@ -139,7 +147,7 @@
 
     // Rasterize only integer logical pixels. Retain the tight ground bitmap
     // separately so a cast or pool may extend outside the original PNG.
-    function groundBitmap(map, pools) {
+    function groundBitmap(map, pools, contactMode = '') {
         const rows = [];
         let left = Infinity, top = Infinity, right = -Infinity, bottom = -Infinity;
 
@@ -162,15 +170,23 @@
                 span(y, cx - half, cx + half, color);
             }
         }
-        for (const foot of renderer.footprints(map, lightingState())) {
+        const sun = contactMode === 'outdoor' ? highSun : lightingState();
+        for (const foot of renderer.footprints(map, sun)) {
             const color = 'rgba(26,20,21,' + foot.opacity + ')';
             if (foot.kind === 'cast') {
                 // footprints() returns the left/right base and the offset tip.
                 const [a, b, c, d] = foot.points;
                 for (let y = Math.ceil(a[1] - 0.5); y < d[1] - 0.5; y++) {
                     const t = (y + 0.5 - a[1]) / (d[1] - a[1]);
-                    span(y, a[0] + (d[0] - a[0]) * t, b[0] + (c[0] - b[0]) * t, color);
+                    const shade = contactMode
+                        ? 'rgba(0,0,0,' + foot.opacity * (0.72 - 0.55 * t) + ')'
+                        : color;
+                    span(y, a[0] + (d[0] - a[0]) * t, b[0] + (c[0] - b[0]) * t, shade);
                 }
+            } else if (contactMode) {
+                // A narrow contact edge against each actual foot or plinth.
+                ellipse(foot.shape, 'rgba(0,0,0,0.055)', 1);
+                ellipse(foot.shape, 'rgba(0,0,0,0.085)', 0.72);
             } else {
                 ellipse(foot.shape, color, 1);
             }
@@ -226,10 +242,12 @@
         return entry;
     }
 
-    function prepare(source, objectId, material) {
+    function prepare(source, objectId, material, indoor = false) {
+        const contact = softNoon() && materials.noonContacts[objectId];
+        const contactMode = contact ? (indoor ? 'indoor' : 'outdoor') : '';
         const width = source.naturalWidth, height = source.naturalHeight;
-        if (!width || !height) return null; // Loading is retriable by the existing image loader.
-        const key = [renderer.VERSION, materials.version, period, objectId,
+        if (!width || !height || source.complete === false) return null; // Existing loader retries.
+        const key = [renderer.VERSION, materials.version, period, objectId, contactMode,
             source.currentSrc || source.src, width, height].join('|');
         const old = cache.get(key);
         if (old) {
@@ -243,29 +261,37 @@
 
         const entry = {source, canvas: null, ground: null, pixels: 0};
         try {
-            const w = material ? material.width : width;
-            const h = material ? material.height : height;
-            if (material && (width % w || height % h || width / w !== height / h)) {
-                throw new RangeError('Material logical grid does not match source');
+            const grid = material || contact;
+            const w = grid ? grid.width : width;
+            const h = grid ? grid.height : height;
+            if (grid && (width % w || height % h || width / w !== height / h ||
+                (contact && (contact.width !== w || contact.height !== h)))) {
+                throw new RangeError('Lighting logical grid does not match source');
             }
-            const canvas = makeCanvas(w, h);
-            entry.canvas = canvas;
-            const ctx = canvas.getContext('2d', {willReadFrequently: true});
-            ctx.imageSmoothingEnabled = false;
-            ctx.drawImage(source, 0, 0, w, h);
-            const rgba = ctx.getImageData(0, 0, w, h);
-            if (material) {
-                const map = renderer.paint(w, h, material.shapes);
-                const lit = renderer.render(rgba, map, lightingState(objectId)).data;
-                if (period === 'night') lightFixtures(rgba, lit, map, material.fixtures);
-                rgba.data.set(lit);
-                entry.ground = groundBitmap(map, material.pools);
+            if (contact && !material) {
+                // Flat noon props (including room furniture) keep the original
+                // source image. Only their small, tightly bounded shadow is cached.
+                entry.ground = groundBitmap(contact, null, contactMode);
             } else {
-                applyAmbient(rgba.data, source, objectId);
+                const canvas = makeCanvas(w, h);
+                entry.canvas = canvas;
+                const ctx = canvas.getContext('2d', {willReadFrequently: true});
+                ctx.imageSmoothingEnabled = false;
+                ctx.drawImage(source, 0, 0, w, h);
+                const rgba = ctx.getImageData(0, 0, w, h);
+                if (material) {
+                    const map = renderer.paint(w, h, material.shapes);
+                    const lit = renderer.render(rgba, map, lightingState(objectId)).data;
+                    if (period === 'night') lightFixtures(rgba, lit, map, material.fixtures);
+                    rgba.data.set(lit);
+                    entry.ground = groundBitmap(contact || map, material.pools, contactMode);
+                } else {
+                    applyAmbient(rgba.data, source, objectId);
+                }
+                ctx.putImageData(rgba, 0, 0);
+                if (ctx.isContextLost?.()) throw new Error('Lighting canvas was lost');
+                entry.pixels = w * h;
             }
-            ctx.putImageData(rgba, 0, 0);
-            if (ctx.isContextLost?.()) throw new Error('Lighting canvas was lost');
-            entry.pixels = w * h;
             if (entry.ground) entry.pixels += entry.ground.canvas.width * entry.ground.canvas.height;
             renders++;
         } catch (_) {
@@ -280,7 +306,7 @@
     }
 
     function image(sceneId, source, objectId = '') {
-        if (!source || !active(sceneId) || objectId === 'station_ghost_npc_01') return source;
+        if (!source || period === 'off' || !outdoor.has(sceneId) || objectId === 'station_ghost_npc_01') return source;
         const material = materials.objects[objectId];
         // The shared noon ambient transform is identity for unmapped surfaces.
         if (!material && period === 'noon') return source;
@@ -303,13 +329,15 @@
 
     function drawGround(ctx, sceneId, source, objectId, x, y, w, h) {
         if (!source || !active(sceneId)) return;
-        const material = materials.objects[objectId];
-        if (!material) return;
-        const entry = prepare(source, objectId, material);
+        const indoor = sceneId === 'leisure_center_map';
+        const material = indoor ? null : materials.objects[objectId];
+        const grid = (softNoon() && materials.noonContacts[objectId]) || material;
+        if (!grid) return;
+        const entry = prepare(source, objectId, material, indoor);
         if (!entry?.ground) return;
         const ground = entry.ground;
 
-        const sx = w / material.width, sy = h / material.height;
+        const sx = w / grid.width, sy = h / grid.height;
         const x1 = Math.round(x + ground.left * sx);
         const y1 = Math.round(y + ground.top * sy);
         const x2 = Math.round(x + (ground.left + ground.canvas.width) * sx);
@@ -322,7 +350,8 @@
             // A lost backing store must not interrupt the town frame or leave a
             // detached light visible. The regular sprite path gets its original.
             pixels -= entry.pixels;
-            entry.canvas.width = entry.ground.canvas.width = 0;
+            if (entry.canvas) entry.canvas.width = 0;
+            entry.ground.canvas.width = 0;
             entry.canvas = entry.ground = null;
             entry.pixels = 0;
             failures++;
@@ -334,6 +363,7 @@
     root.YUMANIWA_TOWN_LIGHTING = Object.freeze({
         active, image, drawImage, drawGround, setPeriod,
         get period() { return period; },
+        get softNoon() { return softNoon(); },
         stats() {
             return {entries: cache.size, pixels, maxEntries, maxPixels, hits, renders, failures, evictions};
         }
