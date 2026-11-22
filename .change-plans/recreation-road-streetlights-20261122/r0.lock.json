@@ -1,0 +1,148 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "be545af898bbb4924cf924ebdf27f050532abd27a174d548c2dc32b39be5e0f4",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "recreation-road-streetlights-20261122",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Adopt the author-approved soft noon shadows as the regular Staging daylight and install evenly spaced existing street lamps on Recreation Road.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "PLACEMENT"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "882227d9ba10de16c65777524305d5ac445c8efa",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/SUKIMASTOCK-LIGHTING-v0.1.md",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/station-plaza-props.js",
+      "main.js",
+      "PR #941 and author-approved PNG/SVG experiments",
+      "PR #942 and its deployed mobile-scale night frames",
+      "engine/town-lighting.js",
+      "data/town-lighting-materials.js",
+      "PR #943 deployed night views and latest author feedback",
+      "PR #944 verified baseline, approved brighter landmarks and player; latest author request on noon contact shadows",
+      "PR #945 author-approved opt-in shadow appearance and the author request for an evenly lit regular road",
+      "tests/fixtures/editor-world-object-metadata-before.json and its historical base 74d1918",
+      "tests/test_scene_validation.py (Desk/runtime scene counts)"
+    ],
+    "allowedPaths": [
+      ".change-plans/recreation-road-streetlights-20261122/r0.lock.json",
+      "engine/town-lighting.js",
+      "data/town-maps.js",
+      "index.html",
+      "tests/test-town-lighting.cjs",
+      "tests/test-editor-world-object-metadata.cjs",
+      "tests/test_scene_validation.py"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "assets/**",
+      "works/**",
+      "tools/**",
+      ".github/**",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/town-lighting-materials.js",
+      "data/station-plaza-props.js",
+      "main.js",
+      "tests/fixtures/**"
+    ],
+    "expectedChanges": [
+      "Make the exact #945 soft noon rendering the normal staging noon. Keep the old preview URL usable and full lighting off available.",
+      "Place an equally spaced row of existing street_lamp_01 along the verge, with native logical size, unique literal scene ids and canonical foot ordering. Use native emitter/texture/ground light. Preserve the walkable road, branch and both entrances.",
+      "Refresh changed script revisions, adapt noon and editor regressions to authorized additions while preserving frozen evidence and verify the road by normal play.",
+      "Update the authored-scene prop counts per scene to reflect the four road lamps. Keep validation and all other map counts fixed."
+    ],
+    "ownerDecisions": [
+      "The author explicitly adopts the tested subtle shadow appearance, and requests equally spaced lights on the dark Recreation Road. This authorizes these regular Staging changes."
+    ],
+    "hqDecisions": [
+      "Use four existing lamps along the west curb, with six tiles between repeated positions and no permanent UI. Calibrate the lateral position on the actual road while protecting the playable route, eastern branch and spawns.",
+      "Adopt the exact tested noon profile across the approved areas including the leisure center. Leave other exposure, lamp shapes, pools and material values at #945."
+    ],
+    "rulesApplied": [
+      "Full Plan and immutable lock before implementation; exact base/head Scope, Risk, Impact and trusted static gates",
+      "Pixel Standard, integer draw bounds and nearest sampling; cap cache, never mutate original data or add animation loop",
+      "Use independent review and compare actual browser output to pre-change screenshots"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-visual-touch-performance",
+      "author-visual-adoption"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "surface.shared",
+      "scene.rendering",
+      "scene.collision",
+      "scene.interaction",
+      "scene.editor-desk",
+      "scene.validation",
+      "scene.transition-adjacency"
+    ],
+    "impactExclusions": [],
+    "rollback": "?lighting=off returns all art to normal unlit sprites, including the new physical lamps. Revert this staging PR to restore #945 map layout and opt-in noon behavior.",
+    "outOfScope": [
+      "Production and promotion; real clock, automatic advancement, permanent UI",
+      "Edits to artwork, renderer presets, other lighting grades or pools, facility placements, collision tiles, portals, interactions, saves or gameplay"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari visibility, heat and interaction; author visual assessment of the new row."
+    ],
+    "problem": "The road has a dark night floor and zero light-emitting placements between its two arrivals. The accepted noon profile is still reachable only by preview query.",
+    "currentContract": "#945 night already renders station lamps using a shared warm fixture/ground pool. The blank road connects the station and leisure center, with an east walking branch. Scene canon for this road is the literal data/town-maps.js.",
+    "whyExistingIsInsufficient": "An empty placements array yields no local light, and the approved daytime look still requires a special query.",
+    "design": "Use a small set of explicit placements of the existing lamp in the road scene, at native station scale; keep clear space to walk, tap and use all edge warps. Enable the accepted noon contact map by default, still conditional on period and available material definitions.",
+    "alternativesRejected": [
+      "Brightening the whole road texture or widening every station lamp pool",
+      "Permanent time or lighting controls; new art, shadows, or per-frame light source computation",
+      "Authoring dynamic placements outside the scene source or weakening canonical change checks"
+    ],
+    "migration": "No save schema or authoring format change. Apply via ordinary staging page and resource revisions.",
+    "compatibility": "Keep existing preview links, phase switching, complete OFF mode, authored art/colors/foot ordering and fallback to original art if the renderer is missing.",
+    "boundaryCases": [
+      "Default daytime arrival, old preview links, missing renderer/contact maps, lighting off with unlit physical posts, morning/evening and night",
+      "Walking route in both directions, both portals and east branch, camera clipping, tap at/near the lamp, usable stone receiving pools at all positions",
+      "Equal ground spacing, logical PNG 32x56, unlit OFF sources, common cached bitmap across posts; unchanged #945 at other scenes and at other times except accepted noon",
+      "Historical editor oracle canonical source digest for newly authorized road placements and already confirmed station guide-text-only change"
+    ],
+    "testPlan": [
+      "Compare road at night from both arrivals and middle, observe warm glass and illumination on walkable paving in mobile Chromium and Linux WebKit. Show author actual before/after.",
+      "Verify walking area, portals/branch movement and facility input, render order, lamp caching, fallback and rollback. Verify normal noon against #945 soft control and #945 night/OFF on unaffected maps.",
+      "Use scene contract/Desk parsing and regression tests, preserve historical fixture digest; explicitly document and check authorized current scene digest(s) against base/expected placement change.",
+      "Trusted scope, risk, impact, static, independent review, exact-head CI and staging Pages delivery smoke before completion.",
+      "Run the Python Desk suite, including strict per-scene count and unmodified roundtrip validation. This fresh lock replaces the preflight plan whose allowed test paths omitted the old 28-prop count."
+    ],
+    "promotionRisk": "Staging only. The original noon trial is author-approved; author retains final assessment of the new lamp placement."
+  }
+}
