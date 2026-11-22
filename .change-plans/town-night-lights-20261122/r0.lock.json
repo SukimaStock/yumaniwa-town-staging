@@ -1,0 +1,136 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "138f8cad7912ba53e9b05af2b2ccdef07967b5c677e49835795686c1b29e19d2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-night-lights-20261122",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Correct the outdoor night lighting after the author reported that lamps and windows read as unlit and paths are hard to walk.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "aff58d4cf1416c7c780aa0cc2609c50206cc3a24",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/SUKIMASTOCK-LIGHTING-v0.1.md",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/station-plaza-props.js",
+      "main.js",
+      "PR #941 and author-approved PNG/SVG experiments",
+      "PR #942 and its deployed mobile-scale night frames"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-night-lights-20261122/r0.lock.json",
+      "engine/town-lighting.js",
+      "data/town-lighting-materials.js",
+      "index.html",
+      "tests/test-town-lighting.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "assets/**",
+      "works/**",
+      "tools/**",
+      ".github/**",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "main.js",
+      "data/station-plaza-props.js"
+    ],
+    "expectedChanges": [
+      "Use the shared renderer with an explicit outdoor night exposure, retaining the warm light vs unlit environment distinction and path/actor legibility.",
+      "Preserve the authored source masks and daytime results. Calibrate night emission with original glass/lantern hues and source-local facade spill, and expand the ground illumination into visible textured walking areas using a bounded cached pixel falloff.",
+      "Deploy new adapter and materials cache revisions. Add regression probes for actual emitted daylight/night luminance separation and bright near/far ground spill; compare actual camera angles including arrival."
+    ],
+    "ownerDecisions": [
+      "Author reports that Staging night looks uniformly dark and impedes walking. Treat prior #942 night calibration as rejected. Correct visual legibility within original Staging-only scope."
+    ],
+    "hqDecisions": [
+      "Modify only the town night treatment and materials within the existing adapter; reuse the #941 renderer and #942 render passes. No new light sources, objects, camera or control UI.",
+      "Leave morning, noon, evening, and OFF identical. Preserve alpha/footY/camera, caching budget, step-based time and ordinary light failures."
+    ],
+    "rulesApplied": [
+      "Full Plan and immutable lock before implementation; exact base/head Scope, Risk, Impact and trusted static gates",
+      "Pixel Standard, integer draw bounds and nearest sampling; cap cache, never mutate original data or add animation loop",
+      "Use independent review and compare actual browser output to pre-change screenshots"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-visual-touch-performance",
+      "author-visual-adoption"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "surface.shared",
+      "scene.rendering",
+      "scene.collision",
+      "scene.interaction",
+      "scene.editor-desk",
+      "scene.validation",
+      "scene.transition-adjacency"
+    ],
+    "impactExclusions": [],
+    "rollback": "Use ?lighting=off; reverting this single Staging correction returns #942 visual calibration. No migration.",
+    "outOfScope": [
+      "Production and publication decisions",
+      "Real clock, automatic progression and permanent UI",
+      "Interior assets, editor preview, scene placement and collisions, original assets, gameplay, navigation and persistence"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari timing, thermal behavior and touch feel",
+      "Author visual acceptance"
+    ],
+    "problem": "Night glass is muddy brown and the small ground pools are barely distinguishable on a phone-sized viewport. The initial spawn and unlit areas can lack a visual walking reference.",
+    "currentContract": "The renderer accepts explicit phase parameters. #942 already caches per-period world art, masks, and ground effects; fixed noon and ?lighting= override.",
+    "whyExistingIsInsufficient": "Previous checks confirmed coordinates and geometry, without requiring a visible light source, illuminated pavement and readable walking routes.",
+    "design": "Use a modest town-specific night ambient and brighter authored source cores with restrained pixel-quantized local spill on opaque features. Grade the intensity from each light to the pavement, preserving texture, source hue and hard image contours.",
+    "alternativesRejected": [
+      "Change the four shared renderer presets for all callers",
+      "Uniform screen brightening as the only correction",
+      "Fake lights, broad blur, new HUD controls, avatar torch or clocks"
+    ],
+    "migration": "No persisted change; five outdoor maps share in-memory period across moves.",
+    "compatibility": "Fallback on missing renderer, image or map failure. Preserve input, editor and overlay order, work routing and cache-busted script URLs.",
+    "boundaryCases": [
+      "Noon original ambient pixels; all four street lamps; different shop ground anchors and lamp delivery scale",
+      "Changing maps, camera, screen size, period; optional module or source missing/invalid",
+      "Noon/off, indoor and authoring special sprites, loading/error paths, repeated cycles and mobile budget"
+    ],
+    "testPlan": [
+      "Compare phone-sized same-camera previous/current night on station, lamps, both shop pairs, all three source-free routes and player. Inspect default arrival cameras as well as close approaches.",
+      "Test emitted light against surrounding wood, source-local facades, footprint near/far falloff, and unlit-path visibility. Compare full frames for morning/noon/evening/OFF byte equality to #942.",
+      "Check Chromium and Linux WebKit, native scene and editor regressions, cache/loops, walking/tap/transitions and error fallback; physical iPhone pending.",
+      "Run trusted base Scope/Risk/Impact and Static checks, exact PR head CI and review, then verify merge SHA and Pages-delivered bytes."
+    ],
+    "promotionRisk": "Staging-only correction requested by author. Visual adoption and iPhone hardware remain separate."
+  }
+}
