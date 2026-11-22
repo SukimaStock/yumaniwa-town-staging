@@ -13,6 +13,10 @@
     // The alley ground JPEG already contains deep painted shadows at noon.
     const night = ready ? {...renderer.PERIODS.night, ambient: 0.42} : null;
     const alleyNight = ready ? {...night, ambient: 0.62} : null;
+    // Keep the painted paths dark while retaining the colors that distinguish
+    // a street sign, a shop exterior and the player's dark walking poses.
+    const objectNight = ready ? {...night, ambient: 0.78} : null;
+    const playerNight = ready ? {...night, ambient: 0.88} : null;
     const maxEntries = 96;
     const maxPixels = 4 * 1024 * 1024;
     const cache = new Map();
@@ -42,8 +46,10 @@
         return period !== 'off' && outdoor.has(sceneId);
     }
 
-    function lightingState() {
-        return period === 'night' ? night : period;
+    function lightingState(objectId) {
+        if (period !== 'night') return period;
+        if (objectId === '@player') return playerNight;
+        return objectId ? objectNight : night;
     }
 
     function makeCanvas(width, height) {
@@ -60,7 +66,7 @@
     // For an ambient-only material each output channel depends only on the same
     // input channel. Sample the canonical renderer once for all 256 byte values.
     function applyAmbient(data, source, objectId) {
-        let state = lightingState();
+        let state = lightingState(objectId);
         if (period === 'night' && !objectId) {
             const path = '/' + String(source.currentSrc || source.src).split(/[?#]/, 1)[0];
             if (path.endsWith('/assets/maps/grounds/tomogushi-alley-ground.jpg')) state = alleyNight;
@@ -250,7 +256,7 @@
             const rgba = ctx.getImageData(0, 0, w, h);
             if (material) {
                 const map = renderer.paint(w, h, material.shapes);
-                const lit = renderer.render(rgba, map, lightingState()).data;
+                const lit = renderer.render(rgba, map, lightingState(objectId)).data;
                 if (period === 'night') lightFixtures(rgba, lit, map, material.fixtures);
                 rgba.data.set(lit);
                 entry.ground = groundBitmap(map, material.pools);
