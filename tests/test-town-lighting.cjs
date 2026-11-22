@@ -34,7 +34,7 @@ function canvas() {
   return result;
 }
 
-function runtime(query = '', {renderer = true} = {}) {
+function runtime(query = '', {renderer = true, contacts = true} = {}) {
   const env = vm.createContext({
     location: {search: query}, URLSearchParams, Uint8Array, Uint8ClampedArray,
     document: {createElement: () => canvas()}
@@ -43,6 +43,7 @@ function runtime(query = '', {renderer = true} = {}) {
   if (renderer) load(env, 'engine/sukimastock-lighting.v0.1.0.js');
   load(env, 'data/world-objects.js');
   load(env, 'data/town-lighting-materials.js');
+  if (!contacts) delete env.YUMANIWA_TOWN_LIGHTING_MATERIALS.noonContacts;
   load(env, 'engine/town-lighting.js');
   return env;
 }
@@ -404,7 +405,7 @@ test('projected ground is a separate snapped bitmap and follows the sprite world
     assert.notEqual(ground, image);
     assert.ok(ground.spans.length > 0 && ground.spans.every(s => s.h === 1));
     // At night the wider light pool begins above the contact shadow.
-    const shadowRows = ground.spans.filter(s => s.color.startsWith('rgba(26,20,21,'));
+    const shadowRows = period === 'noon' ? ground.spans : ground.spans.filter(s => s.color.startsWith('rgba(26,20,21,'));
     const shadowTop = y + Math.min(...shadowRows.map(s => s.y));
     assert.ok(shadowTop > 96 + 115 && shadowTop < 96 + 127, 'under the base, above the canvas bottom');
     extents[period] = [x, x + w];
@@ -568,41 +569,47 @@ function groundDraw(api, scene, source, id, w, h) {
   return draw;
 }
 
-test('only the noon preview changes ground effects; all other periods retain their exact output', () => {
-  const env = runtime(softQuery);
-  const api = env.YUMANIWA_TOWN_LIGHTING, regular = runtime().YUMANIWA_TOWN_LIGHTING;
-  assert.equal(api.softNoon, true);
-  assert.equal(regular.softNoon, false);
-  assert.equal(runtime('?lighting=noon&shadows=other').YUMANIWA_TOWN_LIGHTING.softNoon, false);
+test('regular noon matches the accepted soft preview; missing definitions keep the original fallback', () => {
+  const regular = runtime().YUMANIWA_TOWN_LIGHTING;
+  const preview = runtime(softQuery).YUMANIWA_TOWN_LIGHTING;
+  const fallback = runtime('', {contacts:false}).YUMANIWA_TOWN_LIGHTING;
+  assert.equal(regular.softNoon, true);
+  assert.equal(preview.softNoon, true);
+  assert.equal(fallback.softNoon, false);
   const id = 'station_building_01', src = sprite('station.png', 128, 128);
   for (const phase of [...periods, 'off']) {
-    api.setPeriod(phase);
-    regular.setPeriod(phase);
-    assert.equal(api.softNoon, phase === 'noon');
-    assert.equal(api.active(leisure), phase === 'noon');
-    assert.equal(api.active('other_room'), false);
-    assert.deepEqual(api.image(plaza, src, id).data, regular.image(plaza, src, id).data, phase);
-    assert.equal(api.image(leisure, src, id), src, 'room lighting always uses original sprite');
-    assert.equal(api.image(leisure, src), src, 'room ground stays original');
-    const preview = groundDraw(api, plaza, src, id, 128, 128);
-    const baseline = groundDraw(regular, plaza, src, id, 128, 128);
-    if (phase === 'noon') {
-      assert.notDeepEqual(preview.bitmap.spans, baseline.bitmap.spans);
-    } else if (phase === 'off') {
-      assert.equal(preview, undefined);
-      assert.equal(api.image(plaza, src, id), src);
+    for (const api of [regular, preview, fallback]) api.setPeriod(phase);
+    assert.equal(regular.softNoon, phase === 'noon');
+    assert.equal(regular.active(leisure), phase === 'noon');
+    assert.equal(regular.active('other_room'), false);
+    assert.deepEqual(regular.image(plaza, src, id).data, preview.image(plaza, src, id).data, phase);
+    assert.equal(regular.image(leisure, src, id), src, 'room always uses original sprite');
+    assert.equal(regular.image(leisure, src), src, 'room ground stays original');
+    const result = groundDraw(regular, plaza, src, id, 128, 128);
+    const legacyLink = groundDraw(preview, plaza, src, id, 128, 128);
+    const oldContact = groundDraw(fallback, plaza, src, id, 128, 128);
+    if (phase === 'off') {
+      assert.equal(result, undefined);
+      assert.equal(legacyLink, undefined);
+      assert.equal(oldContact, undefined);
+      assert.equal(regular.image(plaza, src, id), src);
     } else {
-      assert.deepEqual([preview.x, preview.y, preview.bitmap.spans], [baseline.x, baseline.y, baseline.bitmap.spans]);
+      const raster = draw => [draw.x, draw.y, draw.width, draw.height, draw.bitmap.spans];
+      assert.deepEqual(raster(result), raster(legacyLink), phase);
+      if (phase === 'noon') assert.notDeepEqual(raster(result), raster(oldContact));
+      else assert.deepEqual(raster(result), raster(oldContact), phase);
     }
   }
+  fallback.setPeriod('noon');
   const bench = sprite('bench.png', 56, 56);
-  regular.setPeriod('noon');
-  assert.equal(groundDraw(regular, plaza, bench, 'bench_wood_01', 56, 56), undefined);
-  assert.equal(groundDraw(regular, leisure, bench, 'bench_wood_01', 56, 56), undefined);
+  for (const scene of [plaza, leisure]) {
+    assert.equal(groundDraw(fallback, scene, bench, 'bench_wood_01', 56, 56), undefined);
+    assert.equal(fallback.image(scene, bench, 'bench_wood_01'), bench);
+  }
 });
 
 test('noon contact follows each support, leaving the original artwork and nearby pavement intact', () => {
-  const env = runtime(softQuery), api = env.YUMANIWA_TOWN_LIGHTING;
+  const env = runtime(), api = env.YUMANIWA_TOWN_LIGHTING;
   const materials = env.YUMANIWA_TOWN_LIGHTING_MATERIALS;
   load(env, 'data/station-plaza.js');
   load(env, 'data/town-maps.js');
@@ -667,7 +674,7 @@ test('noon contact follows each support, leaving the original artwork and nearby
 
 test('indoor contact-only and outdoor short projections never share the wrong cache entry', () => {
   for (const firstScene of [plaza, leisure]) {
-    const env = runtime(softQuery), api = env.YUMANIWA_TOWN_LIGHTING;
+    const env = runtime(), api = env.YUMANIWA_TOWN_LIGHTING;
     const id = 'bench_wood_01', src = sprite('bench.png?rev=1', 56, 56);
     src.failRead = true;
     const nextScene = firstScene === plaza ? leisure : plaza;
@@ -698,7 +705,7 @@ test('indoor contact-only and outdoor short projections never share the wrong ca
 });
 
 test('leisure center draws only loaded exhibit contacts before the original footY-sorted sprites', () => {
-  const env = runtime(softQuery);
+  const env = runtime();
   load(env, 'data/station-plaza.js');
   load(env, 'data/town-maps.js');
   load(env, 'main.js');
@@ -742,4 +749,107 @@ test('leisure center draws only loaded exhibit contacts before the original foot
   observations.length = 0;
   env.draw();
   assert.deepEqual(observations, ['ground', ...ordered.filter(o => o.name !== missing.objectId).map(o => o.name)]);
+});
+
+function recreationRoad(query) {
+  const env = runtime(query);
+  for (const file of ['data/station-plaza.js','data/town-maps.js','town-editor-session.js','main.js']) load(env,file);
+  env.currentScene = 'recreation_road_map';
+  env.activeTownSceneDef = env.TOWN_SCENE_MAPS[env.currentScene];
+  env.triggers = env.activeTownSceneDef.triggers;
+  return env;
+}
+
+test('four road lamps stand at six-tile intervals outside the walkable corridor and preserve both exits', () => {
+  const env = recreationRoad('');
+  const scene = env.activeTownSceneDef, id = 'street_lamp_01';
+  load(env, 'town-interaction-flow.js');
+  const lamps = Array.from(scene.props).filter(p => p.enabled !== false && p.objectId === id).sort((a,b) => a.y - b.y);
+  assert.equal(lamps.length, 4);
+  assert.equal(new Set(lamps.map(p => p.id)).size, 4);
+  env.activeTownSceneDef = {...scene, props:scene.props.filter(p => !lamps.includes(p))};
+  env.initGrid();
+  const beforeLamps = env.collisionGrid;
+  env.activeTownSceneDef = scene;
+  env.initGrid();
+  assert.deepEqual(env.collisionGrid, beforeLamps, 'the four lamps add no collision tiles');
+  const foot = env.YUMANIWA_TOWN_LIGHTING_MATERIALS.objects[id].shapes.find(s => s.kind === 'shadow');
+  lamps.forEach((prop, i) => {
+    assert.equal(prop.w, 2);
+    assert.equal(prop.h, 3.5);
+    assert.equal(prop.footY, prop.y + prop.h);
+    assert.equal(prop.x, lamps[0].x);
+    if (i) assert.equal(prop.footY - lamps[i-1].footY, 6);
+    const x = Math.floor(prop.x + foot.cx / env.TILE_SIZE), y = Math.floor(prop.y + foot.cy / env.TILE_SIZE);
+    assert.equal(env.isWalkableTile(x, y), false, prop.id + ' post outside the walking surface');
+    assert.equal(env.getTownPartCollisionRectPixels(prop), null);
+    assert.equal(env.getTownPartInteractionRectPixels(prop), null);
+    assert.equal(prop.tap.enabled, false);
+  });
+  env.updateInteractionHint = () => {};
+  const input = env.YUMANIWA_TOWN_INTERACTION;
+  for (const spawn of ['fromPlaza','fromLeisure']) {
+    env.placePlayerAtTownSpawn(scene, spawn);
+    for (const warp of scene.edgeWarps) {
+      const y = warp.side === 'up' ? 0 : scene.mapHeight - 1;
+      for (let x = warp.min; x <= warp.max; x++) {
+        assert.equal(env.isWalkableTile(x, y), true);
+        assert.ok(env.findPath(scene.spawnPoints[spawn].x, scene.spawnPoints[spawn].y, x, y));
+      }
+      assert.ok(input.requestTap(12, y));
+      assert.equal(input.getRequest().arrival.side, warp.side);
+    }
+    assert.ok(input.requestTap(12, 12));
+    assert.equal(input.getRequest().arrival.type, 'none', 'central pavement still receives ground movement');
+  }
+  assert.deepEqual(Array.from(scene.edgeWarps, w => w.target), ['station_plaza', 'leisure_center_map']);
+});
+
+test('all four road placements draw the same lit lamp and its pool; OFF draws the physical original', () => {
+  const env = recreationRoad('?lighting=night'), scene = env.activeTownSceneDef;
+  env.Image = class {};
+  load(env, 'data/station-plaza-props.js');
+  const lib = env.YUMANIWA_STATION_PLAZA_PROPS, api = env.YUMANIWA_TOWN_LIGHTING;
+  lib.preloadSceneProps(scene);
+  const lampId = 'street_lamp_01', lamp = env.YUMANIWA_WORLD_OBJECTS.get(lampId);
+  const lamps = Array.from(scene.props).filter(p => p.enabled !== false && p.objectId === lampId).sort((a,b) => a.footY - b.footY);
+  const sources = new Set(lamps.map(prop => lib.resolvePropSrc(prop)));
+  assert.deepEqual([...sources], [lamp.src]);
+  const png = fs.readFileSync(path.join(root, lamp.src.split('?')[0]));
+  const raw = lib.imageCache[lamp.src].image;
+  // The Canvas double accepts the logical readback of a physical 3x delivery.
+  Object.assign(raw, sprite(lamp.src, 32, 56), {naturalWidth:png.readUInt32BE(16), naturalHeight:png.readUInt32BE(20)});
+  assert.deepEqual([raw.naturalWidth, raw.naturalHeight], [96,168]);
+  raw.data.set([255,255,255,255], 4 * (15*32 + 14));
+  raw.data.set([20,20,20,255], 4 * (15*32 + 12));
+  lib.imageCache[lamp.src].loaded = true;
+  env.drawPlayerSprite = () => {};
+  const draws = [];
+  env.ctx = {save() {}, restore() {}, drawImage(image, ...rect) { draws.push({image, rect}); }};
+  function frame() {
+    draws.length = 0;
+    if (api.active(scene.id)) lib.drawGroundLighting(api, scene.id);
+    lib.drawTownActorsAndProps();
+    return draws.slice();
+  }
+  const lit = frame();
+  assert.equal(lit.length, 8);
+  const pool = lit[0].image, bulb = lit[4].image;
+  assert.notEqual(pool, bulb);
+  assert.notEqual(bulb, raw);
+  assert.ok(luma(readRGB(bulb, 14,15)) - luma(readRGB(bulb, 12,15)) > 85);
+  assert.ok(pool.spans.some(s => !s.color.startsWith('rgba(26,20,21,')), 'night light reaches pavement');
+  for (let i = 0; i < 4; i++) {
+    assert.equal(lit[i].image, pool);
+    assert.equal(lit[4+i].image, bulb);
+    assert.deepEqual(lit[4+i].rect, [lamps[i].x * 16, lamps[i].y * 16, 32, 56]);
+    assert.equal(lit[i].rect[1] - lit[0].rect[1], i * 96);
+  }
+  frame();
+  assert.equal(api.stats().renders, 1, 'shared sprite and pool prepared only once');
+  api.setPeriod('off');
+  const off = frame();
+  assert.equal(off.length, 4);
+  assert.ok(off.every(d => d.image === raw));
+  assert.deepEqual(off.map(d => d.rect), lit.slice(4).map(d => d.rect));
 });
