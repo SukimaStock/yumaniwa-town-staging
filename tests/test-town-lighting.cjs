@@ -34,10 +34,10 @@ function canvas() {
   return result;
 }
 
-function runtime(query = '', {renderer = true, contacts = true} = {}) {
+function runtime(query = '?lighting=noon', {renderer = true, contacts = true} = {}) {
   const env = vm.createContext({
     location: {search: query}, URLSearchParams, Uint8Array, Uint8ClampedArray,
-    document: {createElement: () => canvas()}
+    document: {createElement: () => canvas(), addEventListener() {}}, setTimeout() {}
   });
   env.window = env;
   if (renderer) load(env, 'engine/sukimastock-lighting.v0.1.0.js');
@@ -852,4 +852,15 @@ test('all four road placements draw the same lit lamp and its pool; OFF draws th
   assert.equal(off.length, 4);
   assert.ok(off.every(d => d.image === raw));
   assert.deepEqual(off.map(d => d.rect), lit.slice(4).map(d => d.rect));
+});
+
+
+test('Device local clock period boundaries are stable, including midnight', () => {
+  const lighting = runtime('?lighting=auto').YUMANIWA_TOWN_LIGHTING;
+  for (const [hour, minute, expected] of [
+    [4, 59, 'night'], [5, 0, 'morning'], [7, 59, 'morning'],
+    [8, 0, 'noon'], [16, 59, 'noon'], [17, 0, 'evening'],
+    [19, 59, 'evening'], [20, 0, 'night'], [23, 59, 'night'], [0, 0, 'night']
+  ]) assert.equal(lighting.periodForLocalTime(hour, minute), expected, String(hour)+':'+String(minute));
+  assert.equal(lighting.periodForLocalTime(24, 0), 'noon');
 });
