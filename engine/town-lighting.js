@@ -36,11 +36,45 @@
         return period;
     }
 
+    function periodForTokyoTime(hour, minute) {
+        const total = hour * 60 + minute;
+        if (!Number.isInteger(hour) || hour < 0 || hour > 23 ||
+            !Number.isInteger(minute) || minute < 0 || minute > 59) return 'noon';
+        if (total >= 20 * 60 || total < 5 * 60) return 'night';
+        if (total >= 17 * 60) return 'evening';
+        if (total >= 8 * 60) return 'noon';
+        return 'morning';
+    }
+
     try {
         const query = new URLSearchParams(root.location.search);
-        setPeriod(query.has('lighting') ? query.get('lighting') : 'noon');
+        const override = query.has('lighting') && query.get('lighting') !== 'auto';
+        if (override) {
+            setPeriod(query.get('lighting'));
+        } else {
+            const clock = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+            });
+            function updateFromClock() {
+                try {
+                    const parts = Object.fromEntries(clock.formatToParts(new Date()).map(part => [part.type, part.value]));
+                    setPeriod(periodForTokyoTime(Number(parts.hour), Number(parts.minute)));
+                } catch (_) {
+                    setPeriod('noon');
+                }
+            }
+            function scheduleClockUpdate() {
+                updateFromClock();
+                const delay = 60000 - (Date.now() % 60000) + 20;
+                root.setTimeout(scheduleClockUpdate, delay);
+            }
+            scheduleClockUpdate();
+            root.document.addEventListener('visibilitychange', function () {
+                if (!root.document.hidden) updateFromClock();
+            });
+        }
     } catch (_) {
-        // Unsupported URL parsing leaves the original town available.
+        setPeriod('noon');
     }
 
     function softNoon() {
@@ -359,7 +393,7 @@
     }
 
     root.YUMANIWA_TOWN_LIGHTING = Object.freeze({
-        active, image, drawImage, drawGround, setPeriod,
+        active, image, drawImage, drawGround, setPeriod, periodForTokyoTime,
         get period() { return period; },
         get softNoon() { return softNoon(); },
         stats() {
