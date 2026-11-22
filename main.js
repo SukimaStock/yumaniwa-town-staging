@@ -1375,6 +1375,12 @@ function getTownSceneTitle(sceneId) {
     return def ? def.title : sceneId;
 }
 
+function drawTownImage(image, x, y, w, h) {
+    var lighting = window.YUMANIWA_TOWN_LIGHTING;
+    if (lighting) lighting.drawImage(ctx, currentScene, image, '', x, y, w, h);
+    else ctx.drawImage(image, x, y, w, h);
+}
+
 function drawTownSceneBackground(cam) {
     var def = activeTownSceneDef;
 
@@ -1386,7 +1392,7 @@ function drawTownSceneBackground(cam) {
         );
 
         if (entry && entry.loaded && entry.image) {
-            ctx.drawImage(entry.image, 0, 0, cam.mapPixelW, cam.mapPixelH);
+            drawTownImage(entry.image, 0, 0, cam.mapPixelW, cam.mapPixelH);
             return;
         }
 
@@ -1402,7 +1408,7 @@ function drawTownSceneBackground(cam) {
     }
 
     if (bgLoaded && bgImage) {
-        ctx.drawImage(bgImage, 0, 0, cam.mapPixelW, cam.mapPixelH);
+        drawTownImage(bgImage, 0, 0, cam.mapPixelW, cam.mapPixelH);
         return;
     }
 
@@ -3039,7 +3045,7 @@ function drawPlayerSprite(px, py) {
 
     ctx.save();
     ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(sprite, drawX, drawY, drawW, drawH);
+    drawTownImage(sprite, drawX, drawY, drawW, drawH);
     ctx.restore();
 }
 
@@ -8238,6 +8244,19 @@ function draw() {
 
     drawTownSceneBackground(cam);
 
+    // The marker and every footY-sorted actor must stay above light on the ground.
+    var propApi = window.YUMANIWA_STATION_PLAZA_PROPS;
+    var lighting = window.YUMANIWA_TOWN_LIGHTING;
+    if (lighting && lighting.active(currentScene) && propApi && propApi.drawGroundLighting) {
+        // Wide or tall viewports can show the margin beyond the station's southern wall.
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, cam.mapPixelW, cam.mapPixelH);
+        ctx.clip();
+        propApi.drawGroundLighting(lighting, currentScene);
+        ctx.restore();
+    }
+
     if (tapMarkerTimer > 0 && tapMarkerPos && !isEditMode && !debugMode) {
         ctx.beginPath();
         ctx.arc(tapMarkerPos.x * TILE_SIZE + TILE_SIZE / 2, tapMarkerPos.y * TILE_SIZE + TILE_SIZE / 2, 4, 0, Math.PI * 2);
@@ -8246,7 +8265,6 @@ function draw() {
     }
 
     if (isTownScene(currentScene)) {
-        var propApi = window.YUMANIWA_STATION_PLAZA_PROPS;
         var px = player.x;
         var py = player.y;
 

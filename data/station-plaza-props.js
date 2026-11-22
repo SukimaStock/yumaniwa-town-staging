@@ -318,21 +318,46 @@
             return false;
         }
 
-        return drawPlacementImage(prop, entry.image);
+        return drawPlacementImage(prop, entry.image, prop.objectId);
     }
 
-    // Shared pixel snapping and geometry for formal props and local authoring images.
-    function drawPlacementImage(prop, image) {
+    // One snapped world rectangle for the sprite, its ground light and its shadow.
+    function placementRect(prop) {
         var tileSize = window.TILE_SIZE || 16;
         var renderOffsetY = getTownPropRenderOffsetY(prop);
-        var dx = Math.round(prop.x * tileSize);
-        var dy = Math.round((prop.y + renderOffsetY) * tileSize);
-        var dw = Math.round(prop.w * tileSize);
-        var dh = Math.round(prop.h * tileSize);
+        return {
+            x: Math.round(prop.x * tileSize),
+            y: Math.round((prop.y + renderOffsetY) * tileSize),
+            w: Math.round(prop.w * tileSize),
+            h: Math.round(prop.h * tileSize)
+        };
+    }
 
+    function drawGroundLighting(lighting, sceneId) {
+        var props = getActiveProps();
+        var materials = window.YUMANIWA_TOWN_LIGHTING_MATERIALS;
+        if (!materials) return;
+        for (var i = 0; i < props.length; i++) {
+            var prop = props[i];
+            if (!prop || prop.enabled === false || !materials.objects[prop.objectId]) continue;
+            var entry = propImageCache[resolvePropSrc(prop)];
+            if (!entry || !entry.loaded) continue;
+            var rect = placementRect(prop);
+            lighting.drawGround(window.ctx, sceneId, entry.image, prop.objectId,
+                rect.x, rect.y, rect.w, rect.h);
+        }
+    }
+
+    function drawPlacementImage(prop, image, objectId) {
+        var rect = placementRect(prop);
+        var lighting = window.YUMANIWA_TOWN_LIGHTING;
         window.ctx.save();
         window.ctx.imageSmoothingEnabled = false;
-        window.ctx.drawImage(image, dx, dy, dw, dh);
+        if (objectId && lighting) {
+            lighting.drawImage(window.ctx, window.currentScene, image, objectId, rect.x, rect.y, rect.w, rect.h);
+        } else {
+            window.ctx.drawImage(image, rect.x, rect.y, rect.w, rect.h);
+        }
         window.ctx.restore();
         return true;
     }
@@ -417,6 +442,7 @@
         preloadPropImage: getPropImage,
         preloadSceneProps: preloadSceneProps,
         drawPlacementImage: drawPlacementImage,
+        drawGroundLighting: drawGroundLighting,
         drawTownActorsAndProps: drawTownActorsAndProps
     };
 })();
