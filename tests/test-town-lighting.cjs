@@ -555,3 +555,191 @@ test('town draw paints all four lamp footprints before markers and footY-sorted 
     'ground', 'marker', ...expected.map(item => item.name.replace(/^lit /, ''))
   ]);
 });
+
+const leisure = 'leisure_center_map';
+const softQuery = '?lighting=noon&shadows=soft';
+
+function groundDraw(api, scene, source, id, w, h) {
+  let draw;
+  api.drawGround({
+    save() {}, restore() {},
+    drawImage(bitmap, x, y, width, height) { draw = {bitmap, x, y, width, height}; }
+  }, scene, source, id, 0, 0, w, h);
+  return draw;
+}
+
+test('only the noon preview changes ground effects; all other periods retain their exact output', () => {
+  const env = runtime(softQuery);
+  const api = env.YUMANIWA_TOWN_LIGHTING, regular = runtime().YUMANIWA_TOWN_LIGHTING;
+  assert.equal(api.softNoon, true);
+  assert.equal(regular.softNoon, false);
+  assert.equal(runtime('?lighting=noon&shadows=other').YUMANIWA_TOWN_LIGHTING.softNoon, false);
+  const id = 'station_building_01', src = sprite('station.png', 128, 128);
+  for (const phase of [...periods, 'off']) {
+    api.setPeriod(phase);
+    regular.setPeriod(phase);
+    assert.equal(api.softNoon, phase === 'noon');
+    assert.equal(api.active(leisure), phase === 'noon');
+    assert.equal(api.active('other_room'), false);
+    assert.deepEqual(api.image(plaza, src, id).data, regular.image(plaza, src, id).data, phase);
+    assert.equal(api.image(leisure, src, id), src, 'room lighting always uses original sprite');
+    assert.equal(api.image(leisure, src), src, 'room ground stays original');
+    const preview = groundDraw(api, plaza, src, id, 128, 128);
+    const baseline = groundDraw(regular, plaza, src, id, 128, 128);
+    if (phase === 'noon') {
+      assert.notDeepEqual(preview.bitmap.spans, baseline.bitmap.spans);
+    } else if (phase === 'off') {
+      assert.equal(preview, undefined);
+      assert.equal(api.image(plaza, src, id), src);
+    } else {
+      assert.deepEqual([preview.x, preview.y, preview.bitmap.spans], [baseline.x, baseline.y, baseline.bitmap.spans]);
+    }
+  }
+  const bench = sprite('bench.png', 56, 56);
+  regular.setPeriod('noon');
+  assert.equal(groundDraw(regular, plaza, bench, 'bench_wood_01', 56, 56), undefined);
+  assert.equal(groundDraw(regular, leisure, bench, 'bench_wood_01', 56, 56), undefined);
+});
+
+test('noon contact follows each support, leaving the original artwork and nearby pavement intact', () => {
+  const env = runtime(softQuery), api = env.YUMANIWA_TOWN_LIGHTING;
+  const materials = env.YUMANIWA_TOWN_LIGHTING_MATERIALS;
+  load(env, 'data/station-plaza.js');
+  load(env, 'data/town-maps.js');
+  const indoorIds = new Set(env.TOWN_SCENE_MAPS[leisure].props.map(prop => prop.objectId));
+  for (const id of indoorIds) assert.ok(materials.noonContacts[id], id);
+  for (const [id, contact] of Object.entries(materials.noonContacts)) {
+    const {width, height, shapes} = contact;
+    const source = sprite(env.YUMANIWA_WORLD_OBJECTS.get(id).src, width, height);
+    const indoor = indoorIds.has(id);
+    const scene = indoor ? leisure : plaza;
+    if (!materials.objects[id]) {
+      source.failRead = true; // Any RGBA readback would throw and suppress the shadow.
+      assert.equal(api.image(scene, source, id), source);
+    }
+    const draw = groundDraw(api, scene, source, id, width, height);
+    assert.ok(draw, id + ' missing contact');
+    const {bitmap, x, y} = draw;
+    const left = Math.min(...shapes.map(s => s.cx - s.rx));
+    const right = Math.max(...shapes.map(s => s.cx + s.rx));
+    const top = Math.min(...shapes.map(s => s.cy - s.ry));
+    const bottom = Math.max(...shapes.map(s => s.cy + s.ry));
+    assert.ok(x >= Math.floor(left) && y >= Math.floor(top), id + ' displaced toward top/left');
+    assert.ok(x + draw.width <= Math.ceil(right) + (indoor ? 0 : 10), id + ' horizontal reach');
+    assert.ok(y + draw.height <= Math.ceil(bottom) + (indoor ? 0 : 6), id + ' vertical reach');
+
+    const coverage = new Map();
+    for (const span of bitmap.spans) {
+      const [r,g,b,alpha] = span.color.slice(5,-1).split(',').map(Number);
+      assert.ok(r === g && g === b && r <= 26, id + ' contact should be neutral');
+      assert.equal(span.h, 1);
+      for (let dx = 0; dx < span.w; dx++) {
+        const key = (x + span.x + dx) + ',' + (y + span.y);
+        const previous = coverage.get(key) || 0;
+        coverage.set(key, previous + alpha * (1 - previous));
+      }
+    }
+    const peak = Math.max(...coverage.values());
+    assert.ok(peak > 0.06 && peak <= 0.27, id + ' unexpected composite opacity ' + peak);
+    for (const foot of shapes) {
+      const atFoot = coverage.get(Math.floor(foot.cx) + ',' + Math.floor(foot.cy)) || 0;
+      assert.ok(atFoot >= 0.06, id + ' no contact at support');
+    }
+    // Source-art probes independent of the shape list: the platform has a gap
+    // between piers, and the counter plinth meets the floor above the PNG edge.
+    if (id === 'station_building_01') {
+      assert.ok(coverage.get('45,124') > 0.06);
+      assert.ok(!coverage.has('63,124'));
+    }
+    if (id === 'leisure_counter_01') {
+      assert.ok(coverage.get('50,94') > 0.05);
+      assert.ok(!coverage.has('50,100'));
+    }
+    if (id === 'yakitori_shop_01') {
+      const tip = bitmap.spans.reduce((lowest, row) => row.y > lowest.y ? row : lowest);
+      const dx = draw.x + tip.x + tip.w / 2 - 48;
+      assert.ok(dx > 0 && dx < 10, 'short noon cast to the right of the actual shop sill');
+    }
+    assert.equal(groundDraw(api, scene, source, id, width, height).bitmap, bitmap);
+  }
+  assert.equal(api.stats().failures, 0);
+});
+
+test('indoor contact-only and outdoor short projections never share the wrong cache entry', () => {
+  for (const firstScene of [plaza, leisure]) {
+    const env = runtime(softQuery), api = env.YUMANIWA_TOWN_LIGHTING;
+    const id = 'bench_wood_01', src = sprite('bench.png?rev=1', 56, 56);
+    src.failRead = true;
+    const nextScene = firstScene === plaza ? leisure : plaza;
+    const first = groundDraw(api, firstScene, src, id, 56, 56);
+    const next = groundDraw(api, nextScene, src, id, 56, 56);
+    const indoor = firstScene === leisure ? first : next, outdoor = firstScene === plaza ? first : next;
+    assert.notEqual(indoor.bitmap, outdoor.bitmap);
+    assert.ok(outdoor.y + outdoor.height > indoor.y + indoor.height, 'short exterior cast below contact');
+    assert.ok(outdoor.height - indoor.height <= 6);
+    assert.equal(api.stats().renders, 2);
+    assert.equal(groundDraw(api, firstScene, src, id, 56, 56).bitmap, first.bitmap);
+    assert.equal(api.image(firstScene, src, id), src);
+    assert.equal(api.stats().renders, 2);
+    api.setPeriod('night');
+    assert.equal(groundDraw(api, leisure, src, id, 56, 56), undefined);
+    api.setPeriod('noon');
+    assert.equal(groundDraw(api, leisure, src, id, 56, 56).bitmap, indoor.bitmap);
+    const replacement = sprite(src.src, 56, 56);
+    assert.notEqual(groundDraw(api, firstScene, replacement, id, 56, 56).bitmap, first.bitmap);
+    replacement.currentSrc = 'bench.png?rev=2';
+    const ctx = {save() {}, restore() {}, drawImage() { throw new Error('lost ground surface'); }};
+    api.drawGround(ctx, firstScene, replacement, id, 0, 0, 56, 56);
+    assert.equal(groundDraw(api, firstScene, replacement, id, 56, 56), undefined);
+    assert.equal(api.image(firstScene, replacement, id), replacement);
+    assert.equal(api.stats().failures, 1);
+    assert.equal(groundDraw(api, leisure, {naturalWidth:0, naturalHeight:0}, id, 56, 56), undefined);
+  }
+});
+
+test('leisure center draws only loaded exhibit contacts before the original footY-sorted sprites', () => {
+  const env = runtime(softQuery);
+  load(env, 'data/station-plaza.js');
+  load(env, 'data/town-maps.js');
+  load(env, 'main.js');
+  env.Image = class {};
+  load(env, 'data/station-plaza-props.js');
+  const lib = env.YUMANIWA_STATION_PLAZA_PROPS;
+  const scene = env.TOWN_SCENE_MAPS[leisure];
+  env.currentScene = leisure;
+  env.activeTownSceneDef = scene;
+  env.canvas = {width:390, height:780};
+  env.getCamera = () => ({zoom:1, cameraX:0, cameraY:0, mapPixelW:384, mapPixelH:384});
+  env.player.y = 11 * 16;
+  env.playerSprites.stand.down = {...sprite('player.png'), name:'player'};
+  env.preloadTownSceneBackgroundAsset = () => ({loaded:true, image:{name:'ground'}});
+  lib.preloadSceneProps(scene);
+  const ordered = Array.from(scene.props, p => ({name:p.objectId, foot:p.footY}));
+  for (const prop of scene.props) {
+    const id = prop.objectId, def = env.YUMANIWA_TOWN_LIGHTING_MATERIALS.noonContacts[id];
+    const entry = lib.imageCache[lib.resolvePropSrc(prop)];
+    entry.loaded = true;
+    Object.assign(entry.image, {
+      name:id, naturalWidth:def.width, naturalHeight:def.height, failRead:true
+    });
+  }
+  const observations = [];
+  env.ctx = {
+    save() {}, restore() {}, clearRect() {}, scale() {}, translate() {}, beginPath() {}, rect() {}, clip() {},
+    drawImage(img) { observations.push(img.spans ? 'contact' : img.name); }
+  };
+  ordered.push({name:'player', foot:12});
+  ordered.sort((a, b) => a.foot - b.foot);
+  env.draw();
+  assert.deepEqual(observations, ['ground', ...scene.props.map(() => 'contact'), ...ordered.map(o => o.name)]);
+  observations.length = 0;
+  const missing = scene.props[2];
+  lib.imageCache[lib.resolvePropSrc(missing)].loaded = false;
+  env.draw();
+  assert.equal(observations.filter(name => name === 'contact').length, scene.props.length - 1);
+  assert.ok(!observations.includes(missing.objectId));
+  env.YUMANIWA_TOWN_LIGHTING.setPeriod('off');
+  observations.length = 0;
+  env.draw();
+  assert.deepEqual(observations, ['ground', ...ordered.filter(o => o.name !== missing.objectId).map(o => o.name)]);
+});

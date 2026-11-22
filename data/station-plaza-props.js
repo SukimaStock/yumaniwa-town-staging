@@ -337,9 +337,11 @@
         var props = getActiveProps();
         var materials = window.YUMANIWA_TOWN_LIGHTING_MATERIALS;
         if (!materials) return;
+        var contacts = lighting.softNoon && materials.noonContacts;
         for (var i = 0; i < props.length; i++) {
             var prop = props[i];
-            if (!prop || prop.enabled === false || !materials.objects[prop.objectId]) continue;
+            if (!prop || prop.enabled === false) continue;
+            if (!materials.objects[prop.objectId] && !(contacts && contacts[prop.objectId])) continue;
             var entry = propImageCache[resolvePropSrc(prop)];
             if (!entry || !entry.loaded) continue;
             var rect = placementRect(prop);
