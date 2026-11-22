@@ -67,7 +67,33 @@ check('tourist map uses existing map API',()=>{c.triggers[0].id='tourist_map';co
 check('work launches through existing API, missing work displays message',()=>{const fn=c.launchWork;let n=0;c.launchWork=()=>n++;const work=c.WORKS[0];c.triggers[0]=trigger('work',10,10,{type:'work',workId:work.id});at(9,10);assert(interaction.activateTrigger('work'));assert.equal(n,1);c.triggers[0].workId='missing';assert(interaction.activateTrigger('work'));assert.equal(n,1);assert.equal(messages.length,1);c.launchWork=fn;});
 check('warp description and second action transition exactly once',()=>{c.triggers[0]=trigger('warp',10,10,{type:'warp',target:'tomogushi_alley_map'});at(9,10);assert(interaction.activateTrigger('warp'));assert(c.isMessageOpen);assert.equal(c.pendingWarp,'tomogushi_alley_map');assert.equal(interaction.getRequest(),null);assert.equal(transitions.length,0);assert(interaction.handleAction());assert.equal(transitions.length,1);assert.equal(c.pendingWarp,null);assert.deepEqual(accepted,['warp']);});
 check('normal message close discards warp confirmation',()=>{c.triggers[0]=trigger('warp',10,10,{type:'warp',target:'tomogushi_alley_map'});at(9,10);interaction.activateTrigger('warp');c.closeMessage();assert.equal(c.pendingWarp,null);at(2,2);interaction.handleAction();assert.equal(transitions.length,0);});
-check('message tap confirmation uses the same action controller',()=>{c.triggers[0]=trigger('warp',10,10,{type:'warp',target:'tomogushi_alley_map'});at(9,10);interaction.activateTrigger('warp');el('message-window').dispatch('pointerdown');assert.equal(transitions.length,1);});
+check('only a completed message tap confirms a pending warp', () => {
+    c.triggers[0] = trigger('warp', 10, 10, {type: 'warp', target: 'tomogushi_alley_map'});
+    at(9, 10);
+    interaction.activateTrigger('warp');
+    const dialog = el('message-window');
+    dialog.click(); // A delayed click from the hint that opened the dialog.
+    assert.equal(transitions.length, 0);
+    dialog.dispatch('pointerdown');
+    dialog.dispatch('pointercancel');
+    dialog.click();
+    assert.equal(transitions.length, 0);
+    assert.equal(c.pendingWarp, 'tomogushi_alley_map');
+    dialog.dispatch('pointerdown');
+    dialog.dispatch('pointerup');
+    dialog.dispatch('pointerleave');
+    dialog.click();
+    assert.equal(transitions.length, 1);
+    assert.equal(c.currentScene, 'tomogushi_alley_map');
+});
+check('a new message starts at the top after reading a long message', () => {
+    const dialog = el('message-window');
+    c.showMessage('long message');
+    dialog.scrollTop = 48;
+    c.closeMessage();
+    c.showMessage('next message');
+    assert.equal(dialog.scrollTop, 0);
+});
 check('ghost dialogue never changes canonical/draft or Editor diff',()=>{c.applyTownSceneDefinition('station_plaza','default');c.openTownEditorSession();c.closeTownEditor();const before=JSON.stringify(api.current());const t=c.triggers.find(t=>t.id==='station_ghost_npc_trigger');for(let i=0;i<3;i++){at(t.area.x,t.area.y);assert(interaction.activateTrigger(t.id));c.closeMessage();}assert.equal(JSON.stringify(api.current()),before);assert.equal(t.text,'……');assert(messages.every(t=>t!=='……'));assert(!api.isDirty());assert.equal(c.YUMANIWA_EDITOR_BUILD_DIFF().changes.triggers.length,0);});
 check('manual edge warp still works',()=>{at(22,10);c.keys.ArrowRight=true;for(let i=0;i<8&&!transitions.length;i++)c.update();assert.equal(transitions.length,1);});
 check('game update loop performs arrival once and stops walking for message',()=>{interaction.requestTrigger('A');for(let i=0;i<2000&&interaction.getRequest();i++)c.update();assert.deepEqual(accepted,['A']);assert.equal(c.player.isMoving,false);for(let i=0;i<5;i++)c.update();assert.deepEqual(accepted,['A']);});

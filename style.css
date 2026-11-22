@@ -191,7 +191,7 @@ textarea {
     z-index: 90;
     cursor: pointer;
     pointer-events: auto;
-    touch-action: none;
+    touch-action: pan-y;
 }
 
 #mobile-controls {
@@ -1103,8 +1103,6 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background:
-        radial-gradient(circle at 50% 38%, var(--town-page-bg-a) 0%, var(--town-page-bg-b) 55%, var(--town-page-bg-c) 100%);
 }
 
 #game-container {
@@ -1116,8 +1114,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background:
-        radial-gradient(circle at 50% 38%, var(--town-page-bg-a) 0%, var(--town-page-bg-b) 55%, var(--town-page-bg-c) 100%);
+}
+
+html,
+body,
+#game-container {
+    background-color: var(--town-page-bg-c);
+    background-image: radial-gradient(circle at 50% 38%, var(--town-page-bg-a) 0%, var(--town-page-bg-b) 55%, var(--town-page-bg-c) 100%);
 }
 
 #town-screen {
@@ -1621,15 +1624,14 @@ body {
 /* エリア名は、画面右半分だけで縮まないように表示幅を明示する。 */
 #town-screen #area-title {
     width: max-content;
-    max-width: calc(100% - 32px);
+    max-width: min(calc(100% - 32px), 340px);
 }
 
 #area-title-main {
     width: max-content;
-    max-width: min(86vw, 340px);
+    max-width: 100%;
     white-space: pre-line;
-    word-break: keep-all;
-    overflow-wrap: normal;
+    overflow-wrap: anywhere;
     text-wrap: balance;
     line-height: 1.24;
 }
@@ -1640,7 +1642,8 @@ body {
 }
 
 #area-title-sub {
-    max-width: min(86vw, 340px);
+    max-width: 100%;
+    overflow-wrap: anywhere;
     text-wrap: balance;
     line-height: 1.35;
 }

@@ -76,3 +76,11 @@
         --town-dialog-max-h: 32%;
     }
 }
+
+/* The directional pad is hidden during a conversation. */
+@media (orientation: landscape) and (max-height: 440px) {
+    :root {
+        --town-dialog-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+        --town-dialog-max-h: 70%;
+    }
+}

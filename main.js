@@ -2872,6 +2872,8 @@ function setupTouchSelectionGuards() {
 
     function blockNativeGameTouch(e) {
         if (isGameTouchTarget(e.target)) {
+            // Allow vertical swipes in the scrollable dialog, including on its text.
+            if (e.touches && e.target.closest("#message-window")) return;
             e.preventDefault();
         }
     }
@@ -4265,7 +4267,19 @@ function setupMessageLayerEvents() {
     }
 
     if (msgWin) {
-        msgWin.addEventListener('pointerdown', handleMessageTap);
+        // The click following a hint tap can land on the newly opened dialog.
+        var pressedInMessage = false;
+        msgWin.addEventListener('pointerdown', function() { pressedInMessage = true; });
+        msgWin.addEventListener('pointercancel', function() { pressedInMessage = false; });
+        msgWin.addEventListener('pointerleave', function(e) {
+            // Touch pointers also leave after a successful lift, before click.
+            if (e.buttons) pressedInMessage = false;
+        });
+        msgWin.addEventListener('click', function(e) {
+            var accept = pressedInMessage || e.detail === 0;
+            pressedInMessage = false;
+            if (accept) handleMessageTap(e);
+        });
     }
 
     if (backdrop) {
@@ -6950,6 +6964,7 @@ function showMessage(text) {
 
     msgWin.innerHTML = msg;
     msgWin.style.display = 'block';
+    msgWin.scrollTop = 0;
 
     if (backdrop) {
         backdrop.style.display = 'block';

@@ -1,0 +1,115 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4ca60560cd0e5ce9e11c50dc646cd7c335f5e03da8b943f1740d838f8c27788e",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-mobile-frame-20261122",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Protect the mobile town underlay and fit area headings and touch dialogs inside a short game frame.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "51ab2a981e33b3d5ce30180ee22de8da1fb08a11",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-VERIFICATION.md",
+      "index.html",
+      "style.css",
+      "layout-fix.css",
+      "main.js",
+      "User X WebView screenshots and reproduction of clipped road heading and leisure counter line on the deployed production baseline",
+      "tests/test-town-interaction.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-mobile-frame-20261122/r0.lock.json",
+      "style.css",
+      "layout-fix.css",
+      "main.js",
+      "index.html",
+      "tests/test-town-interaction.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "assets/**",
+      "data/**",
+      "engine/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Protect page backing using the existing gradient edge color; retain normal gradient pixels and constant theme preference.",
+      "Fit area title lines and subtitles within their actual parent without changing authored words or line breaks.",
+      "Use space available to messages on short landscape viewports and permit touch scrolling of longer messages. Preserve tap, backdrop and keyboard dismiss and reset each new message to its start.",
+      "Refresh revision parameters for changed root resources.",
+      "Update the existing warp tap test to distinguish a cancelled pointer gesture from a committed click; keep exactly-once destination assertions and verify fresh-message scroll reset."
+    ],
+    "ownerDecisions": [
+      "The author requests deployment of these reversible investigation findings to Staging."
+    ],
+    "hqDecisions": [
+      "Reuse existing page surfaces, message scroll container and native click/pan behavior. Keep the current canonical frame and movement controls."
+    ],
+    "rulesApplied": [
+      "Lock before implementation; base-owned gates and exact SHA CI; independent browser verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "ios-x-native-toolbar-and-real-touch"
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this single Staging PR including its CSS, message handling and corresponding HTML resource versions.",
+    "outOfScope": [
+      "Production, X or Safari native chrome, forced toolbar colors, developer UI, art/lighting, changes to the desktop/phone breakpoint or game input outside the message window."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone/X native chrome and effect on original seam; native toolbar color remains host-controlled."
+    ],
+    "problem": "A white seam of six CSS pixels appears at the X browser toolbar boundary. Narrow game frames clip long arrival headings and short landscape dialogs. A drag on an overflowing message triggers immediate dismissal.",
+    "currentContract": "Town screen uses 9:16 on small coarse pointers and 1:2 otherwise. The page has opaque gradient stops with a transparent backing. The area heading and message dialog are inside the game frame; the latter already has overflow-y auto.",
+    "whyExistingIsInsufficient": "Viewport-relative child title sizing ignores the narrower rendered frame. Short landscape dialogs retain portrait control reservation even when modal; touch guarding and pointerdown prevent reading overflowing text.",
+    "design": "Keep gradient imagery and give its root/body/container an opaque fallback; make child headings fit the available parent; size short-landscape messages to the game frame, allow native vertical panning within the message only and advance on a completed tap. Reuse the existing interaction action and exact asset URLs with a new revision.",
+    "alternativesRejected": [
+      "Resize/stretch the game canvas or change the art",
+      "Override X-owned controls or force a global dark scheme",
+      "Change directional controls or implement custom scrolling."
+    ],
+    "migration": "Cache revisions only; no storage or content migration.",
+    "compatibility": "Desktop and normal portrait, keyboard dismissal, backdrop dismissal, movement after dismissal, authored multiline titles, frame proportions and theme-color remain compatible.",
+    "boundaryCases": [
+      "390x661 at DPR3 versus 320x454 portrait, 568x320 and 844x310 landscape; 768/769 breakpoint and toolbar-height changes",
+      "A short counter message versus long scrollable content, tap vs pan, reopen after scrolling, keyboard, touch outside a message."
+    ],
+    "testPlan": [
+      "Run mobile WebKit/Chromium rendering and interaction checks including real browser touch when supported; test multiple areas and representative sizes.",
+      "Exercise long content scroll vs tap, next/open scroll position, spot-check walking/scene transitions/normal controls, check gradient fallback.",
+      "Run related existing regressions, trusted Scope, Risk, Impact and Static on exact HEAD and verify required CI and Staging Pages bytes after merge.",
+      "Preflight showed the old tap fixture explicitly dispatched pointerdown; keep that assertion for the unconfirmed state, then confirm on click with the same action controller."
+    ],
+    "promotionRisk": "Staging-only, reversible. The native X app cannot be emulated by changing viewport size."
+  }
+}
