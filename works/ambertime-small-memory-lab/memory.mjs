@@ -1,8 +1,8 @@
 import {shopRemark,shopRemarkFacts,classifyShopRemark,SHOP_REMARK_TEXT} from '../ambertime/shop-remarks.mjs';
 import {dialogueCandidates,dialogueShopName} from '../ambertime/shop-dialogue.mjs';
 import {SHOP_DIALOGUE_TEXT} from '../ambertime/shop-dialogue-text.mjs';
-import {mapProgress} from '../ambertime/world-map-view.mjs';
-import {NODES} from '../ambertime/town-connection.mjs';
+import {mapProgress} from '../ambertime/world-map-view.mjs?v=0.28.0-map&map=map-partners-v01&scenery=map-scenery-v01&world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {NODES} from '../ambertime/town-connection.mjs?perf=v06';
 import {selectC,selectionSeed} from '../ambertime/recall/selection.mjs';
 import {packageFamily} from '../ambertime/release-package.mjs';
 const copy=structuredClone;

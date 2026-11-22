@@ -1,4 +1,4 @@
-import {selectedTownEvents} from './player-news.mjs?v=adjust-a-r1';
+import {selectedTownEvents} from './player-news.mjs?v=adjust-a-r1&perf=v06';
 // Presentation only. Events are collected at saved transitions, never at render/reload.
 export function automaticEvents(before,after,caskLabel=()=>'',releaseLabel=()=>''){
  const events=selectedTownEvents(before,after);

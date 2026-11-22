@@ -23,28 +23,28 @@ function harness({saved=true,reason=''}={}){
  return {ui,root,click,pid,events,notices,calls,state:()=>current,setSaved:v=>save=v};
 }
 
-test('only an enabled accepted regional contract appears beside the unchanged native sales destinations',()=>{
+test('only an enabled accepted regional contract appears beside the unchanged native sales destinations',async()=>{
  const blank=D.newRegionalDeliveryDistillery(3);assert(!availableMarketShops(blank).some(s=>s.id===partnerId));
  const s=natural(),shops=availableMarketShops(s);assert.equal(shops.filter(s=>s.id===partnerId).length,1);assert.equal(shops.at(-1).name,'地域窓口');
  assert.equal(visibleMarketRows(s,D,partnerId).length,0);assert.equal(D.regionalDeliveryMode(s),true);
 });
 
-test('same bottle and1/5/all controls reserve physical stock; existing return pane cancels every pending allocation',()=>{
+test('same bottle and1/5/all controls reserve physical stock; existing return pane cancels every pending allocation',async()=>{
  const h=harness(),initial=h.state(),stock=initial.core.products.find(p=>p.id===h.pid).stock,cash=initial.core.cash;
- h.click({marketPlace:partnerId});assert.equal(D.regionalDeliveryRows(h.state(),partnerId)[0].count,1);assert.equal(h.calls.at(-1).value.count,1);
- h.click({marketPortion:'5'});h.click({marketPlace:partnerId});assert.equal(h.calls.at(-1).value.count,5);
- h.click({marketPortion:'all'});h.click({marketPlace:partnerId});assert.equal(D.regionalDeliveryRows(h.state(),partnerId)[0].count,stock);
+ await h.click({marketPlace:partnerId});assert.equal(D.regionalDeliveryRows(h.state(),partnerId)[0].count,1);assert.equal(h.calls.at(-1).value.count,1);
+ await h.click({marketPortion:'5'});await h.click({marketPlace:partnerId});assert.equal(h.calls.at(-1).value.count,5);
+ await h.click({marketPortion:'all'});await h.click({marketPlace:partnerId});assert.equal(D.regionalDeliveryRows(h.state(),partnerId)[0].count,stock);
  assert.equal(h.state().core.cash,cash);assert.equal(h.state().core.products.find(p=>p.id===h.pid).stock,stock);assert.match(h.root.innerHTML,/未納品/);
- h.click({marketStock:partnerId+':'+h.pid});assert(h.ui.diagnostics().editing.regional);assert.match(h.root.innerHTML,/data-market-confirm="deliver"/);assert.match(h.root.innerHTML,/data-market-confirm="return"/);
- h.click({marketCancel:'return'});assert.equal(D.regionalDeliveryRows(h.state(),partnerId)[0].count,stock);
- h.click({marketStock:partnerId+':'+h.pid});h.click({marketConfirm:'return'});assert.equal(D.regionalDeliveryRows(h.state(),partnerId).length,0);assert.equal(D.storeMarketInventory(h.state(),h.pid).hand,stock);assert.equal(h.state().core.cash,cash);
+ await h.click({marketStock:partnerId+':'+h.pid});assert(h.ui.diagnostics().editing.regional);assert.match(h.root.innerHTML,/data-market-confirm="deliver"/);assert.match(h.root.innerHTML,/data-market-confirm="return"/);
+ await h.click({marketCancel:'return'});assert.equal(D.regionalDeliveryRows(h.state(),partnerId)[0].count,stock);
+ await h.click({marketStock:partnerId+':'+h.pid});await h.click({marketConfirm:'return'});assert.equal(D.regionalDeliveryRows(h.state(),partnerId).length,0);assert.equal(D.storeMarketInventory(h.state(),h.pid).hand,stock);assert.equal(h.state().core.cash,cash);
  assert.deepEqual(h.calls.at(-1).value.allocationIds,h.calls.filter(c=>c.name==='assignRegionalProduct').map(c=>c.value.allocationId));
 });
 
-test('explicit pending-row confirmation delivers only after saved action and exposes procurement separately from consumer sales',()=>{
+test('explicit pending-row confirmation delivers only after saved action and exposes procurement separately from consumer sales',async()=>{
  const h=harness(),before=h.state(),stock=before.core.products.find(p=>p.id===h.pid).stock;
- h.click({marketPortion:'5'});h.click({marketPlace:partnerId});const reserved=h.state(),q=D.regionalDeliveryQuote(reserved,h.pid,partnerId);
- h.click({marketStock:partnerId+':'+h.pid});h.click({marketConfirm:'deliver'});const after=h.state();
+ await h.click({marketPortion:'5'});await h.click({marketPlace:partnerId});const reserved=h.state(),q=D.regionalDeliveryQuote(reserved,h.pid,partnerId);
+ await h.click({marketStock:partnerId+':'+h.pid});await h.click({marketConfirm:'deliver'});const after=h.state();
  assert.equal(after.core.cash,before.core.cash+5*q.unitPrice);assert.equal(after.core.products.find(p=>p.id===h.pid).stock,stock-5);assert.equal(D.regionalDeliveryRows(after,partnerId).length,0);
  const receipt=D.regionalDeliveryHistory(after,partnerId).at(-1);assert.equal(receipt.count,5);assert.equal(receipt.customerSales,null);assert.equal(receipt.id,q.nextDeliveryId);assert.equal(h.calls.at(-1).name,'deliverRegionalProduct');assert.deepEqual(h.calls.at(-1).value.allocationIds,q.allocationIds);
  assert.deepEqual(savedMarketSales(reserved,after),[]);assert.deepEqual(after.labConnection,reserved.labConnection);
@@ -52,14 +52,14 @@ test('explicit pending-row confirmation delivers only after saved action and exp
  assert(h.events.some(e=>e[0]==='saved'&&e[1].includes('納品しました')));
 });
 
-test('failed save leaves reservation/payment uncommitted and a retry uses the same pending identities',()=>{
- const h=harness({saved:false}),original=h.state();h.click({marketPortion:'5'});h.click({marketPlace:partnerId});assert.equal(h.state(),original);assert.deepEqual(h.events,[]);
- h.setSaved(true);h.click({marketPlace:partnerId});h.click({marketStock:partnerId+':'+h.pid});const before=h.state(),cash=before.core.cash;
- h.setSaved(false);h.click({marketConfirm:'deliver'});assert.equal(h.state(),before);assert.equal(h.state().core.cash,cash);assert.equal(D.regionalDeliveryHistory(h.state(),partnerId).length,0);assert(h.ui.diagnostics().editing);
- const attempted=h.calls.at(-1).value;h.setSaved(true);h.click({marketConfirm:'deliver'});assert.deepEqual(h.calls.at(-1).value,attempted);assert.equal(D.regionalDeliveryHistory(h.state(),partnerId).length,1);
+test('failed save leaves reservation/payment uncommitted and a retry uses the same pending identities',async()=>{
+ const h=harness({saved:false}),original=h.state();await h.click({marketPortion:'5'});await h.click({marketPlace:partnerId});assert.equal(h.state(),original);assert.deepEqual(h.events,[]);
+ h.setSaved(true);await h.click({marketPlace:partnerId});await h.click({marketStock:partnerId+':'+h.pid});const before=h.state(),cash=before.core.cash;
+ h.setSaved(false);await h.click({marketConfirm:'deliver'});assert.equal(h.state(),before);assert.equal(h.state().core.cash,cash);assert.equal(D.regionalDeliveryHistory(h.state(),partnerId).length,0);assert(h.ui.diagnostics().editing);
+ const attempted=h.calls.at(-1).value;h.setSaved(true);await h.click({marketConfirm:'deliver'});assert.deepEqual(h.calls.at(-1).value,attempted);assert.equal(D.regionalDeliveryHistory(h.state(),partnerId).length,1);
 });
 
-test('ineligible selected bottle shows a visible reason while keeping the contract row and existing information action',()=>{
- const h=harness({reason:'この契約のブランドのお酒を選んでください。'});h.click({marketPlace:partnerId});assert.match(h.root.innerHTML,/class="market-notice"/);assert.match(h.root.innerHTML,/この契約のブランド/);assert.equal(h.calls.length,0);
- h.click({marketDetails:partnerId});assert.deepEqual(h.events.at(-1),['info',partnerId]);
+test('ineligible selected bottle shows a visible reason while keeping the contract row and existing information action',async()=>{
+ const h=harness({reason:'この契約のブランドのお酒を選んでください。'});await h.click({marketPlace:partnerId});assert.match(h.root.innerHTML,/class="market-notice"/);assert.match(h.root.innerHTML,/この契約のブランド/);assert.equal(h.calls.length,0);
+ await h.click({marketDetails:partnerId});assert.deepEqual(h.events.at(-1),['info',partnerId]);
 });

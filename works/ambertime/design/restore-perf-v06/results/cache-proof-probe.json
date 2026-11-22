@@ -1,0 +1,85 @@
+{
+  "schema": "ambertime-cache-proof-probe/1",
+  "probeSHA256": "a00c7c170745c8597f54229a9dc1f7b0ba591cda821d277df1cb8247c08a802f",
+  "environment": {
+    "node": "v24.22.1",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "scope": "MOCK semantic reader. Actual local100-year and next-month wire lengths; real extracted canonical/SHA/cache functions. No native IDB and no history replay.",
+  "limitations": [
+    "Reader call counts demonstrate cache eviction, not measured replay duration.",
+    "Retained key code units are NOT total process or browser memory. Texts remain held by the diagnostic input array.",
+    "Canonical/SHA corruption rejection is covered by separate tests, not inferred from this probe.",
+    "No claim about iPhone Safari, Chromium performance, or all five strategies."
+  ],
+  "command": "node works/ambertime/design/restore-perf-v06/cache-proof-probe.mjs ../fixtures/unpacked/ambertime-v03-capacity/protocol",
+  "sources": [
+    {
+      "label": "PR929-8Mi-text-cache",
+      "commit": "c326834feb33306b7e92c5842d19475c2a95734d",
+      "sourceSHA256": "4d65d9995ce4421e0fc243cfd0b6a5e57c0d611efca2a6e1caa9143d831973dc",
+      "sourceGitBlob": "8b9e1f7a9a8a1bd27c1c0d60f6b5e65d20b3e555",
+      "populated": {
+        "readerCalls": 2,
+        "retainedKeys": 1,
+        "retainedKeyCodeUnits": 4615699,
+        "largestKeyCodeUnits": 4615699
+      },
+      "reread": {
+        "readerCalls": 4,
+        "retainedKeys": 1,
+        "retainedKeyCodeUnits": 4615699,
+        "largestKeyCodeUnits": 4615699
+      },
+      "rereadAdditionalReaderCalls": 2,
+      "forcedHead": {
+        "readerCalls": 5,
+        "retainedKeys": 1,
+        "retainedKeyCodeUnits": 4615699,
+        "largestKeyCodeUnits": 4615699
+      }
+    },
+    {
+      "label": "candidate-digest-cache",
+      "commit": "1ce2b81801af161bc03230f9626e95091035bd7c",
+      "sourceSHA256": "c647977433bec28ade8bee0366c8116a8e73eb7f4c64e0877df885c98b792a49",
+      "sourceGitBlob": "7cd5ce3f181bbb41ddfa5d0598016b4481a8ca52",
+      "populated": {
+        "readerCalls": 2,
+        "retainedKeys": 2,
+        "retainedKeyCodeUnits": 144,
+        "largestKeyCodeUnits": 72
+      },
+      "reread": {
+        "readerCalls": 2,
+        "retainedKeys": 2,
+        "retainedKeyCodeUnits": 144,
+        "largestKeyCodeUnits": 72
+      },
+      "rereadAdditionalReaderCalls": 0,
+      "forcedHead": {
+        "readerCalls": 3,
+        "retainedKeys": 2,
+        "retainedKeyCodeUnits": 144,
+        "largestKeyCodeUnits": 72
+      }
+    }
+  ],
+  "wires": [
+    {
+      "name": "local.formal9.json",
+      "codeUnits": 4613593,
+      "utf8Bytes": 4811505,
+      "sha256": "87f84465dbeaf08f5bb3ad3fc1bb26881fff304026446568e09de0c180cf4456"
+    },
+    {
+      "name": "local.next.formal9.json",
+      "codeUnits": 4615699,
+      "utf8Bytes": 4813737,
+      "sha256": "938bbbfb7b635d6a6bc35cbbdcdc7fe8cc3215261edaf60be013ed0bdfd858b1"
+    }
+  ],
+  "combinedCodeUnits": 9229292,
+  "oldBoundCodeUnits": 8388608
+}

@@ -1,0 +1,18 @@
+✔ all clone graphs remain native-equivalent, detached and alias-preserving even in private replay (3.012985ms)
+✔ outside replay no prefix is read or transferred, including caller changes (0.434173ms)
+✔ exceptions reset scope and nested scopes restore previous scope (0.691373ms)
+✔ monthly automatic bottling rollback retains exact prior state at low-funds boundary (80.107515ms)
+✔ old log tampering stays rejected and failed validation does not poison good cached replay (68.393041ms)
+✔ public quantization preserves sparse arrays and enumerable extra properties (3.724295ms)
+✔ private plain graph clone preserves sparse arrays, aliases, cycles, key order and primitive values (18.709054ms)
+✔ private unsupported graphs fall back as a whole and retain cross-type aliases (2.349651ms)
+✔ native fallback invokes accessor once and preserves getter-driven property changes (0.614858ms)
+✔ replay metadata transfer does not invoke accessors after native fallback (0.632187ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 420.215955

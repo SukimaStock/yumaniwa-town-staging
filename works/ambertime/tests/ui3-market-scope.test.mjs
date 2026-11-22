@@ -21,13 +21,13 @@ function harness(initial){
  ui.update({visible:true});return {ui,root,click,select,state:()=>s,view:()=>view,messages,setSaved:value=>saved=value,editing:()=>editing};
 }
 
-test('town contract supplements empty wider views without changing stage, cameras, pins or formal state',()=>{
+test('town contract supplements empty wider views without changing stage, cameras, pins or formal state',async()=>{
  const s=townFixture(),raw=D.serializeDistillery(s),view={stage:4,selectedShop:null,transforms:{4:{zoom:2,panX:12,panY:-9}}},viewText=JSON.stringify(view);
  for(const stage of [4,5,6]){const result=scope(s,{...view,stage});assert.deepEqual(ids(result.shops),['retail','town-liquor']);assert.equal(result.stage,3);assert.equal(result.requestedStage,stage);assert.equal(result.label,'町の取引先');assert.equal(result.fallback,true);assert.deepEqual(mapPartnerProjection(s,stage).pins,[]);}
  assert.equal(JSON.stringify(view),viewText);assert.equal(D.serializeDistillery(s),raw);assert.deepEqual(ids(scope(s,{stage:1}).shops),['retail']);
 });
 
-test('nearest formally available scope wins and an offer alone never qualifies',()=>{
+test('nearest formally available scope wins and an offer alone never qualifies',async()=>{
  // Presentation-only contract fixture, not a replayable career. Existing model
  // contract readers own qualification; no selected wine quote enters the scope.
  const s=D.newWorldNetworkDistillery(3);s.shop.relations.push({shopId:'town-liquor',brandId:1,startedMonth:0});
@@ -39,7 +39,7 @@ test('nearest formally available scope wins and an offer alone never qualifies',
  assert.deepEqual(ids(scope(offers,{stage:6}).shops),['retail']);
 });
 
-test('explicit retail and eligible partner choices win; stale IDs fall back without phantom shops',()=>{
+test('explicit retail and eligible partner choices win; stale IDs fall back without phantom shops',async()=>{
  const s=naturalDeliveryFixture(3),raw=D.serializeDistillery(s);
  assert.deepEqual(ids(scope(s,{stage:6,selectedShop:'retail'}).shops),['retail']);
  assert.deepEqual(ids(scope(s,{stage:6,selectedShop:near}).shops),['retail',near]);
@@ -49,7 +49,7 @@ test('explicit retail and eligible partner choices win; stale IDs fall back with
  assert.equal(D.serializeDistillery(s),raw);
 });
 
-test('zero hand stock keeps the contract visible and the existing allocation reason intact',()=>{
+test('zero hand stock keeps the contract visible and the existing allocation reason intact',async()=>{
  let s=naturalDeliveryFixture(3);const id=s.result.productId,q=D.regionalDeliveryQuote(s,id,near);
  s=D.assignRegionalProduct(s,{partnerId:near,productId:id,count:q.available,contractId:q.contractId,allocationId:q.nextAllocationId});
  assert.equal(D.storeMarketInventory(s,id).hand,0);assert.deepEqual(ids(scope(s,{stage:6}).shops),['retail',near]);
@@ -57,34 +57,34 @@ test('zero hand stock keeps the contract visible and the existing allocation rea
  const raw=D.serializeDistillery(s);assert.equal(D.serializeDistillery(D.restoreDistillery(raw)),raw);
 });
 
-test('fallback town shelf still performs real allocation and return with no automatic transfer',()=>{
+test('fallback town shelf still performs real allocation and return with no automatic transfer',async()=>{
  const h=harness(townFixture()),pid=h.state().result.productId,raw=D.serializeDistillery(h.state());
  assert.match(h.root.innerHTML,/町の取引先/);assert.deepEqual(h.ui.diagnostics().order,['retail','town-liquor']);assert.equal(D.serializeDistillery(h.state()),raw);
- h.click({marketRelease:String(pid)});h.click({marketPortion:'5'});h.click({marketPlace:'town-liquor'});assert.equal(D.storeMarketInventory(h.state(),pid).shops['town-liquor'],5);
- h.click({marketStock:'town-liquor:'+pid});h.click({marketConfirm:'return'});assert.equal(D.storeMarketInventory(h.state(),pid).shops['town-liquor'],0);assert.equal(D.storeMarketInventory(h.state(),pid).hand,6);
+ await h.click({marketRelease:String(pid)});await h.click({marketPortion:'5'});await h.click({marketPlace:'town-liquor'});assert.equal(D.storeMarketInventory(h.state(),pid).shops['town-liquor'],5);
+ await h.click({marketStock:'town-liquor:'+pid});await h.click({marketConfirm:'return'});assert.equal(D.storeMarketInventory(h.state(),pid).shops['town-liquor'],0);assert.equal(D.storeMarketInventory(h.state(),pid).hand,6);
  assert.equal(h.view().stage,6);const text=D.serializeDistillery(h.state());assert.equal(D.serializeDistillery(D.restoreDistillery(text)),text);
 });
 
-test('fallback regional scope preserves exact reservation, failed save, cancel and formal delivery IDs',()=>{
+test('fallback regional scope preserves exact reservation, failed save, cancel and formal delivery IDs',async()=>{
  const h=harness(naturalDeliveryFixture(3)),pid=h.state().result.productId;
  assert.match(h.root.innerHTML,/地方の取引先/);assert.deepEqual(h.ui.diagnostics().order,['retail',near]);
- h.click({marketRelease:String(pid)});h.click({marketPortion:'5'});h.click({marketPlace:near});const allocation=D.regionalDeliveryRows(h.state(),near)[0];assert.equal(allocation.count,5);
- h.click({marketStock:near+':'+pid});h.click({marketConfirm:'return'});assert.deepEqual(D.regionalDeliveryRows(h.state(),near),[]);
- h.click({marketPlace:near});h.click({marketStock:near+':'+pid});const before=h.state(),raw=D.serializeDistillery(before),q=D.regionalDeliveryQuote(before,pid,near);h.setSaved(false);h.click({marketConfirm:'deliver'});
- assert.equal(h.state(),before);assert.equal(D.serializeDistillery(h.state()),raw);assert(h.editing());h.setSaved(true);h.click({marketConfirm:'deliver'});
+ await h.click({marketRelease:String(pid)});await h.click({marketPortion:'5'});await h.click({marketPlace:near});const allocation=D.regionalDeliveryRows(h.state(),near)[0];assert.equal(allocation.count,5);
+ await h.click({marketStock:near+':'+pid});await h.click({marketConfirm:'return'});assert.deepEqual(D.regionalDeliveryRows(h.state(),near),[]);
+ await h.click({marketPlace:near});await h.click({marketStock:near+':'+pid});const before=h.state(),raw=D.serializeDistillery(before),q=D.regionalDeliveryQuote(before,pid,near);h.setSaved(false);await h.click({marketConfirm:'deliver'});
+ assert.equal(h.state(),before);assert.equal(D.serializeDistillery(h.state()),raw);assert(h.editing());h.setSaved(true);await h.click({marketConfirm:'deliver'});
  const receipt=D.regionalDeliveryHistory(h.state(),near).at(-1);assert.equal(receipt.id,q.nextDeliveryId);assert.deepEqual(receipt.allocationIds,q.allocationIds);assert.equal(receipt.contractId,q.contractId);assert.equal(receipt.count,5);
  assert.equal(h.view().stage,6);const text=D.serializeDistillery(h.state());assert.equal(D.serializeDistillery(D.restoreDistillery(text)),text);
 });
 
-test('switching explicit target during fallback confirmation makes stale actions inert',()=>{
- const h=harness(naturalDeliveryFixture(3)),pid=h.state().result.productId;h.click({marketRelease:String(pid)});h.click({marketPortion:'5'});h.click({marketPlace:near});h.click({marketStock:near+':'+pid});assert(h.editing());
- const raw=D.serializeDistillery(h.state());h.select(6,'retail');assert.equal(h.editing(),false);h.click({marketConfirm:'deliver'});assert.equal(D.serializeDistillery(h.state()),raw);assert.equal(D.regionalDeliveryRows(h.state(),near)[0].count,5);assert.deepEqual(h.ui.diagnostics().order,['retail']);
+test('switching explicit target during fallback confirmation makes stale actions inert',async()=>{
+ const h=harness(naturalDeliveryFixture(3)),pid=h.state().result.productId;await h.click({marketRelease:String(pid)});await h.click({marketPortion:'5'});await h.click({marketPlace:near});await h.click({marketStock:near+':'+pid});assert(h.editing());
+ const raw=D.serializeDistillery(h.state());h.select(6,'retail');assert.equal(h.editing(),false);await h.click({marketConfirm:'deliver'});assert.equal(D.serializeDistillery(h.state()),raw);assert.equal(D.regionalDeliveryRows(h.state(),near)[0].count,5);assert.deepEqual(h.ui.diagnostics().order,['retail']);
 });
 
 
-test('a young selected bottle keeps its contracted fallback target and existing refusal reason',()=>{
+test('a young selected bottle keeps its contracted fallback target and existing refusal reason',async()=>{
  let s=naturalDeliveryFixture(3);s=D.startRangeDistillation(s);while(s.still.distillation.progress<40)s=D.distillStep(s);s=D.beginCollection(s);while(s.still.distillation.progress<65)s=D.distillStep(s);s=D.fillBarrel(D.stopDistillation(s),'refill');s=D.bottleBranded(s,s.core.casks.at(-1).id,{},5);
  const pid=s.result.productId,quote=D.regionalDeliveryQuote(s,pid,near);assert.equal(quote.ok,false);assert.equal(quote.reason,'熟成が6か月未満です。');
- const h=harness(s);h.click({marketRelease:String(pid)});const raw=D.serializeDistillery(h.state());h.click({marketPlace:near});
+ const h=harness(s);await h.click({marketRelease:String(pid)});const raw=D.serializeDistillery(h.state());await h.click({marketPlace:near});
  assert.deepEqual(h.ui.diagnostics().order,['retail',near]);assert.match(h.root.innerHTML,/熟成が6か月未満です。/);assert.equal(D.serializeDistillery(h.state()),raw);assert.equal(h.view().stage,6);
 });

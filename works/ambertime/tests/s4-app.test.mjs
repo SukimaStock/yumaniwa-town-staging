@@ -2,12 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
+import {FormalIdbCommitBoundary} from '../formal-idb-commit-boundary.mjs';
 import {NODES} from '../town-connection.mjs';
 import * as D from '../partner-orders.mjs';
 import {PARALLEL_PARAMETERS as T} from '../economy-parameters.mjs';
 import {extractionMaximum} from '../ui-details.mjs';
 const source=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
-function slice(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert(a>=0&&b>a,`review extraction ${start}`);return source.slice(a,b);}
+function slice(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert(a>=0&&b>a,`review extraction ${start}`);return source.slice(source.slice(Math.max(0,a-6),a)==='async '?a-6:a,source.slice(Math.max(0,b-6),b)==='async '?b-6:b);}
 const json=x=>JSON.parse(JSON.stringify(x));
 function viewHarness(){
  let reads=0;
@@ -55,23 +56,27 @@ function savingHarness(){
   reconcileCaskSlots:()=>[37,42,null,null],serializeSession:(g,ui)=>JSON.stringify({game:g,...ui}),D:{},T:{monthMs:1000,distillStepMs:100},
   localStorage:{},SAVE_KEY:'formal',writeCandidate:(_s,_k,expected,text)=>{assert.equal(expected,'old');saved=text;}
  });
+ c.runtimeSaving=false;c.debugSkipJob=null;c.mainStore={status:{state:"ready"},invalidate(){this.status.state="halted";}};c.dialogueNotice={reset(){}};c.noteDialogueCommit=()=>{};
+ c.candidateRecalls=new WeakMap([[after,c.pendingRecall]]);
+ c.savingBusy=()=>c.runtimeSaving||c.commitBoundary.status.busy;
+ c.commitBoundary=new FormalIdbCommitBoundary({revision:0,write:async(text,{expectedRevision})=>{(c.writer??c.writeCandidate)(c.localStorage,'formal',c.lastSavedText,text);return {revision:expectedRevision+1};}});
  vm.runInContext(slice('function rememberCommitted()','const displayProductStock'),c);vm.runInContext('rememberCommitted()',c);
  return {context:c,before,after,facts,run:code=>vm.runInContext(code,c),saved:()=>saved};
 }
-test('history is published only after the same candidate write as game and notebook',()=>{
+test('history is published only after the same candidate write as game and notebook',async()=>{
  const h=savingHarness();h.context.game=h.after;h.context.next=h.after;
  h.context.writer=(_s,_k,expected,text)=>{assert.equal(expected,'old');assert.equal(h.context.historyRecord,h.facts);assert.equal(h.context.recallRecord.tag,'recall');assert.equal(JSON.parse(text).recallRecord.tag,'next-recall');assert.equal(JSON.parse(text).historyRecord.events[1].id,'release:1');};
- assert.equal(h.run('saveCandidate(next,false,0,writer)'),true);assert.deepEqual(json(h.context.historyRecord.events.map(e=>e.id)),['founding','release:1']);assert.equal(h.context.committedSession.historyRecord,h.context.historyRecord);assert.equal(h.context.recallRecord.tag,'next-recall');assert.equal(h.context.committedSession.recallRecord,h.context.recallRecord);
+ assert.equal(await h.run('saveCandidate(next,false,0)'),true);assert.deepEqual(json(h.context.historyRecord.events.map(e=>e.id)),['founding','release:1']);assert.equal(h.context.committedSession.historyRecord,h.context.historyRecord);assert.equal(h.context.recallRecord.tag,'next-recall');assert.equal(h.context.committedSession.recallRecord,h.context.recallRecord);
 });
-test('quota and conflict rollback restore history with game, slots, notebook and clock',()=>{
+test('quota and conflict rollback restore history with game, slots, notebook and clock',async()=>{
  for(const code of ['QuotaExceededError','conflict']){
   const h=savingHarness();h.context.game=h.after;h.context.next=h.after;h.context.elapsed=100;
   h.context.writer=()=>{throw Object.assign(Error(code),{code});};
-  assert.equal(h.run('saveCandidate(next,false,100,writer)'),false);assert.equal(h.context.game,h.before);assert.equal(h.context.historyRecord,h.facts);assert.equal(h.context.recallRecord.tag,'recall');assert.equal(h.context.pendingRecall,h.context.recallRecord);assert.equal(h.context.recallPreview,null);assert.equal(h.context.recentLedger.tag,'ledger');assert.equal(h.context.elapsed,0);assert.deepEqual(json(h.context.caskSlots),[37,null,null,null]);assert.equal(h.context.canSave,false);assert.equal(h.context.lastSavedText,'old');
+  assert.equal(await h.run('saveCandidate(next,false,100)'),false);assert.equal(h.context.game,h.before);assert.equal(h.context.historyRecord,h.facts);assert.equal(h.context.recallRecord.tag,'recall');assert.equal(h.context.pendingRecall,h.context.recallRecord);assert.equal(h.context.recallPreview,null);assert.equal(h.context.recentLedger.tag,'ledger');assert.equal(h.context.elapsed,0);assert.deepEqual(json(h.context.caskSlots),[37,null,null,null]);assert.equal(h.context.canSave,false);assert.equal(h.context.lastSavedText,'old');
  }
 });
 
-test('milestone sentences distinguish first release, age record, first contact and evidenced return',()=>{
+test('milestone sentences distinguish first release, age record, first contact and evidenced return',async()=>{
  const region=NODES.find(r=>r.level!=='町');assert(region);
  const c=vm.createContext({HISTORY_REGIONS:NODES,generationName:id=>`${id}代`,ageLabel:n=>`${n}か月熟成`,shopName:id=>id==='town-liquor'?'町の酒店':id});
  vm.runInContext(slice('function historyEventText(e){','function historyView(){'),c);
@@ -101,28 +106,29 @@ function nearCompletion(){
  for(let i=0;i<100&&game.still.distillation.progress<extractionMaximum-1;i++)game=D.distillStep(game);
  assert.equal(game.still.distillation.progress,extractionMaximum-1);return game;
 }
-function timerHarness({elapsed=T.monthMs-T.distillStepMs,fail=false}={}){
+async function timerHarness({elapsed=T.monthMs-T.distillStepMs,fail=false}={}){
  const initial=nearCompletion(),saves=[],calls=[];let callback;
  const c=vm.createContext({game:initial,elapsed,userPaused:false,T,D:{...D,tickDistillery:(game,month)=>{calls.push('tick');return D.tickDistillery(game,month);}},generation:0,timer:null,
   stopClock:()=>{c.generation++;},blocked:()=>false,hasMonthlyWork:()=>true,setTimeout:fn=>{callback=fn;return 1;},
   wallClock:{delay:()=>0},performance:{now:()=>0},playbackRate:1,manualDistilling:()=>true,
   atExtractionLimit:()=>c.game.still.phase==='distilling'&&!D.collectionState(c.game).fullRange&&c.game.still.distillation.progress>=extractionMaximum,
-  heldRange:()=>false,save:()=>c.saveCandidate(c.game,c.userPaused,c.elapsed),saveCandidate:(game,paused,time)=>{calls.push('save');saves.push({game,elapsed:time});if(fail){c.game=initial;c.runtimeHalted=true;return false;}return true;},
+  heldRange:()=>false,save:()=>c.saveCandidate(c.game,c.userPaused,c.elapsed),saveCandidate:async(game,paused,time)=>{calls.push('save');saves.push({game,elapsed:time});assert.equal(c.game,initial,'candidate remains detached until persistence');assert.equal(c.elapsed,elapsed);if(fail){c.runtimeHalted=true;return false;}await Promise.resolve();c.game=game;c.elapsed=time;return true;},
   restoreCommitted:()=>{},generationState:()=>D.generationStatus(c.game),runtimeHalted:false,message:()=>{},storageNotice:text=>{throw Error(text);},render:()=>{},renderProgress:()=>{},
   automaticNews:{push:()=>{}},automaticEvents:()=>[],caskName:()=>'',soldOutLabel:()=>'',noteMapReach:()=>{},marketUI:{consume:()=>{}},modal:null,room:'distill'
  });
- vm.runInContext(slice('function schedule(continuing=false){','function act('),c);vm.runInContext('schedule()',c);callback();return {context:c,initial,saves,calls};
+ c.extractionMaximum=extractionMaximum;c.saveFailure=error=>{throw error;};c.prepareGame=(fn)=>fn(c.game);c.dialogueProjection={read:()=>null};c.addDailyEvent=rows=>rows;c.m0={consume(){}};
+ vm.runInContext(slice('function schedule(){','async function act('),c);vm.runInContext('schedule()',c);await callback();return {context:c,initial,saves,calls};
 }
-test('timer saves actual completion month before tick and preserves formal result and elapsed on success',()=>{
- const h=timerHarness(),stopped=D.stopDistillation(D.distillStep(h.initial)),expected=D.tickDistillery(stopped,h.initial.core.month);
- assert.deepEqual(h.calls,['save','tick','save']);assert.equal(h.saves[0].game.still.phase,'filling');assert.equal(h.saves[0].game.core.month,h.initial.core.month);assert.equal(h.saves[0].elapsed,T.monthMs-T.distillStepMs);
- assert.deepEqual(h.context.game,expected);assert.equal(h.context.elapsed,0);assert.equal(h.saves[1].elapsed,0);assert.equal(h.saves[1].game.core.month,expected.core.month);
+test('timer computes completion before tick and publishes their exact result in one durable logical step',async()=>{
+ const h=await timerHarness(),stopped=D.stopDistillation(D.distillStep(h.initial)),expected=D.tickDistillery(stopped,h.initial.core.month);
+ assert.deepEqual(h.calls,['tick','save']);assert.equal(h.saves.length,1);assert.equal(h.saves[0].game.still.phase,'filling');assert.equal(h.saves[0].game.core.month,expected.core.month);assert.equal(h.saves[0].elapsed,0);
+ assert.deepEqual(h.context.game,expected);assert.equal(h.context.elapsed,0);assert.equal(h.saves[0].elapsed,0);assert.equal(h.saves[0].game.core.month,expected.core.month);
 });
-test('failed completion save prevents monthly tick and further clock advancement',()=>{
- const h=timerHarness({fail:true});assert.deepEqual(h.calls,['save']);assert.equal(h.context.game,h.initial);assert.equal(h.context.elapsed,T.monthMs-T.distillStepMs);assert.equal(h.context.runtimeHalted,true);
+test('failed logical-step save publishes neither computed month nor clock advancement',async()=>{
+ const h=await timerHarness({fail:true});assert.deepEqual(h.calls,['tick','save']);assert.equal(h.context.game,h.initial);assert.equal(h.context.elapsed,T.monthMs-T.distillStepMs);assert.equal(h.context.runtimeHalted,true);
 });
 
-test('completion away from month boundary saves once with the completed-step clock',()=>{
- const h=timerHarness({elapsed:0}),expected=D.stopDistillation(D.distillStep(h.initial));
+test('completion away from month boundary saves once with the completed-step clock',async()=>{
+ const h=await timerHarness({elapsed:0}),expected=D.stopDistillation(D.distillStep(h.initial));
  assert.deepEqual(h.calls,['save']);assert.deepEqual(h.context.game,expected);assert.equal(h.context.elapsed,T.distillStepMs);assert.equal(h.saves[0].elapsed,h.context.elapsed);assert.equal(h.saves[0].game.core.month,h.initial.core.month);
 });

@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {FormalIdbCommitBoundary} from '../formal-idb-commit-boundary.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
@@ -71,9 +72,13 @@ function restartHarness({raw=encode(fresh()),store=storage(raw),playing=false}={
  const source=app.slice(app.indexOf('function clearEntryDiagnostic(){'),app.indexOf("$('entry-new').addEventListener"));
  const installed=[],errors=[],counts={created:0,read:0,encoded:0,stopped:0,rendered:0,scheduled:0,protected:0},nodes=new Map();
  const node=id=>{if(!nodes.has(id))nodes.set(id,entryElement());return nodes.get(id);};
+ const initialSources=()=>['sukimastock.ambertime.main.v1','sukimastock.ambertime.placement-trial.v1','sukimastock.ambertime.wholesale.v20'].map(key=>({key,text:store.getItem(key)}));
+ const captured=initialSources();let durable=raw,revision=0,previous=null;
+ const verifySources=()=>{if(JSON.stringify(initialSources())!==JSON.stringify(captured))throw Object.assign(Error('記録が更新されています。'),{code:'conflict'});};
+ const adapter={status:{state:'ready'},get text(){return durable;},close(){},invalidate(){this.status.state='halted';},async verifyCurrent(expected){if(this.status.state!=='ready')throw Error('保存を確認できません。');verifySources();if(durable!==expected)throw Error('記録が更新されています。');},async startNew(text,{expectedRevision}){verifySources();assert.equal(expectedRevision,revision);if(store.failCommit)throw store.failCommit;readSession(text,options);previous=durable;durable=text;return {revision:++revision};}};
  const old=fresh(),context={preview:false,debugEnabled:false,nativeModel:D,seed:141,game:playing?old.game:null,modal:playing?{kind:'aux-panel'}:null,
   userPaused:true,canSave:true,runtimeHalted:false,debugSkipJob:null,sessionActive:playing,entryView:playing?'playing':'title',entryIntent:null,entryMessage:'',entrySnapshot:null,entryReturn:null,entryDiagnostic:null,entryOperation:'title-inspect',
-  lastSavedText:raw,legacyRecord:null,newGameBackupKey:null,localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,sessionOptions:options,
+  runtimeStarting:false,runtimeSaving:false,runtimeEpoch:0,idleSuspension:null,entrySources:captured,entryRaw:raw,entryUnreadable:false,mainStore:playing?adapter:null,commitBoundary:null,sessionEpoch:0,lastSavedText:raw,legacyRecord:null,newGameBackupKey:null,localStorage:store,SAVE_KEY:FORMAL_SAVE_KEY,sessionOptions:options,
   $:node,document:{body:{dataset:{}}},inspectStartRecord,createSessionEntry,makeEntryDiagnostic,formatEntryDiagnostic,
   entryVersions:{appBuild:SESSION_ENTRY_BUILD,sessionEntryBuild:SESSION_ENTRY_BUILD,diagnosticsBuild:ENTRY_DIAGNOSTIC_BUILD,formalFormat:8},
   createFreshSession:(...args)=>{counts.created++;return createFreshSession(...args);},
@@ -81,11 +86,16 @@ function restartHarness({raw=encode(fresh()),store=storage(raw),playing=false}={
   readSession:(...args)=>{counts.read++;return readSession(...args);},writeCandidate,commitMarketRulesUpdate,
   recordSaveError:(error,phase)=>errors.push({error,phase}),protectedRecordExports:()=>counts.protected++,
   installSession:(session,{fresh})=>{installed.push({session,fresh});context.game=session.game;context.sessionActive=true;context.entryView='playing';context.entryReturn=null;},
-  startShadow:()=>{},stopClock:()=>counts.stopped++,countdown:{cancel(){}},automaticNews:{update(){}},marketUI:{update(){}},vaultPanels(){},
+  startShadow:()=>{},stopClock:()=>counts.stopped++,countdown:{cancel(){}},automaticNews:{update(){}},marketUI:{update(){},cancel(){}},placementUI:{cancel(){}},scene:{cancelDistillCompletion(){}},vaultPanels(){},
   render:()=>counts.rendered++,schedule:()=>counts.scheduled++,confirm:()=>true,
  };
+ context.savingBusy=()=>context.runtimeSaving||!!context.commitBoundary?.status.busy;
+ context.connectMainStore=(next,rev)=>{context.mainStore=next;context.commitBoundary=new FormalIdbCommitBoundary({revision:rev,write:(text,opts)=>next.startNew(text,opts),onHalt:()=>next.invalidate()});};
+ if(playing)context.connectMainStore(adapter,revision);
+ context.bootMainIdb=async()=>{verifySources();return {ok:true,adapter,text:durable,revision};};
+ context.inspectMainIdb=async()=>({text:durable,sources:initialSources(),unreadable:false});
  runInNewContext(source+"\nglobalThis.entryApi={showTitle,startNew,cancelEntry,enterSession,inspectEntry,get controller(){return sessionEntry;}}",context);
- return {api:context.entryApi,context,installed,errors,counts,nodes,store,old};
+ return {api:context.entryApi,context,installed,errors,counts,nodes,store,old,persisted:()=>durable,previous:()=>previous};
 }
 
 test('title only inspects bytes; it does not restore, create, save or start a game',()=>{
@@ -112,12 +122,12 @@ test('unavailable storage is an error state rather than a save-free new game',()
  assert.match(h.context.entryMessage,/確認できません/);assert.equal(h.counts.created,0);assert.deepEqual(h.store.writes,[]);
 });
 
-test('title and in-game restart share confirmation and leave the old session untouched on back',()=>{
+test('title and in-game restart share confirmation and leave the old session untouched on back',async()=>{
  for(const playing of [false,true]){
   const h=restartHarness({playing}),before=JSON.stringify(h.context.game),flags=[h.context.userPaused,h.context.canSave,h.context.runtimeHalted];
   if(!playing)h.api.showTitle();assert.equal(h.api.startNew(),true);assert.equal(h.context.entryView,'confirm');assert.equal(h.context.sessionActive,false);
   assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.counts.created,0);assert.deepEqual(h.store.writes,[]);
-  h.api.cancelEntry();assert.equal(JSON.stringify(h.context.game),before);assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);
+  await h.api.cancelEntry();assert.equal(JSON.stringify(h.context.game),before);assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);
   assert.equal(h.context.sessionActive,playing);assert.deepEqual([h.context.userPaused,h.context.canSave,h.context.runtimeHalted],flags);
   assert.equal(h.context.entryView,playing?'playing':'title');
  }
@@ -127,8 +137,8 @@ test('actual title/menu entry installs only validated committed sessions that su
  for(const playing of [false,true])for(const raw of [null,encode(fresh()),'{"version":7}','{broken']){
   const h=restartHarness({raw,playing});if(!playing)h.api.showTitle();const started=h.api.startNew();
   assert.equal(await (raw===null?started:h.api.enterSession('new')),true);assert.equal(h.errors.length,0);assert.equal(h.installed.length,1);
-  assert.deepEqual(readSession(h.store.getItem(FORMAL_SAVE_KEY),options),h.installed[0].session);
-  assert.equal(h.counts.created,1);assert.equal(h.counts.encoded,1);assert.equal(backups(h.store).length,0);
+  assert.deepEqual(readSession(h.persisted(),options),h.installed[0].session);
+  assert.equal(h.counts.created,1);assert.equal(h.counts.encoded,1);assert.equal(backups(h.store).length,0);assert.equal(h.store.getItem(FORMAL_SAVE_KEY),raw,'legacy original retained');assert.equal(h.previous(),raw);
  }
 });
 
@@ -148,23 +158,23 @@ test('old separate-key source is preserved and concurrent changes block confirme
 });
 
 test('actual restart write failure does not install or change old memory/lastSavedText',async()=>{
- const raw=encode(fresh()),store=storage(raw);store.setItem=()=>{throw Object.assign(Error('quota'),{name:'QuotaExceededError'});};
+ const raw=encode(fresh()),store=storage(raw);store.failCommit=Object.assign(Error('quota'),{name:'QuotaExceededError'});
  const h=restartHarness({raw,store,playing:true}),before=JSON.stringify(h.context.game);h.api.startNew();
  assert.equal(await h.api.enterSession('new'),false);assert.equal(h.installed.length,0);assert.equal(h.context.lastSavedText,raw);assert.equal(store.getItem(FORMAL_SAVE_KEY),raw);
  assert.equal(JSON.stringify(h.context.game),before);assert.equal(h.context.entryView,'error');assert.equal(h.errors[0].phase,'formal-write');
  assert.equal(h.context.entryDiagnostic.operation,'new-menu');assert.equal(h.context.entryDiagnostic.stage,'formal-write');
- assert.equal(h.context.entryDiagnostic.exception.name,'QuotaExceededError');assert.equal(h.context.entryDiagnostic.formalState,'unchanged');
+ assert.equal(h.context.entryDiagnostic.exception.name,'QuotaExceededError');assert.equal(h.context.entryDiagnostic.formalState,'uncertain','cached prior text cannot prove an async write outcome');assert.equal(h.persisted(),raw,'injected precommit failure retained simulated durable bytes');
  assert.equal(h.nodes.get('entry-error-details').hidden,false);assert.match(h.nodes.get('entry-diagnostic-text').textContent,/正式書込み/);
- h.api.cancelEntry();assert.equal(h.context.sessionActive,true);assert.equal(JSON.stringify(h.context.game),before);
+ await h.api.cancelEntry();assert.equal(h.context.sessionActive,false,'halted write boundary cannot resume stale cached play');assert.equal(h.context.entryView,'error');assert.equal(JSON.stringify(h.context.game),before);
 });
 
-test('inspecting a newer tab does not replace the active baseline or allow stale cancel-resume',()=>{
+test('inspecting a newer tab does not replace the active baseline or allow stale cancel-resume',async()=>{
  for(const timing of ['before-inspect','after-inspect']){
   const h=restartHarness({playing:true}),old=h.context.lastSavedText,before=JSON.stringify(h.context.game);
   if(timing==='before-inspect')h.store.data.set(FORMAL_SAVE_KEY,'newer tab');
   h.api.startNew();assert.equal(h.context.lastSavedText,old);assert.equal(h.context.entryReturn.savedText,old);
   if(timing==='after-inspect')h.store.data.set(FORMAL_SAVE_KEY,'newer tab');
-  h.api.cancelEntry();assert.equal(h.context.entryView,'error');assert.equal(h.context.sessionActive,false);
+  await h.api.cancelEntry();assert.equal(h.context.entryView,'error');assert.equal(h.context.sessionActive,false);
   assert.match(h.context.entryMessage,/更新/);assert.equal(JSON.stringify(h.context.game),before);assert.deepEqual(h.store.writes,[]);assert.equal(h.counts.scheduled,0);
  }
 });
@@ -173,8 +183,8 @@ test('title or preparation visibility suspension never saves a game',async()=>{
  const start=app.indexOf('function suspend(){'),end=app.indexOf("document.addEventListener('visibilitychange'",start),source=app.slice(start,end);
  for(const preparing of [false,true]){
   const h=restartHarness();h.api.showTitle();if(preparing){h.api.startNew();var pending=h.api.enterSession('new');}
-  let saves=0;h.context.scene={cancelDistillCompletion(){throw Error('active-only motion');}};h.context.save=()=>{saves++;};
-  runInNewContext(source+'\nsuspend();resume();',h.context);
+  let saves=0;h.context.scene={cancelDistillCompletion(){}};h.context.save=()=>{saves++;};
+  runInNewContext(source+'\nsuspend();',h.context);
   if(preparing){assert.equal(await pending,false);assert.equal(h.context.entryView,'confirm');}
   assert.equal(saves,0);assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);assert.equal(h.counts.scheduled,0);
  }
@@ -193,7 +203,7 @@ test('an old debug skip callback cannot progress while session entry is open',()
  const h=restartHarness({playing:true}),job={timer:7};let cleared;
  h.context.debugSkipJob=job;h.context.clearTimeout=value=>{cleared=value;};h.api.startNew();
  assert.equal(cleared,7);assert.equal(h.context.debugSkipJob,null);
- const start=app.indexOf('function runDebugSkipChunk(job){'),end=app.indexOf('\nfunction ',start+1),source=app.slice(start,end);
+ const start=app.indexOf('async function runDebugSkipChunk(job){'),end=app.indexOf('\nfunction ',start+1),source=app.slice(start,end);
  h.context.staleJob=job;h.context.debugSkipMonth=()=>{throw Error('must not progress');};
  runInNewContext(source+'\nrunDebugSkipChunk(staleJob)',h.context);
  assert.deepEqual(h.store.writes,[]);assert.equal(h.installed.length,0);
@@ -205,7 +215,7 @@ test('an import completed after entry or session replacement cannot read, save o
   const h=restartHarness({playing:true});Object.assign(h.context,{debugEnabled:true,sessionEpoch:1});
   let resolve;h.context.pendingFile={text:()=>new Promise(done=>{resolve=done;})};
   const promise=runInNewContext(source+'\nimportRecord(pendingFile)',h.context);
-  if(change==='entry')h.api.startNew();else h.context.sessionEpoch++;
+  if(change==='entry'){assert.equal(h.api.startNew(),false,'entry cannot cross an active import');h.context.sessionActive=false;}else h.context.sessionEpoch++;
   resolve(encode(fresh()));assert.equal(await promise,false);
   assert.equal(h.counts.read,0);assert.equal(h.installed.length,0);assert.deepEqual(h.store.writes,[]);
  }
@@ -216,7 +226,7 @@ test('pagehide, hidden visibility and BFCache pageshow use guarded suspension/re
  const docListeners={},winListeners={};
  Object.assign(h.context.document,{hidden:true,addEventListener:(name,fn)=>{docListeners[name]=fn;}});
  h.context.window={addEventListener:(name,fn)=>{winListeners[name]=fn;}};
- h.context.scene={cancelDistillCompletion(){throw Error('title must not call scene progression');}};
+ h.context.scene={cancelDistillCompletion(){}};
  h.context.save=()=>saves++;
  const start=app.indexOf('function suspend(){'),end=app.indexOf("window.addEventListener('storage'",start);
  runInNewContext(app.slice(start,end),h.context);
@@ -241,9 +251,9 @@ test('protected raw backups and legacy originals remain exportable after reload 
  assert.deepEqual(exports.map(x=>x.raw),Array(3).fill(['old raw','{broken',' legacy trial raw \n','{unreadable wholesale']).flat());assert(exports.every(x=>x.name.startsWith('ambertime-protected-')));assert.deepEqual(errors,[]);assert.deepEqual(store.writes,[]);
 });
 
-test('normal title keeps export and protected-record tools outside ordinary current-save entry',()=>{
+test('normal title keeps export and protected-record tools outside ordinary current-save entry',async()=>{
  const h=restartHarness();h.api.showTitle();assert.equal(h.nodes.get('entry-export').hidden,true);
  h.api.startNew();assert.equal(h.nodes.get('entry-confirm-copy').textContent,'今の記録を消して、はじめから遊びますか？');
  assert.equal(h.nodes.get('entry-export').hidden,true);
- h.context.debugEnabled=true;h.api.cancelEntry();assert.equal(h.nodes.get('entry-export').hidden,false);
+ h.context.debugEnabled=true;await h.api.cancelEntry();assert.equal(h.nodes.get('entry-export').hidden,false);
 });

@@ -30,9 +30,9 @@ test('hiding market for a map retains return confirmation; ordinary hiding still
  }
 });
 test('map close and nested shop close preserve the placement draft',()=>{
- const fn=source.slice(source.indexOf('function closeModal('),source.indexOf('function trial('));
+ const fn=source.slice(source.indexOf('function closeModal('),source.indexOf('async function trial('));
  for(const modal of [{kind:'world-map',source:'direct'},{kind:'stockist',mapParent:{kind:'world-map',source:'direct'}}]){
-  let resets=0,remembered=0;const x={debugSkipJob:null,placementUI:{reset(){resets++;}},rememberMapBrowse(){remembered++;},render(){},schedule(){},$:()=>({focus(){}})};
+  let resets=0,remembered=0;const x={savingBusy:()=>false,runtimeStarting:false,debugSkipJob:null,placementUI:{reset(){resets++;}},rememberMapBrowse(){remembered++;},render(){},schedule(){},$:()=>({focus(){}})};
   vm.runInNewContext('let modal='+JSON.stringify(modal)+';'+fn+';globalThis.read=()=>modal;',x);x.closeModal();
   assert.equal(resets,0);assert.equal(remembered,modal.kind==='world-map'?1:0);
   assert.equal(x.read()?.kind??null,modal.kind==='world-map'?null:'world-map');

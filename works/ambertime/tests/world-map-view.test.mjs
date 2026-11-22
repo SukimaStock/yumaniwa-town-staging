@@ -142,8 +142,8 @@ test('free browsing and closing notices preserve factual acknowledgements',()=>{
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
  const sandbox={game:make(),mapProgress,mapShown:6,MAP_BROWSE_MAX};vm.runInNewContext(source.match(/const mapViewMax=.*?;/)[0]+'globalThis.maximum=mapViewMax;',sandbox);assert.equal(sandbox.maximum(),6);
  assert.match(source,/drawGameMap\(canvas,game,worldMapStage\)/);
- const target={focused:false,focus(){this.focused=true}},x={currentMapBrowse:()=>({stage:3}),debugSkipJob:null,placementUI:null,comparisonKinds:[],render(){},schedule(){x.scheduled++},scheduled:0,$:()=>target};
- const fn=source.slice(source.indexOf('function closeModal('),source.indexOf('function trial('));
+ const target={focused:false,focus(){this.focused=true}},x={currentMapBrowse:()=>({stage:3}),debugSkipJob:null,placementUI:null,savingBusy:()=>false,runtimeStarting:false,comparisonKinds:[],render(){},schedule(){x.scheduled++},scheduled:0,$:()=>target};
+ const fn=source.slice(source.indexOf('function closeModal('),source.indexOf('async function trial('));
  vm.runInNewContext('let worldMapStage=2,modal={kind:"world-map",source:"menu",parent:{kind:"aux-panel",marker:3}},mapShown=2,mapAnnounced=6;'+fn+'globalThis.state=()=>({modal,mapShown,mapAnnounced});globalThis.unlock=()=>{modal={kind:"world-map",source:"unlock"};};',x);
  x.closeModal();assert.equal(x.state().modal.kind,'aux-panel');assert.equal(x.state().modal.marker,3);assert(target.focused);assert.equal(x.scheduled,0);assert.equal(x.state().mapShown,2);assert.equal(x.state().mapAnnounced,6);
  x.unlock();x.closeModal();assert.equal(x.state().modal,null);assert.equal(x.scheduled,1);assert.equal(x.state().mapShown,2);assert.equal(x.state().mapAnnounced,6);

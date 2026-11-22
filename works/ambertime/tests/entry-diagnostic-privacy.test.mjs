@@ -100,3 +100,15 @@ test('map selection cache marker permits only its exact fixed build value',()=>{
  assert.equal(make('night-stage3').versions.app,base+'night-stage3');
  for(const value of ['private-brand-name','night-stage4','night-stage3%26private%3Dsecret'])assert.equal(make(value).versions.app,undefined);
 });
+
+
+test('IDB diagnostic identifiers are exact fixed values, never user text',()=>{
+ const base='https://sukimastock.github.io/yumaniwa-town-staging/works/ambertime/';
+ for(const key of ['app','sessionEntry','diagnostics']){
+  const file={app:'shop-app',sessionEntry:'session-entry',diagnostics:'entry-diagnostics'}[key]+'.mjs';
+  const url=base+file+'?idb=v03';assert.equal(makeEntryDiagnostic({versions:{[key]:url}}).versions[key],url);
+  for(const value of ['v04','PrivateName','v03PrivateName'])assert.equal(makeEntryDiagnostic({versions:{[key]:base+file+'?idb='+value}}).versions[key],undefined);
+ }
+ for(const stage of ['storage-prepare','committed-readback'])assert.equal(makeEntryDiagnostic({stage}).stage,stage);
+ assert.equal(makeEntryDiagnostic({stage:'storage-prepare-PrivateName'}).stage,'unknown');
+});

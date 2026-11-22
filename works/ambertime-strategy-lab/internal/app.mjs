@@ -1,5 +1,5 @@
-import {scenarios} from '../../ambertime-small-memory-lab/fixture.mjs';
-import {compareReadModels} from './adapters.mjs';
+import {scenarios} from '../../ambertime-small-memory-lab/fixture.mjs?perf=v06';
+import {compareReadModels} from './adapters.mjs?consignment=night-stage4-v01';
 import {compareMemory,recallWine,bytes,referencedReleaseIds} from './memory.mjs';
 const $=id=>document.getElementById(id),esc=s=>String(s??'不明').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let previous=null;

@@ -34,6 +34,11 @@ function fakeFactory(){
     });
     return req;
    },
+   getKey(key){
+    const request={onsuccess:null,onerror:null,result:undefined,error:null};pending++;
+    queueMicrotask(()=>{if(!active)return;request.result=snapshot.has(key)?key:undefined;pending--;request.onsuccess?.();maybeDone();});
+    return request;
+   },
    put(value,key){
     if(mode!=='readwrite')throw Error('readonly');
     if(rejectWrites){const error=new Error('QuotaExceededError');error.name='QuotaExceededError';throw error;}
@@ -117,4 +122,79 @@ test('preflight is the only site import; runtime and localStorage are untouched'
  assert.doesNotMatch(adapter,/localStorage|indexedDB\.deleteDatabase/);
  assert.match(js,/readSession\(/);assert.match(js,/serializeSession\(/);
  assert.match(adapter,/STAGING_IDB_NAME/);
+});
+
+test('corrupt head and previous refuse rotation without altering either entry',async()=>{
+ for(const key of ['head','previous']){
+  const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});await writeStagingRecord(db,two,{expectedRevision:1,...opts});
+  f.change(key,{...f.inspect().get(key),text:JSON.stringify({version:8,damaged:true})});
+  const before=structuredClone([...f.inspect()]);
+  await assert.rejects(writeStagingRecord(db,one,{expectedRevision:2,...opts}),e=>e.code==='idb-integrity');
+  assert.deepEqual([...f.inspect()],before);
+ }
+});
+test('correctly hashed but semantically rejected head cannot rotate',async()=>{
+ const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});
+ const before=structuredClone([...f.inspect()]);
+ const strict=text=>{reader(text);if(text===one)throw Error('semantic rejection');};
+ await assert.rejects(writeStagingRecord(db,two,{expectedRevision:1,...opts,reader:strict}),/semantic rejection/);
+ assert.deepEqual([...f.inspect()],before);
+});
+test('orphan previous and revision overflow fail closed',async()=>{
+ const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});
+ f.change('previous',f.inspect().get('head'));f.inspect().delete('head');
+ const before=structuredClone([...f.inspect()]);
+ await assert.rejects(writeStagingRecord(db,two,{expectedRevision:0,...opts}),e=>e.code==='invalid-head');
+ await assert.rejects(writeStagingRecord(db,two,{expectedRevision:Number.MAX_SAFE_INTEGER,...opts}),e=>e.code==='invalid-revision');
+ assert.deepEqual([...f.inspect()],before);
+});
+test('thenable reader is rejected before storage mutation',async()=>{
+ const f=fakeFactory(),db=await open(f);
+ await assert.rejects(writeStagingRecord(db,one,{expectedRevision:0,...opts,reader:()=>({then(){}})}),e=>e.code==='invalid-reader');
+ assert.equal(f.inspect().size,0);
+});
+test('exact snapshot rejects same-revision mutation and insertion/deletion of either entry',async()=>{
+ for(const mutate of [
+  f=>f.change('head',{...f.inspect().get('head'),text:one}),
+  f=>f.change('head',{...f.inspect().get('head'),sha256:'0'.repeat(64)}),
+  f=>f.change('head',{...f.inspect().get('head'),schema:'other'}),
+  f=>f.inspect().delete('head'),
+  f=>f.change('previous',{...f.inspect().get('previous'),text:two}),
+  f=>f.inspect().delete('previous'),
+ ]){
+  const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});await writeStagingRecord(db,two,{expectedRevision:1,...opts});
+  const original=db.transaction.bind(db);let raced;
+  db.transaction=(name,mode)=>{if(mode==='readwrite'){mutate(f);raced=structuredClone([...f.inspect()]);}return original(name,mode);};
+  await assert.rejects(writeStagingRecord(db,one,{expectedRevision:2,...opts}),e=>e.code==='conflict');
+  assert.deepEqual([...f.inspect()],raced);
+ }
+ const f=fakeFactory(),db=await open(f),original=db.transaction.bind(db);
+ db.transaction=(name,mode)=>{if(mode==='readwrite')f.change('previous',{unexpected:true});return original(name,mode);};
+ await assert.rejects(writeStagingRecord(db,one,{expectedRevision:0,...opts}),e=>e.code==='conflict');
+ assert.deepEqual([...f.inspect()],[['previous',{unexpected:true}]]);
+});
+test('abort after previous put but before head put preserves both committed entries',async()=>{
+ const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});await writeStagingRecord(db,two,{expectedRevision:1,...opts});
+ const before=structuredClone([...f.inspect()]),original=db.transaction.bind(db);
+ db.transaction=(name,mode)=>{const tx=original(name,mode);if(mode==='readwrite'){const get=tx.objectStore.bind(tx);tx.objectStore=name=>{const s=get(name),put=s.put.bind(s);s.put=(value,key)=>{if(key==='head')throw Error('injected quota after previous');return put(value,key);};return s;};}return tx;};
+ await assert.rejects(writeStagingRecord(db,one,{expectedRevision:2,...opts}),/injected quota/);
+ assert.deepEqual([...f.inspect()],before);
+});
+test('postcommit reader failure retains previous and requires cold reconciliation',async()=>{
+ const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});
+ let candidateReads=0;const readerFailure=text=>{reader(text);if(text===two&&++candidateReads===2)throw Error('injected readback failure');};
+ await assert.rejects(writeStagingRecord(db,two,{expectedRevision:1,...opts,reader:readerFailure}),/injected readback/);
+ assert.equal(f.inspect().get('previous').text,one);
+ assert.equal((await readStagingRecord(await open(f),opts)).record.text,two);
+ await assert.rejects(writeStagingRecord(db,two,{expectedRevision:1,...opts}),e=>e.code==='conflict');
+ assert.equal(f.inspect().get('previous').text,one);
+});
+
+test('every present malformed entry fails closed including stored undefined',async()=>{
+ for(const key of ['head','previous'])for(const value of [null,false,0,'',undefined]){
+  const f=fakeFactory(),db=await open(f);await writeStagingRecord(db,one,{expectedRevision:0,...opts});
+  f.change(key,value);const before=structuredClone([...f.inspect()]);
+  await assert.rejects(writeStagingRecord(db,two,{expectedRevision:1,...opts}),e=>e.code==='invalid-record');
+  assert.deepEqual([...f.inspect()],before);
+ }
 });

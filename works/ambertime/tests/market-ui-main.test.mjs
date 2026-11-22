@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {FormalIdbCommitBoundary} from '../formal-idb-commit-boundary.mjs';
 import {reconcileCaskSlots} from '../cask-slots.mjs';
 import {writeCandidate} from '../placement-save.mjs';
 import {createMarketUI,savedMarketSales,visibleMarketRows,compactReleaseDate,availableMarketShops,marketShopOrder} from '../market-ui.mjs';
@@ -42,15 +43,15 @@ function harness({saved=true,geometry=false}={}){
  }
  const doc={hidden:false,activeElement:null,body:{append:node=>assert.equal(node,root)},getElementById:id=>id==='market-board'?root:id==='scene-root'?scene:geometry&&id.startsWith('market-stock-')?root.stockRow:null,createElement(){return {style:{},dataset:{},setAttribute(){},getBoundingClientRect:()=>({width:28,height:24}),remove(){const index=overlays.indexOf(this);if(index>=0)overlays.splice(index,1);}};},addEventListener(){}};
  const ui=createMarketUI({document:doc,model,state:()=>current,art:()=>'<svg></svg>',act:fn=>{const next=fn(current);if(saved)current=next;return saved;},openProduct(){},openStockist:id=>opened.push(id),announce:t=>notices.push(t),announceSaved:t=>savedNotices.push(t),setEditing:v=>editing=v});
- function click(dataset){listeners.get('click')({target:{closest:()=>({dataset,disabled:false})}});}
+ function click(dataset){return listeners.get('click')({target:{closest:()=>({dataset,disabled:false})}});}
  return {ui,root,scene,click,overlays,history,read:()=>current,editing:()=>editing,notices,savedNotices,opened,listeners};
 }
-test('a failed transaction does not create a placement success; a valid return uses its own action channel',()=>{
- const failed=harness({saved:false});failed.ui.update({visible:true});failed.click({marketPlace:'town-liquor'});assert.equal(failed.read().assigned[7],2);assert.deepEqual(failed.notices,[]);assert.equal(failed.ui.diagnostics().motions,0);
- const h=harness();h.ui.update({visible:true});h.click({marketStock:'town-liquor:9'});assert(h.editing());assert.equal(h.ui.diagnostics().editing.productId,9);h.click({marketConfirm:'return'});assert.equal(h.read().assigned[9],0);assert.equal(h.read().assigned[7],2);assert.equal(h.ui.diagnostics().selected,7);assert(!h.editing());assert.match(h.notices.at(-1),/1本/);
+test('a failed transaction does not create a placement success; a valid return uses its own action channel',async()=>{
+ const failed=harness({saved:false});failed.ui.update({visible:true});await failed.click({marketPlace:'town-liquor'});assert.equal(failed.read().assigned[7],2);assert.deepEqual(failed.notices,[]);assert.equal(failed.ui.diagnostics().motions,0);
+ const h=harness();h.ui.update({visible:true});await h.click({marketStock:'town-liquor:9'});assert(h.editing());assert.equal(h.ui.diagnostics().editing.productId,9);await h.click({marketConfirm:'return'});assert.equal(h.read().assigned[9],0);assert.equal(h.read().assigned[7],2);assert.equal(h.ui.diagnostics().selected,7);assert(!h.editing());assert.match(h.notices.at(-1),/1本/);
 });
-test('hidden board ignores stale actions and drag capture suppresses the synthetic placement click',()=>{
- const h=harness();h.ui.update({visible:false});h.click({marketPlace:'town-liquor'});assert.equal(h.read().assigned[7],2);
+test('hidden board ignores stale actions and drag capture suppresses the synthetic placement click',async()=>{
+ const h=harness();h.ui.update({visible:false});await h.click({marketPlace:'town-liquor'});assert.equal(h.read().assigned[7],2);
  h.ui.update({visible:true});h.listeners.get('pointerdown')({pointerId:1,clientX:50,clientY:50,isPrimary:true});h.listeners.get('pointermove')({pointerId:1,clientX:10,clientY:50});h.listeners.get('pointerup')({pointerId:1});let stopped=false;
  h.listeners.get('click:capture')({detail:1,preventDefault(){},stopImmediatePropagation(){stopped=true;}});assert(stopped);assert.equal(h.read().assigned[7],2);
 });
@@ -85,24 +86,24 @@ test('persistent funds and generation notices render above operable shelves and 
 });
 
 
-test('hand bottles use real release dates without brand select, serials, locked badges or special footer',()=>{
+test('hand bottles use real release dates without brand select, serials, locked badges or special footer',async()=>{
  const h=harness();h.ui.update({visible:true});
  assert.match(h.root.innerHTML,/data-market-release="7"/);assert.match(h.root.innerHTML,/class="market-date">2026\/3/);
  assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);
  assert.doesNotMatch(h.root.innerHTML,/<select|#\d|第\d+回|取扱前|デパート|瓶詰めした一本が並びます/);
  assert.match(h.root.innerHTML,/data-market-details="retail"/);
- h.click({marketRelease:'9'});assert.equal(h.ui.diagnostics().selected,9);
- h.click({marketRelease:'999'});assert.equal(h.ui.diagnostics().selected,9);
- h.click({marketStock:'town-liquor:7'});assert.match(h.root.innerHTML,/class="market-content" inert/);
- h.click({marketRelease:'7'});assert.equal(h.ui.diagnostics().selected,9);
- h.click({marketCancel:'return'});assert.doesNotMatch(h.root.innerHTML,/class="market-content" inert/);
+ await h.click({marketRelease:'9'});assert.equal(h.ui.diagnostics().selected,9);
+ await h.click({marketRelease:'999'});assert.equal(h.ui.diagnostics().selected,9);
+ await h.click({marketStock:'town-liquor:7'});assert.match(h.root.innerHTML,/class="market-content" inert/);
+ await h.click({marketRelease:'7'});assert.equal(h.ui.diagnostics().selected,9);
+ await h.click({marketCancel:'return'});assert.doesNotMatch(h.root.innerHTML,/class="market-content" inert/);
 });
 
-test('placing all targets the original bottle even when the hand selection moves, and return restores it independently',()=>{
- const h=harness();h.ui.update({visible:true});h.click({marketPortion:'all'});h.click({marketPlace:'town-liquor'});
+test('placing all targets the original bottle even when the hand selection moves, and return restores it independently',async()=>{
+ const h=harness();h.ui.update({visible:true});await h.click({marketPortion:'all'});await h.click({marketPlace:'town-liquor'});
  assert.equal(h.read().assigned[7],4);assert.equal(h.read().assigned[9],1);assert.equal(h.ui.diagnostics().selected,9);
  assert.doesNotMatch(h.root.innerHTML,/data-market-release="7"/);assert.match(h.root.innerHTML,/data-market-stock="town-liquor:7"/);
- h.click({marketStock:'town-liquor:7'});h.click({marketConfirm:'return'});assert.match(h.root.innerHTML,/data-market-release="7"/);assert.equal(h.read().assigned[9],1);
+ await h.click({marketStock:'town-liquor:7'});await h.click({marketConfirm:'return'});assert.match(h.root.innerHTML,/data-market-release="7"/);assert.equal(h.read().assigned[9],1);
 });
 
 test('releasing a department hold repaints direct hand bottles even when owned stock and ordinary shelves do not change',()=>{
@@ -123,7 +124,7 @@ test('sale quantities do not replace recorded remaining inventory and use saved 
 
 function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
  const source=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- const start=source.indexOf('function actMarket(fn){'),end=source.indexOf('function commitPlacement(',start);
+ const start=source.indexOf('async function actMarket(fn){'),end=source.indexOf('async function commitPlacement(',start);
  const old={id:'before',core:{casks:[]},operations:[]},next={id:'after',core:{casks:[]},operations:[]},calls={writes:0,receipts:0,news:0,renders:0},saveStatus={textContent:'保存済み'};
  let stored=conflict?'another-tab':'old';
  const context={sessionActive:true,historyRecord:{},pendingRecall:null,recallRecord:null,recallPreview:null,debugSkipJob:null,lastSaveError:null,legacyRecord:null,dialogueNotice:{reset(){}},noteDialogueCommit(){},advanceHistoryRecord:(_before,_after,history)=>history,initializeHistoryRecord:()=>({}),recentLedger:{},advanceRecentLedger:(_before,_after,ledger)=>ledger,migrateRecentLedger:()=>({}),reconcileCaskSlots,caskSlots:[null,null,null,null],game:old,committedSession:{game:old,userPaused:false,elapsed:0,caskSlots:[null,null,null,null]},migrationPending:null,modal:null,preview:false,canSave:true,userPaused:false,elapsed:0,lastSavedText:'old',runtimeHalted:false,SAVE_KEY:'main',
@@ -133,24 +134,29 @@ function nativeTransaction({failWrite=false,conflict=false,invalid=false}={}){
   automaticNews:{push(){calls.news++;}},automaticEvents:()=>[],caskName:()=>'',soldOutLabel:()=>'',noteMapReach(){},
   marketUI:{consume(before,after){assert.equal(before,old);assert.equal(after,next);calls.receipts++;}},
   $:()=>saveStatus,storageNotice(){},render(){calls.renders++;},schedule(){}}
+ // The old conditional writer is an injected transaction double; production uses IDB.
+ context.runtimeSaving=false;context.mainStore={invalidate(){}};context.candidateRecalls=new WeakMap();
+ context.savingBusy=()=>context.runtimeSaving||context.commitBoundary.status.busy;
+ context.actionReady=()=>context.canSave&&!context.savingBusy();context.prepareGame=(fn,before=context.game)=>fn(before);
+ context.commitBoundary=new FormalIdbCommitBoundary({revision:0,write:async(text,{expectedRevision})=>{writeCandidate(context.localStorage,'main',context.lastSavedText,text);return {revision:expectedRevision+1};}});
  const sandbox=vm.createContext(context);vm.runInContext(source.slice(source.indexOf('function rememberCommitted()'),source.indexOf('const displayProductStock='))+source.slice(start,end),sandbox);
  return {old,next,calls,context,stored:()=>stored,run:()=>context.actMarket(()=>next)};
 }
-test('native market commits live state and receipt presentation only after exact conditional save',()=>{
- const h=nativeTransaction();assert.equal(h.run(),true);assert.equal(h.context.game,h.next);assert.equal(h.calls.writes,1);assert.equal(h.calls.receipts,1);assert.equal(h.calls.news,1);assert.equal(JSON.parse(h.stored()).game.id,'after');
+test('native market commits live state and receipt presentation only after exact conditional save',async()=>{
+ const h=nativeTransaction();assert.equal(await h.run(),true);assert.equal(h.context.game,h.next);assert.equal(h.calls.writes,1);assert.equal(h.calls.receipts,1);assert.equal(h.calls.news,1);assert.equal(JSON.parse(h.stored()).game.id,'after');
 });
-test('quota, conflict and invalid state never publish market inventory or success receipts',()=>{
+test('quota, conflict and invalid state never publish market inventory or success receipts',async()=>{
  for(const options of [{failWrite:true},{conflict:true},{invalid:true}]){
-  const h=nativeTransaction(options);assert.equal(h.run(),false);assert.equal(h.context.game,h.old);assert.equal(h.calls.receipts,0);assert.equal(h.calls.news,0);
+  const h=nativeTransaction(options);assert.equal(await h.run(),false);assert.equal(h.context.game,h.old);assert.equal(h.calls.receipts,0);assert.equal(h.calls.news,0);
   if(!options.invalid)assert.equal(h.context.canSave,false);
   assert.equal(h.stored(),options.conflict?'another-tab':'old');
  }
 });
 
 // Accepted product decisions: keep these across future Lab/main adoptions.
-test('unavailable and offer-only shops are absent; actual contracts reveal only their own shelf',()=>{
+test('unavailable and offer-only shops are absent; actual contracts reveal only their own shelf',async()=>{
  const h=harness();h.read().shop.relations=[];h.read().shop.offer={shopId:'supermarket'};h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/data-market-shop=/g)||[]).length,1);assert.match(h.root.innerHTML,/data-market-shop="retail"/);assert.doesNotMatch(h.root.innerHTML,/data-market-shop="(?:town-liquor|supermarket)"/);
- h.click({marketPlace:'supermarket'});h.click({marketDetails:'town-liquor'});assert.deepEqual(h.opened,[]);assert.equal(h.read().assigned[7],2);
+ await h.click({marketPlace:'supermarket'});await h.click({marketDetails:'town-liquor'});assert.deepEqual(h.opened,[]);assert.equal(h.read().assigned[7],2);
  h.read().shop.relations=[{shopId:'town-liquor',brandId:1}];h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/data-market-shop=/g)||[]).length,2);assert.doesNotMatch(h.root.innerHTML,/data-market-shop="supermarket"/);
  h.read().shop.relations.push({shopId:'supermarket',brandId:2});h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/data-market-shop=/g)||[]).length,3);
 });
@@ -160,10 +166,10 @@ test('four sold retains accessible history while the bottle always shows one act
 test('empty placement fields alone show a hint and preserve minimal bottle controls',()=>{const h=harness();h.ui.update({visible:true});assert.doesNotMatch(h.root.innerHTML,/class="market-place-label"/);h.read().retail={};h.ui.update({visible:true});assert.equal((h.root.innerHTML.match(/class="market-place-label"/g)||[]).length,1);assert.match(h.root.innerHTML,/ここに置く/);assert.doesNotMatch(h.root.innerHTML,/置く →|market-preference|少量ずつ|煙・厚み|麦・果実/);assert.equal((h.root.innerHTML.match(/data-market-portion=/g)||[]).length,3);assert.doesNotMatch(h.root.innerHTML,/<select|取扱前|デパート|#\d+|第\d+回/);});
 
 
-test('hand heading avoids duplicate aggregate and successful saved placement uses accessible status only',()=>{
+test('hand heading avoids duplicate aggregate and successful saved placement uses accessible status only',async()=>{
  const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/<span class="market-hand">手元<\/span>/);assert.match(h.root.innerHTML,/class="market-count">2本/);assert.doesNotMatch(h.root.innerHTML,/<span>5本<\/span>/);
- h.click({marketPlace:'town-liquor'});assert.deepEqual(h.notices,[]);assert.deepEqual(h.savedNotices,['町の酒店に1本置きました。']);assert.equal(h.read().assigned[7],3);
- const failed=harness({saved:false});failed.ui.update({visible:true});failed.click({marketPlace:'town-liquor'});assert.deepEqual(failed.savedNotices,[]);assert.deepEqual(failed.notices,[]);
+ await h.click({marketPlace:'town-liquor'});assert.deepEqual(h.notices,[]);assert.deepEqual(h.savedNotices,['町の酒店に1本置きました。']);assert.equal(h.read().assigned[7],3);
+ const failed=harness({saved:false});failed.ui.update({visible:true});await failed.click({marketPlace:'town-liquor'});assert.deepEqual(failed.savedNotices,[]);assert.deepEqual(failed.notices,[]);
 });
 test('normal placement targets stay neutral and the saved status has a dedicated hidden live region',()=>{
  const read=name=>fs.readFileSync(new URL('../'+name,import.meta.url),'utf8'),css=read('market.css'),app=read('shop-app.mjs'),html=read('index.html');
@@ -179,11 +185,11 @@ test('venue information is explicitly named and content-sized panel reveals the 
 
 // The current author request replaces visible sale sentences with quantity
 // overlays; actual remaining inventory and saved transaction rules stay intact.
-test('saved placement pairs deltas with the original release even when all leaves hand empty',t=>{
- t.mock.timers.enable({apis:['setTimeout']});const h=harness({geometry:true});h.ui.update({visible:true});h.click({marketPortion:'all'});h.click({marketPlace:'town-liquor'});
+test('saved placement pairs deltas with the original release even when all leaves hand empty',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});const h=harness({geometry:true});h.ui.update({visible:true});await h.click({marketPortion:'all'});await h.click({marketPlace:'town-liquor'});
  assert.equal(h.ui.diagnostics().selected,9);assert.deepEqual(h.overlays.map(el=>[el.textContent,el.dataset.productId,el.dataset.shopId]),[['+2','7','town-liquor'],['−2','7','hand']]);
  assert.equal(h.overlays[1].style.top,'150px');assert.equal(h.read().assigned[7],4);t.mock.timers.tick(651);assert.equal(h.overlays.length,0);
- const failed=harness({geometry:true,saved:false});failed.ui.update({visible:true});failed.click({marketPlace:'town-liquor'});assert.equal(failed.overlays.length,0);
+ const failed=harness({geometry:true,saved:false});failed.ui.update({visible:true});await failed.click({marketPlace:'town-liquor'});assert.equal(failed.overlays.length,0);
 });
 test('saved sale decrements appear once with reduced motion and cancel without stale overlays',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});const h=harness({geometry:true});h.ui.update({visible:true});const before=structuredClone(h.read());h.read().core.month++;h.read().assigned[7]=1;h.read().core.lastMonth={month:h.read().core.month,sales:[{id:7,sold:1,revenue:12,channel:'stockist',shopId:'town-liquor'}]};
@@ -192,9 +198,9 @@ test('saved sale decrements appear once with reduced motion and cancel without s
  h.ui.cancel();assert.equal(h.overlays.length,0);t.mock.timers.tick(3000);await Promise.resolve();assert.equal(h.history.length,1);assert.equal(h.ui.diagnostics().feedback.length,0);
 });
 
-test('large all-placement reserves space for full signed quantity without reducing fonts',()=>{
+test('large all-placement reserves space for full signed quantity without reducing fonts',async()=>{
  const h=harness();h.read().core.products[0].stock=1000;h.ui.update({visible:true});assert.match(h.root.innerHTML,/--market-delta-space:calc\(6 \* var\(--uniform-font-size,16px\)\)/);
- h.click({marketPortion:'all'});h.click({marketPlace:'town-liquor'});assert.equal(h.read().assigned[7],999);assert.match(h.root.innerHTML,/class="market-count">999本/);
+ await h.click({marketPortion:'all'});await h.click({marketPlace:'town-liquor'});assert.equal(h.read().assigned[7],999);assert.match(h.root.innerHTML,/class="market-count">999本/);
 });
 
 
@@ -204,11 +210,11 @@ test('compact shelf dates remain unambiguous across centuries and retain full ac
  const h=harness();h.ui.update({visible:true});assert.match(h.root.innerHTML,/title="2026\/3">26\/3/);assert.match(h.root.innerHTML,/2026\/3.*残り2本/);
 });
 
-test('rapid placement replaces the previous delta and leaves unsigned current stock',t=>{
+test('rapid placement replaces the previous delta and leaves unsigned current stock',async t=>{
  t.mock.timers.enable({apis:['setTimeout']});
  const h=harness({geometry:true});h.ui.update({visible:true});
- h.click({marketPlace:'town-liquor'});
- h.click({marketPlace:'town-liquor'});
+ await h.click({marketPlace:'town-liquor'});
+ await h.click({marketPlace:'town-liquor'});
  assert.deepEqual(h.overlays.map(el=>el.textContent),['+1','−1']);
  assert.match(h.root.innerHTML,/class="market-count">4本/);
  t.mock.timers.tick(650);
@@ -224,22 +230,22 @@ test('actual-sale ordering excludes legacy deliveries, boundary month, invalid a
  delete s.storeMarket;assert.deepEqual(marketShopOrder(s,shops),shops);
  for(const count of [0,1,2,3,5,10]){const many=[{id:'retail'},...Array.from({length:count},(_,i)=>({id:'p'+i}))];assert.deepEqual(marketShopOrder(s,many),many);}
 });
-test('bar offer alone is hidden; all contracted partners stay reachable without a pager or durable change',()=>{
+test('bar offer alone is hidden; all contracted partners stay reachable without a pager or durable change',async()=>{
  const h=harness();h.read().alleyBar={version:1};h.read().shop.relations.push({shopId:'supermarket',brandId:1});
  h.read().shop.offer={shopId:'bar',brandId:1};h.ui.update({visible:true});
  assert(!availableMarketShops(h.read()).some(shop=>shop.id==='bar'));
  h.read().shop.relations.push({shopId:'bar',brandId:1});h.ui.update({visible:true});
- h.click({marketRelease:'9'});h.click({marketPortion:'5'});const before=structuredClone(h.read());
+ await h.click({marketRelease:'9'});await h.click({marketPortion:'5'});const before=structuredClone(h.read());
  assert.doesNotMatch(h.root.innerHTML,/market-switcher/);
  for(const id of ['retail','town-liquor','supermarket','bar'])assert(h.root.innerHTML.includes('data-market-shop="'+id+'"'));
  assert(h.root.innerHTML.indexOf('data-market-shop="retail"')<h.root.innerHTML.indexOf('class="market-partners"'));
  assert.equal(h.ui.diagnostics().selected,9);assert.equal(h.ui.diagnostics().portion,'5');assert.deepEqual(h.read(),before);
- h.click({marketDetails:'bar'});assert.equal(h.opened.at(-1),'bar');
+ await h.click({marketDetails:'bar'});assert.equal(h.opened.at(-1),'bar');
 });
-test('order changes on room entry only, never on monthly repaint, placement or modal close',()=>{
+test('order changes on room entry only, never on monthly repaint, placement or modal close',async()=>{
  const h=harness(),s=h.read();s.alleyBar={version:1};s.storeMarket={version:1,startedMonth:0};s.shop.deliveries=[];
  s.shop.relations.push({shopId:'supermarket',brandId:1},{shopId:'bar',brandId:1});h.ui.update({visible:true,sessionActive:true});
- const initial=h.ui.diagnostics().order;h.click({marketPlace:'town-liquor'});assert.deepEqual(h.ui.diagnostics().order,initial);
+ const initial=h.ui.diagnostics().order;await h.click({marketPlace:'town-liquor'});assert.deepEqual(h.ui.diagnostics().order,initial);
  s.shop.deliveries.push({shopId:'bar',month:4,count:1}); // act replaced state; update current receipt journal too
  h.read().shop.deliveries=s.shop.deliveries;
  h.ui.update({visible:true,sessionActive:true});assert.deepEqual(h.ui.diagnostics().order,initial);

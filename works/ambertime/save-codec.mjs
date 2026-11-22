@@ -1,3 +1,4 @@
+import {encodeExactJSON,LOSSLESS_LIMITS} from './lossless-json.mjs?v=lossless-v1&codec=v03';
 // Formal session v3 changes the wire representation only. Runtime arrivals stay
 // ordinary complete objects and the existing formal reader remains authoritative.
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
@@ -36,4 +37,18 @@ export function expandFormalGame(compact){
  assert(base.length-4+arrivalsText.length<MAX_FORMAL_CODE_UNITS,'保存が大きすぎます。元の記録を残して停止しています。');
  const game={...compact,labConnection:{...compact.labConnection,town:{...town,arrivals:JSON.parse(arrivalsText)}}};
  return assertFormalSize(JSON.stringify(game));
+}
+
+// Explicit v9-only path. Legacy v8 limits and implementation above are unchanged.
+export function compactLosslessGame(raw){
+ encodeExactJSON(raw,'native');const game=JSON.parse(raw),town=townOf(game),derived=arrivalEvents(town);
+ assert(Array.isArray(town.arrivals)&&JSON.stringify(town.arrivals)===JSON.stringify(derived),'到達記録の内容・件数・順序を確認できません。元の記録を残して停止しています。');
+ town.arrivals=null;return game;
+}
+export function expandLosslessGame(compact){
+ const town=townOf(compact);assert(Object.hasOwn(town,'arrivals')&&town.arrivals===null,'新しい保存の到達記録を確認できません。');
+ const arrivalsText=JSON.stringify(arrivalEvents(town)),base=JSON.stringify(compact);
+ assert(base.length-4+arrivalsText.length<=LOSSLESS_LIMITS.decoded,'保存が大きすぎます。元の記録を残して停止しています。');
+ const game={...compact,labConnection:{...compact.labConnection,town:{...town,arrivals:JSON.parse(arrivalsText)}}};
+ return encodeExactJSON(JSON.stringify(game),'native');
 }

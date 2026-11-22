@@ -15,7 +15,7 @@ function harness(game=fresh(),{saveOK=true}={}){
  const buttonNode=action=>node(action),body=node('dialog-body'),dialog=node('action-dialog');
  body.querySelector=selector=>selector.startsWith('label')?node('condition-label'):buttonNode(selector.match(/data-action=["']?([^\]"']+)/)?.[1]);
  dialog.querySelector=body.querySelector;
- const ctx={sessionActive:true,P,D,game,modal:{kind:'bottler-panel',editPolicy:true},bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber,
+ const ctx={actionReady:()=>true,prepareGame:(fn,s=ctx.game)=>fn(s),sessionActive:true,P,D,game,modal:{kind:'bottler-panel',editPolicy:true},bottlingPolicyCountChoices,stepBottlingPolicyCount,stepBottlingCondition,policyNumber,
   $:node,button:(label,action,id='',extra='')=>`<button data-action="${action}" ${extra}>${label}</button>`,render(){throw Error('draft interaction must not rerender dialog');},message(){},preview:true,canSave:true,userPaused:false,elapsed:0,
   countdown:{cancel(){}},stopClock(){},automaticNews:{push(){}},automaticEvents:()=>[],caskName:String,soldOutLabel:()=>'',noteMapReach(){},schedule(){},runtimeHalted:false,
   saveCandidate:()=>saveOK,restoreCommitted(){},storageNotice(){}};
@@ -25,14 +25,14 @@ function harness(game=fresh(),{saveOK=true}={}){
  const clicks=app.slice(begin,app.indexOf(" if(a==='bottling-toggle'",begin));
  const saveStart=app.indexOf(" if(a==='bottling-policy-save'&&kind==='bottler-panel'){");
  const save=app.slice(saveStart,app.indexOf(" if(a==='bottling-delegate'",saveStart));
- const act=app.slice(app.indexOf('function act(fn,'),app.indexOf('function actMarket('));
- vm.runInNewContext(funcs+update+act+`\nfunction click(a){const kind=modal.kind;${clicks}}\nfunction savePolicy(){const a='bottling-policy-save',kind=modal.kind;${save}}`,ctx);
+ const act=app.slice(app.indexOf('async function act(fn,'),app.indexOf('async function actMarket('));
+ vm.runInNewContext(funcs+update+act+`\nfunction click(a){const kind=modal.kind;${clicks}}\nasync function savePolicy(){const a='bottling-policy-save',kind=modal.kind;${save.replace(/\bact\(/g,'await act(')}}`,ctx);
  // Keep render strict for all draft edits; allow it only for the existing saved transaction.
  const savedRender=ctx.render;
- return {ctx,nodes,node,body,buttonNode,view:()=>ctx.bottlingPolicyView(),sync:()=>ctx.syncBottlingPolicyInputs(),click:a=>ctx.click(a),input(id,value){const el=node(id);el.value=value;ctx.updateBottleDraft({target:el});},save(){ctx.render=()=>{};try{return ctx.savePolicy();}finally{ctx.render=savedRender;}},snapshot:()=>D.serializeDistillery(ctx.game)};
+ return {ctx,nodes,node,body,buttonNode,view:()=>ctx.bottlingPolicyView(),sync:()=>ctx.syncBottlingPolicyInputs(),click:a=>ctx.click(a),input(id,value){const el=node(id);el.value=value;ctx.updateBottleDraft({target:el});},async save(){ctx.render=()=>{};try{return await ctx.savePolicy();}finally{ctx.render=savedRender;}},snapshot:()=>D.serializeDistillery(ctx.game)};
 }
 
-test('staff quantities use five steps, preserve only current legacy value and include dynamic terminal maximum',()=>{
+test('staff quantities use five steps, preserve only current legacy value and include dynamic terminal maximum',async()=>{
  assert.deepEqual(bottlingPolicyCountChoices(null,54),[5,10,15,20,25,30,35,40,45,50,54]);
  assert.deepEqual(bottlingPolicyCountChoices(7,15),[5,7,10,15]);assert.deepEqual(bottlingPolicyCountChoices(1,15),[1,5,10,15]);
  assert.equal(stepBottlingPolicyCount(10,'less',max),5);assert.equal(stepBottlingPolicyCount(10,'more',max),15);
@@ -44,12 +44,12 @@ test('staff quantities use five steps, preserve only current legacy value and in
  assert.deepEqual(bottleChoices(3,3),[3]);
 });
 
-test('condition stepping is one unit and invalid or empty input never silently becomes zero',()=>{
+test('condition stepping is one unit and invalid or empty input never silently becomes zero',async()=>{
  for(const limit of [1200,999]){assert.equal(stepBottlingCondition(24,'less',limit),23);assert.equal(stepBottlingCondition(24,'more',limit),25);assert.equal(stepBottlingCondition(0,'less',limit),null);assert.equal(stepBottlingCondition(limit,'more',limit),null);for(const value of [null,-1,1.5,limit+1,NaN])assert.equal(stepBottlingCondition(value,'more',limit),null);}
  assert.equal(policyNumber(''),null);assert.equal(policyNumber('  '),null);assert.equal(policyNumber('-1'),-1);assert.equal(policyNumber('24.5'),24.5);assert.equal(policyNumber('0'),0);
 });
 
-test('real view and input handlers keep draft controls mounted through repeated +/- and mode changes',()=>{
+test('real view and input handlers keep draft controls mounted through repeated +/- and mode changes',async()=>{
  const h=harness(),before=h.snapshot();h.view();h.ctx.modal.planDraft={mode:'age',age:24,threshold:7,count:10};h.sync();
  const input=h.node('bottling-condition'),quantity=h.node('bottling-quantity'),less=h.buttonNode('policy-condition-less'),body=h.body;
  h.click('policy-condition-less');assert.equal(h.ctx.modal.planDraft.age,23);h.click('policy-condition-more');h.click('policy-condition-more');assert.equal(h.ctx.modal.planDraft.age,25);
@@ -59,7 +59,7 @@ test('real view and input handlers keep draft controls mounted through repeated 
  h.input('bottling-mode','age');assert.equal(input.max,'1200');assert.equal(input.value,25);assert.equal(h.node('bottling-condition-unit').textContent,'か月以上になったら');
 });
 
-test('typing preserves the live number input value and does not replace focused controls',()=>{
+test('typing preserves the live number input value and does not replace focused controls',async()=>{
  const h=harness();h.view();h.ctx.modal.planDraft={mode:'age',age:24,threshold:7,count:7};h.sync();
  const input=h.node('bottling-condition');let value='0024',writes=0;
  Object.defineProperty(input,'value',{configurable:true,get:()=>value,set:next=>{writes++;value=next;}});
@@ -68,25 +68,25 @@ test('typing preserves the live number input value and does not replace focused 
  const listeners=app.match(/\$\('dialog-body'\)\.addEventListener\('click',e=>handleModal\(e\)\)/g)??[];assert.equal(listeners.length,1,'one delegated click handler per body');
 });
 
-test('direct invalid input disables save and stepping without changing formal policy',()=>{
+test('direct invalid input disables save and stepping without changing formal policy',async()=>{
  const h=harness(),before=h.snapshot();h.view();h.ctx.modal.planDraft={mode:'age',age:24,threshold:7,count:7};h.sync();
- for(const raw of ['', '-1','24.5','1201']){h.input('bottling-condition',raw);assert.equal(h.buttonNode('bottling-policy-save').disabled,true);assert.equal(h.buttonNode('policy-condition-less').disabled,true);assert.equal(h.buttonNode('policy-condition-more').disabled,true);assert.notEqual(h.ctx.modal.planDraft.age,0);h.save();assert.equal(h.snapshot(),before);}
+ for(const raw of ['', '-1','24.5','1201']){h.input('bottling-condition',raw);assert.equal(h.buttonNode('bottling-policy-save').disabled,true);assert.equal(h.buttonNode('policy-condition-less').disabled,true);assert.equal(h.buttonNode('policy-condition-more').disabled,true);assert.notEqual(h.ctx.modal.planDraft.age,0);await h.save();assert.equal(h.snapshot(),before);}
  h.input('bottling-condition','0');assert.equal(h.buttonNode('policy-condition-less').disabled,true);assert.equal(h.buttonNode('policy-condition-more').disabled,false);assert.equal(h.buttonNode('bottling-policy-save').disabled,false);
  h.input('bottling-condition','1200');assert.equal(h.buttonNode('policy-condition-more').disabled,true);assert.equal(h.buttonNode('policy-condition-less').disabled,false);
  h.input('bottling-mode','stock');h.input('bottling-condition','999');assert.equal(h.buttonNode('policy-condition-more').disabled,true);h.input('bottling-condition','1000');assert.equal(h.buttonNode('bottling-policy-save').disabled,true);
  assert.equal(h.snapshot(),before);
 });
 
-test('legacy one/seven stay exact on opening, age-only save and cold restoration; failure and close discard drafts',()=>{
+test('legacy one/seven stay exact on opening, age-only save and cold restoration; failure and close discard drafts',async()=>{
  for(const count of [1,7]){
   const saved=D.setBottlingPolicy(fresh(),{mode:'age',age:24,count}),raw=D.serializeDistillery(saved),h=harness(D.restoreDistillery(raw));
-  const view=h.view();assert.match(view,new RegExp('<option value="'+count+'" selected>'));assert.equal(h.snapshot(),raw);h.sync();h.click('policy-condition-more');assert.equal(h.ctx.modal.planDraft.count,count);assert.equal(h.snapshot(),raw);h.save();assert.equal(D.commonBottlingPolicy(h.ctx.game).age,25);assert.equal(D.commonBottlingPolicy(h.ctx.game).count,count);assert.equal(D.serializeDistillery(D.restoreDistillery(h.snapshot())),h.snapshot());
+  const view=h.view();assert.match(view,new RegExp('<option value="'+count+'" selected>'));assert.equal(h.snapshot(),raw);h.sync();h.click('policy-condition-more');assert.equal(h.ctx.modal.planDraft.count,count);assert.equal(h.snapshot(),raw);await h.save();assert.equal(D.commonBottlingPolicy(h.ctx.game).age,25);assert.equal(D.commonBottlingPolicy(h.ctx.game).count,count);assert.equal(D.serializeDistillery(D.restoreDistillery(h.snapshot())),h.snapshot());
   const failed=harness(D.restoreDistillery(raw),{saveOK:false});failed.view();failed.click('policy-condition-more');failed.save();assert.equal(failed.snapshot(),raw);assert.equal(D.commonBottlingPolicy(failed.ctx.game).age,24);
   const cancelled=harness(D.restoreDistillery(raw));cancelled.view();cancelled.click('policy-count-more');cancelled.ctx.modal=null;assert.equal(cancelled.snapshot(),raw);
  }
 });
 
-test('common-policy edits preserve frozen reservations and actual residual three-bottle execution',()=>{
- let s=fresh(),id=s.core.casks[0].id;s=D.setBottlingPolicy(s,{mode:'age',age:24,count:7});s=D.delegateBottling(s,id);const reservation=plain(D.bottlingReservation(s,id)),h=harness(s);h.view();h.click('policy-condition-more');h.save();assert.deepEqual(plain(D.bottlingReservation(h.ctx.game,id)),reservation);assert.equal(D.commonBottlingPolicy(h.ctx.game).count,7);
+test('common-policy edits preserve frozen reservations and actual residual three-bottle execution',async()=>{
+ let s=fresh(),id=s.core.casks[0].id;s=D.setBottlingPolicy(s,{mode:'age',age:24,count:7});s=D.delegateBottling(s,id);const reservation=plain(D.bottlingReservation(s,id)),h=harness(s);h.view();h.click('policy-condition-more');await h.save();assert.deepEqual(plain(D.bottlingReservation(h.ctx.game,id)),reservation);assert.equal(D.commonBottlingPolicy(h.ctx.game).count,7);
  let residual=fresh(D.newBottlingRolesDistillery);id=residual.core.casks[0].id;residual=D.bottleBranded(residual,id,{},D.quote(residual,id).count-3);assert.equal(D.quote(residual,id).count,3);residual=D.setBottlingPolicy(residual,{mode:'age',age:1,count:10});residual=D.delegateBottling(residual,id);const before=residual.core.totals.costs;residual=advance(residual,1);assert.equal(residual.automation.lastBottlings[0].count,3);assert.equal(residual.automation.lastBottlings[0].cost,3*P.bottlingCost);assert.equal(residual.core.totals.costs,before+3*P.bottlingCost+residual.automation.lastBottlings[0].salary);assert.equal(D.serializeDistillery(D.restoreDistillery(D.serializeDistillery(residual))),D.serializeDistillery(residual));
 });

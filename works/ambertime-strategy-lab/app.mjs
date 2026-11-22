@@ -1,4 +1,4 @@
-import {DEFAULT_CONFIG,SHOP_DEFINITIONS,runComparison} from './model.mjs';
+import {DEFAULT_CONFIG,SHOP_DEFINITIONS,runComparison} from './model.mjs?perf=v06';
 
 const form=document.querySelector('#conditions'),results=document.querySelector('#results');
 const status=document.querySelector('#status'),error=document.querySelector('#error');

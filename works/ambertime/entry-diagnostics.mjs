@@ -8,6 +8,7 @@ const operations={
  continue:'つづきから','title-inspect':'起動時の記録確認',preview:'試遊の新規開始',
 };
 const stages={
+ 'storage-prepare':'保存領域の準備','committed-readback':'確定記録の読戻し',
  'record-check':'記録確認','record-recheck':'正式領域の再照合','candidate-create':'候補作成',
  'candidate-validation':'候補検証','continue-restore':'継続復元','backup-check':'バックアップ確認',
  'backup-write':'バックアップ書込み','backup-readback':'バックアップ読戻し',
@@ -19,6 +20,8 @@ const moduleFiles={app:'shop-app.mjs',sessionEntry:'session-entry.mjs',diagnosti
 // These are code-controlled dependency identifiers, never session values.
 // Keep them exact even if a player's name happens to be "age" or "stage7".
 const queryValues={
+ consignment:['night-stage4-v01'],
+ idb:['v03'],codec:['v03'],
  assignment:['night-stage2-v01'],night:['stage1'],reactions:['s1-1'],dialogue:['a6-1'],hiring:['s2-1'],staff:['s3-1'],package:['c1l-1'],'h4-2':['1'],'h3-3a':['1'],
  v:['market-layout-r1','all-stores-s2-1','bar-v01-1','entry-diagnostics-20261111-r1','entry-diagnostics-20261111-r2','entry-diagnostics-20261111-r4'],rooms:['stage3-r1'],touch:['1'],status:['1'],aging:['1'],
  readout:['r1-1'],geometry:['r2-1'],preparation:['r3-1'],warehouse:['r4-1'],history:['r5-1'],experience:['a2-2'],quantity:['a3-1'],

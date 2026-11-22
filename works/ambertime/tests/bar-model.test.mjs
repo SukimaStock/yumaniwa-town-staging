@@ -1,3 +1,4 @@
+import {extractFunction} from './formal-idb-runtime-harness.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -56,13 +57,14 @@ test('corrupt adoption, double reservations and unrecorded bar state are rejecte
 test('install migration exposes recovery on save failure and publishes the bar only after commit',async()=>{
  const vm=await import('node:vm');
  const app=fs.readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- const install=app.slice(app.indexOf('function installSession('),app.indexOf('\nfunction startNew(){'));
+ const install=extractFunction('installSession',app);
  for(const succeeds of [false,true]){
   const nodes=new Map(),node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:true,textContent:''});return nodes.get(id);};
   const no=()=>{},reset={reset:no},old={core:{casks:[]},still:{phase:'ready'},operations:[],tastingId:null};
   const context={session:{game:old,caskSlots:[],userPaused:true,elapsed:0},dialogueNotice:reset,dialogueProjection:reset,countdown:{cancel:no},stopClock:no,manualDistilling:()=>false,preview:false,distillRoom:reset,scene:{resetMotion:no},marketUI:reset,placementUI:reset,feedbackComments:reset,automaticNews:reset,mapNoticeLoad:no,warehouseRoom:{select:no,selectedId:null},D:{shopDialogueMode:()=>true,marketRulesMode:()=>true,alleyBarMode:s=>!!s.alleyBar,enableAlleyBar:s=>({...s,alleyBar:{version:1}})},$:node,storageNotice:text=>node('storage-notice').textContent=text,render:no,schedule:no};
+  context.m0=reset;context.prepareGame=fn=>fn(context.game);
   context.saveCandidate=next=>{if(succeeds){context.committedSession={game:next};return true;}node('recovery').hidden=false;node('save-status').textContent='未保存';node('storage-notice').textContent='保存容量が足りません。';context.canSave=false;context.runtimeHalted=true;return false;};
-  vm.runInNewContext(install+'\ninstallSession(session);',context);
+  await vm.runInNewContext(install+'\ninstallSession(session);',context);
   assert.equal(!!context.game.alleyBar,succeeds);assert.equal(!!context.committedSession.game.alleyBar,succeeds);
   assert.equal(node('recovery').hidden,succeeds);
   assert.equal(node('save-status').textContent,succeeds?'保存済み':'未保存');

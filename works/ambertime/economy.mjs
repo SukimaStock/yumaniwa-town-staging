@@ -1,13 +1,14 @@
+import {cloneReplayState} from './clone-data.mjs?v=restore-perf-v04&perf=v06';
 import {planSales,RULES as MARKET_RULES} from './market-sales.mjs?v=bar-v01-1';
 import * as M from './model.mjs?v=stage4-r2';
-import * as D from './distillery.mjs?v=stage4-r2';
+import * as D from './distillery.mjs?v=stage4-r2&perf=v06';
 import {mixSeed,sampleCharacter,endCharacterTasting,chooseCharacter,comparisons,sampleOf,profile} from './character.mjs?v=stage4-r2';
 import {advanceMonthly,createCaskNotes} from './monthly.mjs?v=stage4-r2';
 import {PARAMETERS as OLD_CORE} from './parameters.mjs';
 import {ECONOMY_PARAMETERS as CORE} from './economy-parameters.mjs';
 import {PARALLEL_PARAMETERS as P} from './economy-parameters.mjs';
 export {PARALLEL_PARAMETERS} from './economy-parameters.mjs';
-const clone=x=>structuredClone(x),round=x=>Math.round(x*100)/100;
+const clone=cloneReplayState,round=x=>Math.round(x*100)/100;
 const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 export function newDistillery(seed=20261015){const core=M.newGame(seed);core.cash=P.startingCash;core.rngState=mixSeed(seed);return {version:P.version,rules:'parallel-distillery-economy',seed,core,still:{phase:'ready',distillation:null,batch:null},notesById:{},batchesById:{},productsById:{},decisions:[],tastingId:null,records:[],result:null,operations:[]};}
 export const currentCask=(s,id)=>s.core.casks.find(c=>c.id===id)??null;
@@ -15,7 +16,10 @@ const reserve=s=>s.core.casks.reduce((sum,c)=>sum+M.bottleQuote(s.core,c.id).cos
 const isBlocked=s=>s.tastingId!==null||s.decisions.length>0;
 function action(s,key,value){s.operations.push({key,...(value===undefined?{}:{value})});assert(s.operations.length<=P.maxOperations,'帳面がいっぱいです。保存を残して新しい蒸留所を始められます。');return s;}
 export function canStart(s){const minimum=CORE.distillationCost+Math.min(...Object.values(CORE.casks).map(c=>c.cost))+Math.floor((CORE.baseLitres+CORE.extraLitres)/CORE.bottleLitres)*CORE.bottlingCost+reserve(s);let reason='';if(isBlocked(s))reason='試飲・判断を終えてから仕込みます。';else if(s.still.phase!=='ready')reason='今の原酒を樽へ詰めます。';else if(s.core.casks.length>=CORE.maxCasks)reason='貯蔵庫の4樽が埋まっています。';else if(s.core.products.filter(p=>p.stock>0).length+s.core.casks.length>=CORE.maxProducts)reason='瓶詰めのため、商品の販売を待ちます。';else if(s.core.lastDistillation===s.core.month)reason='今月は仕込み済みです。';else if(s.core.cash<minimum)reason=`仕込みと樽・瓶に £${minimum} 必要です。`;return {ok:!reason,reason,minimum};}
-function projectedStill(s){return {...s,phase:s.still.phase,distillation:s.still.distillation,batch:s.still.batch,operations:[]};}
+// The legacy still reads only this projection. Its private clones must not
+// duplicate town/history fields that acceptStill never consumes. The outer
+// economy transaction still detaches the complete input before committing.
+function projectedStill(s){return {core:s.core,phase:s.still.phase,distillation:s.still.distillation,batch:s.still.batch,operations:[]};}
 function acceptStill(s,p){s.core=p.core;s.still={phase:p.phase,distillation:p.distillation,batch:p.batch};return s;}
 // The old ritual charges £260 internally. A projected-only adjustment reuses
 // that ritual, then commits exactly the v2 £120 expense (never revenue).

@@ -2,7 +2,7 @@
 // Existing transaction modules remain authoritative for every game version.
 import {SHOPS} from './shop-model.mjs?v=bar-v01-1';
 import {VENUES} from './market-sales.mjs?v=bar-v01-1';
-import {NORMAL_SHOP_DEMAND} from './shop-demand.mjs?v=bar-v01-1';
+import {NORMAL_SHOP_DEMAND} from './shop-demand.mjs?v=bar-v01-1&perf=v06';
 import {DEPARTMENT} from './department-projects.mjs?v=0.44-monthly-timing';
 const freeze=value=>{
  if(value&&typeof value==='object'&&!Object.isFrozen(value)){

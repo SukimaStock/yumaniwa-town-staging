@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {FormalIdbCommitBoundary} from '../formal-idb-commit-boundary.mjs';
 import {readFileSync} from 'node:fs';
 import {createDialogueNotice,dialogueMarkup} from '../shop-dialogue-view.mjs';
 function harness(){let now=0,id=0,allowed=true;const jobs=new Map(),shown=[],hidden=[];const notice=createDialogueNotice({safe:()=>allowed,show:e=>shown.push(e.id),hide:()=>hidden.push(now),setTimer:(fn,delay)=>{jobs.set(++id,{fn,time:now+delay});return id;},clearTimer:key=>jobs.delete(key)});const advance=ms=>{const until=now+ms;while(true){const row=[...jobs].filter(([,j])=>j.time<=until).sort((a,b)=>a[1].time-b[1].time)[0];if(!row)break;now=row[1].time;jobs.delete(row[0]);row[1].fn();}now=until;};return {notice,shown,hidden,advance,block(v){allowed=!v;notice.update();},jobs};}
@@ -10,16 +11,19 @@ test('reset for import/new game/conflict discards pending and its callbacks',()=
 test('latest only instead of accumulated notification backlog',()=>{const h=harness();h.block(true);for(const m of [12,24,36])h.notice.commit(state(m-1),state(m),entry(m));h.advance(500);h.block(false);assert.deepEqual(h.shown,['letter-36']);h.advance(10000);assert.equal(h.shown.length,1);});
 test('text escaped; image absent in daily; no reply/order controls',()=>{const html=dialogueMarkup({id:'x',kind:'daily',text:'<script>"&'},{});assert.match(html,/&lt;script&gt;&quot;&amp;/);assert.doesNotMatch(html,/<script|<button|<svg|data-action/);});
 test('integration keeps save-success boundary, reset, original sales and save modules',()=>{
- const app=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');assert.match(app,/writer\(localStorage,SAVE_KEY,lastSavedText,text\);[\s\S]*?noteDialogueCommit\(dialogueBefore,next\);return true;/);assert.match(app,/function installSession[^]*?dialogueNotice.reset\(\);dialogueProjection.reset\(\);/);assert.match(app,/function saveFailure[^]*?dialogueNotice.reset\(\)/);assert.match(app,/body=\(modal.greeting\?'':latestDialogueMarkup\(modal.shopId\)\)\+body/);assert.match(app,/!modal[^]*?!marketEditing[^]*?!countdown.active/);assert.match(app,/game.tastingId===null&&!game.decisions.length/);assert.doesNotMatch(readFileSync(new URL('../shop-dialogue.mjs',import.meta.url),'utf8'),/Math.random\(|localStorage|\.rng\s*=/);
+ const app=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');assert.match(app,/await commitBoundary\.commit\(\{prepare,apply,reason\}\);[\s\S]*?noteDialogueCommit\(dialogueBefore,next\);return true;/);assert.match(app,/function installSession[^]*?dialogueNotice.reset\(\);dialogueProjection.reset\(\);/);assert.match(app,/function saveFailure[^]*?dialogueNotice.reset\(\)/);assert.match(app,/body=\(modal.greeting\?'':latestDialogueMarkup\(modal.shopId\)\)\+body/);assert.match(app,/!modal[^]*?!marketEditing[^]*?!countdown.active/);assert.match(app,/game.tastingId===null&&!game.decisions.length/);assert.doesNotMatch(readFileSync(new URL('../shop-dialogue.mjs',import.meta.url),'utf8'),/Math.random\(|localStorage|\.rng\s*=/);
 });
 
 test('actual saveCandidate hook emits only after successful write and never on rejected write',async()=>{
  const {default:vm}=await import('node:vm');const source=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- const body=source.slice(source.indexOf('function saveCandidate('),source.indexOf('\nfunction save(){'));
+ const body=source.slice(source.indexOf('async function saveCandidate('),source.indexOf('\nasync function save(){'));
  const hook=source.slice(source.indexOf('function noteDialogueCommit('),source.indexOf('\nfunction latestDialogueMarkup('));
  for(const failure of [false,true]){
   const before=state(11),after=state(12),events=[];const context={preview:false,canSave:true,committedSession:{game:before},userPaused:false,elapsed:0,writeCandidate:()=>{events.push('write');if(failure)throw Error('quota');},candidateHistory:()=>null,candidateLedger:()=>null,reconcileCaskSlots:()=>[],sessionText:()=>'{"saved":true}',localStorage:{},SAVE_KEY:'isolated',lastSavedText:'old',caskSlots:[],pendingRecall:null,lastSaveError:null,recallRecord:null,recentLedger:null,historyRecord:null,$:()=>({textContent:''}),saveFailure:()=>events.push('failed'),dialogueProjection:{read:()=>entry()},dialogueNotice:{commit:()=>events.push('dialogue')}};
-  vm.createContext(context);vm.runInContext(hook+'\n'+body,context);assert.equal(context.saveCandidate(after),!failure);assert.deepEqual(events,failure?['write','failed']:['write','dialogue']);if(!failure)assert.equal(context.committedSession.game,after);
+  context.runtimeSaving=false;context.candidateRecalls=new WeakMap();context.savingBusy=()=>context.runtimeSaving;context.stopClock=()=>{};
+  context.commitBoundary=new FormalIdbCommitBoundary({revision:0,write:async()=>{context.writeCandidate();return {revision:1};}});
+  const publish=source.slice(source.indexOf('function publishCandidate('),source.indexOf('\nfunction connectMainStore('));
+  vm.createContext(context);vm.runInContext(hook+'\n'+publish+'\n'+body,context);assert.equal(await context.saveCandidate(after),!failure);assert.deepEqual(events,failure?['write','failed']:['write','dialogue']);if(!failure)assert.equal(context.committedSession.game,after);
  }
 });
 test('newer pending letter survives interruption of currently displayed old letter',()=>{const h=harness();h.notice.commit(state(11),state(12),entry(12));h.advance(0);h.notice.commit(state(23),state(24),entry(24));h.block(true);h.advance(500);h.block(false);assert.deepEqual(h.shown,['letter-12','letter-24']);});

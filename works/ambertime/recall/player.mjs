@@ -42,7 +42,7 @@ export function createRecallPlayer({document,window=globalThis,scenes=RECALL_DEB
  document.body.append(dialog);
  const $=q=>dialog.querySelector(q),picture=$('.at-recall-picture'),canvas=$('canvas');
  const previous=$('[data-recall-action="previous"]'),forward=$('[data-recall-action="next"]');
- let index=0,playing=[],mode='debug',onComplete=null,returnFocus=null,finishing=false;
+ let index=0,playing=[],mode='debug',onComplete=null,returnFocus=null,finishing=false,epoch=0;
  function size(){
   if(!dialog.open||!playing.length)return;
   const width=Math.max(1,Math.min(360,window.innerWidth||360)),height=Math.max(1,window.innerHeight||640);
@@ -63,29 +63,31 @@ export function createRecallPlayer({document,window=globalThis,scenes=RECALL_DEB
   drawScene(canvas.getContext('2d'),view);size();
  }
  function restoreFocus(){const target=returnFocus;returnFocus=null;target?.focus?.({preventScroll:true});}
- function close(){if(dialog.open)dialog.close();restoreFocus();}
- function next(){
+ function close(){epoch++;if(dialog.open)dialog.close();restoreFocus();}
+ async function next(){
   if(!dialog.open||finishing)return;
   if(index<playing.length-1){index++;render();return;}
-  // Match the previous player: unsuccessful/throwing model callback still closes,
-  // leaving the underlying generation modal/recovery UI in charge of retry.
-  finishing=true;
-  try{if(mode==='handover')onComplete?.();}finally{close();}
+  // Keep the final scene until the async handover has settled. A rejected save
+  // closes to the underlying recovery UI, without reporting a successful move.
+  finishing=true;const token=epoch;
+  try{if(mode==='handover')await onComplete?.();}
+  catch{ /* The owning runtime displays the save failure. */ }
+  finally{if(token===epoch)close();}
  }
  function back(){if(!dialog.open||finishing||index===0)return;index--;render();}
- dialog.addEventListener('click',event=>{
+ dialog.addEventListener('click',async event=>{
   if(!dialog.open||finishing)return;
   const target=event.target.closest('[data-recall-action]');
   if(!target||!dialog.contains(target)||target.disabled)return;
   const action=target.dataset.recallAction;
-  if(action==='close')close();else if(action==='previous')back();else if(action==='next'||action==='picture')next();
+  if(action==='close')close();else if(action==='previous')back();else if(action==='next'||action==='picture')await next();
  });
- dialog.addEventListener('keydown',event=>{
+ dialog.addEventListener('keydown',async event=>{
   if(!dialog.open||event.altKey||event.ctrlKey||event.metaKey)return;
   if(event.key==='ArrowLeft'){event.preventDefault();back();}
-  else if(event.key==='ArrowRight'){event.preventDefault();next();}
+  else if(event.key==='ArrowRight'){event.preventDefault();await next();}
  });
- dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+ dialog.addEventListener('cancel',event=>{event.preventDefault();if(!finishing)close();});
  dialog.addEventListener('close',()=>{if(!dialog.open)restoreFocus();});
  window.addEventListener?.('resize',size);
  window.visualViewport?.addEventListener?.('resize',size);
@@ -96,7 +98,7 @@ export function createRecallPlayer({document,window=globalThis,scenes=RECALL_DEB
   if(!Array.isArray(values)||values.length===0||values.some(v=>typeof v?.date!=='string'||typeof v?.sentence!=='string'||typeof v?.scene!=='string'))throw Error('回想の場面を読み取れません。');
   if(!['debug','handover','history'].includes(nextMode)||nextMode==='handover'&&typeof options.onComplete!=='function')throw Error('回想の操作を確認できません。');
   playing=values.map(v=>({date:v.date,sentence:v.sentence,scene:v.scene,art:typeof v.art==='string'?v.art:legacyArt[v.scene]??'neutral'}));
-  mode=nextMode;onComplete=options.onComplete??null;index=0;finishing=false;
+  epoch++;mode=nextMode;onComplete=options.onComplete??null;index=0;finishing=false;
   $('#at-recall-title').textContent=options.title??'二代目の回想';returnFocus=document.activeElement;
   dialog.showModal();render();forward.focus({preventScroll:true});
  }

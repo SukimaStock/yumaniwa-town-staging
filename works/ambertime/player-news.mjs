@@ -1,6 +1,6 @@
 // Disposable player-facing views. Saved events, labels, receipts and simulation
 // draws remain untouched so old recordings keep their exact replay contract.
-import {NODES,townAffinity} from './town-connection.mjs?v=stage4-r2';
+import {NODES,townAffinity} from './town-connection.mjs?v=stage4-r2&perf=v06';
 
 const places=new Map(NODES.map(n=>[n.id,n]));
 const townOf=game=>game?.labConnection?.version===1?game.labConnection.town:null;

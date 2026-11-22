@@ -1,6 +1,6 @@
 // Disposable presentation over existing facts. No replay, validation, clone,
 // new comments, chemistry, timers, notifications or persistent read markers.
-import {customerComments,productTitle} from './player-news.mjs?v=0.25.4';
+import {customerComments,productTitle} from './player-news.mjs?v=0.25.4&perf=v06';
 import {shortChange} from './tasting-view.mjs?v=stage4-r2';
 import {uiText,previousAgingSample} from './ui-text.mjs?v=stage4-r2&rooms=stage3-r1&aging=1';
 // Only known system titles get new current cues. Saved observations stay

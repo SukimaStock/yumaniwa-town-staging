@@ -76,16 +76,16 @@ test('existing notice lane deduplicates the same delivery without duplicating mo
  assert(!automaticEvents(before,after).some(e=>e.kind==='sales'),'the same five are not repeated as aggregate sales');
 });
 
-test('actual saved-action branch publishes department completion only after successful save',()=>{
+test('actual saved-action branch publishes department completion only after successful save',async()=>{
  const source=readFileSync(new URL('../shop-app.mjs',import.meta.url),'utf8');
- const start=source.indexOf('function act(fn,'),end=source.indexOf('\nfunction actMarket(',start);
+ const start=source.indexOf('async function act(fn,'),end=source.indexOf('\nasync function actMarket(',start);
  assert(start>=0&&end>start);
  for(const saved of [false,true]){
-  const pushed=[],context={sessionActive:true,game:states.pending,preview:false,canSave:true,userPaused:false,elapsed:0,runtimeHalted:false,
+  const pushed=[],context={actionReady:()=>true,prepareGame:(fn,s=states.pending)=>fn(s),sessionActive:true,game:states.pending,preview:false,canSave:true,userPaused:false,elapsed:0,runtimeHalted:false,
    countdown:{cancel(){}},stopClock(){},saveCandidate:()=>saved,render(){},schedule(){},restoreCommitted(){},storageNotice(){},
    automaticNews:{push:events=>pushed.push(...events)},automaticEvents,caskName:()=>'',soldOutLabel:()=>'',noteMapReach(){},
    next:states.settled};
-  const result=runInNewContext(source.slice(start,end)+'\nact(()=>next)',context);
+  const result=await runInNewContext(source.slice(start,end)+'\nact(()=>next)',context);
   assert.equal(result,saved);assert.equal(context.game,saved?states.settled:states.pending);
   assert.equal(pushed.filter(e=>e.kind==='department-delivered').length,saved?1:0);
  }

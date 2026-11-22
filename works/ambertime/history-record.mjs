@@ -1,4 +1,4 @@
-import {NODES} from './town-connection.mjs?v=stage4-r2';
+import {NODES} from './town-connection.mjs?v=stage4-r2&perf=v06';
 // Incremental presentation facts. No game operations, snapshots or replay entry point.
 const copy=x=>structuredClone(x),ok=(v)=>{if(!v)throw Error('歩みの記録を確認できません。');};
 const rows=s=>[...(s.generations?.completed??[]),...(s.generations?.active?[s.generations.active]:[])];

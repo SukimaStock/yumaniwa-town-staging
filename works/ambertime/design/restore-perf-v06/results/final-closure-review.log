@@ -1,0 +1,24 @@
+✔ all clone graphs remain native-equivalent, detached and alias-preserving even in private replay (3.307881ms)
+✔ outside replay no prefix is read or transferred, including caller changes (0.262425ms)
+✔ exceptions reset scope and nested scopes restore previous scope (0.393081ms)
+✔ monthly automatic bottling rollback retains exact prior state at low-funds boundary (83.889656ms)
+✔ old log tampering stays rejected and failed validation does not poison good cached replay (100.978278ms)
+✔ public quantization preserves sparse arrays and enumerable extra properties (3.973146ms)
+✔ private plain graph clone preserves sparse arrays, aliases, cycles, key order and primitive values (23.574475ms)
+✔ private unsupported graphs fall back as a whole and retain cross-type aliases (2.219883ms)
+✔ native fallback invokes accessor once and preserves getter-driven property changes (0.940653ms)
+✔ replay metadata transfer does not invoke accessors after native fallback (0.638012ms)
+✔ six entry graphs preserve recursive identities and exact shared native module (2688.342916ms)
+✔ all changed Lab files are exactly declared import or entry URL metadata, not content (96.333818ms)
+✔ economic and replay source matches exact927 after exact reviewed codec and private replay inverses (45.473042ms)
+✔ lossless live integration updates every changed dependency from exact predecessor (1197.007676ms)
+✔ live writer explicitly emits lossless while actual diagnostics retain known outer version (2.240978ms)
+✔ performance replay graph keeps single identities and no repeated perf query (331.232813ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3034.705416

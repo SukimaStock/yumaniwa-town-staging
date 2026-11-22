@@ -1,8 +1,8 @@
 // Disposable scenery derived from confirmed facts. Nothing here is saved or replayed.
-import {partnersForMap} from './trading-partners.mjs?world=world-network-v01';
-import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01';
-import {regionalDeliveryMode,regionalDeliveryHistory} from './regional-deliveries.mjs?world=world-network-v01';
-import {storeMarketMode} from './placement-mode.mjs?v=bar-v01-1';
+import {partnersForMap} from './trading-partners.mjs?world=world-network-v01&perf=v06';
+import {mapPartnerProjection} from './map-partners.mjs?v=map-partners-v01&world=world-network-v01&repair=ui3-20261111&night=stage1&mapSelection=night-stage3&consignment=night-stage4-v01&perf=v06';
+import {regionalDeliveryMode,regionalDeliveryHistory} from './regional-deliveries.mjs?world=world-network-v01&consignment=night-stage4-v01&perf=v06';
+import {storeMarketMode} from './placement-mode.mjs?v=bar-v01-1&delivery=regional-delivery-v01&consignment=night-stage4-v01';
 export const MAP_SCENERY_RULES=Object.freeze({recentMonths:3,flowers:Object.freeze([
  Object.freeze({quantity:6,months:3,span:6}),Object.freeze({quantity:24,months:6,span:24})
 ])});
