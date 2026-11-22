@@ -71,8 +71,10 @@ class ContractTests(unittest.TestCase):
                 authored = D['_read_scene_contract'](str(ROOT), scene_id, texts)
                 self.assertEqual({k: authored[k] for k in fields}, {k: scene[k] for k in fields})
                 self.assertTrue(D['validate_scene_data'](authored, objects)['ok'])
-        self.assertEqual(len(self.node['scenes']), 6)
-        self.assertEqual(sum(len(s['props']) for s in self.node['scenes'].values()), 28)
+        self.assertEqual({key: len(scene['props']) for key, scene in self.node['scenes'].items()}, {
+            'station_plaza': 15, 'tomogushi_alley_map': 4, 'yumado_street_map': 1,
+            'recreation_road_map': 4, 'leisure_center_map': 7, 'onsen_slope_map': 1,
+        })
 
     def test_shared_fixtures_exact_error_parity_and_purity(self):
         self.assertEqual(len(self.cases), len(self.node['results']))

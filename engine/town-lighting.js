@@ -23,7 +23,6 @@
     const cache = new Map();
     const ambientTables = new Map();
     let period = 'off';
-    let requestSoftShadows = false;
     let pixels = 0;
     let stamp = 0;
     let hits = 0;
@@ -39,14 +38,13 @@
 
     try {
         const query = new URLSearchParams(root.location.search);
-        requestSoftShadows = query.get('shadows') === 'soft' && !!materials?.noonContacts;
         setPeriod(query.has('lighting') ? query.get('lighting') : 'noon');
     } catch (_) {
         // Unsupported URL parsing leaves the original town available.
     }
 
     function softNoon() {
-        return period === 'noon' && requestSoftShadows;
+        return period === 'noon' && !!materials?.noonContacts;
     }
 
     function active(sceneId) {

@@ -154,15 +154,19 @@ test('Editor APIs derive fresh ordered copies from literal metadata',()=>{
     } finally { meta.order=order; meta.addable=true; }
     assert.equal(JSON.stringify(registry.objects),original);
 });
-test('scene sources and ghost placements stay byte-identical',()=>{
-    for(const [file,expected] of Object.entries(fixture.sourceHashes)) {
-        // This historical metadata-migration oracle also froze a runtime file.
-        // Creation drafts intentionally extend that renderer; its legacy path is
-        // covered below without changing any canonical scene/ghost/asset hashes.
-        if(file === 'data/station-plaza-props.js') continue;
-        assert.equal(hash(fs.readFileSync(path.join(root,file))),expected,file);
-    }
-});
+const adoptedSceneHashes={
+    // 74d1918 to #945 changed only the station guide's inspect text.
+    'data/station-plaza.js':'6a8d87df46e16bb9567d1ae88a88520b46b404620fa079196a21d179e6baf1ac',
+    // Replacing Recreation Road's four lamps with props: [] restores the migration-era file.
+    'data/town-maps.js':'5bd947698407bd4d805ebe0f125d29b89b8510b9ae52f2399283a37dd3664c1c'
+};
+for(const [file,migrationHash] of Object.entries(fixture.sourceHashes)) {
+    // The historical fixture also included the creation-draft renderer, tested below.
+    if(file==='data/station-plaza-props.js') continue;
+    test('canonical source stays byte-identical: '+file,()=>{
+        assert.equal(hash(fs.readFileSync(path.join(root,file))),adoptedSceneHashes[file]||migrationHash,file);
+    });
+}
 test('select includes historical options and board; action UI remains independent',()=>{
     c.ensurePartEditorFields();
     const form=document.getElementById('part-form');

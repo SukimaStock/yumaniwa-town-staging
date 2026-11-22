@@ -483,7 +483,48 @@
         { x: 9, y: 9, w: 8, h: 7, color: '#aaa79c' },
         { x: 16, y: 11, w: 8, h: 2, color: '#aaa79c' }
       ],
-      props: [],
+      props: [
+        {
+          id: 'recreation_road_lamp_01',
+          objectId: 'street_lamp_01',
+          x: 8, y: 0.1875, w: 2, h: 3.5, footY: 3.6875,
+          enabled: true,
+          catalogKey: 'streetLamp',
+          collision: { enabled: false, x: 0.4, y: 0.91, w: 0.2, h: 0.08 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 1, h: 1 },
+          tap: { enabled: false }
+        },
+        {
+          id: 'recreation_road_lamp_02',
+          objectId: 'street_lamp_01',
+          x: 8, y: 6.1875, w: 2, h: 3.5, footY: 9.6875,
+          enabled: true,
+          catalogKey: 'streetLamp',
+          collision: { enabled: false, x: 0.4, y: 0.91, w: 0.2, h: 0.08 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 1, h: 1 },
+          tap: { enabled: false }
+        },
+        {
+          id: 'recreation_road_lamp_03',
+          objectId: 'street_lamp_01',
+          x: 8, y: 12.1875, w: 2, h: 3.5, footY: 15.6875,
+          enabled: true,
+          catalogKey: 'streetLamp',
+          collision: { enabled: false, x: 0.4, y: 0.91, w: 0.2, h: 0.08 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 1, h: 1 },
+          tap: { enabled: false }
+        },
+        {
+          id: 'recreation_road_lamp_04',
+          objectId: 'street_lamp_01',
+          x: 8, y: 18.1875, w: 2, h: 3.5, footY: 21.6875,
+          enabled: true,
+          catalogKey: 'streetLamp',
+          collision: { enabled: false, x: 0.4, y: 0.91, w: 0.2, h: 0.08 },
+          interaction: { enabled: false, triggerId: '', x: 0, y: 0, w: 1, h: 1 },
+          tap: { enabled: false }
+        }
+      ],
       decor: []
     },
 
