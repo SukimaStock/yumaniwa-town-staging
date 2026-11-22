@@ -1375,9 +1375,9 @@ function getTownSceneTitle(sceneId) {
     return def ? def.title : sceneId;
 }
 
-function drawTownImage(image, x, y, w, h) {
+function drawTownImage(image, x, y, w, h, objectId = '') {
     var lighting = window.YUMANIWA_TOWN_LIGHTING;
-    if (lighting) lighting.drawImage(ctx, currentScene, image, '', x, y, w, h);
+    if (lighting) lighting.drawImage(ctx, currentScene, image, objectId, x, y, w, h);
     else ctx.drawImage(image, x, y, w, h);
 }
 
@@ -3045,7 +3045,7 @@ function drawPlayerSprite(px, py) {
 
     ctx.save();
     ctx.imageSmoothingEnabled = false;
-    drawTownImage(sprite, drawX, drawY, drawW, drawH);
+    drawTownImage(sprite, drawX, drawY, drawW, drawH, '@player');
     ctx.restore();
 }
 

@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3e5b03d15dee6020e561e7b04a7598cc9ec0ae0bdab7a5bd7d5a6a9bdb7763a8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-night-landmarks-20261122",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Improve night wayfinding by retaining the colors and values of people, signs, props and shop exteriors in the five outdoor scenes.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "1a94ee1e00466a1e13049fc3def752343998535f",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/SUKIMASTOCK-LIGHTING-v0.1.md",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/station-plaza-props.js",
+      "main.js",
+      "PR #941 and author-approved PNG/SVG experiments",
+      "PR #942 and its deployed mobile-scale night frames",
+      "engine/town-lighting.js",
+      "data/town-lighting-materials.js",
+      "PR #943 deployed night views and latest author feedback"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-night-landmarks-20261122/r0.lock.json",
+      "engine/town-lighting.js",
+      "main.js",
+      "index.html",
+      "tests/test-town-lighting.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "assets/**",
+      "works/**",
+      "tools/**",
+      ".github/**",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/station-plaza-props.js",
+      "data/town-lighting-materials.js"
+    ],
+    "expectedChanges": [
+      "Pass the player identity/role from the regular sprite draw at every pose. Classify placeable objects via existing World Object and material identities.",
+      "Use a bounded foreground-specific night exposure for people, props and material-mapped buildings. Keep pavement, shadows and light pools at #943 calibration; preserve fixture placement and light hierarchy, alpha and pixel geometry.",
+      "Bump changed script revisions. Cover role routing, cache identity and output against prior night ground and adjacent roles."
+    ],
+    "ownerDecisions": [
+      "Author confirmed #943 improved lighting but reported shops, small objects and people disappear into the floor. Preserve the night streets and restore visual recognition of foreground landmarks."
+    ],
+    "hqDecisions": [
+      "Use the existing town adapter and common renderer with a small set of reusable night states. Leave author art and world placements intact.",
+      "Compare actual mobile walking views and choose foreground values from them. Preserve all other phases and OFF, special ghost, UI, drafts and failure fallback."
+    ],
+    "rulesApplied": [
+      "Full Plan and immutable lock before implementation; exact base/head Scope, Risk, Impact and trusted static gates",
+      "Pixel Standard, integer draw bounds and nearest sampling; cap cache, never mutate original data or add animation loop",
+      "Use independent review and compare actual browser output to pre-change screenshots"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-visual-touch-performance",
+      "author-visual-adoption"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "surface.shared",
+      "scene.rendering",
+      "scene.collision",
+      "scene.interaction",
+      "scene.editor-desk",
+      "scene.validation",
+      "scene.transition-adjacency"
+    ],
+    "impactExclusions": [],
+    "rollback": "Use ?lighting=off or revert this Staging-only correction to restore #943. No migration.",
+    "outOfScope": [
+      "Production and publication decisions",
+      "Real clock, automatic progression and permanent UI",
+      "Interior assets, editor preview, scene placement and collisions, original assets, gameplay, navigation and persistence"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari timing, thermal behavior and touch feel",
+      "Author visual acceptance"
+    ],
+    "problem": "At night shops, street furniture and walking sprites share the darkness of large areas of ground. The screen no longer communicates where a visitor can go.",
+    "currentContract": "#943 uses ambient 0.42 for outdoor objects and ordinary ground, 0.62 for the darker alley JPEG. Light cores, reflected fixture light and pavement light pools are tuned for the current streets.",
+    "whyExistingIsInsufficient": "Path brightness and emissive-window checks alone do not establish whether store identities, guidance signs, benches or the player are discernible at normal phone scale.",
+    "design": "Keep the ground pass and source geometry. Apply reusable exposure states based on the drawing role to bring back local color on the player, objects and buildings while retaining dark outlines, night shading and brighter genuine lights.",
+    "alternativesRejected": [
+      "Change the global night preset or raise all five grounds again",
+      "Add outlines, icons, signs, halos or new lights to signal routes",
+      "Detect player animation frames by filename"
+    ],
+    "migration": "No persisted change; five outdoor maps share in-memory period across moves.",
+    "compatibility": "Fallback on missing renderer, image or map failure. Preserve input, editor and overlay order, work routing and cache-busted script URLs.",
+    "boundaryCases": [
+      "Four facing directions, idle and walk frames, map/camera/viewport transitions, both light and dark pavement behind a player",
+      "Special ghost, creation previews, fallback sprites, missing images or adapter, indoor draws, material alpha, all lamp locations",
+      "Foreground vs floor using the same source, cache reuse and cap, unchanged OFF and all non-night views"
+    ],
+    "testPlan": [
+      "Compare #943 and candidate night at the same camera in all five scenes, including a normal arrival, all four shops, station signs, bench, an unlit road and the player. Retain before/after screenshots for the author.",
+      "Inspect underlying JPEGs, light pools and contact/cast geometry for parity. Compare daytime and OFF browser frames. Check authored light cores against brighter surrounding material.",
+      "Test actual browser drawing, navigation/tap/footY, cache bounds and fallback, mobile Chromium/Linux WebKit and desktop; disclose real iPhone as unverified.",
+      "Run focused regressions and trusted base Scope, Risk, Impact, static checks. Review the exact PR head and required CI and confirm deployed assets and Pages state."
+    ],
+    "promotionRisk": "Staging-only correction requested by author. Visual adoption and iPhone hardware remain separate."
+  }
+}
