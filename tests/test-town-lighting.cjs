@@ -27,7 +27,7 @@ function canvas() {
       return {width, height, data: input.data.slice()};
     },
     putImageData(buffer) { result.data = buffer.data.slice(); },
-    fillRect(x, y, w, h) { result.spans.push({x, y, w, h}); }
+    fillRect(x, y, w, h) { result.spans.push({x, y, w, h, color: this.fillStyle}); }
   };
   result.getContext = () => ctx;
   return result;
@@ -82,7 +82,8 @@ test('ambient rendering matches the shared renderer channel-for-channel across p
     const lit = api.image(plaza, image);
     // At noon the math is the identity for all visible pixels and the adapter may bypass rendering.
     if (period === 'noon' && lit === image) continue;
-    const expected = env.SukimaStockLighting.render(image, {}, period).data;
+    const phase = period === 'night' ? {...env.SukimaStockLighting.PERIODS.night, ambient:0.42} : period;
+    const expected = env.SukimaStockLighting.render(image, {}, phase).data;
     assert.deepEqual(lit.data, expected, period);
     assert.equal(api.image('yumado_street_map', image), lit, 'same material and time share cached raster');
   }
@@ -123,6 +124,163 @@ test('logical masks hit the drawn fixtures while keeping adjacent frames and gri
   }
 });
 
+function luma(rgb) {
+  return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+}
+
+function readRGB(image, x, y) {
+  const offset = (image.width * y + x) * 4;
+  return [...image.data.subarray(offset, offset + 3)];
+}
+
+test('night fixture cores stand out from adjacent wood and preserve the lantern hue', () => {
+  const env = runtime(), api = env.YUMANIWA_TOWN_LIGHTING;
+  // [light x/y/RGB, adjacent opaque wood or grille x/y/RGB]. Samples from the
+  // canonical PNGs at logical 1x, nearest-neighbour from the 3x lamp delivery.
+  const probes = [
+    ['station_building_01', [53,88,93,103,101], [63,88,80,69,59]],
+    ['street_lamp_01', [14,15,255,255,255], [12,15,20,20,20]],
+    ['craft_cola_shop_01', [55,62,239,178,97], [55,65,50,43,40]],
+    ['kissaten_shop_01', [53,62,235,174,94], [53,65,50,44,41]],
+    ['yakitori_shop_01', [43,54,244,78,34], [40,61,75,52,45]],
+    ['curry_shop_01', [55,62,235,172,90], [55,58,41,29,28]]
+  ];
+  for (const [id, light, wood] of probes) {
+    const def = env.YUMANIWA_TOWN_LIGHTING_MATERIALS.objects[id];
+    const source = sprite(env.YUMANIWA_WORLD_OBJECTS.get(id).src, def.width, def.height);
+    for (const [x, y, ...rgb] of [light, wood]) {
+      source.data.set([...rgb,255], 4 * (y * def.width + x));
+    }
+    const original = source.data.slice();
+    api.setPeriod('night');
+    const lit = api.image(plaza, source, id);
+    const core = readRGB(lit, light[0], light[1]), frame = readRGB(lit, wood[0], wood[1]);
+    assert.ok(luma(core) >= 120, id + ' dim core ' + core);
+    assert.ok(luma(core) - luma(frame) >= 85, id + ' insufficient light vs frame ' + [core, frame]);
+    assert.ok(core[0] > core[2] + 35, id + ' warmth');
+    if (id === 'yakitori_shop_01') assert.ok(core[0] - core[1] >= 50, 'red paper lantern distinct from glass');
+    for (let a = 3; a < source.data.length; a += 4) assert.equal(lit.data[a], source.data[a]);
+    const map = env.SukimaStockLighting.paint(def.width, def.height, def.shapes);
+    const base = env.SukimaStockLighting.render(source, map, {...env.SukimaStockLighting.PERIODS.night, ambient:0.42});
+    assert.ok(luma(frame) > luma(readRGB(base, wood[0], wood[1])) + 4, id + ' missing local reflected light');
+    const distant = id === 'street_lamp_01' ? [15,36] : [60,33];
+    assert.deepEqual(readRGB(lit, ...distant), readRGB(base, ...distant), id + ' spill leaked away from fixture');
+    for (const daytime of ['morning', 'noon', 'evening']) {
+      api.setPeriod(daytime);
+      const expected = env.SukimaStockLighting.render(source, map, daytime);
+      assert.deepEqual(api.image(plaza, source, id).data, expected.data, id + ' ' + daytime);
+    }
+    api.setPeriod('off');
+    assert.equal(api.image(plaza, source, id), source);
+    assert.deepEqual(source.data, original);
+  }
+});
+
+test('source-free routes keep the player silhouette distinguishable from pavement', () => {
+  const api = runtime('?lighting=night').YUMANIWA_TOWN_LIGHTING;
+  // Path pixels at world (192,192); the face and outline are (250,250) and
+  // (235,290) in the stand-1.png delivery. No emitting material is present.
+  const paths = [
+    ['recreation_road_map', [145,137,124]],
+    ['onsen_slope_map', [198,165,120]],
+    ['yumado_street_map', [188,166,117]]
+  ];
+  const actor = sprite('assets/stand-1.png', 2, 1);
+  actor.data.set([239,209,165,255, 10,10,7,255]);
+  for (const [scene, pavement] of paths) {
+    const path = sprite(scene + '.jpg', 1, 1);
+    path.data.set([...pavement,255]);
+    const litPath = luma(readRGB(api.image(scene, path), 0, 0));
+    const litActor = api.image(scene, actor);
+    const litFace = luma(readRGB(litActor, 0, 0));
+    const litOutline = luma(readRGB(litActor, 1, 0));
+    assert.ok(litPath >= 52 && litPath < luma(pavement) * 0.56, scene + ' path ' + litPath);
+    assert.ok(litFace >= 80 && litFace > litPath + 12, scene + ' face ' + litFace);
+    assert.ok(litPath - litOutline > 45, scene + ' outline ' + litOutline);
+  }
+});
+
+test('only the pre-shaded alley JPEG receives the alternate night exposure in either cache order', () => {
+  const alley = 'tomogushi_alley_map';
+  const file = 'assets/maps/grounds/tomogushi-alley-ground.jpg';
+  for (const alleyFirst of [true, false]) {
+    const env = runtime('?lighting=night'), api = env.YUMANIWA_TOWN_LIGHTING;
+    const alleyAssets = [
+      [alley, sprite(file), '', 0.62],
+      [alley, sprite('./' + file + '?rev=new#source'), '', 0.62],
+      [plaza, sprite('https://example.test/staging/' + file + '?rev=absolute'), '', 0.62]
+    ];
+    const normalAssets = [
+      [alley, sprite('assets/stand-1.png'), '', 0.42],
+      [plaza, sprite('assets/maps/grounds/station-plaza-ground.jpg'), '', 0.42],
+      [alley, sprite('assets/maps/grounds/recreation-road.jpg'), '', 0.42],
+      [alley, sprite('assets/elsewhere/tomogushi-alley-ground.jpg'), '', 0.42],
+      [alley, sprite('assets/other.jpg?ref=/' + file), '', 0.42],
+      [alley, alleyAssets[0][1], 'bench_wood_01', 0.42]
+    ];
+    const order = alleyFirst ? [...alleyAssets, ...normalAssets] : [...normalAssets, ...alleyAssets];
+    for (const [scene, image, id, ambient] of order) {
+      const phase = {...env.SukimaStockLighting.PERIODS.night, ambient};
+      assert.deepEqual(api.image(scene, image, id).data, env.SukimaStockLighting.render(image, {}, phase).data,
+        scene + ' ' + image.src + ' ' + id);
+    }
+    for (const phase of ['morning', 'noon', 'evening', 'off']) {
+      api.setPeriod(phase);
+      const image = alleyAssets[0][1];
+      const actual = api.image(alley, image);
+      if (phase === 'noon' || phase === 'off') assert.equal(actual, image);
+      else assert.deepEqual(actual.data, env.SukimaStockLighting.render(image, {}, phase).data);
+    }
+  }
+});
+
+test('exposed pavement receives warm light with falloff and retains surface contrast', () => {
+  const env = runtime('?lighting=night'), api = env.YUMANIWA_TOWN_LIGHTING;
+  // Points on exposed pavement in the sprite's world pixel grid, including
+  // one in front of each shop and on the small visible station step.
+  const cases = [
+    // Last three samples are the underlying JPEG at near, mid and outside
+    // positions, before placing sprites (left plaza lamp for street_lamp_01).
+    ['street_lamp_01', 18,55,22,44, [[198,171,128], [192,163,121], [225,197,147]]],
+    ['station_building_01', 63,124,-14,-37, [[198,170,130], [196,171,130], [197,169,129]]],
+    ['craft_cola_shop_01', 61,96,19,39, [[27,20,14], [25,20,14], [30,22,19]]],
+    ['yakitori_shop_01', 61,96,18,39, [[42,37,34], [42,37,33], [48,41,33]]],
+    ['kissaten_shop_01', 58,96,17,37, [[36,25,19], [25,20,17], [22,17,13]]],
+    ['curry_shop_01', 61,96,19,39, [[26,18,15], [22,17,13], [26,21,17]]]
+  ];
+  for (const [id, x, y, middle, outside, samples] of cases) {
+    const isAlley = id.includes('_shop_');
+    const scene = isAlley ? 'tomogushi_alley_map' : plaza;
+    const name = isAlley ? 'tomogushi-alley-ground' : 'station-plaza-ground';
+    const ground = sprite('assets/maps/grounds/' + name + '.jpg', 3, 1);
+    samples.forEach((rgb, i) => ground.data.set([...rgb,255], 4 * i));
+    const ambient = api.image(scene, ground);
+    const stones = samples.map((_, i) => readRGB(ambient, i, 0));
+    const def = env.YUMANIWA_TOWN_LIGHTING_MATERIALS.objects[id];
+    const source = sprite(env.YUMANIWA_WORLD_OBJECTS.get(id).src, def.width, def.height);
+    let bitmap, left, top;
+    const ctx = {save() {}, restore() {}, drawImage(image, dx, dy) { bitmap = image; left = dx; top = dy; }};
+    api.drawGround(ctx, scene, source, id, 0, 0, def.width, def.height);
+    function composite(x, pavement) {
+      let rgb = pavement;
+      for (const row of bitmap.spans) {
+        if (row.y + top !== y || x < row.x + left || x >= row.x + left + row.w) continue;
+        const [r, g, b, alpha] = row.color.slice(5, -1).split(',').map(Number);
+        rgb = [r, g, b].map((channel, i) => channel * alpha + rgb[i] * (1 - alpha));
+      }
+      return rgb;
+    }
+    const near = composite(x, stones[0]), mid = composite(x + middle, stones[1]);
+    const nearGain = luma(near) - luma(stones[0]), midGain = luma(mid) - luma(stones[1]);
+    assert.deepEqual(composite(x + outside, stones[2]), stones[2], id + ' bounded pool');
+    assert.ok(nearGain > 20, id + ' dim pool ' + near);
+    assert.ok(nearGain > midGain + 4 && midGain > 2, id + ' falloff ' + [nearGain,midGain]);
+    assert.ok(near[0] - near[2] > 18, id + ' warm pool');
+    const brighterStone = stones[0].map(channel => channel + 20);
+    assert.ok(luma(composite(x, brighterStone)) - luma(near) > 6, id + ' preserve ground texture');
+  }
+});
+
 test('projected ground is a separate snapped bitmap and follows the sprite world position', () => {
   const env = runtime();
   const api = env.YUMANIWA_TOWN_LIGHTING;
@@ -139,7 +297,10 @@ test('projected ground is a separate snapped bitmap and follows the sprite world
     const [ground, x, y, w, h] = calls.pop();
     assert.notEqual(ground, image);
     assert.ok(ground.spans.length > 0 && ground.spans.every(s => s.h === 1));
-    assert.ok(y > 96 + 115 && y < 96 + 127, 'under the base, above the canvas bottom');
+    // At night the wider light pool begins above the contact shadow.
+    const shadowRows = ground.spans.filter(s => s.color.startsWith('rgba(26,20,21,'));
+    const shadowTop = y + Math.min(...shadowRows.map(s => s.y));
+    assert.ok(shadowTop > 96 + 115 && shadowTop < 96 + 127, 'under the base, above the canvas bottom');
     extents[period] = [x, x + w];
     api.drawGround(ctx, plaza, source, id, 75, 104, 128, 128);
     assert.deepEqual(calls.pop(), [ground, x + 11, y + 8, w, h]);

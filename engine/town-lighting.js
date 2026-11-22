@@ -10,6 +10,9 @@
     const ready = !!(materials?.objects && renderer?.PERIODS &&
         typeof renderer.render === 'function' && typeof renderer.paint === 'function' &&
         typeof renderer.footprints === 'function');
+    // The alley ground JPEG already contains deep painted shadows at noon.
+    const night = ready ? {...renderer.PERIODS.night, ambient: 0.42} : null;
+    const alleyNight = ready ? {...night, ambient: 0.62} : null;
     const maxEntries = 96;
     const maxPixels = 4 * 1024 * 1024;
     const cache = new Map();
@@ -39,6 +42,10 @@
         return period !== 'off' && outdoor.has(sceneId);
     }
 
+    function lightingState() {
+        return period === 'night' ? night : period;
+    }
+
     function makeCanvas(width, height) {
         if (!Number.isSafeInteger(width) || !Number.isSafeInteger(height) ||
             width <= 0 || height <= 0 || width * height > 1048576) {
@@ -52,16 +59,21 @@
 
     // For an ambient-only material each output channel depends only on the same
     // input channel. Sample the canonical renderer once for all 256 byte values.
-    function applyAmbient(data) {
-        let table = ambientTables.get(period);
+    function applyAmbient(data, source, objectId) {
+        let state = lightingState();
+        if (period === 'night' && !objectId) {
+            const path = '/' + String(source.currentSrc || source.src).split(/[?#]/, 1)[0];
+            if (path.endsWith('/assets/maps/grounds/tomogushi-alley-ground.jpg')) state = alleyNight;
+        }
+        let table = ambientTables.get(state);
         if (!table) {
             const ramp = new Uint8ClampedArray(256 * 4);
             for (let i = 0; i < 256; i++) {
                 ramp.fill(i, i * 4, i * 4 + 3);
                 ramp[i * 4 + 3] = 255;
             }
-            table = renderer.render({width: 256, height: 1, data: ramp}, {}, period).data;
-            ambientTables.set(period, table);
+            table = renderer.render({width: 256, height: 1, data: ramp}, {}, state).data;
+            ambientTables.set(state, table);
         }
         for (let i = 0; i < data.length; i += 4) {
             if (data[i + 3]) {
@@ -70,6 +82,51 @@
                 data[i + 2] = table[data[i + 2] * 4 + 2];
             } else {
                 data[i] = data[i + 1] = data[i + 2] = 0;
+            }
+        }
+    }
+
+    // A fixture's mask supplies its luminous pixels. Use their original
+    // luminance range to retain the painted variation in each pane or lantern.
+    // Only opaque, nearby artwork can receive reflected light from that fixture.
+    function lightFixtures(original, lit, map, fixtures) {
+        const {width, height, data} = original;
+        function brightness(index) {
+            return (data[index] * 2 + data[index + 1] * 5 + data[index + 2]) / 8;
+        }
+        for (const fixture of fixtures || []) {
+            const {x, y, w, h, reach, spill, color} = fixture;
+            let peak = 0;
+            for (let row = y; row < y + h; row++) {
+                for (let col = x; col < x + w; col++) {
+                    const pixel = row * width + col;
+                    if (map.emission[pixel] && data[pixel * 4 + 3]) {
+                        peak = Math.max(peak, brightness(pixel * 4));
+                    }
+                }
+            }
+            if (!peak) continue;
+            for (let row = Math.max(0, y - reach); row < Math.min(height, y + h + reach); row++) {
+                for (let col = Math.max(0, x - reach); col < Math.min(width, x + w + reach); col++) {
+                    const pixel = row * width + col, index = pixel * 4;
+                    if (!data[index + 3]) continue;
+                    const dx = Math.max(x - col, col - (x + w - 1), 0);
+                    const dy = Math.max(y - row, row - (y + h - 1), 0);
+                    const value = brightness(index);
+                    let mix, intensity;
+                    if (map.emission[pixel]) {
+                        if (dx || dy) continue; // Another fixture owns this light.
+                        mix = 0.72 + 0.28 * map.emission[pixel] / 255;
+                        intensity = 0.72 + 0.28 * value / peak;
+                    } else {
+                        const falloff = Math.max(0, 1 - Math.hypot(dx, dy) / reach);
+                        mix = spill * Math.round(falloff * 8) / 8 * (0.20 + 0.8 * value / 255);
+                        intensity = 1;
+                    }
+                    for (let channel = 0; channel < 3; channel++) {
+                        lit[index + channel] += (color[channel] * intensity - lit[index + channel]) * mix;
+                    }
+                }
             }
         }
     }
@@ -90,15 +147,16 @@
             top = Math.min(top, y);
             bottom = Math.max(bottom, y + 1);
         }
-        function ellipse(shape, color, scale) {
-            const {cx, cy} = shape;
+        function ellipse(shape, color, scale, offsetY = 0) {
+            const {cx} = shape;
+            const cy = shape.cy + offsetY;
             const rx = shape.rx * scale, ry = shape.ry * scale;
             for (let y = Math.ceil(cy - ry - 0.5); y < cy + ry - 0.5; y++) {
                 const half = rx * Math.sqrt(Math.max(0, 1 - ((y + 0.5 - cy) / ry) ** 2));
                 span(y, cx - half, cx + half, color);
             }
         }
-        for (const foot of renderer.footprints(map, period)) {
+        for (const foot of renderer.footprints(map, lightingState())) {
             const color = 'rgba(26,20,21,' + foot.opacity + ')';
             if (foot.kind === 'cast') {
                 // footprints() returns the left/right base and the offset tip.
@@ -113,9 +171,20 @@
         }
         if (period === 'night') {
             for (const pool of pools || []) {
-                const color = 'rgba(239,170,86,' + (pool.opacity ?? 0.14) * 0.55 + ')';
-                ellipse(pool, color, 1);
-                ellipse(pool, color, 0.68);
+                // Wider and fainter toward the open pavement. Composite narrow
+                // bands front-to-back in logical pixels, keeping ground detail.
+                const tint = pool.color || [239, 170, 86];
+                const bands = 16;
+                let previous = 0;
+                for (let band = 1; band <= bands; band++) {
+                    const t = band / bands;
+                    const opacity = pool.opacity * t * t * (3 - 2 * t);
+                    const alpha = (opacity - previous) / (1 - previous);
+                    const scale = 1 - (band - 1) / bands;
+                    const color = 'rgba(' + tint.join(',') + ',' + alpha + ')';
+                    ellipse(pool, color, scale, -(1 - scale) * pool.ry * 0.25);
+                    previous = opacity;
+                }
             }
         }
         if (!rows.length) return null;
@@ -181,10 +250,12 @@
             const rgba = ctx.getImageData(0, 0, w, h);
             if (material) {
                 const map = renderer.paint(w, h, material.shapes);
-                rgba.data.set(renderer.render(rgba, map, period).data);
+                const lit = renderer.render(rgba, map, lightingState()).data;
+                if (period === 'night') lightFixtures(rgba, lit, map, material.fixtures);
+                rgba.data.set(lit);
                 entry.ground = groundBitmap(map, material.pools);
             } else {
-                applyAmbient(rgba.data);
+                applyAmbient(rgba.data, source, objectId);
             }
             ctx.putImageData(rgba, 0, 0);
             if (ctx.isContextLost?.()) throw new Error('Lighting canvas was lost');

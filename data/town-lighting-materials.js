@@ -24,17 +24,30 @@
         return { kind: 'shadow', id: 'base', shape: 'ellipse', cx, cy, rx, ry };
     }
 
-    function pool(cx, cy, rx, ry, opacity) {
-        return { cx, cy, rx, ry, opacity };
+    function fixture(x, y, w, h, color, reach, spill) {
+        return { x, y, w, h, color, reach, spill };
     }
 
-    function shop(roofPoints, glazing, extraShapes, base, pools) {
+    function pool(cx, cy, rx, ry, opacity, color) {
+        return { cx, cy, rx, ry, opacity, color };
+    }
+
+    function shop(roofPoints, glazing, extraShapes, base, fixtures, pools) {
         return {
             width: 96, height: 96,
             shapes: [wall(0, 0, 96, 96), roof(roofPoints), ...glazing, ...extraShapes, base],
-            pools
+            fixtures, pools
         };
     }
+
+    const stationGlass = [255, 219, 161];
+    const stationDoor = [255, 230, 184];
+    const streetLight = [255, 228, 157];
+    const colaGlass = [254, 199, 109];
+    const yakitoriGlass = [255, 204, 132];
+    const redLantern = [255, 110, 59];
+    const coffeeGlass = [252, 217, 167];
+    const curryGlass = [251, 177, 91];
 
     const commonColumns = [[47, 5], [53, 6], [60, 5], [66, 5], [72, 2]];
     const kissatenColumns = [[45, 5], [51, 5], [58, 5], [64, 4], [69, 3]];
@@ -55,7 +68,17 @@
                 ...panes([[65, 5], [72, 5]], [[79, 4], [86, 4], [91, 4]], 204),
                 footprint(63, 122, 53, 2.5)
             ],
-            pools: [pool(63, 123, 16, 5, 0.045)]
+            fixtures: [
+                fixture(22, 81, 10, 12, stationGlass, 7, 0.19),
+                fixture(50, 79, 27, 16, stationDoor, 9, 0.24),
+                fixture(96, 81, 8, 12, stationGlass, 7, 0.21)
+            ],
+            // At the south map edge only the front step and the end of the platform
+            // are exposed. Keep this light against the building at its true position.
+            pools: [
+                pool(64, 123, 25, 7, 0.32, stationDoor),
+                pool(102, 122, 27, 7, 0.24, stationGlass)
+            ]
         },
         street_lamp_01: {
             width: 32, height: 56,
@@ -66,7 +89,9 @@
                 pane(17, 13, 1, 4, 185),
                 footprint(15, 52.5, 4, 1.5)
             ],
-            pools: [pool(15, 53, 14, 6, 0.13)]
+            fixtures: [fixture(11, 13, 7, 5, streetLight, 5, 0.24)],
+            // The two northern posts stand at the sides of the plaza approach.
+            pools: [pool(15, 55, 37, 22, 0.58, streetLight)]
         },
         craft_cola_shop_01: shop(
             [[8, 41], [15, 20], [79, 20], [87, 41], [87, 45], [8, 45]],
@@ -74,7 +99,9 @@
                 ...panes(commonColumns, [[53, 6], [60, 5], [66, 3]], 219),
                 ...panes(commonSill, [[69, 3]], 219)
             ],
-            [], footprint(48, 89, 33, 2), [pool(61, 90, 14, 4, 0.053)]
+            [], footprint(48, 89, 33, 2),
+            [fixture(47, 53, 27, 19, colaGlass, 8, 0.24)],
+            [pool(61, 94, 32, 22, 0.37, colaGlass)]
         ),
         yakitori_shop_01: shop(
             [[9, 42], [16, 21], [79, 21], [87, 42], [87, 47], [9, 47]],
@@ -84,7 +111,10 @@
             ],
             [{ kind: 'lantern', shape: 'ellipse', cx: 43.5, cy: 54.5, rx: 3.4, ry: 4.5, emissionValue: 248 }],
             footprint(48, 90, 33, 2),
-            [pool(43.5, 90.5, 6, 3, 0.066), pool(61, 91, 13, 4, 0.05)]
+            [fixture(40, 50, 7, 9, redLantern, 7, 0.28),
+             fixture(47, 55, 27, 18, yakitoriGlass, 7, 0.22)],
+            [pool(61, 95, 28, 20, 0.34, yakitoriGlass),
+             pool(42, 94, 16, 16, 0.32, redLantern)]
         ),
         kissaten_shop_01: shop(
             [[6, 40], [13, 20], [77, 20], [84, 40], [84, 45], [6, 45]],
@@ -92,7 +122,9 @@
                 ...panes(kissatenColumns, [[54, 5], [60, 5], [66, 3]], 200),
                 ...panes([[45, 5], [51, 5], [58, 3], [65, 3], [69, 3]], [[69, 3]], 200)
             ],
-            [], footprint(45, 89, 32, 2), [pool(58, 90, 13, 4, 0.045)]
+            [], footprint(45, 89, 32, 2),
+            [fixture(45, 54, 27, 18, coffeeGlass, 7, 0.19)],
+            [pool(58, 94, 28, 20, 0.32, coffeeGlass)]
         ),
         curry_shop_01: shop(
             [[8, 39], [15, 18], [80, 18], [88, 39], [88, 44], [8, 44]],
@@ -100,9 +132,11 @@
                 ...panes([[47, 5], [53, 6], [60, 5], [66, 8]], [[53, 5], [59, 10]], 212),
                 ...panes([[47, 5], [53, 6], [60, 4], [67, 8]], [[69, 3]], 212)
             ],
-            [], footprint(48, 89, 34, 2), [pool(61, 90, 14, 4, 0.05)]
+            [], footprint(48, 89, 34, 2),
+            [fixture(47, 53, 28, 19, curryGlass, 8, 0.22)],
+            [pool(61, 95, 31, 22, 0.36, curryGlass)]
         )
     };
 
-    root.YUMANIWA_TOWN_LIGHTING_MATERIALS = { version: 'town-1', objects };
+    root.YUMANIWA_TOWN_LIGHTING_MATERIALS = { version: 'town-2', objects };
 })(typeof globalThis !== 'undefined' ? globalThis : window);
