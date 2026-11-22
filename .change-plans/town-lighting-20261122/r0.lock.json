@@ -1,0 +1,135 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "d9ed619e78b3a05dbb3196221ff50d312eca4a1a0d9bd5dbb89c270a1c0f6107",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-lighting-20261122",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Integrate the approved four lighting periods into five outdoor Staging town maps",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8d2ff41fd7a08b2f904565e56325851ad4133a7b",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/SUKIMASTOCK-LIGHTING-v0.1.md",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/station-plaza-props.js",
+      "main.js",
+      "PR #941 and author-approved PNG/SVG experiments"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-lighting-20261122/r0.lock.json",
+      "index.html",
+      "main.js",
+      "data/station-plaza-props.js",
+      "data/town-lighting-materials.js",
+      "engine/town-lighting.js",
+      "tests/test-town-lighting.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "assets/**",
+      "works/**",
+      "tools/**",
+      ".github/**",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js"
+    ],
+    "expectedChanges": [
+      "Load existing renderer and town adapter at world drawing entry points. Use morning/noon/evening/night from one in-memory state. URL and console select a period or off.",
+      "Five outdoor grounds and regular props/actor receive ambient lighting. Place station, four lamp instances and four shop masks against actual source art. Render contact/cast/pools in separate ground pass before sorted actors and overlays.",
+      "Bound caching by memory and entry count, retaining original/fallback draw paths. Additional focused regression coverage for composition, cache lifecycle and failure."
+    ],
+    "ownerDecisions": [
+      "Author explicitly requests Staging implementation and safe merge for five outdoor maps and conditional nearby props. Adopts prior PNG/SVG lighting direction. Final visual tuning and Production decision remain with author."
+    ],
+    "hqDecisions": [
+      "Reuse #941 as single lighting authority. Change raster inputs only at world draw boundaries, keep placement, clock/save/input and UI ownership outside adapter.",
+      "Use fixed preview noon on Staging, explicit URL/global override and immediate off. Apply geometry to source canvas and same world transform as sprite. Interior and special effects retain existing display."
+    ],
+    "rulesApplied": [
+      "Full Plan and immutable lock before implementation; exact base/head Scope, Risk, Impact and trusted static gates",
+      "Pixel Standard, integer draw bounds and nearest sampling; cap cache, never mutate original data or add animation loop",
+      "Use independent review and compare actual browser output to pre-change screenshots"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-visual-touch-performance",
+      "author-visual-adoption"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "surface.shared",
+      "scene.rendering",
+      "scene.collision",
+      "scene.interaction",
+      "scene.editor-desk",
+      "scene.validation",
+      "scene.transition-adjacency"
+    ],
+    "impactExclusions": [],
+    "rollback": "?lighting=off restores original sources and skips ground effects. Revert only this Staging PR for code rollback; no state migration.",
+    "outOfScope": [
+      "Production and publication decisions",
+      "Real clock, automatic progression and permanent UI",
+      "Interior assets, editor preview, scene placement and collisions, original assets, gameplay, navigation and persistence"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari timing, thermal behavior and touch feel",
+      "Author visual acceptance"
+    ],
+    "problem": "Independent approved lighting studies do not yet affect the walkable town.",
+    "currentContract": "main draws current ground under a transform. The prop module snaps scene placements and sorts formal props/creation previews/player on footY. Debug visuals render separately.",
+    "whyExistingIsInsufficient": "The existing renderer is optional and knows nothing of the five scenes or their sources and anchors.",
+    "design": "Introduce a bounded town adapter and logical asset material descriptions. Shade original images once per version and period through the common renderer. Draw world-space ground effects before actors, and keep original image path as the escape hatch.",
+    "alternativesRejected": [
+      "Full-canvas dark overlay affecting UI",
+      "Baked JPEG/PNG edits",
+      "Second renderer, animation loop or real-time scheduler"
+    ],
+    "migration": "No persisted change; five outdoor maps share in-memory period across moves.",
+    "compatibility": "Fallback on missing renderer, image or map failure. Preserve input, editor and overlay order, work routing and cache-busted script URLs.",
+    "boundaryCases": [
+      "Noon original ambient pixels; all four street lamps; different shop ground anchors and lamp delivery scale",
+      "Changing maps, camera, screen size, period; optional module or source missing/invalid",
+      "Noon/off, indoor and authoring special sprites, loading/error paths, repeated cycles and mobile budget"
+    ],
+    "testPlan": [
+      "Capture unchanged baseline and compare OFF canvas; test independent A/B/C inventory and compare five outdoor maps in all four phases including all B masks and footprint direction.",
+      "Existing lighting and town routing, interaction, transition, editor, scene validation and release checks. New focused Node tests for versioned, bounded cache, fallback and geometry.",
+      "Browser desktop/mobile emulation, walk/tap/facility, camera, failure injection, repeated cache/frame probes; iPhone hardware pending unless observed.",
+      "Use trusted base tooling to verify exact candidate scope/risk/impact/static and verify required remote CI before Staging merge; verify Pages content afterward."
+    ],
+    "promotionRisk": "Staging only. Hold on missing checks or unresolved risk. Distinguish local/browser evidence, deployed candidate and author/device signoff."
+  }
+}
