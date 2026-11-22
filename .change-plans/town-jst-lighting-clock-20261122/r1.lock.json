@@ -1,0 +1,119 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ce59054739d47dfbae258105a5c3821e158bcd412de251ec6e077c974b78763e",
+  "createdAt": "2026-11-22T20:00:00+01:00",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-jst-lighting-clock-20261122-r1",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Advance the existing four-stage town lighting by Japan local time while preserving explicit development stage overrides.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "8763922460e8e05ae0933a7a9b2d92804206e1b8",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/town-lighting.js",
+      "tests/test-town-lighting.cjs",
+      "adopted lighting behavior from Staging PR #947"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-jst-lighting-clock-20261122/r0.lock.json",
+      "engine/town-lighting.js",
+      "index.html",
+      "tests/test-town-lighting.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "index.html",
+      "main.js",
+      "assets/**",
+      "data/**",
+      "works/**",
+      "tools/**",
+      ".github/**"
+    ],
+    "expectedChanges": [
+      "Default the existing town lighting to the four established periods according to Asia/Tokyo local time: morning 05:00, noon 08:00, evening 17:00, night 20:00.",
+      "Re-evaluate at the next minute and on tab visibility restoration, without adding a frame loop or persisting user data.",
+      "Preserve explicit lighting=morning|noon|evening|night|off query overrides; lighting=auto requests clock-driven behavior.",
+      "Add boundary tests for all four intervals, midnight, unsupported time zone fallback and explicit override behavior.",
+      "Refresh the existing lighting adapter script query version in index.html."
+    ],
+    "ownerDecisions": [
+      "The author now requests automatic town lighting. Japan Standard Time is used because Yumaniwa is a Japanese town."
+    ],
+    "hqDecisions": [
+      "Use the Asia/Tokyo IANA time zone rather than the visitor device time zone. Keep the selected default schedule at 05:00 morning, 08:00 noon, 17:00 evening and 20:00 night. Keep query overrides for development comparison."
+    ],
+    "rulesApplied": [
+      "Lock scope before implementation. Trusted base Scope/Risk/Impact and static gates. No drawing loop or storage changes."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "fixed-time interval tests",
+      "real-browser scene and visibility resume"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated Staging PR to restore the fixed noon default.",
+    "outOfScope": [
+      "Production deployment",
+      "astronomical sunrise/sunset calculation",
+      "automatic change to the approved appearance of any period",
+      "permanent user interface or saved preferences"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "iPhone X app webview clock alignment and actual native app behavior."
+    ],
+    "problem": "Lighting remains fixed at noon unless a development query manually selects another stage.",
+    "currentContract": "Shared town lighting supports morning, noon, evening, night, and off. It defaults to noon and allows a stage query parameter.",
+    "whyExistingIsInsufficient": "There is no wall-clock stage mapping or automatic refresh.",
+    "design": "Resolve the current Asia/Tokyo hour and minute when loaded, schedule a single timer for the next minute, and refresh when visibility returns. Keep manual query overrides fixed.",
+    "alternativesRejected": [
+      "Per-frame clock calculation",
+      "Device-local timezone, which makes the fictional Japanese town shift with visitor location"
+    ],
+    "migration": "No persisted data or URL migration.",
+    "compatibility": "Existing query controls and complete lighting off state remain available.",
+    "boundaryCases": [
+      "04:59 / 05:00",
+      "07:59 / 08:00",
+      "16:59 / 17:00",
+      "19:59 / 20:00",
+      "23:59 / 00:00",
+      "tab suspension and resumption",
+      "invalid/unavailable Intl time zone"
+    ],
+    "testPlan": [
+      "Verify exact intervals at each boundary and midnight using fixed time inputs.",
+      "Verify URL overrides and auto mode.",
+      "Run lighting regression suite, trusted gates and mobile browser scene smoke."
+    ],
+    "promotionRisk": "Staging only. Time mapping is reversible and uses the existing renderer and cached stages."
+  }
+}
