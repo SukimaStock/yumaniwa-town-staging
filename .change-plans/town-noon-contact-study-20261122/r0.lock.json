@@ -1,0 +1,144 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2fa3839f9526ab5ab6883be868ac95efc45f7d7289e530acfc8d2efe624d8c1c",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "town-noon-contact-study-20261122",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Evaluate restrained, ground-aligned noon shadows in the real town and leisure center through an opt-in Staging link.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM"
+    ],
+    "authority": [
+      "HQ Review",
+      "Owner Decision",
+      "Standard"
+    ],
+    "environment": "staging",
+    "baseSha": "811e73ddc0b0b3eaba076368669aeb00687671d0",
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "CHANGE-OPERATIONS.md",
+      "CHANGE-PLAN.md",
+      "CHANGE-VERIFICATION.md",
+      "YUMANIWA-PIXEL-STANDARD.md",
+      "tools/SCENE-DATA-CONTRACT.md",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "engine/SUKIMASTOCK-LIGHTING-v0.1.md",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js",
+      "data/station-plaza-props.js",
+      "main.js",
+      "PR #941 and author-approved PNG/SVG experiments",
+      "PR #942 and its deployed mobile-scale night frames",
+      "engine/town-lighting.js",
+      "data/town-lighting-materials.js",
+      "PR #943 deployed night views and latest author feedback",
+      "PR #944 verified baseline, approved brighter landmarks and player; latest author request on noon contact shadows"
+    ],
+    "allowedPaths": [
+      ".change-plans/town-noon-contact-study-20261122/r0.lock.json",
+      "engine/town-lighting.js",
+      "data/town-lighting-materials.js",
+      "data/station-plaza-props.js",
+      "index.html",
+      "tests/test-town-lighting.cjs"
+    ],
+    "conditionalPaths": [
+      {
+        "path": "main.js",
+        "condition": "Only if the existing ground-pass scene gate needs a separate predicate for the leisure center."
+      }
+    ],
+    "forbiddenPaths": [
+      "assets/**",
+      "works/**",
+      "tools/**",
+      ".github/**",
+      "engine/sukimastock-lighting.v0.1.0.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "data/world-objects.js"
+    ],
+    "expectedChanges": [
+      "Opt in to a noon-only soft ground pass, with ordinary town defaults and every other phase left at #944. Keep the original sprite, foreground exposure and floor textures.",
+      "Using the existing shadow shape API, ground pass, pixel raster and bounded cache, calibrate short footprints for appropriate town buildings, lights, props, and floor-standing leisure furniture. Account for already painted shadows and wall- or ceiling-mounted items.",
+      "Exercise actual scene cameras, world envelopes, base profiles and runtime/failure paths; cache-bust scripts that change."
+    ],
+    "ownerDecisions": [
+      "The author approves the current night visibility and requests an experiment on barely perceptible daytime shadows, including the leisure center. Creative adoption is reserved for the author."
+    ],
+    "hqDecisions": [
+      "Expose a Staging-only test by an explicit shadows=soft query at noon; no player-facing toggle, persistent setting or new baseline for regular visits.",
+      "Use inspected original-image feet, support legs and lower edges. In the leisure center use restrained indoor contact shadows only. Compare author art, baked detail and screen-scale texture."
+    ],
+    "rulesApplied": [
+      "Full Plan and immutable lock before implementation; exact base/head Scope, Risk, Impact and trusted static gates",
+      "Pixel Standard, integer draw bounds and nearest sampling; cap cache, never mutate original data or add animation loop",
+      "Use independent review and compare actual browser output to pre-change screenshots"
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iphone-safari-visual-touch-performance",
+      "author-visual-adoption"
+    ],
+    "impactChecks": [
+      "runtime.shared",
+      "runtime.regression",
+      "runtime.mobile-desktop",
+      "runtime.rollback",
+      "risk.high-risk-review",
+      "surface.shared",
+      "scene.rendering",
+      "scene.collision",
+      "scene.interaction",
+      "scene.editor-desk",
+      "scene.validation",
+      "scene.transition-adjacency"
+    ],
+    "impactExclusions": [],
+    "rollback": "Open the normal URL without shadows=soft, select lighting=off, or revert this Staging PR. No save migration.",
+    "outOfScope": [
+      "Production and default visual adoption; new controls, runtime clocks or notes",
+      "Changing any original PNG/JPEG, WORLD OBJECT or exhibit placement, artwork, collision, input, routes, save data, conventional evening and night appearance",
+      "Applying new indoor sunlight or altering other indoor maps"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari timing, thermal behavior and touch feel",
+      "Author visual acceptance"
+    ],
+    "problem": "The town already lights mapped exterior buildings, but its noon contact shadows can fall inside opaque artwork. The leisure center and ordinary outdoor furnishings have no corresponding integrated trial.",
+    "currentContract": "#944 keeps indoor scenery in its original palette. The prior shared renderer supplies a ten-percent noon contact and no noon solar projection for the mapped exteriors. The ground pass precedes all footY actors, clips to map bounds and uses bounded phase/version caching.",
+    "whyExistingIsInsufficient": "The existing six mapped assets omit floor-standing displays and street furniture. Current footY is for sorting and includes source padding, so it is insufficient alone to anchor a visible shadow.",
+    "design": "Compare existing noon against a subtle opt-in preview on the same normal walking viewport. Place a few logical pixels of shadow at the measured foot. Use the established ground pass and footprint geometry; keep the indoor light without an outdoor solar cast and scope data to grounded items. Avoid stacked shading on pre-painted dark edges.",
+    "alternativesRejected": [
+      "Darken entire room or recolor the actor",
+      "Global long shadows, blur, or fake lights at noon",
+      "Replace the common renderer or edit the art files"
+    ],
+    "migration": "Query-only opt-in. Scene transitions preserve the same in-memory lighting phase; no saved settings.",
+    "compatibility": "Original town when disabled, outside allowed scenes and phases, or if modules are absent. Preserve the renderer ABI and existing letterbox, snapped draws and ground-before-sprite ordering.",
+    "boundaryCases": [
+      "Existing noon contact on exterior buildings, baked source shadows, multiple feet/opaque bases, already-dark floors, plants and wall/airborne drafts",
+      "All existing #944 periods including previously approved night and original OFF; indoor leisure remains visually identical outside the noon preview; other indoor maps untouched",
+      "Missing source/renderer or ctx loss, shared cached sprite vs ground-only data, zero sprites/stage switches, same material and scene transitions, map boundaries, camera and clipping"
+    ],
+    "testPlan": [
+      "Inspect station and four shops and other grounded outdoor props, compare close and full 390px walking views against #944. Inspect all seven leisure placements, floor orientation and overlap with furniture/player.",
+      "Verify meaningful, low-amplitude localized floor changes only; floor texture, opaque sprites, existing shadows and footY/HUD placement. Compare default and remaining phases in both browsers.",
+      "Walk between the recreation road and leisure center, touch exhibits or catalog, return, test stage switches, resized camera, cached draw costs/bounds, conditional mode and fallback. Disclose physical iPhone as untested.",
+      "Run trusted base scope/risk/impact/static, focused regressions, independent review, required exact head CI. Merge only to Staging under original authorization, then verify Pages-served bytes and URLs."
+    ],
+    "promotionRisk": "Staging verification only, with original normal landing view. Author determines adoption."
+  }
+}
