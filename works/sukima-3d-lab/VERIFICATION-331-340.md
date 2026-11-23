@@ -1,0 +1,17 @@
+# 331–340 takeover verification — 2026-11-02
+
+Aim: finish existing PR #729 while preserving its models, previous registrations, Engine and Production. Original head `3bd8093be8e960f41f309e6d1873f759829b051d`; final successor starts at main `74589232f9b5dee61d762aff85db924e528847ad`, with fresh Plan Lock committed before implementation. The owner explicitly authorized only #314 invalid part IDs/references, successor draft PRs, verification comments and safe Staging publication at 2026-11-02T19:17:06Z.
+
+Reused: ten JSON additions and current-count test updates. Minimum visual repair: four canal-lock-handwheel spoke Z positions 0.110→0.115 separate differently colored coplanar surfaces. First repair attempt passes unchanged GLES checker for all100 targeted frames; no renderer/checker edits.
+
+Baseline defect: #314 garden-compost-bin six part IDs contained decimal dots. Only those six ID tokens replace dots with hyphens. Geometry, materials, transforms, behaviors and registration remain unchanged. Exact repaired blob hash is pinned in test31; a new reverse-six-ID-rename regression reproduces original blob ea915e49332f8cc4c0b79b3d74e06bea0c7d9185, proving no other bytes changed. Other329 prior objects remain byte-identical.
+
+Original full Node suite:737 tests,706 pass/31 fail; original full GLES aborts at invalid314. New final successor requires observed full Node and full official render-collection/check-gles runs, Scope/Risk/Impact and exact-head CI. Chromium390×844 checks cover ten new models and repaired314: list selection, WebGL errors, pointer rotation, reset and return. Results and exact tested SHA are saved in the PR verification comment; this document is not itself a PASS certificate.
+
+Limits: physical iPhone/iPad Safari and author acceptance remain UNVERIFIED. Normal publicHTTP requests were proxy-blocked403; no bypass. Original PR729 stays open and duplicates the final batch; only one final batch may merge. Superseded saved branch fix/3d-331-340-verified-20261102 has no PR. No Production change. Draft→ready transition is a separate externally visible operation currently blocked on the parallel takeover; no merge/Pages success is inferred from draft creation or CI.
+
+## Publication continuation after explicit owner approval
+
+At2026-11-02T19:29:48Z the owner explicitly authorized draft→ready, safe Staging merges and limited316 repair/revalidation. Final fresh Plan starts at merged Ito main2662929e739bc2634a5bb45d3339ff8d8e423364; PR764 is superseded by the publication successor. The above314/ready blockers describe earlier checkpoints.
+
+Full official serializer reached V8's single-string limit; an equivalent temporary full-scene streaming serializer (all5445 scenes, unchanged checker) then found316 pavement-hopscotch-rest844×390 too edge-on for the existing5000pixel minimum. Only316 default display quaternion now adds0.70rad X pitch while retaining0.33rad Y yaw. Geometry, materials, part transforms, scale and numbering do not change. Attempt1 pitch0.25rad still failed a turned frame; attempt2 pitch0.70rad passes all10 targeted frames including CPU/GPU preview. A strict reverse-quaternion regression recovers original blob5999df61c1638730724da3eae5b9fa5445a9da27 and exact repaired hash is pinned in test31. Other328 prior object bytes and all330 registrations remain unchanged. Final full Node/GLES, CI and publication evidence is saved in the successor PR comment; no checker threshold changed.
