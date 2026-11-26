@@ -1364,8 +1364,8 @@ html[data-scenery-hidden=true] .map-scenery-butterflies .map-scenery-drift,html[
 #market-board .market-return{position:absolute;inset:calc(12px * var(--market-scale,1));display:flex;flex-direction:column;justify-content:center;padding:calc(8px * var(--market-scale,1));background:#30323a;border:calc(2px * var(--market-scale,1)) solid #d6b77a;z-index:2;overflow:auto}
 #market-board .market-return p{margin:0 0 calc(6px * var(--market-scale,1))}#market-board .market-return .market-buttons{flex:none}
 #market-board .market-delta{position:fixed;z-index:10;color:#f7cd58;pointer-events:none;white-space:nowrap;line-height:var(--uniform-line-height,24px)}
-/* Reserve room beside the real quantity; overlays escape shelf clipping. */
-#market-board .market-count{margin-right:var(--market-delta-space,36px)}
+/* A shelf delta is drawn above its bottle, outside the scrolling shelf. */
+#market-board .market-shelf-delta{transform:translate(-50%,-100%);line-height:1.1;text-shadow:1px 1px #252733,-1px -1px #252733}
 #market-board .market-flight{position:fixed;z-index:10;pointer-events:none;display:block;margin:0}
 #market-board .market-flight svg{display:block;width:100%;height:100%;max-width:none;image-rendering:pixelated}
 /* v33: a regional delivery briefly occupies a normal shelf tile before sale. */
@@ -1424,14 +1424,10 @@ html[data-scenery-hidden=true] .map-scenery-butterflies .map-scenery-drift,html[
 #market-board .market-shop .market-stock-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(4.5 * var(--uniform-font-size,16px))),1fr));column-gap:calc(6px * var(--market-scale,1))}
 #market-board .market-shop .market-target{padding:0 0 0 calc(118px * var(--market-scale,1))}
 
-/* Quantity and its transient change share the upper row; date stays below. */
-#market-board .market-stock{grid-template-columns:calc(24px * var(--market-scale,1)) max-content var(--market-sale-width,calc(1.5 * var(--uniform-font-size,16px)))}
+/* Bottle and current count share the upper row. The date spans both columns. */
 #market-board .market-stock .market-date{grid-column:1/-1}
-#market-board .market-sale-slot{grid-column:3;grid-row:1;display:flex;align-items:center;min-width:0;margin-left:calc(2px * var(--market-scale,1));white-space:nowrap}
-#market-board .market-sale-slot .market-sale-delta{position:static;display:inline-block;line-height:inherit}
 
-/* Leave a finger-wide placing lane; quantity changes use the right-hand slot,
-   so the old empty row above each release is unnecessary. */
+/* Keep the placing lane beside the compact release tiles. */
 #market-board .market-shop .market-stock-list{grid-template-columns:repeat(2,max-content);justify-content:start;padding-top:0;padding-right:44px}
 #market-board .market-stock-row{position:relative;margin-top:0}
 #market-board .market-stock{min-width:44px;min-height:44px;position:relative}
@@ -1867,7 +1863,7 @@ body :is([contenteditable=""],[contenteditable="true"],[contenteditable="plainte
 <noscript>JavaScriptを有効にしてください。</noscript>
 <script src="./v69/preview-cases-a.js"></script>
 <script src="./v69/preview-cases-b.js"></script>
-<script src="./v69/game.js?rev=visual-1"></script>
+<script src="./v69/game.js?rev=shelf-1"></script>
 <!-- Original 48 kHz stereo PCM WAV used by the successful iPhone loop player. -->
 <script type="text/plain" id="amber-bgm-wav" data-src="./v69/bgm.wav"></script>
 

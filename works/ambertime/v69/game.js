@@ -9137,7 +9137,6 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
   const iconMarkup = (id3) => typeof icon2 === "function" ? icon2("store", id3) : icon2;
   const button2 = (label, key2, value, extra = "") => `<button type="button" data-market-${key2}="${esc7(value)}" ${extra}>${label}</button>`;
   const product = (id3) => state().core.products.find((p) => p.id === Number(id3));
-  const deltaSpace = (p) => `--market-delta-space:calc(${String(p.stock).length + 2} * var(--uniform-font-size,16px));--market-sale-width:calc(${Math.max(3, String(p.originalStock ?? p.stock).length + 1) / 2} * var(--uniform-font-size,16px))`;
   function activeKey() {
     const active2 = doc.activeElement;
     if (!active2 || !root2.contains(active2)) return null;
@@ -9306,7 +9305,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     signature = nextSignature;
     const productsMarkup = handProducts.map((item) => {
       const count3 = D2.storeMarketInventory(s, item.id).hand, date2 = releaseDate(s, item.id), compactDate = compactReleaseDate(s, item.id);
-      return button2(`<span class="market-bottle ${item.id === selected ? "market-selected-bottle" : ""}" aria-hidden="true">${salesGlintArtwork(art(item), item.id, performance.now())}</span><span class="market-count">${count3}\u672C</span><span class="market-date">${esc7(compactDate)}</span>`, "release", item.id, `class="market-release" style="${deltaSpace(item)}" aria-pressed="${item.id === selected}" aria-label="${esc7(date2 + " " + tasteLabel(item) + " \u624B\u5143" + count3 + "\u672C")}"`);
+      return button2(`<span class="market-bottle ${item.id === selected ? "market-selected-bottle" : ""}" aria-hidden="true">${salesGlintArtwork(art(item), item.id, performance.now())}</span><span class="market-count">${count3}\u672C</span><span class="market-date">${esc7(compactDate)}</span>`, "release", item.id, `class="market-release" aria-pressed="${item.id === selected}" aria-label="${esc7(date2 + " " + tasteLabel(item) + " \u624B\u5143" + count3 + "\u672C")}"`);
     }).join("");
     const deliveryQuote2 = editing?.regional ? D2.regionalDeliveryQuote(s, editing.productId, editing.shopId) : null;
     const returnPane = editing ? editing.newRegional ? `<section class="market-return" role="group" aria-label="窓口への納品確認">
@@ -9322,7 +9321,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
       return `${index === 1 ? '<div class="market-partners" id="market-partners" role="region" tabindex="0" aria-label="\u53D6\u6271\u5E97\u4E00\u89A7">' + (scopeLabel ? '<h3 class="market-scope-heading">' + esc7(scopeLabel) + "</h3>" : "") : ""}<section class="market-shop${mapSelected === shop.id ? " market-map-selected" : ""}" data-market-shop="${shop.id}" aria-label="${shop.name}"><header class="market-shop-heading">${button2(`<span class="market-store-icon" aria-hidden="true">${iconMarkup(shop.id)}</span><span class="market-shop-title">${marketNameMarkupV43(shop.name)}</span><span aria-hidden="true">${symbolMarkup("chevronRight")}</span>`, "details", shop.id, `class="market-shop-name" ${mapSelected === shop.id ? 'aria-current="true"' : ""} aria-label="${shop.name}\u306E\u5E97\u60C5\u5831"`)}</header><div class="market-shelf-body"><div class="market-stock-list" id="market-shelf-${shop.id}" role="group" tabindex="0" aria-label="${shop.name}\u306E\u5546\u54C1\u4E00\u89A7">${rows2[index].map((row) => {
         const item = s.core.products.find((x) => x.id === row.productId);
         if (!item) return "";
-        return `<div class="market-stock-row" data-wide="${shop.tradeMethod === "regional-delivery" || String(row.count).length > 2 || !/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s, item.id))}" style="${deltaSpace(item)}" id="market-stock-${shop.id}-${item.id}">${button2(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc7(releaseDate(s, item.id))}">${esc7(compactReleaseDate(s, item.id))}</span><span class="market-count">${row.count}\u672C${shop.tradeMethod === "regional-delivery" ? "<small>\u65E7\u30C7\u30FC\u30BF \u672A\u7D0D\u54C1</small>" : ""}</span><span class="market-sale-slot" aria-hidden="true"></span>`, "stock", `${shop.id}:${item.id}`, `class="market-stock" ${row.count < 1 ? "disabled" : ""} aria-label="${esc7(brandName(s, item.id) + " " + shop.name + " " + releaseDate(s, item.id) + " " + tasteLabel(item) + " \u6B8B\u308A" + row.count + "\u672C" + (row.sold ? " " + row.sold + "\u672C\u58F2\u308C\u305F" : "") + (shop.tradeMethod === "regional-delivery" ? "\u3002\u7D0D\u54C1\u30FB\u624B\u5143\u3078\u623B\u3059" : "\u3002\u624B\u5143\u3078\u623B\u3059"))}"`)}</div>`;
+        return `<div class="market-stock-row" data-wide="${shop.tradeMethod === "regional-delivery" || String(row.count).length > 2 || !/^\d{2}\/\d{1,2}$/.test(compactReleaseDate(s, item.id))}" id="market-stock-${shop.id}-${item.id}">${button2(`<span class="market-bottle" aria-hidden="true">${art(item)}</span><span class="market-date" title="${esc7(releaseDate(s, item.id))}">${esc7(compactReleaseDate(s, item.id))}</span><span class="market-count">${row.count}\u672C${shop.tradeMethod === "regional-delivery" ? "<small>\u65E7\u30C7\u30FC\u30BF \u672A\u7D0D\u54C1</small>" : ""}</span>`, "stock", `${shop.id}:${item.id}`, `class="market-stock" ${row.count < 1 ? "disabled" : ""} aria-label="${esc7(brandName(s, item.id) + " " + shop.name + " " + releaseDate(s, item.id) + " " + tasteLabel(item) + " \u6B8B\u308A" + row.count + "\u672C" + (row.sold ? " " + row.sold + "\u672C\u58F2\u308C\u305F" : "") + (shop.tradeMethod === "regional-delivery" ? "\u3002\u7D0D\u54C1\u30FB\u624B\u5143\u3078\u623B\u3059" : "\u3002\u624B\u5143\u3078\u623B\u3059"))}"`)}</div>`;
       }).join("") || '<span class="market-empty" aria-label="\u5272\u308A\u5F53\u3066\u306A\u3057"></span>'}</div></div>${button2(shop.tradeMethod === "regional-delivery" ? '<span class="market-place-label">ここへ納品</span>' : rows2[index].length ? "" : '<span class="market-place-label">\u3053\u3053\u306B\u7F6E\u304F</span>', "place", shop.id, `class="market-target" ${!p || inventory.hand < 1 ? "disabled" : ""} aria-label="${esc7(shop.name + "\u3078" + (p ? releaseDate(s, p.id) + "\u306E\u74F6" : "\u74F6") + (shop.tradeMethod === "regional-delivery" ? "を納品する" : "\u3092\u6E21\u3059"))}"`)}</section>`;
     }).join("")}${shops3.length > 1 ? "</div>" : ""}</div></div>${returnPane}`;
     for (const shelf of all(".market-stock-list,.market-hand-list")) shelf.scrollLeft = positions.get(shelf.id) ?? 0;
@@ -9339,10 +9338,17 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
   }
   function delta2(element, count3, { rect: rect3, kind: kind2 = "placement", productId, shopId: shopId4 } = {}) {
     if (doc.hidden || !visible) return;
-    const anchor3 = element?.getBoundingClientRect() ?? rect3;
+    const shelf = shopId4 !== "hand" && doc.getElementById("market-shelf-" + shopId4);
+    const bottle = element?.closest(".market-stock")?.querySelector(".market-bottle");
+    const anchor3 = (bottle ?? element)?.getBoundingClientRect() ?? rect3;
     if (!anchor3) return;
-    const bounds = visibleBounds(element);
-    if (anchor3.bottom < bounds.top || anchor3.top > bounds.bottom || anchor3.right < bounds.left || anchor3.left > bounds.right) return;
+    const bounds = visibleBounds(shelf || element);
+    if (anchor3.bottom <= bounds.top || anchor3.top >= bounds.bottom || anchor3.right <= bounds.left || anchor3.left >= bounds.right) return;
+    const centerX = anchor3.left + anchor3.width / 2;
+    if (shelf) {
+      const clip = shelf.getBoundingClientRect();
+      if (centerX < clip.left || centerX > clip.right) return;
+    }
     const el = doc.createElement("span");
     el.className = "market-delta";
     el.setAttribute("aria-hidden", "true");
@@ -9350,15 +9356,19 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     el.dataset.kind = kind2;
     if (productId !== void 0) el.dataset.productId = String(productId);
     if (shopId4) el.dataset.shopId = shopId4;
-    const slot = element?.closest?.(".market-stock")?.querySelector(".market-sale-slot");
-    if (slot) {
-      slot.append(el);
-      el.classList.add("market-sale-delta");
+    root2.append(el);
+    if (shelf) {
+      el.classList.add("market-shelf-delta");
+      Object.assign(el.style, { left: centerX + "px", top: anchor3.top + "px" });
+      void animate(el, [
+        { opacity: 1, transform: "translate(-50%, -100%)" },
+        { opacity: 1, offset: 0.45 },
+        { opacity: 0, transform: "translate(-50%, calc(-100% - 12px))" }
+      ], { duration: 650, fill: "forwards" });
     } else {
       Object.assign(el.style, { left: anchor3.right + 4 + "px", top: anchor3.top + "px" });
-      root2.append(el);
+      void animate(el, [{ opacity: 1 }, { opacity: 1, offset: 0.65 }, { opacity: 0 }], { duration: 650 });
     }
-    if (!reduced.matches) void animate(el, [{ opacity: 1 }, { opacity: 1, offset: 0.65 }, { opacity: 0 }], { duration: 650 });
     return new Promise((resolve) => {
       const finish2 = () => {
         clearTimeout(timer2);
@@ -9420,9 +9430,8 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     row.dataset.wide = "true";
     // Never duplicate an existing legacy-unshipped row ID for the same release.
     row.id = `market-regional-stage-${shopId}-${productId}`;
-    row.style.cssText = deltaSpace(item);
     row.setAttribute("aria-hidden", "true");
-    row.innerHTML = `<div class="market-stock"><span class="market-bottle">${art(item)}</span><span class="market-count">${count}本</span><span class="market-date">${esc7(compactReleaseDate(state(), productId))}</span><span class="market-sale-slot"></span></div>`;
+    row.innerHTML = `<div class="market-stock"><span class="market-bottle">${art(item)}</span><span class="market-count">${count}本</span><span class="market-date">${esc7(compactReleaseDate(state(), productId))}</span></div>`;
     shelf.append(row);
     // Prefer the temporary tile if an old save has several unshipped rows.
     shelf.scrollLeft = Math.max(0, shelf.scrollWidth - shelf.clientWidth);
@@ -9524,7 +9533,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     const groups = ordinarySaleGroups(sales.map((sale) => ({ productId: sale.productId, shopId: sale.shopId, units: sale.count })));
     const deltas = sales.map((sale) => {
       const row = doc.getElementById(`market-stock-${sale.shopId}-${sale.productId}`);
-      return delta2(row?.querySelector(".market-count"), -sale.count, { kind: "sale", productId: sale.productId, shopId: sale.shopId });
+      return delta2(row?.querySelector(".market-count"), -sale.count, { kind: "sale", productId: sale.productId, shopId: sale.shopId, rect: origins.get(`${sale.shopId}:${sale.productId}`)?.sprite });
     });
     await Promise.all([...groups.map((sale, index) => shopSold({ ...sale, groupIndex: index }, token, origins)), ...deltas]);
   }
@@ -9567,7 +9576,13 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
   });
   root2.addEventListener("wheel", cancel, { passive: true });
   root2.addEventListener("scroll", (event2) => {
-    if (!event2.target?.classList?.contains("market-partners")) return;
+    const scroller = event2.target;
+    if (scroller.matches?.(".market-stock-list,.market-partners")) {
+      for (const label of all(".market-shelf-delta")) {
+        if (scroller.contains(doc.getElementById("market-shelf-" + label.dataset.shopId))) label.remove();
+      }
+    }
+    if (!scroller.classList?.contains("market-partners")) return;
     rememberPosition();
     scrolling = true;
     clearTimeout(scrollTimer);
