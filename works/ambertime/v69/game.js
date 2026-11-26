@@ -9807,19 +9807,28 @@ init_shop_model();
 var esc9 = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 var shopNames = new Map([["retail", "\u81EA\u5BB6\u8CA9\u58F2"], ...SHOPS4.map((s) => [s.id, s.name])]);
 var clamp7 = (x, min, max) => Math.min(max, Math.max(min, x));
-var shopCategories = Object.freeze({ "retail": "distillery", "town-liquor": "liquor", supermarket: "supermarket", bar: "bar", department: "department" });
+var directShopCategories = { "酒販店": "liquor", "バー": "bar", "飲食店": "food" };
+var shopCategories = new Map([
+  ["retail", "distillery"], ["town-liquor", "liquor"], ["supermarket", "supermarket"],
+  ["bar", "bar"], ["department", "department"],
+  ...STORE_CANDIDATES.map(shop => [shop.id, directShopCategories[shop.category]]),
+  ...OFFICE_LIST.map(office => [office.id, "desk"])
+]);
 var categoryPixels = Object.freeze({
   distillery: ["00001000000", "00011100000", "00011100000", "00111111000", "01111111110", "01111111110", "01111111110", "01111111110", "01101101110", "01101101110", "01111111110"],
-  liquor: ["00011000000", "00011000000", "00011000000", "00111100000", "00111100000", "00111100000", "00111100000", "00111100000", "00111100000", "00111100000", "00000000000"],
-  supermarket: ["00000000000", "00100000100", "00100000100", "00111111100", "01111111110", "01111111110", "01111111110", "00111111100", "00101010100", "00100000100", "00000000000"],
+  liquor: ["00001110000", "00001110000", "00001110000", "00011111000", "00111111100", "00111111100", "00100000100", "00100000100", "00111111100", "00111111100", "00000000000"],
+  supermarket: ["00001110000", "00010001000", "00100000100", "00100000100", "11111111111", "01111111110", "01101010110", "01101010110", "00111111100", "00111111100", "00000000000"],
   bar: ["01111111110", "00111111100", "00011111000", "00001110000", "00000100000", "00000100000", "00000100000", "00011111000", "00011111000", "00000000000", "00000000000"],
+  food: ["00010001000", "00100010000", "00010001000", "00000000000", "11111111111", "01111111110", "01111111110", "00111111100", "00011111000", "00001110000", "00011111000"],
+  desk: ["00000000000", "11111111111", "10000000001", "11111111111", "11000000111", "10100001101", "10010011001", "10001110001", "10011100001", "11111111111", "00000000000"],
   department: ["00000000000", "01111111110", "01111111110", "01100100110", "01100100110", "01111111110", "01100100110", "01100100110", "01111111110", "01111111110", "00000000000"]
 });
-var m0ShopCategory = (id3) => shopCategories[id3] ?? "department";
-function m0ShopGlyph(id3) {
-  const pixels = categoryPixels[m0ShopCategory(id3)];
+var shopGlyphs = new Map(Object.entries(categoryPixels).map(([category, pixels]) => {
   const rectangles = pixels.map((row, y) => [...row].map((cell, x) => cell === "1" ? '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>' : "").join("")).join("");
-  return '<svg class="m0-shop-symbol" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-hidden="true" focusable="false">' + rectangles + "</svg>";
+  return [category, '<svg class="m0-shop-symbol" viewBox="0 0 11 11" shape-rendering="crispEdges" aria-hidden="true" focusable="false">' + rectangles + "</svg>"];
+}));
+function shopGlyph(id) {
+  return shopGlyphs.get(shopCategories.get(id)) ?? symbolMarkup("store");
 }
 function mapCornerRect([x, y, w, h], margin = 2) {
   const left = clamp7(x - margin, 0, 144), top = clamp7(y - margin, 0, 144);
@@ -9927,8 +9936,6 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     });
     const name2 = node2.querySelector(".market-shop-title");
     if (name2) name2.innerHTML = marketNameMarkupV43(partnerName(id3));
-    const icon2 = node2.querySelector(".market-store-icon");
-    if (icon2) icon2.innerHTML = m0ShopGlyph(id3);
     node2.setAttribute("aria-label", partnerName(id3));
     return node2;
   }
@@ -18759,7 +18766,7 @@ var marketUI = createMarketUI({
   model: D,
   state: () => game,
   art: (p) => productArt(p),
-  icon: symbolMarkup("store"),
+  icon: (_symbol, shopId) => shopGlyph(shopId),
   act: actMarket,
   scopeForState: (s) => {
     const stage = currentSalesStage(s);

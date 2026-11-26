@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "1f59da83fb66fa259739c7d7345ecf0c213b6e49e40bbdbbd0b69bed8257c597",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-shop-icons",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "ed36eefdd2d15b6a0a95a5edb94bd2aa0fb2bfcb",
+    "change": "Use seven shop-category glyphs in market and map listings.",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-shop-icons/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Read category and office definitions to share cached pixel glyphs across both listings."
+    ],
+    "ownerDecisions": [
+      "Author requested implementing the audited seven categories."
+    ],
+    "hqDecisions": [
+      "Keep the existing runtime, game rules, coordinate system, gesture hit targets and save formats."
+    ],
+    "rulesApplied": [
+      "Use a locked plan because current distribution files exceed the active-work small-change size limit."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check 26 assignments, narrow mobile sizes and matching map/market symbols."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this pull request in Staging.",
+    "outOfScope": [
+      "Production, shared town runtime, unrelated games, v70, artwork or game rule redesign, CI and historical test expectation changes, published audit fixtures."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari verification by the author."
+    ],
+    "alternativesRejected": [
+      "Changing gameplay or the interaction controls."
+    ],
+    "boundaryCases": [
+      "Generic unknown shop, all three offices, narrow viewport."
+    ],
+    "testPlan": [
+      "Check relevant browser scenarios and regressions, syntax, plan gates, CI and live Staging."
+    ],
+    "problem": "Most partners use the department fallback on the map and one store symbol in the market.",
+    "currentContract": "Existing v69 mobile entry, interactive rooms and save formats.",
+    "whyExistingIsInsufficient": "The current icons do not identify the trade categories.",
+    "design": "Share 11x11 silhouettes, retain shop-name buttons and shelf animation targets.",
+    "migration": "Save format unchanged.",
+    "compatibility": "Keep touch inputs, reduced-motion support and prior gameplay.",
+    "promotionRisk": "Staging only."
+  }
+}
