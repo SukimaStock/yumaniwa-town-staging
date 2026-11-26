@@ -9120,6 +9120,12 @@ function visibleMarketRows(s, model, shopId4, feedback = []) {
   }
   return [...byId.values()].sort((a, b) => a.productId - b.productId);
 }
+// Both panels sit beneath the header and finish above the management buttons.
+// On short landscape screens the clock's minimum target is taller than its drawing.
+function salesPanelBounds(scale, reserve = 0) {
+  const top = Math.max(57 * scale, 44 + 6 * scale) + reserve * scale;
+  return { top, height: 516 * scale - top };
+}
 function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = "", act: act2, openProduct, openStockist, openRetailInfo = () => {
 }, announce = () => {
 }, announceSaved = () => {
@@ -9237,8 +9243,9 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     }
     const scale = v?.scale ?? 1;
     root2.style.setProperty("--market-scale", scale);
-    root2.style.setProperty("--market-max-height", 409 * scale + "px");
-    Object.assign(root2.style, { left: (v?.offsetX ?? 0) + 12 * scale + "px", top: (v?.offsetY ?? 0) + 99 * scale + "px", width: 336 * scale + "px", height: "auto", maxHeight: 417 * scale + "px" });
+    const panel = salesPanelBounds(scale);
+    root2.style.setProperty("--market-max-height", panel.height - 8 * scale + "px");
+    Object.assign(root2.style, { left: (v?.offsetX ?? 0) + 12 * scale + "px", top: (v?.offsetY ?? 0) + panel.top + "px", width: 336 * scale + "px", height: "auto", maxHeight: panel.height + "px" });
   }
   function update(options = {}) {
     const wasVisible = visible;
@@ -9888,7 +9895,8 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     const x = Number.isFinite(v?.offsetX) ? v.offsetX : r.left;
     const y = Number.isFinite(v?.offsetY) ? v.offsetY : r.top;
     const reserve6 = doc.body.dataset.topImportant === "true" ? 90 : 0;
-    const left = x + 12 * scale, top = y + (99 + reserve6) * scale, width = 336 * scale, height = (417 - reserve6) * scale;
+    const panel = salesPanelBounds(scale, reserve6);
+    const left = x + 12 * scale, top = y + panel.top, width = 336 * scale, height = panel.height;
     const key2 = [left, top, width, height, scale].join(":");
     if (key2 !== placementKey) {
       Object.assign(outer.style, { left: left + "px", top: top + "px", width: width + "px", height: height + "px" });
