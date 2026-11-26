@@ -838,6 +838,8 @@ html[data-font-state=ready] #action-dialog .ui-number{font-size:inherit!importan
 #dialog-body .trade-terms button{min-width:0;text-align:left}
 #dialog-body .trade-terms small{margin-top:4px}
 
+#dialog-body .ledger-shop-line{display:grid;grid-template-columns:22px minmax(0,1fr) auto auto;gap:6px;align-items:center;text-align:left;width:100%;min-height:44px;padding:4px 8px;margin:0}
+#dialog-body .ledger-start-month{font-size:.85em;white-space:nowrap;color:#c1bdb0}
 #dialog-body .stockist-directory{display:grid;gap:2px;margin:0 0 12px}
 #dialog-body .stockist-directory h3{margin:0 0 2px;font:inherit;color:#c1bdb0}
 #dialog-body .directory-offers h3{color:#e4c58a}
@@ -1248,22 +1250,18 @@ html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automati
 #m0-observation{position:fixed;z-index:20;color:#f0e6c8;box-sizing:border-box;pointer-events:none;font:inherit}
 #m0-observation[hidden],#m0-observation [hidden]{display:none!important}
 #m0-observation *{box-sizing:border-box}
-#m0-observation[data-origin-room=sales]:has(.m0-rows[data-shop-count="1"]){--m0-summary-height:calc(16% + 2.5px)}
-#m0-observation[data-origin-room=sales]:has(.m0-rows[data-shop-count="0"]){--m0-summary-height:0px}
-#m0-observation .m0-top{position:absolute;inset:0 0 auto;height:var(--m0-summary-height,32%);min-height:0;padding:4px;background:#292b39;overflow:hidden;pointer-events:auto;transition:opacity 130ms ease-out}
-#m0-observation[data-mode=closed] .m0-top,#m0-observation[data-mode=full] .m0-top{opacity:0}
-#m0-observation[data-origin-room=other] .m0-top{background:transparent;pointer-events:none}
-#m0-observation .m0-rows{display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:3px;width:100%;height:100%;overflow:hidden}
-#m0-observation .m0-shop{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);width:100%;min-height:0;align-items:center;gap:6px;padding:3px 6px;border:2px solid #858995;background:#2d3438;pointer-events:none}
-#m0-observation .m0-shop.m0-selected{border-color:#e4bc66}
-#m0-observation .m0-rows[data-shop-count='1']{grid-template-rows:minmax(0,1fr)}
-#m0-observation .market-shop-heading{min-width:0;pointer-events:none}
-#m0-observation .market-shop-name{display:flex;align-items:center;gap:4px;width:100%;min-width:0;min-height:0;padding:0;line-height:1.12;text-align:left;border:0;background:none}
-#m0-observation .market-shop-title{display:none!important}
-#m0-observation .market-store-icon{display:inline-flex;width:32px;height:32px;flex:0 0 32px;align-items:center;justify-content:center}
-#m0-observation .market-store-icon svg{width:100%;height:100%;fill:#e4c58a;image-rendering:pixelated}
+#m0-observation{--m0-summary-height:0px}
+#m0-observation:has(.m0-rows[data-shop-count="1"]){--m0-summary-height:clamp(48px,16%,80px)}
+#m0-observation .m0-top{position:absolute;inset:0 0 auto;height:var(--m0-summary-height);overflow:hidden;pointer-events:auto}
+#m0-observation[data-mode=closed] .m0-top{visibility:hidden}
+#m0-observation .m0-rows{height:100%}
+#m0-observation .m0-shop{display:grid;grid-template-columns:minmax(82px,36%) minmax(0,1fr);align-items:center;gap:6px;height:100%;padding:1px 5px;border:2px solid #858995;background:#2d3438}
+#m0-observation .market-shop-name{display:flex;align-items:center;gap:4px;font-size:clamp(10px,3vw,14px);line-height:1.1}
+#m0-observation .market-store-icon{width:22px;flex:0 0 22px}
+#m0-observation .market-store-icon svg{display:block;width:100%;height:auto;fill:#e4c58a}
+#m0-observation .m0-shop button{justify-self:end;min-height:32px;padding:2px 8px}
 #m0-observation .market-shelf-body{min-width:0;overflow:hidden}
-#m0-observation .market-stock-list{display:flex;align-items:center;gap:8px;min-width:0;overflow:hidden}
+#m0-observation .market-stock-list{display:flex;align-items:center;gap:8px;min-width:0;overflow-x:auto;scrollbar-width:none}
 #m0-observation .market-stock-row{flex:none;min-width:0}
 #m0-observation .market-stock{display:grid;grid-template-columns:24px max-content;grid-template-rows:24px 20px;column-gap:3px;align-items:center;min-height:44px;padding:0;border:0;background:none;white-space:nowrap}
 #m0-observation .market-bottle{display:block;width:24px;height:28px;grid-row:1;grid-column:1}
@@ -1273,7 +1271,7 @@ html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automati
 #m0-observation .market-target,#m0-observation .market-sale-slot,#m0-observation .market-place-label{display:none!important}
 #m0-observation .m0-drawer{position:absolute;inset:var(--m0-summary-height,32%) 0 0;background:#879b77;display:flex;flex-direction:column;min-height:0;pointer-events:auto;border-top:3px solid #858995;transition:top 240ms steps(4,end)}
 #m0-observation[data-mode=closed] .m0-drawer{top:100%}
-#m0-observation[data-mode=full] .m0-drawer{top:0}
+#m0-observation[data-mode=full] .m0-drawer{top:var(--m0-summary-height)}
 #m0-observation .m0-handle{height:42px;flex:none;background:#3f3e45;display:grid;grid-template-columns:minmax(0,1fr) minmax(136px,158px) minmax(88px,1fr);align-items:stretch;border-bottom:3px solid #252630;touch-action:none}
 #m0-observation .m0-header-actions{grid-column:3;justify-self:end;display:flex;min-width:88px}
 #m0-observation .m0-handle button{font:inherit;color:inherit;background:none;border:0;border-left:2px solid #252630;min-width:44px;min-height:38px;padding:0;display:flex;align-items:center;justify-content:center;touch-action:manipulation;box-shadow:none}
@@ -1872,7 +1870,7 @@ body :is([contenteditable=""],[contenteditable="true"],[contenteditable="plainte
 <noscript>JavaScriptを有効にしてください。</noscript>
 <script src="./v69/preview-cases-a.js"></script>
 <script src="./v69/preview-cases-b.js"></script>
-<script src="./v69/game.js?rev=stockist-groups-1"></script>
+<script src="./v69/game.js?rev=map-ledger-shops-1"></script>
 <!-- Original 48 kHz stereo PCM WAV used by the successful iPhone loop player. -->
 <script type="text/plain" id="amber-bgm-wav" data-src="./v69/bgm.wav"></script>
 

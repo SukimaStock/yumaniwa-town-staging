@@ -9840,7 +9840,7 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
 }, onInspect = () => {
 }, onTrade = () => {
 } }) {
-  const source = doc.getElementById("market-board"), scene3 = doc.getElementById("scene-root");
+  const scene3 = doc.getElementById("scene-root");
   installSceneryMotion(doc);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const outer = doc.createElement("section");
@@ -9857,7 +9857,7 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
   const sceneryLayer = outer.querySelector(".map-scenery-butterflies");
   const report = outer.querySelector(".m0-report"), windowEl = outer.querySelector(".m0-map-window"), layer = outer.querySelector(".m0-map-layer");
   const advance2 = outer.querySelector('[data-m0="advance"]');
-  let mode = "closed", selected = null, lastStore = null, drag = null, suppressAdvance = false;
+  let mode = "closed", selected = null, drag = null, suppressAdvance = false;
   let localView = { stage: 3, selectedShop: null }, stage = 3, cameraStage = null;
   const stageLabel = outer.querySelector(".m0-stage-name");
   const stagePrevious = outer.querySelector('[data-m0="stage-prev"]'), stageNext = outer.querySelector('[data-m0="stage-next"]');
@@ -9887,7 +9887,7 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
       onModeChange(shown);
     }
   }
-  let zoom = 1, pan = { x: 0, y: 0 }, paintKey = "", pinKey = "", rowKeys = /* @__PURE__ */ new Map(), animationEpoch = 0;
+  let zoom = 1, pan = { x: 0, y: 0 }, paintKey = "", pinKey = "", shelfState = null, shelfShop = null, animationEpoch = 0;
   let placementKey = "", squareKey = "", suppressPinClick = false;
   const pointers = /* @__PURE__ */ new Map();
   let gesture = null;
@@ -9913,76 +9913,28 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
       placementKey = key2;
     }
   }
-  function staticShelf(id3) {
-    const original = source.querySelector('[data-market-shop="' + id3 + '"]');
-    if (!original) return null;
-    const node2 = original.cloneNode(true);
-    node2.classList.add("m0-shop");
-    node2.classList.remove("market-map-selected");
-    node2.removeAttribute("data-market-shop");
-    node2.dataset.m0Shop = id3;
-    node2.querySelectorAll(".market-stock-row[id]").forEach((el) => {
-      el.dataset.m0Product = el.id.split("-").at(-1);
-    });
-    node2.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
-    node2.querySelectorAll("button").forEach((el) => {
-      const span = doc.createElement("span");
-      span.className = el.className;
-      span.innerHTML = el.innerHTML;
-      el.replaceWith(span);
-    });
-    node2.querySelectorAll('.market-shop-name > span[aria-hidden="true"]').forEach((el) => {
-      if (el.querySelector('[data-symbol="chevronRight"]')) el.remove();
-    });
-    const name2 = node2.querySelector(".market-shop-title");
-    if (name2) name2.innerHTML = marketNameMarkupV43(partnerName(id3));
-    node2.setAttribute("aria-label", partnerName(id3));
-    return node2;
-  }
-  function syncRows() {
-    const sales = room2() === "sales";
-    outer.dataset.originRoom = sales ? "sales" : "other";
-    if (!sales) {
-      rows2.replaceChildren();
-      rowKeys.clear();
-      return;
+  function syncRows(partner) {
+    const s = state(), offer = partner?.status === "offer";
+    if (shelfState === s && shelfShop === selected) return;
+    shelfState = s;
+    shelfShop = selected;
+    let contents = "";
+    if (selected) {
+      const name = partner?.name ?? "自家販売";
+      const stock = offer ? [] : visibleMarketRows(s, D, selected);
+      const bottles = stock.filter(row => row.count > 0).map(row => {
+        const product = s.core.products.find(p => p.id === row.productId);
+        if (!product) return "";
+        return '<span class="market-stock-row market-stock" data-m0-product="' + product.id + '"><span class="market-bottle">' +
+          productArt(product) + '</span><span class="market-count">' + row.count + '本</span><span class="market-date">' +
+          esc9(compactReleaseDate(s, product.id)) + '</span></span>';
+      }).join("");
+      contents = '<section class="m0-shop m0-selected" data-m0-shop="' + esc9(selected) + '"><span class="market-shop-name"><span class="market-store-icon" aria-hidden="true">' +
+        shopGlyph(selected) + '</span><span class="market-shop-title">' + esc9(name) + '</span></span>' +
+        (offer ? '<button type="button" data-m0="inspect">申し出を見る</button>' : '<div class="market-stock-list">' + bottles + '</div>') + '</section>';
     }
-    const scope = marketPartnerScopeForMap(state(), readView(), availableMarketShops(state())), ids = scope.shops.map((p) => p.id);
-    rows2.dataset.displayStage = String(scope.stage);
-    if (!ids.includes(lastStore)) lastStore = ids.find((id3) => id3 !== "retail") ?? null;
-    if (selected !== "retail" && ids.includes(selected)) lastStore = selected;
-    const store = selected === "retail" || selected === null ? lastStore : ids.includes(selected) ? selected : null;
-    const wanted = ["retail", store].filter((id3, i, a) => id3 && a.indexOf(id3) === i);
-    const next = doc.createDocumentFragment();
-    const seen = /* @__PURE__ */ new Set();
-    for (const id3 of wanted) {
-      const original = source.querySelector('[data-market-shop="' + id3 + '"]');
-      const markup = original?.innerHTML ?? "";
-      let existing2 = rows2.querySelector('[data-m0-shop="' + id3 + '"]');
-      if (rowKeys.get(id3) !== markup || !existing2) {
-        const fresh = staticShelf(id3);
-        if (!fresh) continue;
-        existing2 = fresh;
-        rowKeys.set(id3, markup);
-      }
-      existing2.classList.toggle("m0-selected", selected === id3);
-      existing2.querySelector(".m0-scope-caption")?.remove();
-      const supplemented = scope.fallback && id3 !== "retail";
-      existing2.classList.toggle("m0-scope-store", supplemented);
-      existing2.setAttribute("aria-label", partnerName(id3) + (supplemented ? " \xB7 " + scope.label : ""));
-      if (supplemented) {
-        const caption = doc.createElement("span");
-        caption.className = "m0-scope-caption";
-        caption.textContent = scope.label.replace(/の取引先$/, "");
-        caption.setAttribute("aria-label", scope.label);
-        existing2.querySelector(".market-shop-name")?.append(caption);
-      }
-      next.append(existing2);
-      seen.add(id3);
-    }
-    rows2.replaceChildren(next);
-    rows2.dataset.shopCount = String(seen.size);
-    for (const id3 of [...rowKeys.keys()]) if (!seen.has(id3)) rowKeys.delete(id3);
+    rows2.innerHTML = contents;
+    rows2.dataset.shopCount = selected ? "1" : "0";
   }
   function syncView() {
     const current = readView();
@@ -10035,7 +9987,8 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     const numbers = detail?.regional ? `\u672A\u7D0D\u54C1 ${detail.pendingCount ?? 0}\u672C\u3000\u7D0D\u54C1\u7D2F\u8A08 ${detail.totalDelivered ?? 0}\u672C` : [stock === null || stock === void 0 ? "" : "\u6B8B " + stock + "\u672C", monthly === null || monthly === void 0 ? "" : "\u4ECA\u6708 " + monthly + "\u672C"].filter(Boolean).join("\u3000");
     const remark = partner?.status === "offer" ? "\u53D6\u6271\u3044\u306E\u7533\u3057\u51FA" : detail?.regional ? "\u9867\u5BA2\u5B9F\u58F2\u306F\u4E0D\u660E" : detail?.remark ?? "";
     const actions = selected ? '<div class="m0-report-actions"><button type="button" data-m0="inspect">' + (partner?.status === "offer" ? "\u7533\u3057\u51FA\u3092\u898B\u308B" : "\u5E97\u60C5\u5831") + "</button>" + (prologueFacts(s).bottled && (selected === "retail" || partner?.canTrade) ? '<button type="button" data-m0="trade">\u8CA9\u58F2\u5BA4\u3078</button>' : "") + "</div>" : "";
-    report.hidden=!selected;
+    syncRows(partner);
+    report.hidden = !selected || partner?.status === "offer";
     outer.dataset.observing=String(!selected);
     const text2 = selected?title + "|" + numbers + "|" + remark + "|" + actions:"";
     if (report.dataset.content !== text2) {
@@ -10110,7 +10063,6 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     syncView();
     align();
     if (!opening) outer.dataset.mode = mode;
-    syncRows();
     syncMap();
     advance2.setAttribute("aria-label", mode === "half" ? "\u5730\u56F3\u3092\u5168\u753B\u9762\u306B\u3059\u308B" : "\u5730\u56F3\u3092\u7E2E\u5C0F\u3059\u308B");
     layoutMap();
@@ -10201,7 +10153,7 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     update();
   }
   outer.addEventListener("click", (event2) => {
-    const pin = event2.target.closest("[data-m0-shop]");
+    const pin = event2.target.closest(".m0-pin");
     if (pin) {
       const id3 = touchedShop(event2, pin);
       if (!suppressPinClick && available(state()).includes(id3)) {
@@ -10336,7 +10288,6 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
       mode = "closed";
       notifyMode();
       selected = null;
-      lastStore = null;
       localView = { stage: 3, selectedShop: null };
       cameraStage = null;
       zoom = 1;
@@ -10345,7 +10296,8 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
       squareKey = "";
       paintKey = "";
       pinKey = "";
-      rowKeys.clear();
+      shelfState = null;
+      shelfShop = null;
       animationEpoch++;
       update();
     },
@@ -19765,20 +19717,50 @@ var shopLedgerSnapshot = null;
 var shopLedgerProjection = null;
 function ledgerShops() {
   if (shopLedgerSnapshot !== game) {
-    shopLedgerProjection = displayRead("storeLedger", game, buildShopLedger(game));
+    const records = new Map(displayRead("storeLedger", game, buildShopLedger(game)).map(row => [row.id, row]));
+    for (const offer of game.localDistribution?.offers ?? []) {
+      if (offer.status !== "accepted") continue;
+      const store = STORE_CANDIDATES.find(candidate => candidate.id === offer.storeId);
+      if (!store) continue;
+      const row = records.get(store.id) ?? { id: store.id, deliveries: [], interests: [] };
+      records.set(store.id, { ...row, name: store.name, established: true, related: true, startedMonth: offer.decidedMonth ?? row.startedMonth });
+    }
+    for (const contract of game.regionalPartners?.contracts ?? []) {
+      const id = contract.partnerId, partner = tradingPartner(id);
+      if (!partner) continue;
+      records.set(id, { id, name: partner.name, established: true, related: true, startedMonth: contract.startedMonth, regional: true });
+    }
+    shopLedgerProjection = [...records.values()];
     shopLedgerSnapshot = game;
   }
   return shopLedgerProjection.filter((s) => s.established);
 }
 var shopStartLabel = (s) => s.id === "department" ? "\u95A2\u4FC2\u958B\u59CB" : "\u53D6\u6271\u958B\u59CB";
-var shopProgress2 = (s) => s.interests.map((i) => i.status === "pending" ? "\u627F\u8A8D\u30FB\u7FCC\u6708\u7D0D\u54C1\u5F85\u3061" : "\u76F8\u8AC7\u4E2D").join("\uFF0F");
 function ledgerShopList() {
-  if (!ledgerShops().length) return "<p>\u53D6\u6271\u5E97\u306A\u3057</p>";
-  return ledgerPaged(ledgerShops(), (s) => '<button type="button" class="ledger-release-row" id="ledger-shop-' + esc12(s.id) + '" data-action="ledger-shop-open" data-id="' + esc12(s.id) + '"><span>' + esc12(s.name) + "<br>" + esc12(s.related ? shopStartLabel(s) + " " + known2(s.startedMonth, monthLabel) : s.deliveries.length ? "\u958B\u59CB\u65E5\u4E0D\u660E" : "\u672A\u53D6\u6271\u3044") + (s.deliveries.length ? "<br>\u7D0D\u54C1 " + esc12(known2(s.count, (n) => n + "\u672C")) + " \xB7 \u76F4\u8FD1 " + esc12(known2(s.lastMonth, monthLabel)) : "") + (shopProgress2(s) ? "<br>" + esc12(shopProgress2(s)) : "") + "</span></button>");
+  const shops = ledgerShops();
+  if (!shops.length) return "<p>取扱店なし</p>";
+  return ledgerPaged(shops, s => {
+    const month = Number.isInteger(s.startedMonth) ? monthLabel(s.startedMonth) : "";
+    return '<button type="button" class="ledger-shop-line" id="ledger-shop-' + esc12(s.id) + '" data-action="ledger-shop-open" data-id="' + esc12(s.id) +
+      '"><span class="directory-icon" aria-hidden="true">' + shopGlyph(s.id) + '</span><span>' + esc12(s.name) +
+      '</span><span class="ledger-start-month" aria-label="' + (month ? '取引開始 ' + month : '') + '">' + month +
+      '</span><span aria-hidden="true">' + symbolMarkup("chevronRight") + '</span></button>';
+  });
 }
 function ledgerShopDetail() {
   const s = ledgerShops().find((s2) => s2.id === modal.shopId);
   if (!s) return "<p>\u8A18\u9332\u306A\u3057</p>";
+  if (s.regional) {
+    const totals = game.regionalDeliveries?.totalsByPartner?.[s.id];
+    const receipts = Array.isArray(game.operations) ? regionalDeliveryHistory(game, s.id) : [];
+    const retained = receipts.length ? receipts : (game.regionalDeliveries?.recentReceipts ?? []).filter(row => row.partnerId === s.id);
+    const complete = retained.length && retained.reduce((sum, row) => sum + row.count, 0) === totals?.count;
+    return '<article class="ledger-shop-detail"><h3>' + esc12(s.name) + '</h3>' + copyFacts([
+      ["取扱開始", known2(s.startedMonth, monthLabel)], ["納品計", known2(totals?.count ?? 0, n => n + "本")],
+      ["入金", known2(totals ? totals.revenueCents / 100 : 0, unit4)],
+      ["初回納品", known2(complete ? retained[0].month : null, monthLabel)], ["直近納品", known2(retained.at(-1)?.month, monthLabel)]
+    ]) + '</article>';
+  }
   let out = '<article class="ledger-shop-detail"><h3>' + esc12(s.name) + "</h3>" + copyFacts([[shopStartLabel(s), s.related ? known2(s.startedMonth, monthLabel) : s.deliveries.length ? "\u8A18\u9332\u306A\u3057" : "\u672A\u53D6\u6271\u3044"], ...s.deliveries.length ? [["\u7D0D\u54C1\u8A08", known2(s.count, (n) => n + "\u672C")], ["\u5165\u91D1", known2(s.revenue, unit4)], ["\u521D\u56DE\u7D0D\u54C1", known2(s.firstMonth, monthLabel)], ["\u76F4\u8FD1\u7D0D\u54C1", known2(s.lastMonth, monthLabel)]] : []]);
   if (s.id === "department") out += '<p class="quiet">\u95A2\u4FC2\u958B\u59CB\u306F\u76F8\u8AC7\u53D7\u4ED8\u306E\u6708\u3002</p>' + s.interests.map((i) => "<p>" + (i.status === "pending" ? "\u627F\u8A8D\u30FB\u7FCC\u6708\u7D0D\u54C1\u5F85\u3061<br>" + esc12(known2(i.approvedMonth, monthLabel)) + " \u627F\u8A8D \xB7 " + esc12(known2(i.dueMonth, monthLabel)) + " \u7D0D\u54C1\u4E88\u5B9A" : "\u76F8\u8AC7\u4E2D") + "</p>").join("");
   out += s.deliveries.length ? ledgerPaged(s.deliveries, (d) => '<details class="shop-history"><summary>' + esc12(known2(d.month, monthLabel)) + " \xB7 " + esc12(known2(d.count, (n) => n + "\u672C")) + (d.kind === "adoption" ? " \xB7 \u7279\u9078\u7D0D\u54C1" : " \xB7 \u7D0D\u54C1") + "</summary><p>" + esc12(d.kind === "adoption" ? (d.projectName ?? "\u7279\u9078\u30A6\u30A4\u30B9\u30AD\u30FC") + "\u306B\u63A1\u7528\u30FB\u7D0D\u54C1" : "\u7D0D\u54C1") + "<br>\u5165\u91D1 " + esc12(known2(d.revenue, unit4)) + "</p>" + (d.releaseKey ? button("\u767A\u58F2" + (d.releaseId !== null ? " #" + d.releaseId : ""), "ledger-release", d.releaseKey, 'id="ledger-delivery-' + esc12(d.key) + '"') : '<p class="quiet">\u767A\u58F2\u306E\u8A18\u9332\u306A\u3057</p>') + "</details>") : "<p>\u5B9F\u7D0D\u54C1\u306E\u8A18\u9332\u306A\u3057</p>";
