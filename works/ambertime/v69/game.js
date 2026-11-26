@@ -20697,6 +20697,33 @@ function stockistStatus(shopId4) {
   if (stockistProducts(shopId4).some((x) => x.q.ok)) return "\u53D6\u6271\u4E2D";
   return game.shop.relations.some((r) => (r.shopId ?? "town-liquor") === shopId4) || shopId4 === "department" && D.departmentInterests(game).length ? "\u73FE\u5728\u306F\u7D0D\u54C1\u4E0D\u53EF" : "\u53D6\u6271\u524D";
 }
+function stockistDirectory() {
+  const offers = [], trading = [], upcoming = [];
+  function row(shop, action) {
+    return button('<span class="directory-icon" aria-hidden="true">' + shopGlyph(shop.id) +
+      '</span><span>' + esc12(shop.name) + '</span><span class="directory-arrow" aria-hidden="true">' +
+      symbolMarkup("chevronRight") + '</span>', action, shop.id);
+  }
+  const pending = new Set(shopOffers().map(offer => offer.shopId ?? "town-liquor"));
+  for (const shop of knownStockists()) {
+    const group = pending.has(shop.id) ? offers : stockistStatus(shop.id) === "取扱前" ? upcoming : trading;
+    group.push(row(shop, "stockist-open"));
+  }
+  for (const { partner, offer } of knownRegionalPartners()) {
+    (offer ? offers : trading).push(row(partner, "regional-open"));
+  }
+  for (const offer of game.localDistribution?.offers ?? []) {
+    if (offer.status !== "pending" && offer.status !== "accepted") continue;
+    const store = STORE_CANDIDATES.find(candidate => candidate.id === offer.storeId);
+    if (store) (offer.status === "pending" ? offers : trading).push(row(store, "direct-open"));
+  }
+  function section(title, rows, className = "") {
+    return rows.length ? '<section class="stockist-directory ' + className + '"><h3>' + title +
+      '</h3>' + rows.join("") + '</section>' : "";
+  }
+  return section("届いた申し出", offers, "directory-offers") + section("取引中", trading) +
+    section("取扱前", upcoming) || "<p>取扱店なし</p>";
+}
 function departmentOfferInventory(offer) {
   const r = game.releases.find((entry) => entry.id === offer.sourceReleaseId);
   const p = game.core.products.find((entry) => entry.id === r?.productId);
@@ -21170,16 +21197,7 @@ function syncModal() {
     actions = button(modal.parent?.kind === "generation-review" ? "\u632F\u308A\u8FD4\u308A\u3078\u623B\u308B" : modal.parent ? "\u5E33\u9762\u3078\u623B\u308B" : "\u9589\u3058\u308B", "cancel") + (kind2 === "history" ? "" : button("\u6B69\u307F\u3078\u623B\u308B", "history-back"));
   } else if (kind2 === "stockists") {
     title = "\u53D6\u6271\u5E97";
-    const shops3 = knownStockists();
-    body = shops3.length ? '<div class="stockist-list">' + shops3.map((shop) => button(esc12(shop.name) + "<small>" + stockistStatus(shop.id) + "</small>", "stockist-open", shop.id)).join("") + "</div>" : "<p>\u53D6\u6271\u5E97\u306A\u3057</p>";
-    const regional2 = knownRegionalPartners();
-    if (regional2.length) body = (shops3.length ? body : "") + '<div class="stockist-list">' + regional2.map(({ partner, offer }) => button(esc12(partner.name) + "<small>" + (offer ? offer.deferred ? "\u3042\u3068\u3067\u78BA\u8A8D" : "\u7533\u3057\u51FA\u3042\u308A" : "\u53D6\u6271\u95A2\u4FC2\u3042\u308A") + "</small>", "regional-open", partner.id)).join("") + "</div>";
-    const stores = game.localDistribution?.offers ?? [];
-    const storeRows = (status) => stores.filter((o) => o.status === status).map((o) => button(esc12(STORE_CANDIDATES.find((c2) => c2.id === o.storeId).name) + "<small>" + (status === "pending" ? "\u76F4\u63A5\u53D6\u5F15\u306E\u7533\u3057\u51FA" : "\u76F4\u63A5\u53D6\u5F15") + "</small>", "direct-open", o.storeId)).join("");
-    const pending = storeRows("pending"), accepted = storeRows("accepted");
-    if ((pending || accepted) && !shops3.length && !regional2.length) body = "";
-    if (pending) body = '<div class="stockist-list">' + pending + "</div>" + body;
-    if (accepted) body += '<div class="stockist-list">' + accepted + "</div>";
+    body = stockistDirectory();
     if (autoSupplyStaffHired(game)) body += '<p class="quiet">補充担当がいます。店ごとに任せる範囲を選べます。</p>';
     else if (autoSupplyStaffStatus(game).unlocked) body += button("補充担当を雇う " + money(SUPPLY_STAFF.hireCost), "auto-supply-hire-open");
     actions = button("\u623B\u308B", "cancel");
@@ -21189,11 +21207,11 @@ function syncModal() {
     title = store.name;
     body = "<p>" + esc12(store.category) + "</p>";
     if (direct.status === "pending") {
-      body += "<p>取扱いの申し出が届いています。</p>";
-      actions = button("受ける", "direct-accept", direct.id) + button("見送る", "direct-decline", direct.id) + button("戻る", "cancel");
+      body += "<p>直接取引の申し出が届いています。</p>";
+      actions = button("受ける", "direct-accept", direct.id) + button("見送る", "direct-decline", direct.id) + (modal.fromDirectory ? button("戻る", "stockists-back") : button("戻る", "cancel"));
     } else {
       body += "<p>取扱い中</p>" + autoSupplyControls(modal.shopId);
-      actions = button("この店の棚へ", "shop-shelf") + button("閉じる", "cancel");
+      actions = button("この店の棚へ", "shop-shelf") + (modal.fromDirectory ? button("戻る", "stockists-back") : button("閉じる", "cancel"));
     }
   } else if (kind2 === "stockist" && modal.regional) {
     const view = regionalPartnerView(game, modal.shopId, D.regionalContract(game, modal.shopId));
@@ -21225,7 +21243,7 @@ function syncModal() {
     if (modal.greeting && modal.startedBrandId !== void 0) body = shopStartedMarkup() + body;
     else body = latestDialogueMarkup(modal.shopId) + body;
     body += autoSupplyControls(modal.shopId);
-    actions = (relations.length ? button("この店の棚へ", "shop-shelf") : "") + button("閉じる", "cancel");
+    actions = (relations.length ? button("この店の棚へ", "shop-shelf") : "") + (modal.fromDirectory ? button("戻る", "stockists-back") : button("閉じる", "cancel"));
   } else if (kind2 === "stockist") {
     if (!knownStockists().some((s) => s.id === modal.shopId)) {
       modal = { kind: "stockists" };
@@ -22191,7 +22209,7 @@ function handleModal(e) {
     return;
   }
   if (a === "direct-open" && kind2 === "stockists" && game.localDistribution?.offers.some((o) => o.storeId === b.dataset.id && o.status !== "declined")) {
-    modal = { kind: "stockist", shopId: b.dataset.id };
+    modal = { kind: "stockist", shopId: b.dataset.id, fromDirectory: true };
     render2();
     return;
   }
@@ -22224,7 +22242,7 @@ function handleModal(e) {
   }
   if (a === "stockist-open" && kind2 === "stockists" && knownStockists().some((s) => s.id === b.dataset.id)) {
     deliveryNotice = "";
-    modal = { kind: "stockist", shopId: b.dataset.id };
+    modal = { kind: "stockist", shopId: b.dataset.id, fromDirectory: true };
     render2();
     return;
   }
