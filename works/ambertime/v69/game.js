@@ -11895,7 +11895,9 @@ function layoutScene(view = {}) {
   const roomTabWidth = 342 / rooms.length;
   const roomNav = { x: 9, y: 582, w: 342, h: 45, dividers: rooms.slice(1).map((_, i) => 9 + (i + 1) * roomTabWidth) };
   rooms.forEach((name2, i) => add2("room-" + name2, '#room-nav [data-room="' + name2 + '"]', roomNav.x + i * roomTabWidth + 3, roomNav.y, roomTabWidth - 6, roomNav.h));
-  if (!view.openingClockPending) add2("toggle-time", "#toggle-time", 303, 51, 45, 45);
+  const clockX = 309, frameRight = 354;
+  const header = { x: 6, y: 6, w: (view.openingClockPending ? frameRight : clockX - 6) - 6, h: 39 };
+  if (!view.openingClockPending) add2("toggle-time", "#toggle-time", clockX, header.y - 3, frameRight - clockX, header.h + 6);
   const management = ["open-ledger", ...view.staffAvailable ? ["open-staff-panel"] : [], ...view.room === "sales" ? ["shop-offer"] : [], ...view.mapAvailable ? ["open-world-map"] : [], "open-aux-menu"];
   let nextX = 18;
   for (const key2 of management) {
@@ -11930,7 +11932,7 @@ function layoutScene(view = {}) {
       add2("distill-glass", "#distill-glass", x, TOOL_GEOMETRY.glassY + glass2.hitOffsetY, glass2.w, glass2.h);
     } else for (const id3 of ["start-distill", "stop-distill", "open-fill"]) add2(id3, "#" + id3, id3 === "stop-distill" ? 90 : 126, 414, id3 === "stop-distill" ? 180 : 108);
   }
-  return { width: 360, height: 640, floorY: 468, shelf: { x: 48, y: 165, w: 264, h: 267, rails: [234, 378] }, equipment: { x: 90, y: 270, w: 180, h: 108, benchY: 378 }, caskSlots: caskSlots2, productSlots, roomNav, controls };
+  return { width: 360, height: 640, header, floorY: 468, shelf: { x: 48, y: 165, w: 264, h: 267, rails: [234, 378] }, equipment: { x: 90, y: 270, w: 180, h: 108, benchY: 378 }, caskSlots: caskSlots2, productSlots, roomNav, controls };
 }
 var NOTICE_WINDOW = Object.freeze({ fill: "#2e3143", border: "#858995", ink: "#f0e6c8", shadow: "#19141e", dot: 3, padding: 9 });
 function noticeLayout(text2, measure, { step: step3 = 26, padding = NOTICE_WINDOW.padding, maxWidth = 318 } = {}) {
@@ -12495,10 +12497,14 @@ var CanvasScene = class {
       node2.dataset.sceneKey = rect3.key;
       node2.dataset.sceneVisible = "true";
       const r = projectRect(this.viewport, rect3);
-      if (rect3.key.startsWith("distill-")) {
+      if (rect3.key === "toggle-time" || rect3.key.startsWith("distill-")) {
         const w = Math.max(44, r.width), h = Math.max(44, r.height);
-        r.x -= (w - r.width) / 2;
         r.y -= (h - r.height) / 2;
+        if (rect3.key === "toggle-time") {
+          // Expand into the outer gutter, away from the status panel.
+          r.x = Math.min(r.x, this.viewport.width - w);
+          r.y = Math.max(0, r.y);
+        } else r.x -= (w - r.width) / 2;
         r.width = w;
         r.height = h;
       }
@@ -12870,8 +12876,35 @@ var CanvasScene = class {
       this.pixelRect(px, py, 3, 3, color);
     }
   }
+  drawHeader() {
+    const frame = this.layout.header, view = this.view, c = this.ctx, v = this.viewport;
+    this.window(frame.x, frame.y, frame.w, frame.h, "#292b39", "#d8d5df");
+    const left = frame.x + 9, right = frame.x + frame.w - 9, baseline = frame.y + 26;
+    const unit = v.scale * v.dpr, identity = view.calendar + " " + view.generation;
+    c.save();
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    let pixels = this.textMetrics().pixels;
+    c.font = `400 ${pixels}px ${FONT_STACK}`;
+    // Keep both full labels legible at the largest whole-dot font that fits.
+    while (pixels > 8 && c.measureText(identity).width + c.measureText(view.cash).width > (right - left - 6) * unit) {
+      pixels -= 8;
+      c.font = `400 ${pixels}px ${FONT_STACK}`;
+    }
+    const px = (x) => Math.round((v.offsetX + x * v.scale) * v.dpr), py = Math.round((v.offsetY + baseline * v.scale) * v.dpr);
+    c.textBaseline = "alphabetic";
+    c.textAlign = "left";
+    c.fillStyle = ink;
+    c.fillText(identity, px(left), py);
+    c.textAlign = "right";
+    c.fillStyle = "#e6c77a";
+    c.fillText(view.cash, px(right), py);
+    const cashWidth = c.measureText(view.cash).width / unit;
+    this.root.dataset.headerLayout = JSON.stringify({ cashWidth, cashY: baseline, calendarRight: left + c.measureText(view.calendar).width / unit, generationRight: left + c.measureText(identity).width / unit, cashLeft: right - cashWidth, size: pixels / unit, blocks: [frame] });
+    c.restore();
+  }
   drawTimeBar() {
-    const v = this.viewport, timeBar = { x: 6, y: 45, w: 348, h: 2 / v.scale, cssHeight: 2 }, progress5 = Math.max(0, Math.min(1, this.view.monthProgress ?? 0));
+    const v = this.viewport, header = this.layout.header;
+    const timeBar = { x: header.x, y: header.y + header.h, w: header.w, h: 2 / v.scale, cssHeight: 2 }, progress5 = Math.max(0, Math.min(1, this.view.monthProgress ?? 0));
     this.pixelRect(timeBar.x, timeBar.y, timeBar.w, timeBar.h, "#353947");
     this.pixelRect(timeBar.x, timeBar.y, timeBar.w * progress5, timeBar.h, "#c5b687");
     this.root.dataset.timeBar = JSON.stringify({ ...timeBar, progress: progress5 });
@@ -12946,14 +12979,7 @@ var CanvasScene = class {
     this.paintWarehouseMouse(this.warehouseMouse);
     this.paintStillAtmosphere(this.stillAtmosphere);
     this.paintSalesShelfGlint(this.salesShelfGlint);
-    this.window(6, 6, 348, 39, "#292b39", "#d8d5df");
-    let headerSize = BODY_SIZE;
-    while (!this.uniformTypography && headerSize > 8 && this.measure(view.calendar + " " + view.generation, headerSize) + this.measure(view.cash, headerSize) > 312) headerSize--;
-    const calendarRight = 15 + this.measure(view.calendar, headerSize), generationX = calendarRight + this.measure(" ", headerSize), generationRight = generationX + this.measure(view.generation, headerSize), cashWidth = this.measure(view.cash, headerSize);
-    this.text(view.calendar, 15, 32, headerSize);
-    this.text(view.generation, generationX, 32, headerSize);
-    this.text(view.cash, 345, 32, headerSize, "right", "#e6c77a");
-    this.root.dataset.headerLayout = JSON.stringify({ cashWidth, cashY: 32, calendarRight, generationRight, cashLeft: 345 - cashWidth, size: headerSize, blocks: [{ x: 6, y: 6, w: 348, h: 39 }] });
+    this.drawHeader();
     this.drawTimeBar();
     const items = view.room === "warehouse" ? view.casks : view.room === "sales" && !view.marketMode ? view.products : [], slots = view.room === "warehouse" ? l.caskSlots : l.productSlots;
     const salesText = [], reservationLayout = [], cooledLayout = [];
@@ -13097,7 +13123,7 @@ var CanvasScene = class {
         continue;
       }
       const primary = ["start-distill", "stop-distill", "open-fill", "go-distill"].includes(a.key), quiet = ["open-staff-panel", "shop-offer", "shelf-prev", "shelf-next"].includes(a.key);
-      if (!quiet) this.window(a.x, a.y + (a.key === "toggle-time" ? 6 : 0), a.w, a.h - (a.key === "toggle-time" ? 12 : 0), pressed ? "#19141e" : primary ? "#685038" : "#292b39", primary ? "#ae8d60" : a.key === "toggle-time" ? hintBright ? "#f0e6c8" : "#d8d5df" : "#858995");
+      if (!quiet) this.window(a.x, a.y + (a.key === "toggle-time" ? 3 : 0), a.w, a.h - (a.key === "toggle-time" ? 6 : 0), pressed ? "#19141e" : primary ? "#685038" : "#292b39", primary ? "#ae8d60" : a.key === "toggle-time" ? hintBright ? "#f0e6c8" : "#d8d5df" : "#858995");
       else if (pressed) {
         c.fillStyle = "#414350";
         c.fillRect(a.x, a.y, a.w, a.h);
@@ -13113,7 +13139,7 @@ var CanvasScene = class {
         c.restore();
         if (a.node.disabled) {
           c.fillStyle = "#292b3966";
-          c.fillRect(a.x + 3, a.y + 3, a.w - 6, a.h - 6);
+          c.fillRect(a.x + 3, a.y + 6, a.w - 6, a.h - 12);
         }
         continue;
       }
