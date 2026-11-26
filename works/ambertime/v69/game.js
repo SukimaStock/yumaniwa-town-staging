@@ -12617,6 +12617,25 @@ var CanvasScene = class {
       }
     }
   }
+  phasePanelLayout() {
+    const { room, phaseSummary, brewing } = this.view;
+    if (room !== "distill" || !phaseSummary) return null;
+    const step = this.uniformTypography?.metrics.lineLogical ?? Math.max(26, this.textMetrics().logical + 4);
+    const panel = noticeLayout(phaseSummary, (line) => this.measure(line), { step, padding: 9 });
+    panel.x = 12;
+    panel.y = brewing && !brewing.editable ? 117 : salesPanelBounds(this.viewport.scale).top / this.viewport.scale;
+    return panel;
+  }
+  paintTextPanel(panel) {
+    this.window(panel.x, panel.y, panel.w, panel.h, NOTICE_WINDOW.fill, NOTICE_WINDOW.border);
+    const c = this.ctx, metrics = this.textMetrics();
+    c.save();
+    c.font = `400 ${metrics.pixels}px ${FONT_STACK}`;
+    const bounds = c.measureText("\u56FDAg");
+    c.restore();
+    const baseline = (bounds.actualBoundingBoxAscent - bounds.actualBoundingBoxDescent) / metrics.unit / 2;
+    panel.lines.forEach((line, i) => this.text(line, panel.x + panel.padding, panel.y + panel.padding + panel.step * (i + 0.5) + baseline, BODY_SIZE, "left"));
+  }
   // Native dialogue shares Canvas font measurement, viewport and notice geometry.
   dialogueLayout(entry) {
     if (!this.viewport || !this.view || !entry) return null;
@@ -12632,7 +12651,8 @@ var CanvasScene = class {
     }
     if (this.view.room === "distill") {
       obstacles.push({ x: 24, y: 270, w: 312, h: 165 });
-      if (this.view.phaseSummary) obstacles.push({ x: 12, y: 108, w: 336, h: 48 });
+      const phasePanel = this.phasePanelLayout();
+      if (phasePanel) obstacles.push(phasePanel);
       if (this.view.spirit) obstacles.push({ x: 24, y: 141, w: 312, h: 114 });
     }
     const step3 = this.uniformTypography?.metrics.lineLogical ?? Math.max(26, this.textMetrics().logical + 4);
@@ -13022,9 +13042,11 @@ var CanvasScene = class {
     this.root.dataset.brewingPanelGeometry = "null";
     if (view.room === "distill" && view.brewing && !view.brewing.editable) this.brewingPanel({ x: 24, y: 54, w: 270, h: 54 });
     this.root.dataset.brewingPanel = JSON.stringify(view.room === "distill" ? view.brewing : null);
-    const phaseLines = view.room === "distill" && view.phaseSummary ? this.lines(view.phaseSummary, 15, 132, 330, BODY_SIZE, 2) : 0;
-    const spiritOffset = phaseLines > 1 ? 18 : 0, readout = view.room === "distill" ? view.spirit : null;
-    this.root.dataset.phaseLayout = JSON.stringify({ lines: phaseLines, spiritTop: readout ? (readout.compact ? 216 : 141) + spiritOffset : null, spiritBottom: readout ? (readout.compact ? 252 : readout.phrase && readout.axes.length ? 255 : 243) + spiritOffset : null, equipmentTop: l.equipment.y });
+    const phasePanel = this.phasePanelLayout();
+    if (phasePanel) this.paintTextPanel(phasePanel);
+    const readout = view.room === "distill" ? view.spirit : null;
+    const spiritOffset = phasePanel && readout ? Math.max(0, phasePanel.y + phasePanel.h + 6 - (readout.compact ? 216 : 141)) : 0;
+    this.root.dataset.phaseLayout = JSON.stringify({ panel: phasePanel, lines: phasePanel?.lines.length ?? 0, spiritTop: readout ? (readout.compact ? 216 : 141) + spiritOffset : null, spiritBottom: readout ? (readout.compact ? 252 : readout.phrase && readout.axes.length ? 255 : 243) + spiritOffset : null, equipmentTop: l.equipment.y });
     if (view.room === "distill" && view.spirit) {
       const p = view.spirit;
       if (p.compact) {
@@ -13068,16 +13090,10 @@ var CanvasScene = class {
         this.root.dataset.collectionBar = JSON.stringify(g);
       }
     } else delete this.root.dataset.collectionBar;
-    const noticeStep = this.uniformTypography ? this.uniformTypography.metrics.lineLogical : Math.max(26, this.textMetrics().logical + 4), metrics = this.textMetrics();
     if (view.notice) {
+      const noticeStep = this.uniformTypography?.metrics.lineLogical ?? Math.max(26, this.textMetrics().logical + 4);
       const n = noticeLayout(view.notice, (t) => this.measure(t), { step: noticeStep });
-      this.window(n.x, n.y, n.w, n.h, NOTICE_WINDOW.fill, NOTICE_WINDOW.border);
-      c.save();
-      c.font = `400 ${metrics.pixels}px ${FONT_STACK}`;
-      const bounds = c.measureText("\u56FDAg");
-      c.restore();
-      const baseline = (bounds.actualBoundingBoxAscent - bounds.actualBoundingBoxDescent) / metrics.unit / 2;
-      n.lines.forEach((line, i) => this.text(line, n.x + n.padding, n.y + n.padding + n.step * (i + 0.5) + baseline, BODY_SIZE, "left"));
+      this.paintTextPanel(n);
       this.root.dataset.noticeLayout = JSON.stringify(n);
     } else delete this.root.dataset.noticeLayout;
     const news = $("automatic-news");
