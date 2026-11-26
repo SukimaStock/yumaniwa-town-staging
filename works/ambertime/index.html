@@ -1255,8 +1255,9 @@ html[data-font-uniform="1"] :is(#save-choice,#storage-notice,#recovery,#automati
 #m0-observation .m0-top{position:absolute;inset:0 0 auto;height:var(--m0-summary-height);overflow:hidden;pointer-events:auto}
 #m0-observation[data-mode=closed] .m0-top{visibility:hidden}
 #m0-observation .m0-rows{height:100%}
-#m0-observation .m0-shop{display:grid;grid-template-columns:minmax(82px,36%) minmax(0,1fr);align-items:center;gap:6px;height:100%;padding:1px 5px;border:2px solid #858995;background:#2d3438}
-#m0-observation .market-shop-name{display:flex;align-items:center;gap:4px;font-size:clamp(10px,3vw,14px);line-height:1.1}
+#m0-observation .m0-shop{display:grid;grid-template-columns:fit-content(65%) minmax(0,1fr);align-items:center;gap:6px;height:100%;padding:1px 5px;border:2px solid #858995;background:#2d3438}
+#m0-observation .market-shop-name{display:flex;align-items:center;gap:4px;min-width:0;font-size:inherit;line-height:1.05}
+#m0-observation .market-shop-title{min-width:0;overflow-wrap:anywhere}
 #m0-observation .market-store-icon{width:22px;flex:0 0 22px}
 #m0-observation .market-store-icon svg{display:block;width:100%;height:auto;fill:#e4c58a}
 #m0-observation .m0-shop button{justify-self:end;min-height:32px;padding:2px 8px}
