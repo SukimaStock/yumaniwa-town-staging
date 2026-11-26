@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "89419dbb1861c5f489eeb2020e1c44348c7f6d747c07bb0ff2ef37656970ad57",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-raised-panels",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "b9f0737eb27ae5f68c9fa1fd153c0c7ac8db387e",
+    "change": "Raise the sales room and map panels and size half-map store rows by visible count.",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-raised-panels/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Start both panels at logical y=57, retain the lower control boundary, and size the half-map store section for the visible rows."
+    ],
+    "ownerDecisions": [
+      "Author approved the reviewed sales room and map layout for Staging."
+    ],
+    "hqDecisions": [
+      "Keep the existing runtime, game rules, coordinate system, gesture hit targets and save formats."
+    ],
+    "rulesApplied": [
+      "Use a locked plan because current distribution files exceed the active-work small-change size limit."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check 1 and 2 stores, narrow and ordinary viewports, expanded map, room/menu/clock access."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this pull request in Staging.",
+    "outOfScope": [
+      "Production, shared town runtime, unrelated games, v70, artwork or game rule redesign, CI and historical test expectation changes, published audit fixtures."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari verification by the author."
+    ],
+    "alternativesRejected": [
+      "Changing gameplay or the interaction controls."
+    ],
+    "boundaryCases": [
+      "Single and multiple stores, non-sales map access, short viewports, full map."
+    ],
+    "testPlan": [
+      "Mobile browser checks, syntax, existing related tests, scope/risk/impact, verify exact deployed files and live route."
+    ],
+    "problem": "Sales and map panels still reserve space for the old clock row; half-map reserves a second empty store slot.",
+    "currentContract": "Existing v69 mobile entry, interactive rooms and save formats.",
+    "whyExistingIsInsufficient": "Blank space limits the visible list or map.",
+    "design": "Keep the approved header and other rooms; adjust only work-local sales/map presentation.",
+    "migration": "Save format unchanged.",
+    "compatibility": "Keep touch inputs, reduced-motion support and prior gameplay.",
+    "promotionRisk": "Staging only."
+  }
+}
