@@ -7911,10 +7911,14 @@ var TOOL_GEOMETRY = Object.freeze({
   glass: { w: 54, h: 54, hitOffsetX: -9, hitOffsetY: -12 },
   pointerCss: { drag: 8, leverMiddle: 18, leverDown: 36, glassCommitMax: 24, glassCommitRatio: 0.45 }
 });
-function leverGuideOffset({ now = 0, completedRuns = 0, enabled = false, touching = false, reduced = false } = {}) {
-  if (!enabled || touching || reduced || completedRuns >= 3) return 0;
-  const practice = completedRuns > 0, period = practice ? 2400 : 1500, step3 = Math.floor(Math.max(0, now) % period / 120), maximum = practice ? 2 : 3;
-  return step3 <= maximum ? step3 * 3 : 0;
+// Space between the arrow tip at rest and the lower edge of the lowered grip.
+var leverGuideTravel = TOOL_GEOMETRY.lever.handleY[2] + 9 - (TOOL_GEOMETRY.lever.guideY + 18);
+function leverGuideOffset(elapsed, guideDistance) {
+  const frame = Math.floor(Math.max(0, elapsed) / 120) % 23;
+  if (frame < 8) return [0, 3, 6, 3][frame % 4];
+  if (frame < 17) return Math.round((frame - 8) / 8 * guideDistance / 3) * 3;
+  if (frame < 19) return guideDistance;
+  return null;
 }
 function leverReturnStep(elapsed2, reduced = false) {
   return reduced || elapsed2 >= 120 ? 0 : elapsed2 < 60 ? 2 : 1;
@@ -7933,7 +7937,7 @@ function distillToolsView({ phase, collection = {}, litres = 0, flowLitres = lit
   const width = start === null || start === void 0 ? null : Math.max(0, (end - start) * (collection.fullRange ? 99 : 69));
   const fill2 = done ? width === null ? 0.7 : Math.min(1, width / 84) : collecting ? width === null ? 0.7 : Math.min(1, width / 84) : 0;
   const recovery = expired && leverEnabled, showLeverArrow = leverEnabled && (recovery || phase === "ready" && completedRuns < 3);
-  return { visible: available, leverEnabled, glassEnabled, glassMode: glassEnabled ? collecting ? "stop" : "start" : null, leverDown: countdown2 || !expired && phase === "distilling", glassPosition: collecting ? 0 : 1, prepared, leverInactive: phase === "ready" && !countdown2 && !leverEnabled, showLeverArrow, guideLevel: recovery ? "recovery" : completedRuns === 0 ? "first" : completedRuns < 3 ? "practice" : "learned", guideDistance: recovery || completedRuns === 0 ? 9 : completedRuns < 3 ? 6 : 0, glassArrow: available && !automatic && (countdown2 || phase === "distilling" && !expired), glassArrowActive: glassEnabled, glassArrowBlink: available && !automatic && (countdown2 || glassEnabled), litres: amount, fill: fill2, hint: phase === "ready" || expired ? "\u30EC\u30D0\u30FC\u3092\u4E0B\u306B\u5F15\u304F" : phase === "distilling" && !automatic ? !collectingAllowed ? "\u3082\u3046\u5C11\u3057\u5F85\u3061\u307E\u3059" : collecting ? "\u30BF\u30C3\u30D7\u304B\u53F3\u3078\u30B9\u30E9\u30A4\u30C9\u3067\u7D42\u3048\u308B" : "\u30BF\u30C3\u30D7\u304B\u5DE6\u3078\u30B9\u30E9\u30A4\u30C9\u3067\u53D7\u3051\u308B" : "", arrow: leverEnabled && showLeverArrow };
+  return { visible: available, leverEnabled, glassEnabled, glassMode: glassEnabled ? collecting ? "stop" : "start" : null, leverDown: countdown2 || !expired && phase === "distilling", glassPosition: collecting ? 0 : 1, prepared, leverInactive: phase === "ready" && !countdown2 && !leverEnabled, showLeverArrow, guideLevel: recovery ? "recovery" : completedRuns === 0 ? "first" : completedRuns < 3 ? "practice" : "learned", guideDistance: showLeverArrow ? leverGuideTravel : 0, glassArrow: available && !automatic && (countdown2 || phase === "distilling" && !expired), glassArrowActive: glassEnabled, glassArrowBlink: available && !automatic && (countdown2 || glassEnabled), litres: amount, fill: fill2, hint: phase === "ready" || expired ? "\u30EC\u30D0\u30FC\u3092\u4E0B\u306B\u5F15\u304F" : phase === "distilling" && !automatic ? !collectingAllowed ? "\u3082\u3046\u5C11\u3057\u5F85\u3061\u307E\u3059" : collecting ? "\u30BF\u30C3\u30D7\u304B\u53F3\u3078\u30B9\u30E9\u30A4\u30C9\u3067\u7D42\u3048\u308B" : "\u30BF\u30C3\u30D7\u304B\u5DE6\u3078\u30B9\u30E9\u30A4\u30C9\u3067\u53D7\u3051\u308B" : "", arrow: leverEnabled && showLeverArrow };
 }
 function drawDistillTools(ctx, view, { leverStep = null, glassX = TOOL_GEOMETRY.waitX, arrowBright = true, arrowOffset = 0 } = {}) {
   const r = (x2, y2, w, h, color) => {
@@ -7959,7 +7963,7 @@ function drawDistillTools(ctx, view, { leverStep = null, glassX = TOOL_GEOMETRY.
   r(lx - 6, ly - 6, 6, 3, light);
   r(lx - 3, ly - 3, 6, 6, dark);
   r(lx, ly, 3, 3, light);
-  if (view.showLeverArrow) {
+  if (view.showLeverArrow && arrowOffset !== null) {
     const color = view.arrow ? "#d8c990" : "#62636b", offset = Math.round(arrowOffset / 3) * 3;
     r(lx + lever.guideX, ly + lever.guideY + offset, 3, 12, color);
     for (let n = 0; n < 3; n++) r(lx + lever.guideX - 6 + n * 3, ly + lever.guideY + 9 + n * 3 + offset, 15 - n * 6, 3, color);
@@ -9974,6 +9978,9 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     const key2 = JSON.stringify([level2, progress5.max, [...progress5.activeShops].sort(), scenery.staticKey, mapSeasonKey(level2, s?.core?.month), mapWeatherKey(level2, s?.core?.month, s?.seed)]);
     if (key2 !== paintKey) {
       drawGameMap(canvas, s, level2, 1, scenery);
+      // The atlas corner is the plain terrain surrounding this map at each scale.
+      const edgeTile = rpg_atlas_default.maps[level2 - 1][0][0];
+      drawer.style.backgroundColor = mapSeasonPalette(level2, s.core.month, rpg_atlas_default.colors)[edgeTile];
       paintKey = key2;
     }
     syncSceneryLayer(sceneryLayer, scenery, mode !== "closed" && !closing && !opening, s?.seed, s?.still?.phase === "distilling" && !blocked5());
@@ -12893,7 +12900,9 @@ var CanvasScene = class {
       }
       this.toolArrowBright = !tools.glassArrowBlink || this.reducedMotion.matches || Math.floor(now / 900) % 2 === 0;
       this.toolGuideMoving = visible && this.view.room === "distill" && tools.visible && tools.arrow && this.toolGesture?.leverStep == null && !this.reducedMotion.matches;
-      this.toolArrowOffset = leverGuideOffset({ now: now - (this.toolGuideSince ?? now), completedRuns: ["first", "recovery"].includes(tools.guideLevel) ? 0 : tools.guideLevel === "practice" ? 1 : 3, enabled: this.toolGuideMoving, touching: this.toolGesture?.leverStep != null, reduced: this.reducedMotion.matches });
+      this.toolArrowOffset = this.toolGesture?.leverStep != null ? null : this.toolGuideMoving
+        ? leverGuideOffset(now - (this.toolGuideSince ?? now), tools.guideDistance)
+        : 0;
       this.toolReturning = false;
       if (this.toolReturn) {
         this.toolPaintLeverStep = leverReturnStep(now - this.toolReturn.start, this.reducedMotion.matches);
@@ -12998,6 +13007,7 @@ var CanvasScene = class {
     } else delete this.root.dataset.countdown;
     if (view.room === "distill") {
       const g = collectionGeometry(view.cutRange), point2 = (n) => g.x + Math.round(n * g.w);
+      this.pixelRect(g.x - 3, g.y - 3, g.w + 6, g.h + 6, "#555762");
       if (view.cutRange?.enabled) {
         const painted = drawCutBar((...args) => this.pixelRect(...args), { ...g, fullRange: view.cutRange.fullRange }, view.cutCondition);
         this.root.dataset.collectionBar = JSON.stringify(painted);
