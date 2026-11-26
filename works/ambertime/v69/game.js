@@ -21208,10 +21208,10 @@ function syncModal() {
     body = "<p>" + esc12(store.category) + "</p>";
     if (direct.status === "pending") {
       body += "<p>直接取引の申し出が届いています。</p>";
-      actions = button("受ける", "direct-accept", direct.id) + button("見送る", "direct-decline", direct.id) + button("戻る", "cancel");
+      actions = button("受ける", "direct-accept", direct.id) + button("見送る", "direct-decline", direct.id) + (modal.fromDirectory ? button("戻る", "stockists-back") : button("戻る", "cancel"));
     } else {
       body += "<p>取扱い中</p>" + autoSupplyControls(modal.shopId);
-      actions = button("この店の棚へ", "shop-shelf") + button("閉じる", "cancel");
+      actions = button("この店の棚へ", "shop-shelf") + (modal.fromDirectory ? button("戻る", "stockists-back") : button("閉じる", "cancel"));
     }
   } else if (kind2 === "stockist" && modal.regional) {
     const view = regionalPartnerView(game, modal.shopId, D.regionalContract(game, modal.shopId));
@@ -21243,7 +21243,7 @@ function syncModal() {
     if (modal.greeting && modal.startedBrandId !== void 0) body = shopStartedMarkup() + body;
     else body = latestDialogueMarkup(modal.shopId) + body;
     body += autoSupplyControls(modal.shopId);
-    actions = (relations.length ? button("この店の棚へ", "shop-shelf") : "") + button("閉じる", "cancel");
+    actions = (relations.length ? button("この店の棚へ", "shop-shelf") : "") + (modal.fromDirectory ? button("戻る", "stockists-back") : button("閉じる", "cancel"));
   } else if (kind2 === "stockist") {
     if (!knownStockists().some((s) => s.id === modal.shopId)) {
       modal = { kind: "stockists" };
@@ -22209,7 +22209,7 @@ function handleModal(e) {
     return;
   }
   if (a === "direct-open" && kind2 === "stockists" && game.localDistribution?.offers.some((o) => o.storeId === b.dataset.id && o.status !== "declined")) {
-    modal = { kind: "stockist", shopId: b.dataset.id };
+    modal = { kind: "stockist", shopId: b.dataset.id, fromDirectory: true };
     render2();
     return;
   }
@@ -22242,7 +22242,7 @@ function handleModal(e) {
   }
   if (a === "stockist-open" && kind2 === "stockists" && knownStockists().some((s) => s.id === b.dataset.id)) {
     deliveryNotice = "";
-    modal = { kind: "stockist", shopId: b.dataset.id };
+    modal = { kind: "stockist", shopId: b.dataset.id, fromDirectory: true };
     render2();
     return;
   }
