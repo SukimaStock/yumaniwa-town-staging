@@ -18204,7 +18204,7 @@ var STYLES = `
 .at-recall-player .at-recall-caption{min-height:128px;padding:20px 16px;display:flex;flex-direction:column;justify-content:center;gap:12px;text-align:center}
 .at-recall-player [data-recall-date]{color:#c1bdb0}
 .at-recall-player [data-recall-sentence]{overflow-wrap:anywhere;text-wrap:pretty}
-.at-recall-player nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:0 12px 12px}
+.at-recall-player nav{display:grid;grid-template-columns:minmax(0,1fr) 44px auto minmax(0,1fr);align-items:center;gap:6px;padding:0 12px 12px}
 .at-recall-player [data-recall-action=pending]{display:block;margin:0 auto 12px}
 .at-recall-player [data-recall-action=pending][hidden]{display:none}
 .at-recall-player nav button{padding-inline:6px}
@@ -18229,88 +18229,103 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
  <button type="button" class="at-recall-picture" data-recall-action="picture" aria-label="\u6B21\u306E\u5834\u9762\u3078"><canvas width="120" height="72" aria-hidden="true"></canvas></button>
  <div class="at-recall-caption" aria-live="polite" aria-atomic="true"><p data-recall-date></p><p data-recall-beat-cue aria-hidden="true"></p><p data-recall-sentence></p></div>
  <button type="button" data-recall-action="pending" hidden>\u5F15\u304D\u7D99\u3050\u7533\u3057\u51FA\u3092\u898B\u308B</button>
- <nav aria-label="\u56DE\u60F3\u306E\u5834\u9762"><button type="button" data-recall-action="previous">\u623B\u308B</button><span data-recall-counter aria-label="\u5834\u9762\u756A\u53F7"></span><button type="button" data-recall-action="next">\u6B21\u3078</button></nav>`;
+ <nav aria-label="\u56DE\u60F3\u306E\u5834\u9762"><button type="button" data-recall-action="previous">\u623B\u308B</button><button type="button" data-recall-action="toggle" aria-label="一時停止">Ⅱ</button><span data-recall-counter aria-label="\u5834\u9762\u756A\u53F7"></span><button type="button" data-recall-action="next">\u6B21\u3078</button></nav>`;
   document2.body.append(dialog);
   const $3 = (q) => dialog.querySelector(q), picture = $3(".at-recall-picture"), canvas = $3("canvas");
   const previous = $3('[data-recall-action="previous"]'), forward = $3('[data-recall-action="next"]');
   let index = 0, playing = [], mode = "debug", onComplete = null, onPending = null, returnFocus = null, finishing = false;
-  let recallFrameRequest=0;
-  function stopRecallAnimation(){
-    if(recallFrameRequest&&window2.cancelAnimationFrame)window2.cancelAnimationFrame(recallFrameRequest);
-    recallFrameRequest=0;
+  const toggle = $3('[data-recall-action="toggle"]');
+  const requestFrame = window2.requestAnimationFrame?.bind(window2) ??
+    (callback => window2.setTimeout(() => callback(window2.performance.now()), 32));
+  const cancelFrame = window2.cancelAnimationFrame?.bind(window2) ?? window2.clearTimeout.bind(window2);
+  let paused = false, parked = false, frame = null, previousTime = null, elapsed = 0;
+  let duration = 0, paintCut = null;
+
+  function stopRecallAnimation() {
+    if (frame !== null) cancelFrame(frame);
+    frame = null;
+    previousTime = null;
   }
-  function startRecallAnimation(){
-    stopRecallAnimation();
-    const ctx=canvas.getContext('2d'), view=playing[index];
-    const reduced=window2.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-    const clips=Array.isArray(view.beats)&&view.beats.length?view.beats:[{date:view.date,art:view.art,durationMs:2000}];
-    const durations=clips.map(b=>Math.max(300,Math.min(4000,b.durationMs||2000)));
-    const total=durations.reduce((a,b)=>a+b,0)+Math.min(2500,Math.max(0,view.holdMs||0));
-    let activeBeat=-1;
-    const paint=(elapsed, final=false)=>{
-      let remaining=Math.max(0,elapsed), bi=0;
-      for(;bi<clips.length-1&&remaining>=durations[bi];bi++)remaining-=durations[bi];
-      const b=clips[bi];
-      if(bi!==activeBeat){
-        activeBeat=bi;
-        $3('[data-recall-sentence]').textContent=b.fadeCaption?'':view.sentence;
-        if(b.fadeCaption) $3('[data-recall-date]').textContent='';
-        $3('[data-recall-date]').textContent=view.silent||b.fadeCaption?'':(b.date??view.date);
-        $3('[data-recall-beat-cue]').textContent=view.silent?'':(b.cue||'');
-      }
-      const frameMs=final?1999:Math.min(1999,remaining/durations[bi]*1999);
-      drawScene(ctx,{...view,...b,art:b.art||view.art},frameMs);
-      if(b.shopId){
-        ctx.fillStyle=b.shopId==='supermarket'?'#90aa91':b.shopId==='bar'?'#ad7d64':'#c3a06a';
-        ctx.fillRect(5,6,b.shopId==='supermarket'?22:b.shopId==='bar'?6:14,2);
-        if (b.shopId === 'bar') {
-          ctx.fillStyle='#4b3d43'; ctx.fillRect(22,12,1,3);
-          ctx.fillStyle='#c99c63'; ctx.fillRect(21,15,3,3);
-          ctx.fillStyle='#efd090'; ctx.fillRect(22,15,1,2);
-        } else if (b.shopId === 'town-liquor') {
-          ctx.fillStyle='#59483d'; ctx.fillRect(6,18,9,1);
-          for (const x of [7,10,13]) { ctx.fillStyle='#977c50'; ctx.fillRect(x,15,2,3); ctx.fillRect(x,14,1,1); }
-        }
-        if(b.returned){
-          ctx.fillStyle='#322b30';ctx.fillRect(0,17,32,10);
-          ctx.fillStyle='#997754';ctx.fillRect(2,24,10,2);ctx.fillRect(19,24,12,2);
-          ctx.fillRect(19,18,1,8);ctx.fillRect(30,18,1,8);
-          ctx.fillStyle='#746249';ctx.fillRect(20,18,10,1);
-          const x=5+Math.round(18*Math.min(1,frameMs/1500));
-          ctx.fillStyle='#d5ad64';ctx.fillRect(x,20,3,4);ctx.fillRect(x+1,19,1,1);
-        }
-      }
-    };
-    if(reduced||!window2.requestAnimationFrame){
-      paint(total,true);
-      if((view.role==='aging' || view.role==='first-bottle' && clips[0]?.art==='cask') && clips.length===2){
-        const panels=document2.createElement('canvas');panels.width=32;panels.height=32;
-        const pc=panels.getContext('2d');ctx.clearRect(0,0,32,32);
-        clips.forEach((b,i)=>{drawScene(pc,{...view,...b},1999);ctx.drawImage(panels,i*16,8,16,16);});
-        $3('[data-recall-date]').textContent=clips.map(b=>b.date).join(' → ');
-      }
-      if(view.role==='handover-without-cask' && window2.requestAnimationFrame){
-        $3('[data-recall-sentence]').textContent=view.sentence;
-        recallFrameRequest=window2.requestAnimationFrame(function clearAfter(start){
-          function wait(now){if(now-start>=1600){$3('[data-recall-sentence]').textContent='';return;}recallFrameRequest=window2.requestAnimationFrame(wait);}
-          recallFrameRequest=window2.requestAnimationFrame(wait);
-        });
-      }
+  function scheduleFrame() {
+    if (dialog.open && !paused && !parked && !document2.hidden && elapsed < duration && frame === null)
+      frame = requestFrame(tick);
+  }
+  function tick(now) {
+    frame = null;
+    if (!dialog.open || paused || parked || document2.hidden || elapsed >= duration) {
+      previousTime = null;
       return;
     }
-    let started=null;
-    const animate=now=>{
-      if(!dialog.open)return;
-      if(started===null)started=now;
-      const elapsed=Math.min(total,now-started);
-      paint(elapsed,elapsed>=total);
-      if(elapsed<total)recallFrameRequest=window2.requestAnimationFrame(animate);
-      else recallFrameRequest=0;
-    };
-    paint(0);
-    recallFrameRequest=window2.requestAnimationFrame(animate);
+    // Never catch up through unseen beats after the browser stalls.
+    if (previousTime !== null) elapsed += Math.min(100, Math.max(0, now - previousTime));
+    previousTime = now;
+    if (elapsed >= duration) {
+      if (index < playing.length - 1) moveCut(1);
+      else paintCut(duration);
+      return;
+    }
+    paintCut(elapsed);
+    scheduleFrame();
   }
-
+  function updateToggle() {
+    toggle.disabled = picture.disabled;
+    toggle.textContent = paused || toggle.disabled ? '▶' : 'Ⅱ';
+    toggle.setAttribute('aria-label', toggle.disabled ? '回想の終わり' : paused ? '再開' : '一時停止');
+  }
+  function startRecallAnimation() {
+    stopRecallAnimation();
+    elapsed = 0;
+    const ctx = canvas.getContext('2d'), view = playing[index];
+    const reduced = window2.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    const clips = view.beats?.length ? view.beats : [{date:view.date, art:view.art, durationMs:2000}];
+    const durations = clips.map(b => Number.isFinite(b.durationMs) && b.durationMs > 0 ? b.durationMs : 2000);
+    duration = durations.reduce((sum, ms) => sum + ms, 0) + (view.holdMs ?? 900);
+    let activeBeat = -1;
+    paintCut = time => {
+      let rest = time, beat = 0;
+      while (beat < clips.length - 1 && rest >= durations[beat]) rest -= durations[beat++];
+      const clip = clips[beat], changed = beat !== activeBeat;
+      if (changed) {
+        activeBeat = beat;
+        $3('[data-recall-sentence]').textContent = view.silent || clip.fadeCaption ? '' : view.sentence;
+        $3('[data-recall-date]').textContent = view.silent || clip.fadeCaption ? '' : (clip.date ?? view.date);
+        $3('[data-recall-beat-cue]').textContent = view.silent ? '' : (clip.cue || '');
+      }
+      if (!reduced || changed) {
+        const ms = reduced ? 1999 : Math.min(1999, rest / durations[beat] * 1999);
+        drawScene(ctx,{...view,...clip,art:clip.art||view.art},ms);
+        if(clip.shopId){
+          ctx.fillStyle=clip.shopId==='supermarket'?'#90aa91':clip.shopId==='bar'?'#ad7d64':'#c3a06a';
+          ctx.fillRect(5,6,clip.shopId==='supermarket'?22:clip.shopId==='bar'?6:14,2);
+          if (clip.shopId === 'bar') {
+            ctx.fillStyle='#4b3d43'; ctx.fillRect(22,12,1,3);
+            ctx.fillStyle='#c99c63'; ctx.fillRect(21,15,3,3);
+            ctx.fillStyle='#efd090'; ctx.fillRect(22,15,1,2);
+          } else if (clip.shopId === 'town-liquor') {
+            ctx.fillStyle='#59483d'; ctx.fillRect(6,18,9,1);
+            for (const x of [7,10,13]) { ctx.fillStyle='#977c50'; ctx.fillRect(x,15,2,3); ctx.fillRect(x,14,1,1); }
+          }
+          if(clip.returned){
+            ctx.fillStyle='#322b30';ctx.fillRect(0,17,32,10);
+            ctx.fillStyle='#997754';ctx.fillRect(2,24,10,2);ctx.fillRect(19,24,12,2);
+            ctx.fillRect(19,18,1,8);ctx.fillRect(30,18,1,8);
+            ctx.fillStyle='#746249';ctx.fillRect(20,18,10,1);
+            const x=5+Math.round(18*Math.min(1,ms/1500));
+            ctx.fillStyle='#d5ad64';ctx.fillRect(x,20,3,4);ctx.fillRect(x+1,19,1,1);
+          }
+        }
+      }
+    };
+    paintCut(0);
+    updateToggle();
+    scheduleFrame();
+  }
+  document2.addEventListener('visibilitychange', () => {
+    stopRecallAnimation();
+    scheduleFrame();
+  });
+  window2.addEventListener('pagehide', () => { parked = true; stopRecallAnimation(); });
+  window2.addEventListener('pageshow', () => { parked = false; scheduleFrame(); });
   function size() {
     if (!dialog.open || !playing.length) return;
     const width = Math.max(1, Math.min(360, window2.innerWidth || 360)),
@@ -18322,8 +18337,12 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     const scale = Math.max(1, Math.floor(Math.min(available / native.width, heightLimit / native.height)));
     canvas.style.width = native.width * scale + "px";
     canvas.style.height = native.height * scale + "px";
-    const overflow=dialog.scrollHeight-dialog.clientHeight;
-    if(overflow>0){const fit=Math.max(1,scale-Math.ceil(overflow/native.height));canvas.style.width=native.width*fit+"px";canvas.style.height=native.height*fit+"px";}
+    const overflow = dialog.scrollHeight - dialog.clientHeight;
+    if (overflow > 0) {
+      const fit = Math.max(1, scale - Math.ceil(overflow / native.height));
+      canvas.style.width = native.width * fit + "px";
+      canvas.style.height = native.height * fit + "px";
+    }
   }
   function render3() {
     const view = playing[index], last = index === playing.length - 1;
@@ -18352,24 +18371,21 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     if (dialog.open) dialog.close();
     restoreFocus();
   }
+  function moveCut(delta) {
+    const target = index + delta;
+    if (!dialog.open || finishing || target < 0 || target >= playing.length) return;
+    index = target;
+    render3();
+  }
   function next() {
     if (!dialog.open || finishing) return;
-    if (index < playing.length - 1) {
-      index++;
-      render3();
-      return;
-    }
+    if (index < playing.length - 1) return moveCut(1);
     finishing = true;
     try {
       if (mode === "handover") onComplete?.();
     } finally {
       close();
     }
-  }
-  function back() {
-    if (!dialog.open || finishing || index === 0) return;
-    index--;
-    render3();
   }
   dialog.addEventListener("click", (event2) => {
     if (!dialog.open || finishing) return;
@@ -18382,17 +18398,23 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
       return;
     }
     if (action7 === "close") close();
-    else if (action7 === "previous") back();
-    else if (action7 === "next" || action7 === "picture") next();
+    else if (action7 === "previous") moveCut(-1);
+    else if (action7 === "toggle") {
+      paused = !paused;
+      stopRecallAnimation();
+      updateToggle();
+      scheduleFrame();
+    } else if (action7 === "picture") moveCut(1);
+    else if (action7 === "next") next();
   });
   dialog.addEventListener("keydown", (event2) => {
     if (!dialog.open || event2.altKey || event2.ctrlKey || event2.metaKey) return;
     if (event2.key === "ArrowLeft") {
       event2.preventDefault();
-      back();
+      moveCut(-1);
     } else if (event2.key === "ArrowRight") {
       event2.preventDefault();
-      next();
+      moveCut(1);
     }
   });
   dialog.addEventListener("cancel", (event2) => {
@@ -18400,8 +18422,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     close();
   });
   dialog.addEventListener("close", () => {
-    stopRecallAnimation();
-    if (!dialog.open) restoreFocus();
+    if (!dialog.open) { stopRecallAnimation(); restoreFocus(); }
   });
   window2.addEventListener?.("resize", size);
   window2.visualViewport?.addEventListener?.("resize", size);
@@ -18414,11 +18435,12 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     playing = values.map((v) => ({ date: v.date, sentence: v.sentence, scene: v.scene,
       art: typeof v.art === "string" ? v.art : legacyArt[v.scene] ?? "neutral",
       beats:Array.isArray(v.beats)?v.beats:null, silent:v.silent===true,
-      holdMs:Number.isFinite(v.holdMs)?v.holdMs:0, role:v.role||'legacy' }));
+      holdMs:Number.isFinite(v.holdMs)?Math.max(0,v.holdMs):null, role:v.role||'legacy' }));
     mode = nextMode;
     onComplete = options.onComplete ?? null;
     onPending = typeof options.onPending === "function" ? options.onPending : null;
     index = mode === "handover" && options.resumeLast === true ? playing.length - 1 : 0;
+    paused = false;
     finishing = false;
     $3("#at-recall-title").textContent = options.title ?? "\u4E8C\u4EE3\u76EE\u306E\u56DE\u60F3";
     returnFocus = document2.activeElement;
@@ -19593,21 +19615,36 @@ function generationSummaryView(id3) {
   const count3 = (n, suffix) => Number.isFinite(n) && (g.coverage.complete || n > 0) ? n + suffix + (g.coverage.complete ? "" : "\u4EE5\u4E0A") : "\u4E0D\u660E";
   let out = '<article class="generation-summary"><p>' + esc12(known2(g.startedMonth, monthLabel)) + "\u301C" + esc12(known2(g.endedMonth ?? game.core.month, monthLabel)) + "</p>";
   if (!g.coverage.complete) out += '<p class="quiet">\u8A18\u9332\u306E\u6B8B\u308B\u7BC4\u56F2' + (Number.isFinite(g.coverage.fromMonth) ? " \xB7 " + esc12(monthLabel(g.coverage.fromMonth)) + "\u304B\u3089" : "") + "</p>";
-  out += copyFacts([["\u4ED5\u8FBC\u307F", count3(g.totals.filled, "\u305F\u308B")], ["\u30D3\u30F3\u8A70\u3081", count3(g.totals.bottled, "\u672C")], ["\u8CA9\u58F2", count3(g.totals.sold, "\u672C")]]);
-  const releases = (historyRecord?.events ?? []).filter((e) => e.kind === "bottling" && e.generationNumber === id3 && e.releaseId != null);
-  if (releases.length) out += '<details class="generation-releases"><summary>\u3053\u306E\u4EE3\u306B\u74F6\u8A70\u3081\u3057\u305F\u9152\uFF08' + releases.length + "\uFF09</summary>" + ledgerPaged(releases.slice().reverse(), (e) => button(esc12(releaseTag(e.productId)) + " \u767A\u58F2 \xB7 " + e.count + "\u672C", "ledger-release", "release:" + e.releaseId)) + "</details>";
+  const bottled = (historyRecord?.events ?? []).filter(e => e.kind === "bottling" && e.generationNumber === id3);
+  const releases = bottled.filter(e => e.releaseId != null);
+  const directOffers = game.localDistribution?.offers ?? [];
+  const storeName = offer => STORE_CANDIDATES.find(store => store.id === offer.storeId)?.name ?? offer.storeId;
+  const newStores = directOffers.filter(o => o.status === "accepted" && o.generationId === id3);
+  out += "<h3>造った酒</h3><p>仕込み " + count3(g.totals.filled, "樽") + "／瓶詰め " + count3(bottled.length, "回") + "（" + count3(g.totals.bottled, "本") + "）</p>";
+  if (releases.length) out += '<details class="generation-releases"><summary>瓶詰めの記録</summary>' + ledgerPaged(releases.slice().reverse(), e =>
+    button(esc12(releaseTag(e.productId)) + "・" + e.count + "本", "ledger-release", "release:" + e.releaseId)) + "</details>";
+  out += "<h3>売った酒</h3><p>販売・納品 合計" + count3(g.totals.sold, "本") + "</p>";
+  const shipments = generationShipments(game, id3);
+  const sales = directOffers.filter(o => o.soldByGeneration?.[id3] > 0);
+  if (shipments.length || sales.length) {
+    out += "<details><summary>販売・納品の内訳</summary>";
+    if (shipments.length) out += "<p>窓口に納めた本数</p>" + copyFacts(shipments.map(s => [s.name, s.count + "本"]));
+    if (sales.length) out += "<p>直接取引の店で売れた本数</p>" + copyFacts(sales.map(o => [storeName(o), o.soldByGeneration[id3] + "本"]));
+    out += "</details>";
+  }
+  out += "<h3>新しい取引先</h3>" + (newStores.length ? copyFacts(newStores.map(o => [storeName(o), known2(o.decidedMonth, monthLabel)])) : "<p>" + (g.coverage.complete ? "なし" : "記録なし") + "</p>");
+  out += "<h3>次の代へ渡すもの</h3><p>" + known2(g.estate.casks, n => n + "樽") + "／資金 " + esc12(known2(g.estate.cash, unit4)) + "</p>";
+  let events = "";
   const rumors = firstRegionalRumors(game, id3);
   if (rumors.length) {
-    out += '<details class="generation-rumors"><summary>\u53E3\u30B3\u30DF\u304C\u521D\u3081\u3066\u5C4A\u3044\u305F\u5730\u57DF</summary><ul>' + rumors.map(({ region, event: event2 }) => {
+    events += '<details class="generation-rumors"><summary>\u53E3\u30B3\u30DF\u304C\u521D\u3081\u3066\u5C4A\u3044\u305F\u5730\u57DF</summary><ul>' + rumors.map(({ region, event: event2 }) => {
       const place2 = NODES3.find((node2) => node2.id === event2.to);
       const release3 = game.releases.find((row) => row.id === event2.mainReleaseId && row.productId === event2.productId);
       const link = release3 ? button(esc12(releaseTag(release3.productId)) + "\u306E\u9152", "ledger-release", "release:" + release3.id) : "";
       return "<li>" + esc12(monthLabel(event2.month)) + " \xB7 " + esc12(region) + (place2 ? " \xB7 " + esc12(place2.name) : "") + link + "</li>";
     }).join("") + "</ul></details>";
   }
-  out += interestPlaces(firstInterest(game).filter((e) => e.generation === id3), "\u3053\u306E\u4EE3\u306B\u521D\u3081\u3066\u95A2\u5FC3\u304C\u5C4A\u3044\u305F\u5834\u6240");
-  const shipments = generationShipments(game, id3);
-  if (shipments.length) out += "<h3>\u3053\u306E\u4EE3\u306E\u7A93\u53E3\u3078\u306E\u7D0D\u54C1</h3>" + copyFacts(shipments.map((s) => [s.name, s.count + "\u672C"]));
+  events += interestPlaces(firstInterest(game).filter((e) => e.generation === id3), "\u3053\u306E\u4EE3\u306B\u521D\u3081\u3066\u95A2\u5FC3\u304C\u5C4A\u3044\u305F\u5834\u6240");
   const completed = game.generations?.completed.some((era) => era.id === id3);
   if (completed || game.generations?.active.phase === "review") {
     const carried = carriedDirectOffers(game, id3);
@@ -19616,16 +19653,13 @@ function generationSummaryView(id3) {
       return "<p>" + esc12(monthLabel(o.month)) + " \xB7 " + esc12(store.name) + "</p>" + (release3 ? button(esc12(releaseTag(release3.productId)) + " \u767A\u58F2\u306E\u9152", "ledger-release", "release:" + release3.id) : "");
     }).join("") + "</details>";
   }
-  const direct = game.localDistribution?.offers.filter((o) => o.status === "accepted" && o.generationId === id3) ?? [];
-  if (direct.length) out += "<h3>\u3053\u306E\u4EE3\u306B\u76F4\u63A5\u53D6\u5F15\u3092\u59CB\u3081\u305F\u5E97</h3>" + copyFacts(direct.map((o) => [STORE_CANDIDATES.find((s) => s.id === o.storeId).name, monthLabel(o.decidedMonth)]));
-  const directSales = game.localDistribution?.offers.filter((o) => (o.soldByGeneration?.[id3] ?? 0) > 0) ?? [];
-  if (directSales.length) out += "<h3>\u3053\u306E\u4EE3\u306E\u5E83\u57DF\u5E97\u3067\u306E\u5B9F\u58F2</h3>" + copyFacts(directSales.map((o) => [STORE_CANDIDATES.find((s) => s.id === o.storeId).name, o.soldByGeneration[id3] + "\u672C"]));
   for (const e of g.events ?? []) {
     const label = e.kind === "shop-start" ? "\u53D6\u6271\u958B\u59CB" : e.kind === "department-adoption" ? "\u7279\u5225\u53D6\u6271\u3044" : "\u521D\u306E\u9577\u671F\u719F\u6210", detail = e.kind === "mature-bottling" ? ageLabel(e.age) + "\u3067\u30D3\u30F3\u8A70\u3081" : shopName(e.shopId ?? "department");
-    out += "<p>" + esc12(known2(e.month, monthLabel)) + " \xB7 " + esc12(label) + "<br>" + esc12(detail) + "</p>";
+    events += "<p>" + esc12(known2(e.month, monthLabel)) + " \xB7 " + esc12(label) + "<br>" + esc12(detail) + "</p>";
   }
   const last = g.lastStatus === "filled" ? (g.lastCaskId !== null ? pastCaskName(g.lastCaskId) + " \xB7 " : "") + "\u305F\u308B\u8A70\u3081\u6E08\u307F" : g.lastStatus === "unfinished" ? "\u672A\u5B8C\u6210\u306E\u539F\u9152\u3092\u5F15\u304D\u3064\u304E" : g.lastStatus === "not-made" ? "\u898B\u9001\u308A" : "\u72B6\u614B\u306E\u8A18\u9332\u306A\u3057";
-  out += "<p>\u6700\u5F8C\u306E\u4ED5\u8FBC\u307F<br>" + esc12(last) + "</p>" + copyFacts([["\u5F15\u304D\u3064\u304E", known2(g.estate.casks, (n) => n + "\u305F\u308B")], ["\u8CC7\u91D1", known2(g.estate.cash, unit4)]]);
+  events += "<p>\u6700\u5F8C\u306E\u4ED5\u8FBC\u307F<br>" + esc12(last) + "</p>";
+  out += "<details><summary>この代の出来事</summary>" + events + "</details>";
   return out + "</article>";
 }
 var releaseFor2 = (id3) => game.releases.find((r) => r.productId === id3);
