@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "96969ce617ab90f13ed1497b985e687c885f5551efa717bae60a10982a209a60",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-distill-status",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "f2882dc0fa237d88b158060643936d340e73d057",
+    "change": "Group the distill-room phase message in a read-only framed panel.",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-distill-status/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Frame bare phase/status text on the distill room wall using existing panel conventions. Keep text, controls and game behavior intact."
+    ],
+    "ownerDecisions": [
+      "Author requested organizing unframed distill-room text shown in the screenshot."
+    ],
+    "hqDecisions": [
+      "Keep the existing runtime, game rules, coordinate system, gesture hit targets and save formats."
+    ],
+    "rulesApplied": [
+      "Use a locked plan because current distribution files exceed the active-work small-change size limit."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect framed phase messages, empty states, wrapping and spacing from the other controls and readouts on mobile."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this pull request in Staging.",
+    "outOfScope": [
+      "Production, shared town runtime, unrelated games, v70, artwork or game rule redesign, CI and historical test expectation changes, published audit fixtures."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari verification by the author."
+    ],
+    "alternativesRejected": [
+      "Changing gameplay or the interaction controls."
+    ],
+    "boundaryCases": [
+      "Empty or wrapped phase text, brewing status, spirit and lever controls, other rooms."
+    ],
+    "testPlan": [
+      "Check relevant browser scenarios and regressions, syntax, plan gates, CI and live Staging."
+    ],
+    "problem": "Phase messages are rendered directly over the brick wall in the distill room.",
+    "currentContract": "Existing v69 mobile entry, interactive rooms and save formats.",
+    "whyExistingIsInsufficient": "Unframed text is visually detached from the other informational surfaces.",
+    "design": "Use a quiet noninteractive panel sized for status text, respecting the other room displays.",
+    "migration": "Save format unchanged.",
+    "compatibility": "Keep touch inputs, reduced-motion support and prior gameplay.",
+    "promotionRisk": "Staging only."
+  }
+}
