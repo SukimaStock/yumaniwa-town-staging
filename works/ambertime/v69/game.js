@@ -12499,8 +12499,12 @@ var CanvasScene = class {
       const r = projectRect(this.viewport, rect3);
       if (rect3.key === "toggle-time" || rect3.key.startsWith("distill-")) {
         const w = Math.max(44, r.width), h = Math.max(44, r.height);
-        r.x -= (w - r.width) / 2;
         r.y -= (h - r.height) / 2;
+        if (rect3.key === "toggle-time") {
+          // Expand into the outer gutter, away from the status panel.
+          r.x = Math.min(r.x, this.viewport.width - w);
+          r.y = Math.max(0, r.y);
+        } else r.x -= (w - r.width) / 2;
         r.width = w;
         r.height = h;
       }
