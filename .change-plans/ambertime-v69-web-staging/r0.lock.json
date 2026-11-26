@@ -1,0 +1,99 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "70a8ad59f41f075f7ac3b6b18e3d0ebb5706baae3d6bf8c61e93fbc2669033ca",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-v69-web-staging",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "23f6500e02e9e460c0e21e52282228fc549dc77b",
+    "change": "Serve the audited local AmberTime v69 from its existing Staging route for iPhone playtesting.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "ASSET"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AmberTime-Local-v69.html",
+      "AmberTime-v69-Kosame-2126-01.json",
+      "AmberTime-v69-Save-and-Recall-Audit.pdf",
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v69-web-staging/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/**",
+      "works/ambertime/v69-legacy-entry.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Serve the canonical HTML (SHA256 2c223d21b129f9b7a0b9668bb5f936c1929339181399e0952f13cdd9a86881ae), retaining gameplay, text, media and font quality. Versioned work-local files may hold extracted assets.",
+      "Preserve the existing town launch and return contract and identify the title as v69. Preserve all earlier save slots and manual JSON transfer for supported formats."
+    ],
+    "ownerDecisions": [
+      "The November 26 instruction specifies the local v69 source, existing AmberTime route and Staging deployment. The author reserves physical iPhone acceptance."
+    ],
+    "hqDecisions": [
+      "Keep integration inside the work and carry the audited game unchanged. Check legacy records before any transfer. Keep separate save destinations and use an explicit import/export path if existing persistence differs."
+    ],
+    "rulesApplied": [
+      "Full locked change for a work-local transition involving persisted data. Require the PR base-owned checks and deployed revision/content verification."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare gameplay payloads with local source and test in isolated browser profiles. Exercise town launch/return, touch, audio, font, import and recovery. Record physical iPhone Safari/X checks separately."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this delivery PR through normal Staging procedure. Keep both versions’ stored records untouched.",
+    "outOfScope": [
+      "Production, shared town runtime, unrelated games, v70, artwork or game rule redesign, CI and historical test expectation changes, published audit fixtures."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Author iPhone Safari and X touch, sound and actual device persistence timings."
+    ],
+    "alternativesRejected": [
+      "Reconstructing the audited game from older Web code.",
+      "Destructively migrating a browser save, or serving the audit save as the initial game."
+    ],
+    "boundaryCases": [
+      "Previous Web and local saves, an empty install, unsupported import, reload, manual succession and passive recap closure, narrow screens and nested Pages path."
+    ],
+    "testPlan": [
+      "Run required work-local regression suites and classify historical assumptions without weakening checks. Compare source and Web behavior from fresh game and hundred-year fixture, including pause/cash, sale, barrel IDs and generation transition.",
+      "Validate the scope, risk and impact, exact PR checks, merged Pages build SHA and live route."
+    ],
+    "problem": "The public Staging entry predates the audited local implementation. The author needs the real Pages route for iPhone testing.",
+    "currentContract": "The town opens the existing AmberTime work and supports returning. Previous Web records and old entry/codec paths may still be needed for export.",
+    "whyExistingIsInsufficient": "The old modular game predates v69 rules, presentation and persistence. Rebuilding from it would change audited behavior.",
+    "design": "Use the canonical local v69 payload at the existing entry. Keep any required delivery adapters and versioned distribution files inside AmberTime. Preserve existing old game modules and use the existing town contract.",
+    "migration": "Retain existing records. Use v69’s supported reader or explicit JSON transfer into its independent destination, with compatibility measured on isolated records only.",
+    "compatibility": "Preserve supported save formats and v69 semantics. Confirm town navigation, mobile viewport, touch, sound, relative paths and fonts.",
+    "promotionRisk": "Staging trial only. Native browser persistence, performance and audio depend on the device and require the author’s check."
+  }
+}
