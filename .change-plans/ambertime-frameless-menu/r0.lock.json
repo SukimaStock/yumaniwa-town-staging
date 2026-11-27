@@ -1,0 +1,85 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "af610b834639b97bd0bcbb87b77fafb86384631d53ec5e027ba7c7ccbab1de93",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "63a49172a965c68e83b757a6218ffb196ed2b0a9",
+    "changeId": "ambertime-frameless-menu",
+    "revision": 0,
+    "change": "Remove the shared backdrop and outer border around the title choices.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "works/ambertime/index.html",
+      "index.html",
+      "works/coffee-factory/index.html",
+      "works/pumpoko/index.html"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      ".change-plans/ambertime-frameless-menu/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Render the existing buttons directly on the dark title background, keeping their boxes and positions."
+    ],
+    "ownerDecisions": [
+      "The author requested removing the outer panel in the iPhone screenshot."
+    ],
+    "hqDecisions": [
+      "Use a positive Staging gate and fixture-free production artifact; preserve the audited save format and simulation."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Inspect fresh and returning layouts and confirm starting and resuming."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Production, other works, game economics, new features and P2 cosmetics."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Redesigning game mechanics or changing save format."
+    ],
+    "boundaryCases": [
+      "Staging normal with debug URLs on production; isolated install paths; existing game and new player."
+    ],
+    "testPlan": [
+      "Run browser layout and v69 regression checks."
+    ],
+    "problem": "The player-facing entry still exposes development affordances and the draft title.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "Debug entry points and test assets are bundled with normal play.",
+    "design": "Use installation-aware debug entry, explicit production file selection and exact pixel logo.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
