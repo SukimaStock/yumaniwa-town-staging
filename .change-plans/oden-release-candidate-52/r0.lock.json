@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3e70f0647f437ed483d06a00cd7435fa1970fe75b0e1bc2d61882cc647261083",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "oden-release-candidate-52",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Prepare ODEN 52 for release by recording its staging candidate status and regenerating the LAB.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "4cc2290b06ecedfa034d4ea28c431c590041f637",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/oden-release-candidate-52/r0.lock.json",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/works.js",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Record ODEN active to candidate with the author's preparation request.",
+      "Regenerate its prototype bench badge."
+    ],
+    "ownerDecisions": [
+      "2026-11-27: 実際の公開に向けて準備してください。まだ本番環境には移しません。"
+    ],
+    "hqDecisions": [
+      "Use existing candidate state and LAB rendering contract."
+    ],
+    "rulesApplied": [
+      "Lock scope before staging edits.",
+      "Preserve deployed game and audio."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify candidate state and badge.",
+      "Compare game tree identity and verify Pages."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging candidate registration.",
+    "outOfScope": [
+      "Production changes",
+      "Town placement",
+      "Gameplay and music edits"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari for deployed split BGM",
+      "Final town placement and sharing artwork"
+    ],
+    "alternativesRejected": [
+      "Migrate to production during preparation"
+    ],
+    "boundaryCases": [
+      "No production instruction supplied",
+      "LAB still links to the playable candidate"
+    ],
+    "testPlan": [
+      "Lifecycle and LAB regeneration check",
+      "GitHub staging checks and Pages"
+    ],
+    "problem": "ODEN is playable in the LAB and the author requests preparation for release.",
+    "currentContract": "Lifecycle registry owns the candidate state; the renderer owns LAB output.",
+    "whyExistingIsInsufficient": "Active state denotes exploration, not a selected release candidate.",
+    "design": "Change only the ODEN lifecycle state and regenerated LAB badge.",
+    "migration": "Existing URL and gameplay preserved.",
+    "compatibility": "No game code or shared runtime edits.",
+    "promotionRisk": "Staging-only work."
+  }
+}
