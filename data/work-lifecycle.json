@@ -599,6 +599,12 @@
       "path": "works/ambertime-strategy-lab",
       "title": "AmberTime 経営攻略比較Lab v0.1",
       "status": "active"
+    },
+    {
+      "id": "oden",
+      "path": "works/oden",
+      "status": "active",
+      "title": "ODEN"
     }
   ]
 }
