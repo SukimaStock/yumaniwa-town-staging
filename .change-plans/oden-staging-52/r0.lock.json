@@ -1,0 +1,106 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "598f269cf585ca8d8ec810b6071cfb0548e875bbe40eea9a61e76344b917ee8d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "oden-staging-52",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect the audited ODEN prototype 52 to the staging LAB.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "e5a069b6842bd4921e80ccb0546943917b4cf353",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/oden-staging-52/r0.lock.json",
+      "works/oden/**",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "data/works.js",
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "index.html",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Reuse the reviewed ODEN HTML and seven audio chunks from PR 975.",
+      "Register ODEN as active and regenerate LAB."
+    ],
+    "ownerDecisions": [
+      "User requested ODEN deployment to Staging."
+    ],
+    "hqDecisions": [
+      "Use the existing prototype bench and staging lifecycle. No new town placement."
+    ],
+    "rulesApplied": [
+      "Lock scope before importing existing blobs.",
+      "Preserve the game and BGM."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare imported blob identities with PR 975.",
+      "Check LAB link, game startup and staging deployment."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression",
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the single staging merge.",
+    "outOfScope": [
+      "Production promotion",
+      "Town placement and gameplay changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari on deployed split BGM"
+    ],
+    "alternativesRejected": [
+      "Merge incomplete PR without the lifecycle entry.",
+      "Modify shared runtime."
+    ],
+    "boundaryCases": [
+      "Direct entry and LAB entry",
+      "Browser audio unlock after a tap",
+      "All seven music chunks served"
+    ],
+    "testPlan": [
+      "Compare game asset SHAs",
+      "Check generated LAB and lifecycle",
+      "Run trusted CI and verify staging delivery"
+    ],
+    "problem": "The staged import branch lacks registration and fails the LAB consistency check.",
+    "currentContract": "LAB renders active staging works from the lifecycle registry.",
+    "whyExistingIsInsufficient": "The existing branch contains game files only.",
+    "design": "Import the exact audited blobs, add the existing-format lifecycle entry and regenerate the LAB.",
+    "migration": "New staging work, no existing save migration.",
+    "compatibility": "Preserve existing URL structure, game implementation and sound assets.",
+    "promotionRisk": "Staging-only work."
+  }
+}
