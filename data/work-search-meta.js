@@ -23,6 +23,7 @@ var WORK_SEARCH_META_SCHEMA = 1;
 var WORK_SEARCH_META = {
     "oden": {
         "schemaType": "VideoGame",
+        "ogp": {"file":"ogp.jpg","mime":"image/jpeg","width":1200,"height":630,"version":"20261127-logo"},
         "alternateNames": [],
         "ja": {
             "pageTitle": "ODEN｜おでんの落ちものパズル｜湯間庭町",
