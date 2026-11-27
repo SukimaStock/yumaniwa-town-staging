@@ -7,6 +7,19 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        "date": "2026-11-27",
+        "title": "レジャーセンターに『By the Way.』を設置",
+        "body": "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。",
+        "tags": [
+            "leisure-center",
+            "game",
+            "open"
+        ],
+        "workIds": [
+            "by-the-way"
+        ]
+    },
+    {
         date: "2026-11-27",
         title: "灯串横丁に『ODEN』を設置",
         body: "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",

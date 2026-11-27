@@ -25,6 +25,24 @@
 var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
     {
+        "id": "by-the-way",
+        "title": "By the Way.",
+        "venue": "leisure_center",
+        "kind": "game",
+        "status": "open",
+        "launch": "embedded",
+        "entry": "./works/by-the-way/index.html",
+        "frameTitle": "By the Way.",
+        "returnLabel": "湯窓レジャーセンター",
+        "frameMode": "soft",
+        "playerLayout": "responsive",
+        "menuTitle": "By the Way.",
+        "menuCategory": "ワンボタンゲーム",
+        "menuDescription": "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。",
+        "description": "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。",
+        "emptyText": "By the Way. を読み込んでいます。"
+    },
+    {
         "id": "oden",
         "title": "ODEN",
         "venue": "tomogushi_alley",
