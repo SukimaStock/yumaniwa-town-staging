@@ -18217,6 +18217,10 @@ var STYLES = `
 .at-recall-player [data-recall-counter]{margin-left:auto;white-space:nowrap;font-size:.85em;color:#c1bdb0}
 .at-recall-player nav [data-recall-action=next].is-final{border-color:#a0785a;background:#282832}
 @media(max-height:480px){.at-recall-player .at-recall-caption{padding-block:12px;min-height:0}}
+@media (orientation:landscape) and (max-height:480px){
+  .at-recall-player[open]{display:grid;width:min(540px,100vw);grid-template-columns:2fr 3fr;align-items:center}
+  .at-recall-player header,.at-recall-player nav,.at-recall-player [data-recall-action=pending]{grid-column:1/-1}
+}
 .at-recall-player [data-recall-beat-cue]{color:#b9a680;min-height:0;font-size:.84em}
 .at-recall-player [data-recall-beat-cue]:empty{display:none}
 .at-recall-player .at-recall-caption.is-silent{min-height:46px;padding-block:14px}
@@ -18340,7 +18344,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     dialog.style.fontSize = Math.max(16, typography.cssSize) + "px";
     const native = sceneDimensions(playing[index]);
     const viewport = computeViewport({width: window2.innerWidth || width, height, dpr: window2.devicePixelRatio || 1});
-    const pixel = Math.max(1, Math.min(Math.round(3 * viewport.scale * viewport.dpr),
+    const pixel = Math.max(1, Math.min(2 * Math.max(1, Math.round(3 * viewport.scale * viewport.dpr)),
       Math.floor((picture.clientWidth || width) * viewport.dpr / native.width)));
     canvas.style.width = native.width * pixel / viewport.dpr + "px";
     canvas.style.height = native.height * pixel / viewport.dpr + "px";
