@@ -18263,7 +18263,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
       return;
     }
     // Never catch up through unseen beats after the browser stalls.
-    if (previousTime !== null) elapsed += Math.min(100, Math.max(0, now - previousTime));
+    if (previousTime !== null) elapsed += Math.min(100, Math.max(0, now - previousTime)) / 1.6;
     previousTime = now;
     if (elapsed >= duration) {
       if (index < playing.length - 1) moveCut(1);
@@ -18340,7 +18340,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     dialog.style.fontSize = Math.max(16, typography.cssSize) + "px";
     const native = sceneDimensions(playing[index]);
     const viewport = computeViewport({width: window2.innerWidth || width, height, dpr: window2.devicePixelRatio || 1});
-    const pixel = Math.max(1, Math.min(Math.round(3 * viewport.scale * viewport.dpr),
+    const pixel = Math.max(1, Math.min(2 * Math.max(1, Math.round(3 * viewport.scale * viewport.dpr)),
       Math.floor((picture.clientWidth || width) * viewport.dpr / native.width)));
     canvas.style.width = native.width * pixel / viewport.dpr + "px";
     canvas.style.height = native.height * pixel / viewport.dpr + "px";
