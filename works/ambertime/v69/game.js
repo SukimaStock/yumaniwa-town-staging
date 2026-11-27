@@ -12782,7 +12782,10 @@ var CanvasScene = class {
     const labels = [b.malt, b.ferment].map((value) => ({ plain: "\u3075\u3064\u3046", peat: "\u30D4\u30FC\u30C8", short: "\u77ED\u3081", long: "\u9577\u3081" })[value]);
     const unit5 = this.viewport.scale * this.viewport.dpr, measure = (text2) => this.runs(text2, BODY_SIZE).reduce((sum3, run2) => sum3 + run2.width, 0) / unit5;
     const widths = labels.map((label) => Math.ceil(measure(label) / 3) * 3), groups = widths.map((width) => 51 + width), first = a.x + 6, costLeft = a.x + a.w - 30 - measure(this.view.brewingCost ?? "");
-    const gap = Math.max(12, Math.round((costLeft - first - groups[0] - groups[1]) / 6) * 3), xs = editable ? [first, first + groups[0] + gap] : [a.x + 6, a.x + 6 + groups[0] + 24];
+    const gap = editable ? Math.max(12, Math.round((costLeft - first - groups[0] - groups[1]) / 6) * 3) : 24;
+    const pairWidth = groups[0] + gap + groups[1];
+    const startX = editable ? first : a.x + 3 * Math.round((a.w - pairWidth) / 6);
+    const xs = [startX, startX + groups[0] + gap];
     const geometry = [];
     for (const [i, value] of [b.malt, b.ferment].entries()) {
       const x = xs[i], y = a.y + 3, card = BREWING_CARDS.find((c) => c.value === value), nameX = x + 51;
@@ -12999,7 +13002,7 @@ var CanvasScene = class {
     this.root.dataset.reservationLayout = JSON.stringify(reservationLayout);
     if (view.room === "sales" && !view.marketMode && view.pageCount > 1) this.text(view.pageLabel, 180, 139, BODY_SIZE, "center");
     this.root.dataset.brewingPanelGeometry = "null";
-    if (view.room === "distill" && view.brewing && !view.brewing.editable) this.brewingPanel({ x: 24, y: 54, w: 270, h: 54 });
+    if (view.room === "distill" && view.brewing && !view.brewing.editable) this.brewingPanel({ x: (l.width - 270) / 2, y: 54, w: 270, h: 54 });
     this.root.dataset.brewingPanel = JSON.stringify(view.room === "distill" ? view.brewing : null);
     const phasePanel = this.phasePanelLayout();
     if (phasePanel) this.paintTextPanel(phasePanel);
