@@ -1,0 +1,139 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "0a6f33518e9035d315e4d15e8d77093ff7a49ba1eef186c8436db2a414821719",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "by-the-way-staging-connection",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Connect the attached By the Way. game to the existing Staging leisure-center menu and work guide.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "ASSET",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "debe2e8cf2e0773fce74729a63d4c26c86b473b7",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "RELEASE-WORKFLOW.md",
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-search-meta.js",
+      "data/work-guide-meta.js",
+      "tools/work-lifecycle.cjs",
+      "EXPRESSION-AUDIT.md"
+    ],
+    "allowedPaths": [
+      ".change-plans/by-the-way-staging-connection/r0.lock.json",
+      "data/work-lifecycle.json",
+      "lab/index.html",
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "index.html",
+      "w/by-the-way/index.html",
+      "en/w/by-the-way/index.html",
+      "w/by-the-way/manifest.webmanifest",
+      "assets/works/by-the-way/ogp.jpg",
+      "assets/works/by-the-way/icon.png",
+      "works/by-the-way/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "main.js",
+      "data/town-maps.js"
+    ],
+    "expectedChanges": [
+      "Install the attached playable HTML with only the scoped integrations needed for its frame.",
+      "Register one candidate with existing leisure-center menu and discovery surfaces.",
+      "Generate Japanese and English guides, real pixel artwork, and existing share/install metadata."
+    ],
+    "ownerDecisions": [
+      "2026-11-27 author: By the wayも公開に向けてstagingへの接続を進めてください."
+    ],
+    "hqDecisions": [
+      "Use leisure_center for the Staging preview."
+    ],
+    "rulesApplied": [
+      "Limit this release preparation to Staging.",
+      "Use the existing town frame, menu and content conventions. Preserve the game controls, pixel rendering, title and embedded audio."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Launch through the town and a guide; test title input, progress and return.",
+      "Check both languages, preview art and direct URL."
+    ],
+    "impactChecks": [
+      "asset.cache",
+      "asset.file",
+      "asset.rendering",
+      "ghost.runtime",
+      "ghost.work-id",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "search.generated-pages",
+      "search.localized-copy",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "surface.shared",
+      "updates.runtime",
+      "updates.work-id",
+      "work.regression",
+      "work.runtime",
+      "works.analytics-id",
+      "works.direct-route",
+      "works.release-validator",
+      "works.search-share",
+      "works.town-awareness",
+      "works.venue-menu"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the staging listing, candidate registration and artwork as a single change.",
+    "outOfScope": [
+      "Production changes",
+      "New building and shared runtime or gameplay changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and final sharing artwork acceptance."
+    ],
+    "alternativesRejected": [
+      "Migrate to production during preparation"
+    ],
+    "boundaryCases": [
+      "Deep links from both guide languages",
+      "Mobile portrait pointer input and return from framed play."
+    ],
+    "testPlan": [
+      "Check generators and workflow checks",
+      "Test share launch on Staging and direct game availability"
+    ],
+    "problem": "The uploaded game does not yet have a town entry on Staging.",
+    "currentContract": "Lifecycle registry owns the candidate state; the renderer owns LAB output.",
+    "whyExistingIsInsufficient": "The uploaded HTML has no direct deployed entry or menu on Staging.",
+    "design": "Use the existing leisure-center frame and guide pages; derive share artwork from the actual game.",
+    "migration": "Add one new game and registry entries.",
+    "compatibility": "Preserve the original game and existing navigation for other works.",
+    "promotionRisk": "Staging-only work."
+  }
+}
