@@ -1,0 +1,137 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "c700cdd15d243ee6e95dba3fbe564703349743f79b72b4623608c496efd916ea",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-staging-guide",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Prepare AmberTime bilingual guides, sharing visuals and an existing town venue entry on Staging.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "ASSET",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "Rule / Skill",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging",
+    "baseSha": "975a75849c3fcb960e99d0d861945b2a8fec0abd",
+    "canonicalSources": [
+      "data/works.js",
+      "data/work-lifecycle.json",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "RELEASE-WORKFLOW.md",
+      "EXPRESSION-AUDIT.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/title-barrel.png"
+    ],
+    "allowedPaths": [
+      "data/works.js",
+      "data/work-guide-meta.js",
+      "data/work-search-meta.js",
+      "data/updates.js",
+      "data/ghost-dialogue.js",
+      "index.html",
+      "assets/works/ambertime/ogp.jpg",
+      "assets/works/ambertime/icon.png",
+      "w/ambertime/index.html",
+      "en/w/ambertime/index.html",
+      "w/ambertime/manifest.webmanifest",
+      ".change-plans/ambertime-staging-guide/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "engine/**",
+      ".github/**",
+      "tools/**",
+      "town-analytics.js",
+      "work-install-meta.js",
+      "data/town-maps.js",
+      "data/station-plaza.js",
+      "works/ambertime/**"
+    ],
+    "expectedChanges": [
+      "Register one embedded distillery game in the existing leisure center menu.",
+      "Generate bilingual guide pages, actual scene sharing art and install icon, using the accepted Japanese copy.",
+      "Add existing discovery links, update and ghost metadata, keeping the town and game runtime unchanged."
+    ],
+    "ownerDecisions": [
+      "2026-11-27 author reported iPhone verification OK, accepted the proposed introduction, and identified Suno Pro for this BGM. Prepare Staging preview; no production approval."
+    ],
+    "hqDecisions": [
+      "Use existing menu-only registration and venue; owner can review its location on Staging."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing schemas and menu-only registration; no scene/runtime/Engine changes.",
+      "RELEASE-WORKFLOW: selective staging to production, candidate and explicit publication authority separately recorded.",
+      "EXPRESSION-AUDIT: use concrete game rules and concise copy; no invented intent, subtitle or recommendation placement."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify framed title, new game and return to town; read Japanese and English cards and view the image."
+    ],
+    "impactChecks": [
+      "asset.cache",
+      "asset.file",
+      "asset.rendering",
+      "ghost.runtime",
+      "ghost.work-id",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "search.generated-pages",
+      "search.localized-copy",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "surface.shared",
+      "updates.runtime",
+      "updates.work-id",
+      "work.regression",
+      "work.runtime",
+      "works.analytics-id",
+      "works.direct-route",
+      "works.release-validator",
+      "works.search-share",
+      "works.town-awareness",
+      "works.venue-menu"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only the Staging registration and guide PR.",
+    "outOfScope": [
+      "Production release, public announcements, gameplay or save changes."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Public social crawlers; production release and external analytics."
+    ],
+    "problem": "The approved game is a candidate and needs discoverable town and sharing previews.",
+    "currentContract": "Keep current v69 game and save schema.",
+    "whyExistingIsInsufficient": "The candidate can currently be found only by direct URL and LAB.",
+    "design": "Use the existing work player and menu, original pixel logo and real distillery artwork.",
+    "alternativesRejected": [
+      "Adding a new physical building to the town."
+    ],
+    "migration": "Add only town-facing registration and assets.",
+    "compatibility": "Use existing town frame, shared launch and return handling.",
+    "boundaryCases": [
+      "Direct guide URL; town launch and close; saved game status."
+    ],
+    "testPlan": [
+      "Run scoped staging generation, validator, plan gates and browser launch/close verification."
+    ],
+    "promotionRisk": "Separate approval is required to publish."
+  }
+}
