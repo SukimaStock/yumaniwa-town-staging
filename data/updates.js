@@ -7,6 +7,19 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        "date": "2026-11-27",
+        "title": "レジャーセンターに『AmberTime』を設置",
+        "body": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。何代にもわたって、一つの蒸留所の歴史を紡ぐゲームです。",
+        "tags": [
+            "leisure-center",
+            "game",
+            "open"
+        ],
+        "workIds": [
+            "ambertime"
+        ]
+    },
+    {
         "date": "2026-11-08",
         "title": "レジャーセンターに『あとだま』を設置",
         "body": "前に打った玉と協力するビリヤードパズルです。三球で全部の輪を光らせます。",

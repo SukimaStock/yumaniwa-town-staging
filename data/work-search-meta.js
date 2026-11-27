@@ -21,6 +21,54 @@
 var WORK_SEARCH_META_SCHEMA = 1;
 
 var WORK_SEARCH_META = {
+    "ambertime": {
+        "schemaType": "VideoGame",
+        "alternateNames": [],
+        "ja": {
+            "pageTitle": "AmberTime｜時間を育てる蒸留所｜湯間庭町",
+            "heading": "AmberTime",
+            "metaDescription": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。何代にもわたって、一つの蒸留所の歴史を紡ぐゲームです。",
+            "body": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。何代にもわたって、一つの蒸留所の歴史を紡ぐゲームです。",
+            "shareTitle": "AmberTime｜時間を育てる蒸留所｜湯間庭町",
+            "shareDescription": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。何代にもわたって、一つの蒸留所の歴史を紡ぐゲームです。",
+            "imageAlt": "AmberTimeのドット絵ロゴとゲーム内の蒸留室",
+            "genres": [
+                "経営シミュレーション"
+            ],
+            "terms": [
+                "AmberTime",
+                "ウイスキー",
+                "蒸留所",
+                "樽熟成",
+                "世代交代"
+            ]
+        },
+        "en": {
+            "pageTitle": "AmberTime | A Whisky Distillery Game | Yumaniwa Town",
+            "heading": "AmberTime",
+            "metaDescription": "Distill whisky, age it in barrels, and deliver it to shops around town. Shape the history of one distillery over generations.",
+            "body": "Distill whisky, age it in barrels, and deliver it to shops around town. Shape the history of one distillery over generations.",
+            "shareTitle": "AmberTime | A Whisky Distillery Game | Yumaniwa Town",
+            "shareDescription": "Distill whisky, age it in barrels, and deliver it to shops around town. Shape the history of one distillery over generations.",
+            "imageAlt": "The AmberTime pixel logo and the distilling room from the game",
+            "genres": [
+                "Management simulation"
+            ],
+            "terms": [
+                "AmberTime",
+                "whisky distillery",
+                "barrel aging",
+                "generations"
+            ]
+        },
+        "ogp": {
+            "file": "ogp.jpg",
+            "mime": "image/jpeg",
+            "width": 1200,
+            "height": 630,
+            "version": "20261127"
+        }
+    },
     "atodama": {
         "schemaType": "VideoGame",
         "alternateNames": [],

@@ -61,6 +61,9 @@ window.GHOST_DIALOGUE = {
     },
 
     works: {
+        'ambertime': [
+            'あの樽、いつ瓶に詰めるの？'
+        ],
         'atodama': [
             'さっき打った玉が、また走ってたよ。',
             '前の玉に、扉を開けてもらった？'

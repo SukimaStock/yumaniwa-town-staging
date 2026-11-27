@@ -20,6 +20,11 @@ var WORK_GUIDE_FEATURED = [
 ];
 
 var WORK_GUIDE_META = {
+    "ambertime": {
+        duration: "少しずつ、何度でも",
+        moods: ["play", "quiet"],
+        guideLine: "ウイスキーを蒸留し、樽で育て、町の店へ届ける。"
+    },
     "atodama": {
         duration: "3〜10分",
         moods: ["short", "play"],
