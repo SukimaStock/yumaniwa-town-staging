@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ebfa4056fc416d429e68e342fe76feb77b10f7cbfacf80bc79d1cd3cab295069",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-recall-size-pace",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "0593f91a63d05ee2685fd2b25b084ca83c2adcb5",
+    "change": "Double recall art dimensions and slow the recall clock.",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-recall-size-pace/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Larger recall art and more reading time per beat."
+    ],
+    "ownerDecisions": [
+      "Author requested double width and height and a relaxed autoplay pace."
+    ],
+    "hqDecisions": [
+      "Keep the existing runtime, game rules, coordinate system, gesture hit targets and save formats."
+    ],
+    "rulesApplied": [
+      "Use a locked plan because current distribution files exceed the active-work small-change size limit."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify portrait, landscape, history and handover playback."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this pull request in Staging.",
+    "outOfScope": [
+      "Production, shared town runtime, unrelated games, v70, artwork or game rule redesign, CI and historical test expectation changes, published audit fixtures."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari verification by the author."
+    ],
+    "alternativesRejected": [
+      "Changing gameplay or the interaction controls."
+    ],
+    "boundaryCases": [
+      "Small phones, final scene, reduced motion and pending offer."
+    ],
+    "testPlan": [
+      "Check relevant browser scenarios and regressions, syntax, plan gates, CI and live Staging."
+    ],
+    "problem": "The image is small and automatic cuts advance too quickly.",
+    "currentContract": "Existing v69 mobile entry, interactive rooms and save formats.",
+    "whyExistingIsInsufficient": "The current art scale and pace make details hard to follow.",
+    "design": "Double the rounded device-pixel step within the available width and stretch the recall timeline by 1.6.",
+    "migration": "Save format unchanged.",
+    "compatibility": "Keep touch inputs, reduced-motion support and prior gameplay.",
+    "promotionRisk": "Staging only."
+  }
+}
