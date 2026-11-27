@@ -12581,11 +12581,10 @@ var CanvasScene = class {
     if (room !== "distill" || !phaseSummary) return null;
     const step = this.uniformTypography?.metrics.lineLogical ?? Math.max(26, this.textMetrics().logical + 4);
     const panel = noticeLayout(phaseSummary, (line) => this.measure(line), { step, padding: 9 });
-    panel.x = 12;
     panel.y = brewing && !brewing.editable ? 117 : salesPanelBounds(this.viewport.scale).top / this.viewport.scale;
     return panel;
   }
-  paintTextPanel(panel) {
+  paintTextPanel(panel, align = "left") {
     this.window(panel.x, panel.y, panel.w, panel.h, NOTICE_WINDOW.fill, NOTICE_WINDOW.border);
     const c = this.ctx, metrics = this.textMetrics();
     c.save();
@@ -12593,7 +12592,8 @@ var CanvasScene = class {
     const bounds = c.measureText("\u56FDAg");
     c.restore();
     const baseline = (bounds.actualBoundingBoxAscent - bounds.actualBoundingBoxDescent) / metrics.unit / 2;
-    panel.lines.forEach((line, i) => this.text(line, panel.x + panel.padding, panel.y + panel.padding + panel.step * (i + 0.5) + baseline, BODY_SIZE, "left"));
+    const textX = panel.x + (align === "center" ? panel.w / 2 : panel.padding);
+    panel.lines.forEach((line, i) => this.text(line, textX, panel.y + panel.padding + panel.step * (i + 0.5) + baseline, BODY_SIZE, align));
   }
   // Native dialogue shares Canvas font measurement, viewport and notice geometry.
   dialogueLayout(entry) {
@@ -13005,7 +13005,7 @@ var CanvasScene = class {
     if (view.room === "distill" && view.brewing && !view.brewing.editable) this.brewingPanel({ x: (l.width - 270) / 2, y: 54, w: 270, h: 54 });
     this.root.dataset.brewingPanel = JSON.stringify(view.room === "distill" ? view.brewing : null);
     const phasePanel = this.phasePanelLayout();
-    if (phasePanel) this.paintTextPanel(phasePanel);
+    if (phasePanel) this.paintTextPanel(phasePanel, "center");
     const readout = view.room === "distill" ? view.spirit : null;
     const spiritOffset = phasePanel && readout ? Math.max(0, phasePanel.y + phasePanel.h + 6 - (readout.compact ? 216 : 141)) : 0;
     this.root.dataset.phaseLayout = JSON.stringify({ panel: phasePanel, lines: phasePanel?.lines.length ?? 0, spiritTop: readout ? (readout.compact ? 216 : 141) + spiritOffset : null, spiritBottom: readout ? (readout.compact ? 252 : readout.phrase && readout.axes.length ? 255 : 243) + spiritOffset : null, equipmentTop: l.equipment.y });
