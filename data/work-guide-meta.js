@@ -20,6 +20,11 @@ var WORK_GUIDE_FEATURED = [
 ];
 
 var WORK_GUIDE_META = {
+    "oden": {
+        duration: "ひと鍋ずつ",
+        moods: ["short", "play"],
+        guideLine: "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。"
+    },
     "ambertime": {
         duration: "少しずつ、何度でも",
         moods: ["play", "quiet"],

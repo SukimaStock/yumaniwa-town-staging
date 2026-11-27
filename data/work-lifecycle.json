@@ -603,7 +603,8 @@
     {
       "id": "oden",
       "path": "works/oden",
-      "status": "active",
+      "status": "candidate",
+      "candidateDecision": "2026-11-27 作者指示：実際の公開に向けて準備してください。まだ本番環境には移しません。",
       "title": "ODEN"
     }
   ]

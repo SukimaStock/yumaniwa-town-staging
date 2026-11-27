@@ -21,6 +21,48 @@
 var WORK_SEARCH_META_SCHEMA = 1;
 
 var WORK_SEARCH_META = {
+    "oden": {
+        "schemaType": "VideoGame",
+        "alternateNames": [],
+        "ja": {
+            "pageTitle": "ODEN｜おでんの落ちものパズル｜湯間庭町",
+            "heading": "ODEN",
+            "metaDescription": "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",
+            "body": "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",
+            "shareTitle": "ODEN｜おでんの落ちものパズル｜湯間庭町",
+            "shareDescription": "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",
+            "imageAlt": "ODENのロゴと、おでんの具が並ぶ鍋のゲーム画面",
+            "genres": [
+                "落ちものパズル"
+            ],
+            "terms": [
+                "ODEN",
+                "おでん",
+                "落ちものパズル",
+                "出汁",
+                "灯串横丁"
+            ]
+        },
+        "en": {
+            "pageTitle": "ODEN | A Falling-Block Oden Puzzle | Yumaniwa Town",
+            "heading": "ODEN",
+            "metaDescription": "Drop oden ingredients into the pot. Fill a row and let the broth soak in before serving it up.",
+            "body": "Drop oden ingredients into the pot. Fill a row and let the broth soak in before serving it up.",
+            "shareTitle": "ODEN | A Falling-Block Oden Puzzle | Yumaniwa Town",
+            "shareDescription": "Drop oden ingredients into the pot. Fill a row and let the broth soak in before serving it up.",
+            "imageAlt": "The ODEN logo beside the game board with ingredients in a pot of broth",
+            "genres": [
+                "Falling-block puzzle"
+            ],
+            "terms": [
+                "ODEN",
+                "oden",
+                "falling-block puzzle",
+                "dashi",
+                "Tomogushi Alley"
+            ]
+        }
+    },
     "ambertime": {
         "schemaType": "VideoGame",
         "alternateNames": [],
