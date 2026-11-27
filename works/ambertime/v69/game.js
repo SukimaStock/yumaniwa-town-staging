@@ -18200,19 +18200,22 @@ var STYLES = `
 .at-recall-player button:hover:not(:disabled){background:#282832;border-color:#f0e6c8}
 .at-recall-player button:focus-visible{outline:2px solid #dca050;outline-offset:3px}
 .at-recall-player [data-recall-action=close]{width:44px;flex:none;padding:4px;font-size:24px}
-.at-recall-player .at-recall-picture{display:flex;justify-content:center;align-items:center;width:100%;min-height:0;border:0;padding:0;background:transparent}
+.at-recall-player .at-recall-picture{display:flex;justify-content:center;align-items:center;width:100%;min-height:0;border:0;padding:12px 0;background:transparent}
 .at-recall-player .at-recall-picture:hover:not(:disabled){background:transparent}
 .at-recall-player .at-recall-picture:disabled{opacity:1;cursor:default}
 .at-recall-player canvas{display:block;image-rendering:pixelated;max-width:none}
-.at-recall-player .at-recall-caption{min-height:128px;padding:20px 16px;display:flex;flex-direction:column;justify-content:center;gap:12px;text-align:center}
+.at-recall-player .at-recall-caption{min-height:92px;padding:12px 16px;display:flex;flex-direction:column;justify-content:center;gap:4px;text-align:center}
 .at-recall-player [data-recall-date]{color:#c1bdb0}
 .at-recall-player [data-recall-sentence]{overflow-wrap:anywhere;text-wrap:pretty}
-.at-recall-player nav{display:grid;grid-template-columns:minmax(0,1fr) 44px auto minmax(0,1fr);align-items:center;gap:6px;padding:0 12px 12px}
+.at-recall-player nav{display:grid;grid-template-columns:1fr 44px 1fr;align-items:center;gap:12px;padding:6px 16px 12px}
 .at-recall-player [data-recall-action=pending]{display:block;margin:0 auto 12px}
 .at-recall-player [data-recall-action=pending][hidden]{display:none}
-.at-recall-player nav button{padding-inline:6px}
-.at-recall-player [data-recall-counter]{min-width:40px;text-align:center}
-.at-recall-player nav [data-recall-action=next]{border-color:#a0785a}
+.at-recall-player nav button{padding-inline:8px;min-width:44px;background:transparent;border-color:transparent}
+.at-recall-player nav [data-recall-action=previous]{justify-self:end}
+.at-recall-player nav [data-recall-action=next]{grid-column:3;justify-self:start}
+.at-recall-player nav [data-recall-action=toggle]:disabled{visibility:hidden}
+.at-recall-player [data-recall-counter]{margin-left:auto;white-space:nowrap;font-size:.85em;color:#c1bdb0}
+.at-recall-player nav [data-recall-action=next].is-final{border-color:#a0785a;background:#282832}
 @media(max-height:480px){.at-recall-player .at-recall-caption{padding-block:12px;min-height:0}}
 .at-recall-player [data-recall-beat-cue]{color:#b9a680;min-height:0;font-size:.84em}
 .at-recall-player [data-recall-beat-cue]:empty{display:none}
@@ -18228,11 +18231,11 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
   const dialog = document2.createElement("dialog");
   dialog.className = "at-recall-player";
   dialog.setAttribute("aria-labelledby", "at-recall-title");
-  dialog.innerHTML = `<header><h2 id="at-recall-title"></h2><button type="button" data-recall-action="close" aria-label="\u56DE\u60F3\u3092\u9589\u3058\u308B">\xD7</button></header>
+  dialog.innerHTML = `<header><h2 id="at-recall-title" tabindex="-1"></h2><span data-recall-counter aria-label="\u5834\u9762\u756A\u53F7"></span><button type="button" data-recall-action="close" aria-label="\u56DE\u60F3\u3092\u9589\u3058\u308B">\xD7</button></header>
  <button type="button" class="at-recall-picture" data-recall-action="picture" aria-label="\u6B21\u306E\u5834\u9762\u3078"><canvas width="120" height="72" aria-hidden="true"></canvas></button>
  <div class="at-recall-caption" aria-live="polite" aria-atomic="true"><p data-recall-date></p><p data-recall-beat-cue aria-hidden="true"></p><p data-recall-sentence></p></div>
  <button type="button" data-recall-action="pending" hidden>\u5F15\u304D\u7D99\u3050\u7533\u3057\u51FA\u3092\u898B\u308B</button>
- <nav aria-label="\u56DE\u60F3\u306E\u5834\u9762"><button type="button" data-recall-action="previous">\u623B\u308B</button><button type="button" data-recall-action="toggle" aria-label="一時停止">Ⅱ</button><span data-recall-counter aria-label="\u5834\u9762\u756A\u53F7"></span><button type="button" data-recall-action="next">\u6B21\u3078</button></nav>`;
+ <nav aria-label="\u56DE\u60F3\u306E\u5834\u9762"><button type="button" data-recall-action="previous">\u623B\u308B</button><button type="button" data-recall-action="toggle" aria-label="一時停止">Ⅱ</button><button type="button" data-recall-action="next">\u6B21\u3078</button></nav>`;
   document2.body.append(dialog);
   const $3 = (q) => dialog.querySelector(q), picture = $3(".at-recall-picture"), canvas = $3("canvas");
   const previous = $3('[data-recall-action="previous"]'), forward = $3('[data-recall-action="next"]');
@@ -18336,16 +18339,11 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     const typography = uniformMetrics({ scale: Math.min(width / 360, height / 640), dpr: Math.max(1, Math.min(3, window2.devicePixelRatio || 1)) });
     dialog.style.fontSize = Math.max(16, typography.cssSize) + "px";
     const native = sceneDimensions(playing[index]);
-    const available = picture.clientWidth || width, heightLimit = Math.max(native.height, height - 280);
-    const scale = Math.max(1, Math.floor(Math.min(available / native.width, heightLimit / native.height)));
-    canvas.style.width = native.width * scale + "px";
-    canvas.style.height = native.height * scale + "px";
-    const overflow = dialog.scrollHeight - dialog.clientHeight;
-    if (overflow > 0) {
-      const fit = Math.max(1, scale - Math.ceil(overflow / native.height));
-      canvas.style.width = native.width * fit + "px";
-      canvas.style.height = native.height * fit + "px";
-    }
+    const viewport = computeViewport({width: window2.innerWidth || width, height, dpr: window2.devicePixelRatio || 1});
+    const pixel = Math.max(1, Math.min(Math.round(3 * viewport.scale * viewport.dpr),
+      Math.floor((picture.clientWidth || width) * viewport.dpr / native.width)));
+    canvas.style.width = native.width * pixel / viewport.dpr + "px";
+    canvas.style.height = native.height * pixel / viewport.dpr + "px";
   }
   function render3() {
     const view = playing[index], last = index === playing.length - 1;
@@ -18354,6 +18352,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     $3("[data-recall-sentence]").textContent = view.silent ? '' : view.sentence;
     $3('.at-recall-caption').classList.toggle('is-silent',!!view.silent);
     $3("[data-recall-counter]").textContent = `${index + 1} / ${playing.length}`;
+    forward.classList.toggle("is-final", last);
     previous.disabled = index === 0;
     picture.disabled = last;
     $3('[data-recall-action="pending"]').hidden = !(last && mode === "handover" && onPending);
@@ -18449,7 +18448,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     returnFocus = document2.activeElement;
     dialog.showModal();
     render3();
-    forward.focus({ preventScroll: true });
+    $3("#at-recall-title").focus({ preventScroll: true });
   }
   return { open, close, isOpen: () => dialog.open };
 }
