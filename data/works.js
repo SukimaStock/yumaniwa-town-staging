@@ -25,6 +25,26 @@
 var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
     {
+        "id": "oden",
+        "title": "ODEN",
+        "venue": "tomogushi_alley",
+        "kind": "game",
+        "status": "open",
+        "launch": "embedded",
+        "entry": "./works/oden/index.html",
+        "frameTitle": "ODEN",
+        "returnLabel": "灯串横丁",
+        "frameMode": "soft",
+        "playerLayout": "phone",
+        "playerWidth": 390,
+        "playerHeight": 740,
+        "menuTitle": "ODEN",
+        "menuCategory": "落ちものパズル",
+        "menuDescription": "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",
+        "description": "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",
+        "emptyText": "ODENを読み込んでいます。"
+    },
+    {
         "id": "ambertime",
         "title": "AmberTime",
         "venue": "leisure_center",

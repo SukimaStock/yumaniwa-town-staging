@@ -7,6 +7,13 @@
 var TOWN_UPDATES = [
     // [UPDATES:ADD_NEWEST_HERE]
     {
+        date: "2026-11-27",
+        title: "灯串横丁に『ODEN』を設置",
+        body: "おでんの具を鍋に並べる落ちものパズル。横一列、出汁がしみたら出来上がり。",
+        tags: ["tomogushi-alley", "game", "open"],
+        workIds: ["oden"]
+    },
+    {
         "date": "2026-11-27",
         "title": "レジャーセンターに『AmberTime』を設置",
         "body": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。何代にもわたって、一つの蒸留所の歴史を紡ぐゲームです。",

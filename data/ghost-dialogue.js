@@ -61,6 +61,9 @@ window.GHOST_DIALOGUE = {
     },
 
     works: {
+        'oden': [
+            'その大根、もう出汁がしみたかな。'
+        ],
         'ambertime': [
             'あの樽、いつ瓶に詰めるの？'
         ],
