@@ -1,0 +1,89 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "2ac83649876e6b73801370c8c57cfb8f92efdd90de034a298080fcf59faa7213",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "ambertime-center-brewing",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "572545a0e962c6b08cd438d596eb6c4fb98c3b60",
+    "change": "Center the malt and fermentation panel across brewing phases.",
+    "planLevel": "full",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "HQ Review",
+      "Standard"
+    ],
+    "canonicalSources": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-center-brewing/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**",
+      "works/ambertime/tests/**"
+    ],
+    "expectedChanges": [
+      "Centered panel and card pair during countdown, distillation and filling."
+    ],
+    "ownerDecisions": [
+      "Author requested centered brewing settings across scenes on Staging."
+    ],
+    "hqDecisions": [
+      "Keep the existing runtime, game rules, coordinate system, gesture hit targets and save formats."
+    ],
+    "rulesApplied": [
+      "Use a locked plan because current distribution files exceed the active-work small-change size limit."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check brewing choice, countdown, distillation and post-distillation with portrait and landscape phone viewports."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this pull request in Staging.",
+    "outOfScope": [
+      "Production, shared town runtime, unrelated games, v70, artwork or game rule redesign, CI and historical test expectation changes, published audit fixtures."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari verification by the author."
+    ],
+    "alternativesRejected": [
+      "Changing gameplay or the interaction controls."
+    ],
+    "boundaryCases": [
+      "Different label widths, narrow phones, touch target and cost in the editable control."
+    ],
+    "testPlan": [
+      "Check relevant browser scenarios and regressions, syntax, plan gates, CI and live Staging."
+    ],
+    "problem": "The brewing panel is drawn at logical x=24 with width 270 on a 360-wide scene.",
+    "currentContract": "Existing v69 mobile entry, interactive rooms and save formats.",
+    "whyExistingIsInsufficient": "The presentation shares a left inset with the wider editable control.",
+    "design": "Center the shared read-only frame and its two icon/label groups on the room axis; preserve the centered editable control.",
+    "migration": "Save format unchanged.",
+    "compatibility": "Keep touch inputs, reduced-motion support and prior gameplay.",
+    "promotionRisk": "Staging only."
+  }
+}
