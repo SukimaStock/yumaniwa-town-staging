@@ -8520,11 +8520,11 @@ function readableSessionVersion(version) {
   return version === 8 || version === DEVELOPMENT_SAVE_VERSION;
 }
 // Input was validated against the full operation replay by serializeDistillery.
-function compactVerifiedGame(raw) {
-  const compact = JSON.parse(assertFormalSize(raw));
-  const town = townOf2(compact);
-  compact.labConnection.town = { replayVersion: 1, digest: digest(town) };
-  return compact;
+function compactVerifiedGame(game) {
+  const town = townOf2(game);
+  return { ...game, labConnection: { ...game.labConnection,
+    town: { replayVersion: 1, digest: digest(town) }
+  } };
 }
 var FORMAL_SAVE_KEY = "sukimastock.local-ambertime.main.v69";
 var keys = ["version", "game", "userPaused", "elapsed", "caskSlots", "recentLedger", "historyRecord", "recallRecord"];
@@ -8565,12 +8565,12 @@ function readSession(text2, { enabled, restore: restore2, monthMs, stepMs } = {}
 function serializeSession(game2, { userPaused: userPaused2, elapsed: elapsed2, caskSlots: caskSlots2, recentLedger: recentLedger2, historyRecord: historyRecord2, recallRecord: recallRecord2 }, { serialize: serialize2, restore: restore2, enabled, monthMs, stepMs } = {}) {
   require2(typeof serialize2 === "function" && typeof restore2 === "function", "invalid-session", "\u6B63\u5F0F\u306A\u4FDD\u5B58\u306E\u78BA\u8A8D\u65B9\u6CD5\u304C\u3042\u308A\u307E\u305B\u3093\u3002");
   assertMode(game2, enabled);
-  const raw = assertFormalSize(serialize2(game2));
+  const raw = serialize2(game2);
   assertCaskSlots(game2, caskSlots2);
   assertRecentLedger(game2, recentLedger2);
   assertHistoryRecord(game2, historyRecord2);
   assertRecall(game2, recallRecord2, historyRecord2);
-  const text2 = JSON.stringify({ version: DEVELOPMENT_SAVE_VERSION, game: compactVerifiedGame(raw), userPaused: userPaused2, elapsed: elapsed2, caskSlots: caskSlots2, recentLedger: recentLedger2, historyRecord: historyRecord2, recallRecord: recallRecord2 });
+  const text2 = JSON.stringify({ version: DEVELOPMENT_SAVE_VERSION, game: compactVerifiedGame(game2), userPaused: userPaused2, elapsed: elapsed2, caskSlots: caskSlots2, recentLedger: recentLedger2, historyRecord: historyRecord2, recallRecord: recallRecord2 });
   const restored = readSession(text2, { enabled, restore: restore2, monthMs, stepMs });
   require2(JSON.stringify(restored.game) === raw && JSON.stringify(restored.caskSlots) === JSON.stringify(caskSlots2) && JSON.stringify(restored.recentLedger) === JSON.stringify(recentLedger2) && JSON.stringify(restored.historyRecord) === JSON.stringify(historyRecord2) && JSON.stringify(restored.recallRecord) === JSON.stringify(recallRecord2), "invalid-session", "\u4FDD\u5B58\u304B\u3089\u623B\u3057\u305F\u8A18\u9332\u304C\u4E00\u81F4\u3057\u307E\u305B\u3093\u3002");
   return text2;
@@ -8645,27 +8645,23 @@ function createSessionEntry({ storage, create: create2, encode, read, write, ins
       await yieldTask();
       if (!current()) return outcome = { ok: false, cancelled: true };
       stage = "record-recheck";
+      if (kind2 !== "new") {
+        await store.refresh();
+        if (!current()) return outcome = {ok:false, cancelled:true};
+      }
       assertStartRecord(store, expected);
       if (kind2 === "new") {
         writing = true;
         stage = "writing-ui";
         phase("writing");
         writeAttempted = true;
-        let formalWritten = false;
-        const formalStore = { getItem: (key2) => {
-          stage = formalWritten ? "formal-readback" : "record-recheck";
-          const raw = store.getItem(key2);
-          if (formalWritten && raw === text2) writeVerified = true;
-          return raw;
-        }, setItem: (key2, raw) => {
-          stage = "formal-write";
-          store.setItem(key2, raw);
-          formalWritten = true;
-        } };
-        write(formalStore, FORMAL_SAVE_KEY, expected.raw, text2);
+        stage = "formal-write";
+        await store.commit(expected.raw, staged => write(staged, FORMAL_SAVE_KEY, expected.raw, text2));
+        stage = "formal-readback";
+        writeVerified = true;
       }
       stage = "session-apply";
-      install(session, { fresh: kind2 === "new", text: text2, backupKey: null });
+      await install(session, { fresh: kind2 === "new", text: text2, backupKey: null });
       return outcome = { ok: true };
     } catch (error) {
       return outcome = failure(error);
@@ -9619,7 +9615,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
       blockedClick = false;
     }
   }, true);
-  root2.addEventListener("click", (event2) => {
+  root2.addEventListener("click", async (event2) => {
     if (!visible) return;
     const b = event2.target.closest("button");
     if (!b || b.disabled || !root2.contains(b)) return;
@@ -9661,7 +9657,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
         const row = doc.getElementById(`market-stock-${target.shopId}-${target.productId}`), source = row?.querySelector(".market-count"), bottle3 = row?.querySelector(".market-bottle");
         if (source && bottle3) origins.set(`${target.shopId}:${target.productId}`, { sourceRect: source.getBoundingClientRect(), sprite: bottle3.getBoundingClientRect(), art: bottle3.innerHTML });
       }
-      const ok2 = act2((s) => {
+      const ok2 = await act2((s) => {
         if (target.newRegional) {
           if (!delivering) return s;
           const q = D2.regionalDeliveryQuote(s, target.productId, target.shopId);
@@ -9748,7 +9744,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
         }
       }
       const source = query2(`[data-market-release="${p.id}"] .market-bottle`), countSource = query2(`[data-market-release="${p.id}"] .market-count`), origin = source ? { rect: source.getBoundingClientRect(), art: source.innerHTML, countRect: countSource?.getBoundingClientRect() } : null;
-      const ok2 = act2((before2) => directStore(before2, shopId4) ? D2.placeLocalShelf(before2, { shopId: shopId4, productId: p.id, count: count3, index: before2.operations.length }) : shopId4 === "retail" ? D2.setMarketRetail(before2, { productId: p.id, count: inv.retail + count3 }) : D2.assignStoreProduct(before2, { productId: p.id, shopId: shopId4, count: count3 }));
+      const ok2 = await act2((before2) => directStore(before2, shopId4) ? D2.placeLocalShelf(before2, { shopId: shopId4, productId: p.id, count: count3, index: before2.operations.length }) : shopId4 === "retail" ? D2.setMarketRetail(before2, { productId: p.id, count: inv.retail + count3 }) : D2.assignStoreProduct(before2, { productId: p.id, shopId: shopId4, count: count3 }));
       if (ok2) {
         notice = "";
         signature = "";
@@ -10456,7 +10452,7 @@ function createPlacementUI({ document: doc, model: D2, state, art, icon: icon2, 
     delta2(target, output, count3);
     delta2("hand", hand, -count3);
   }
-  function handle(e) {
+  async function handle(e) {
     const b = e.target.closest('[data-action^="placement-"]');
     if (!b || b.disabled || !current) return false;
     const kind2 = b.dataset.action.slice(10), id3 = b.dataset.id, c = current;
@@ -10474,7 +10470,7 @@ function createPlacementUI({ document: doc, model: D2, state, art, icon: icon2, 
       c.receipt = "";
       text2("placement-receipt", "");
       cancel();
-      const { r } = context(c.id), a = c.draft.allocation, result2 = commit({ productId: c.id, releaseId: r.id, brandId: r.brandId, retail: a.retail, shopCount: a.shop });
+      const { r } = context(c.id), a = c.draft.allocation, result2 = await commit({ productId: c.id, releaseId: r.id, brandId: r.brandId, retail: a.retail, shopCount: a.shop });
       if (result2?.ok) {
         const receipt = result2.text;
         cancel();
@@ -13372,6 +13368,7 @@ __export(partner_orders_exports, {
   selectRecipe: () => selectRecipe,
   setAutoSupplyPolicy: () => setAutoSupplyPolicy,
   hireAutoSupplyStaff: () => hireAutoSupplyStaff,
+  payAutoSupplyStaff: () => payAutoSupplyStaffTransaction,
   selectShopOffer: () => selectShopOffer,
   selectedUsualRecipe: () => selectedUsualRecipe,
   serializeDistillery: () => serializeDistillery,
@@ -17561,7 +17558,7 @@ function validateDistillery4(s, { repairMissingBrandDesign = false, expectedTown
     const rebuilt = townOf2(j);
     require2(digest(rebuilt) === expectedTownDigest, "invalid-session", "町の履歴が操作記録と一致しません。");
     s.labConnection.town = structuredClone(rebuilt);
-    assertFormalSize(JSON.stringify(s));
+    // The file-size limit applies to the compact session in readSession().
   }
   assert17(JSON.stringify(s) === JSON.stringify(j), "\u84B8\u7559\u6240\u306E\u72B6\u614B\u3068\u64CD\u4F5C\u306E\u5E33\u9762\u304C\u4E00\u81F4\u3057\u307E\u305B\u3093\u3002");
   checkpoint4 = { originText, seed: s.seed, length: s.operations.length, operations: JSON.stringify(s.operations), state: cache, context: clone8(context), partial: s.still.phase === "distilling" && s.tastingId === null ? clone8(j) : null };
@@ -18379,12 +18376,12 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     index = target;
     render3();
   }
-  function next() {
+  async function next() {
     if (!dialog.open || finishing) return;
     if (index < playing.length - 1) return moveCut(1);
     finishing = true;
     try {
-      if (mode === "handover") onComplete?.();
+      if (mode === "handover") await onComplete?.();
     } finally {
       close();
     }
@@ -18625,15 +18622,18 @@ var flavorMeter3 = (...args) => uiText(flavorMeter(...args));
 var placementEnabled = true;
 var SAVE_KEY = FORMAL_SAVE_KEY;
 const previousSaveKey = "sukimastock.local-ambertime.main.v1";
-const versionedStorage = {
-  getItem(key) {
-    const current = localStorage.getItem(key);
-    return key === SAVE_KEY && current === null ? localStorage.getItem(previousSaveKey) : current;
-  },
-  setItem(key, value) { localStorage.setItem(key, value); },
-  get length() { return localStorage.length; },
-  key(index) { return localStorage.key(index); }
-};
+const saveScope = location.pathname.replace(/(?:index\.html)?\/?$/, "/").replace(/\/{2,}/g, "/");
+const {createFormalStorage} = await import("./formal-storage.mjs");
+const versionedStorage = createFormalStorage({scope:saveScope, main:SAVE_KEY, previous:previousSaveKey, legacy:LEGACY_SAVE_KEYS, onChange:otherTabChanged});
+// An action may now yield while its transaction commits. Keep native prompts,
+// buttons and gestures from starting a second mutation against the same game.
+for (const type of ["click", "keydown", "pointerdown", "pointerup", "input", "change"]) {
+  window.addEventListener(type, event => {
+    if (!versionedStorage.pending) return;
+    event.stopImmediatePropagation();
+    if (event.cancelable) event.preventDefault();
+  }, true);
+}
 if (placementEnabled) document.body.dataset.placement = "1";
 var $2 = (id3) => document.getElementById(id3);
 var money = (n) => "\xA3" + Number(n).toLocaleString("en-GB", { maximumFractionDigits: 0 });
@@ -19001,11 +19001,11 @@ var glassKey = "";
 var shownFillSpiritId = null;
 var shelfPage = 0;
 var worldMapStage = 1;
-var MAP_NOTICE_KEY = SAVE_KEY + ".map-reveal.v1";
+var MAP_NOTICE_KEY = saveScope + SAVE_KEY + ".map-reveal.v1";
 var mapShown = 0;
 var mapAnnounced = 0;
 var mapPending = 0;
-var MAP_VIEW_KEY = SAVE_KEY + ".map-view.v1";
+var MAP_VIEW_KEY = saveScope + SAVE_KEY + ".map-view.v1";
 function mapUIStorage() {
   try {
     return sessionStorage;
@@ -19014,7 +19014,7 @@ function mapUIStorage() {
   }
 }
 var mapBrowse = preview ? null : loadMapView(mapUIStorage(), MAP_VIEW_KEY);
-var MAP_RETURN_HIGHLIGHT_KEY = SAVE_KEY + ".map-return-highlight.v1";
+var MAP_RETURN_HIGHLIGHT_KEY = saveScope + SAVE_KEY + ".map-return-highlight.v1";
 var mapReturnHighlight = (() => {
   if (preview) return null;
   try {
@@ -19289,12 +19289,12 @@ function showStaffOpportunity(returnModal = null) {
   modal = { kind: "staff-opportunity", job: opportunity.kind, returnModal, noticePending: true };
   return true;
 }
-function acknowledgeStaffOpportunity() {
+async function acknowledgeStaffOpportunity() {
   const target = modal;
-  if (target?.kind !== "staff-opportunity" || !target.noticePending || document.hidden || !$2("action-dialog").open) return;
+  if (versionedStorage.pending || target?.kind !== "staff-opportunity" || !target.noticePending || document.hidden || !$2("action-dialog").open) return;
   try {
     const next = D.noticeStaffOpportunity(game, target.job);
-    if (!saveCandidate(next)) return;
+    if (!await saveCandidate(next)) return;
     game = next;
     target.noticePending = false;
   } catch (e) {
@@ -19448,9 +19448,9 @@ function recipeSourceView() {
 function recipesView() {
   return ledgerRecipeList();
 }
-function recipeAction(fn) {
+async function recipeAction(fn) {
   const halted = runtimeHalted;
-  if (act(fn)) runtimeHalted = halted;
+  if (await act(fn)) runtimeHalted = halted;
 }
 var historyYears = () => [...new Set((historyData?.events ?? []).map((e) => monthLabel(e.month).split("\u5E74")[0]))];
 function historyEventText(e) {
@@ -19557,14 +19557,14 @@ function showGeneration() {
   modal = { kind: g.phase === "review" ? "generation-review" : "generation-notice", id: g.id, noticePending: g.needsNotice, preparePending: g.phase === "review", returnRoom: m0.isOpen ? room : null };
   return true;
 }
-function acknowledgeDecisionNotice() {
+async function acknowledgeDecisionNotice() {
   const target = modal, dialog = $2("action-dialog");
-  if (!target || document.hidden || !dialog.open || dialog.dataset.kind !== target.kind) return;
+  if (versionedStorage.pending || !target || document.hidden || !dialog.open || dialog.dataset.kind !== target.kind) return;
   if (!["shop-offer", "generation-notice", "generation-review"].includes(target.kind)) return;
   try {
     if (target.noticePending) {
       const next = target.kind === "shop-offer" ? (target.regional ? D.noticeRegionalOffer : D.noticeShopOffer)(game, target.shopId, target.offerId) : D.noticeGeneration(game, target.id);
-      if (!saveCandidate(next)) return;
+      if (!await saveCandidate(next)) return;
       game = next;
       target.noticePending = false;
     }
@@ -19609,6 +19609,46 @@ function interestPlaces(events, title) {
 function generationReview2(g) {
   return generationSummaryView(g.id);
 }
+function generationNewStores(state, events, generationId) {
+  const eras = [...state.generations.completed, state.generations.active];
+  const stores = new Map();
+  function add(id, name, month, era) {
+    if (!Number.isInteger(month)) return;
+    const existing = stores.get(id);
+    if (existing && existing.month <= month) return;
+    if (era == null) {
+      const candidates = eras.filter(g => month >= g.startedMonth && month <= (g.endedMonth ?? Infinity));
+      if (candidates.length === 1) era = candidates[0].id;
+    }
+    stores.set(id, { name, month, era });
+  }
+  for (const event of events) {
+    if ((event.kind === "shop-start" && event.shopId !== "department") || event.kind === "department-adoption")
+      add(event.shopId, shopName(event.shopId), event.month, event.generationNumber);
+  }
+  for (const relation of state.shop?.relations ?? []) {
+    const id = relation.shopId ?? "town-liquor";
+    if (id !== "department") add(id, shopName(id), relation.startedMonth);
+  }
+  for (const adoption of state.department?.adoptions ?? [])
+    add("department", shopName("department"), adoption.month);
+  // Acceptance and handover can occur in the same month. Preserve operation order.
+  let era = eras[0].id;
+  const contractEras = new Map();
+  for (const op of state.operations) {
+    if (op.key === "generation-handover") era = op.value.id + 1;
+    if (op.key === "regional-accept") contractEras.set(op.value.offerId, era);
+  }
+  for (const contract of state.regionalPartners?.contracts ?? [])
+    add(contract.partnerId, tradingPartner(contract.partnerId)?.name ?? contract.partnerId,
+      contract.startedMonth, contractEras.get(contract.sourceOfferId));
+  for (const offer of state.localDistribution?.offers ?? []) {
+    if (offer.status === "accepted")
+      add(offer.storeId, STORE_CANDIDATES.find(store => store.id === offer.storeId)?.name ?? offer.storeId,
+        offer.decidedMonth, offer.generationId);
+  }
+  return [...stores.values()].filter(store => store.era === generationId).sort((a, b) => a.month - b.month);
+}
 function generationSummaryView(id3) {
   const waiting = historyWaiting();
   if (waiting) return waiting;
@@ -19621,7 +19661,7 @@ function generationSummaryView(id3) {
   const releases = bottled.filter(e => e.releaseId != null);
   const directOffers = game.localDistribution?.offers ?? [];
   const storeName = offer => STORE_CANDIDATES.find(store => store.id === offer.storeId)?.name ?? offer.storeId;
-  const newStores = directOffers.filter(o => o.status === "accepted" && o.generationId === id3);
+  const newStores = generationNewStores(game, historyRecord?.events ?? [], id3);
   out += "<h3>造った酒</h3><p>仕込み " + count3(g.totals.filled, "樽") + "／瓶詰め " + count3(bottled.length, "回") + "（" + count3(g.totals.bottled, "本") + "）</p>";
   if (releases.length) out += '<details class="generation-releases"><summary>瓶詰めの記録</summary>' + ledgerPaged(releases.slice().reverse(), e =>
     button(esc12(releaseTag(e.productId)) + "・" + e.count + "本", "ledger-release", "release:" + e.releaseId)) + "</details>";
@@ -19634,7 +19674,7 @@ function generationSummaryView(id3) {
     if (sales.length) out += "<p>直接取引の店で売れた本数</p>" + copyFacts(sales.map(o => [storeName(o), o.soldByGeneration[id3] + "本"]));
     out += "</details>";
   }
-  out += "<h3>新しい取引先</h3>" + (newStores.length ? copyFacts(newStores.map(o => [storeName(o), known2(o.decidedMonth, monthLabel)])) : "<p>" + (g.coverage.complete ? "なし" : "記録なし") + "</p>");
+  out += "<h3>新しい取引先</h3>" + (newStores.length ? copyFacts(newStores.map(store => [store.name, monthLabel(store.month)])) : "<p>" + (g.coverage.complete ? "なし" : "記録なし") + "</p>");
   out += "<h3>次の代へ渡すもの</h3><p>" + known2(g.estate.casks, n => n + "樽") + "／資金 " + esc12(known2(g.estate.cash, unit4)) + "</p>";
   let events = "";
   const rumors = firstRegionalRumors(game, id3);
@@ -20046,7 +20086,7 @@ function candidateHistory(next) {
 function sessionText(next, paused = userPaused, time = elapsed, slots = reconcileCaskSlots(next, caskSlots), ledger = candidateLedger(next), history5 = candidateHistory(next), recall3 = pendingRecall) {
   return serializeSession(next, { userPaused: paused, elapsed: time, caskSlots: slots, recentLedger: ledger, historyRecord: history5, recallRecord: recall3 }, { serialize: D.serializeDistillery, restore: D.restoreDistillery, enabled: true, monthMs: PARALLEL_PARAMETERS2.monthMs, stepMs: PARALLEL_PARAMETERS2.distillStepMs });
 }
-function saveCandidate(next, paused = userPaused, time = elapsed, writer = writeCandidate, ledgerOverride = null) {
+async function saveCandidate(next, paused = userPaused, time = elapsed, writer = writeCandidate, ledgerOverride = null) {
   const dialogueBefore = committedSession?.game;
   if (preview) {
     recallRecord = pendingRecall;
@@ -20067,7 +20107,7 @@ function saveCandidate(next, paused = userPaused, time = elapsed, writer = write
     phase = "\u4FDD\u5B58\u691C\u8A3C";
     const text2 = sessionText(next, paused, time, slots, ledger, history5);
     phase = "\u66F8\u8FBC\u307F\u30FB\u8AAD\u623B\u3057";
-    writer(versionedStorage, SAVE_KEY, lastSavedText, text2);
+    await versionedStorage.commit(lastSavedText, store => writer(store, SAVE_KEY, lastSavedText, text2));
     lastSavedText = text2;
     caskSlots = slots;
     recentLedger = ledger;
@@ -20084,10 +20124,10 @@ function saveCandidate(next, paused = userPaused, time = elapsed, writer = write
     return false;
   }
 }
-function save() {
+async function save() {
   if (!sessionActive) return false;
   if (preview) {
-    saveCandidate(game);
+    await saveCandidate(game);
     $2("save-status").textContent = "\u8A66\u904A\u4E2D \xB7 \u4FDD\u5B58\u3057\u307E\u305B\u3093";
     return true;
   }
@@ -20096,7 +20136,7 @@ function save() {
     restoreCommitted();
     return false;
   }
-  return saveCandidate(game);
+  return await saveCandidate(game);
 }
 function debugSkipMessage(job, reason) {
   const elapsedMonths = Math.max(0, game.core.month - job.startMonth);
@@ -20123,7 +20163,7 @@ function finishDebugSkip(reason, { needsAction = false } = {}) {
   if (game) render2();
   if (needsAction) schedule();
 }
-function runDebugSkipChunk(job) {
+async function runDebugSkipChunk(job) {
   if (!sessionActive || job !== debugSkipJob) return;
   if (document.hidden || modal?.kind !== "settings") {
     finishDebugSkip("\u4E2D\u65AD\u3057\u307E\u3057\u305F\u3002");
@@ -20137,7 +20177,7 @@ function runDebugSkipChunk(job) {
       }
       const result = debugSkipMonth(game, D);
       if (result.next !== game) {
-        if (!saveCandidate(result.next, true, elapsed)) {
+        if (!await saveCandidate(result.next, true, elapsed)) {
           debugSkipJob = null;
           render2();
           return;
@@ -20190,7 +20230,7 @@ function placementShelfRelease(p) {
 var productSaleState = (p) => placementEnabled ? D.placementInventory(game, p.id).retail > 0 ? "\u81EA\u5BB6\u8CA9\u58F2 " + D.placementInventory(game, p.id).retail + "\u672C" : "\u624B\u5143 " + D.placementInventory(game, p.id).hand + "\u672C" : game.productsById[p.id]?.listed ? "\u8CA9\u58F2\u4E2D" : "\u4FDD\u7BA1\u4E2D";
 var bottleStock = () => game.core.products.reduce((sum3, p) => sum3 + p.stock, 0);
 var hasMonthlyWork = () => game && !openingClockPending(game) && (game.core.casks.length > 0 || game.core.products.some((p) => p.stock > 0) || game.still.phase === "distilling" || D.usualNeedsClock(game) || D.generationNeedsClock(game));
-var blocked5 = () => !sessionActive || !game || openingClockPending(game) || countdown.active || generationState()?.phase === "review" || !preview && !canSave || userPaused || runtimeHalted || heldRange() || manualDistilling() && room !== "distill" || document.hidden || scene2.isDistillCompletion(game.core.spirit?.id) || marketEditing || modal !== null || game.tastingId !== null || game.decisions.length > 0 || game.trade.offer !== null;
+var blocked5 = () => versionedStorage.pending || !sessionActive || !game || openingClockPending(game) || countdown.active || generationState()?.phase === "review" || !preview && !canSave || userPaused || runtimeHalted || heldRange() || manualDistilling() && room !== "distill" || document.hidden || scene2.isDistillCompletion(game.core.spirit?.id) || marketEditing || modal !== null || game.tastingId !== null || game.decisions.length > 0 || game.trade.offer !== null;
 // v24: A store or regional contact becomes available without a separate
 // acceptance chore. Stock remains on hand until the player ships/allocates it.
 // Special department-store invitations are EXCLUDED: accepting those can queue
@@ -20202,11 +20242,13 @@ function autoWelcomeConnections(state) {
   const offers = [next.shop.offer, ...(next.shop.pendingOffers ?? [])].filter((o) => o && o.shopId !== "department");
   for (const offer of offers) {
     if (next.shop.relations.some((r) => r.shopId === offer.shopId && r.brandId === offer.brandId)) continue;
+    const beforeInvitation = pendingRecall;
     try {
       let candidate = next;
       if (candidate.shop.offer?.id !== offer.id) candidate = D.selectShopOffer(candidate, offer.shopId, offer.id);
       next = D.acceptShop(candidate, offer.shopId, offer.id);
     } catch (error) {
+      pendingRecall = beforeInvitation;
       // Keep an unusual legacy invitation available for manual acceptance.
       console.warn("Contact kept for review:", offer.shopId, error?.message ?? error);
     }
@@ -20285,10 +20327,14 @@ function applyAutoSupplyBeforeMonth(s) {
             const q = D.regionalDeliveryQuote(next, productId, shopId);
             const count = Math.min(5, source.count, q.maxCount);
             if (count < 1) continue;
+            const recallBeforeDelivery = pendingRecall;
             try {
               next = shipRegionalWithObservers(next, { partnerId: shopId, productId, count, autoSupply: true });
               break;
-            } catch (error) { console.warn("補充候補を見送りました:", shopId, productId, error?.message ?? error); }
+            } catch (error) {
+              pendingRecall = recallBeforeDelivery;
+              console.warn("補充候補を見送りました:", shopId, productId, error?.message ?? error);
+            }
           }
         }
         if (next.operations.length > beforeOpCount) performed = true;
@@ -20317,14 +20363,14 @@ function applyAutoSupplyBeforeMonth(s) {
       console.warn("補充を保留しました:", shopId, error?.message ?? error);
     }
   }
-  if (performed) next = payAutoSupplyStaffTransaction(next);
+  if (performed) next = D.payAutoSupplyStaff(next);
   return next;
 }
 function schedule(continuing = false) {
   stopClock(!continuing);
   if (blocked5() || !hasMonthlyWork()) return;
   const token = generation, expectedMonth = game.core.month;
-  timer = setTimeout(() => {
+  timer = setTimeout(async () => {
     if (token !== generation) return;
     timer = null;
     if (blocked5()) return;
@@ -20333,20 +20379,20 @@ function schedule(continuing = false) {
       let saved = true, completionSaved = false;
       if (D.canBeginUsual(game).ok) {
         game = D.beginUsual(game);
-        if (!save()) return;
+        if (!await save()) return;
       }
       const wasAutomatic = game.usual.reservation?.status === "active", wasDistilling = game.still.phase === "distilling";
       if (wasDistilling) {
         game = D.distillStep(game);
         if (!wasAutomatic && atExtractionLimit()) game = D.stopDistillation(game);
         if (!wasAutomatic && heldRange()) {
-          save();
+          await save();
           render2();
           return;
         }
         if (game.still.phase !== "distilling") {
           const completedTime = elapsed + PARALLEL_PARAMETERS2.distillStepMs < PARALLEL_PARAMETERS2.monthMs ? elapsed + PARALLEL_PARAMETERS2.distillStepMs : elapsed;
-          if (!saveCandidate(game, userPaused, completedTime)) {
+          if (!await saveCandidate(game, userPaused, completedTime)) {
             render2();
             return;
           }
@@ -20357,7 +20403,7 @@ function schedule(continuing = false) {
       const completed = wasAutomatic && game.usual.reservation?.status !== "active";
       if (elapsed >= PARALLEL_PARAMETERS2.monthMs) {
         const before2 = game.core.month, beforeMonth = game, beforeElapsed = elapsed - PARALLEL_PARAMETERS2.distillStepMs;
-        const recallBeforeSupply = pendingRecall ? structuredClone(pendingRecall) : null;
+        const recallBeforeSupply = pendingRecall;
         const prepared = applyAutoSupplyBeforeMonth(game);
         let progressed;
         try { progressed = D.tickDistillery(prepared, expectedMonth); }
@@ -20381,14 +20427,14 @@ function schedule(continuing = false) {
           runtimeHalted = true;
           message("\u8CC7\u91D1\u3092\u6B8B\u3057\u3066\u505C\u6B62\u3057\u3066\u3044\u307E\u3059\u3002\u305F\u308B\u8A70\u3081\u3084\u8CA9\u58F2\u3092\u78BA\u304B\u3081\u3089\u308C\u307E\u3059\u3002");
         }
-        saved = save();
+        saved = await save();
         if (!saved) {
           restoreCommitted();
           render2();
           return;
         }
-      } else if (wasDistilling && !completionSaved && (game.still.phase !== "distilling" || game.still.distillation.progress % 5 === 0)) saved = save();
-      if (completed && saved && !completionSaved) saved = save();
+      } else if (wasDistilling && !completionSaved && (game.still.phase !== "distilling" || game.still.distillation.progress % 5 === 0)) saved = await save();
+      if (completed && saved && !completionSaved) saved = await save();
       if (!saved) {
         restoreCommitted();
         render2();
@@ -20415,14 +20461,14 @@ function schedule(continuing = false) {
     }
   }, wallClock.delay(performance.now(), playbackRate, manualDistilling()));
 }
-function act(fn, after, afterSave, options) {
+async function act(fn, after, afterSave, options) {
   const paused = options?.paused ?? userPaused, time = options?.time ?? elapsed;
   if (!sessionActive || !game || !preview && !canSave) return false;
   countdown.cancel();
   stopClock();
   try {
     const before2 = game, next = fn(before2);
-    if (!saveCandidate(next, paused, time)) {
+    if (!await saveCandidate(next, paused, time)) {
       render2();
       schedule();
       return false;
@@ -20446,7 +20492,7 @@ function act(fn, after, afterSave, options) {
     return false;
   }
 }
-function actMarket(fn) {
+async function actMarket(fn) {
   if (!game || modal || !preview && !canSave) return false;
   countdown.cancel();
   stopClock();
@@ -20454,7 +20500,7 @@ function actMarket(fn) {
   try {
     const next = fn(before2);
     if (next === before2) return true;
-    if (!saveCandidate(next)) {
+    if (!await saveCandidate(next)) {
       render2();
       schedule();
       return false;
@@ -20470,13 +20516,14 @@ function actMarket(fn) {
     schedule();
     return true;
   } catch (error) {
+    restoreCommitted();
     storageNotice(error.message);
     render2();
     schedule();
     return false;
   }
 }
-function commitFill(type) {
+async function commitFill(type) {
   if (!game || modal?.kind !== "fill" || !preview && !canSave) return;
   countdown.cancel();
   stopClock();
@@ -20489,7 +20536,7 @@ function commitFill(type) {
     render2();
     return;
   }
-  if (!saveCandidate(next)) {
+  if (!await saveCandidate(next)) {
     render2();
     return;
   }
@@ -20506,7 +20553,7 @@ function commitFill(type) {
   render2();
   schedule();
 }
-function commitPlacement(selection) {
+async function commitPlacement(selection) {
   const before2 = game, old = D.placementInventory(game, selection.productId);
   let next;
   try {
@@ -20517,7 +20564,7 @@ function commitPlacement(selection) {
     $2("dialog-error").hidden = false;
     return { ok: false };
   }
-  if (!saveCandidate(next)) {
+  if (!await saveCandidate(next)) {
     $2("dialog-error").textContent = $2("storage-notice").textContent;
     $2("dialog-error").hidden = false;
     return { ok: false };
@@ -20580,23 +20627,23 @@ function startFromLever() {
     return D.startRangeDistillation(x);
   });
 }
-function endTaste() {
+async function endTaste() {
   if (!game || !preview && !canSave) return false;
   if (game.tastingId !== null) {
     const next = D.endTasting(game);
-    if (!saveCandidate(next)) return false;
+    if (!await saveCandidate(next)) return false;
     game = next;
   }
   return true;
 }
-function selectRoom(next) {
+async function selectRoom(next) {
   if (!game || !preview && !canSave || !prologueRooms(game).includes(next) || modal) return;
   marketUI.cancel();
   marketEditing = false;
   countdown.cancel();
   stopClock();
   if (manualDistilling()) userPaused = true;
-  if (!endTaste()) {
+  if (!await endTaste()) {
     render2();
     return;
   }
@@ -20605,7 +20652,7 @@ function selectRoom(next) {
   room = next;
   offerPresentation.continue();
   if (m0.mode === "full") m0.setMode("half");
-  save();
+  await save();
   render2();
   schedule();
 }
@@ -20935,14 +20982,14 @@ function closeModal() {
   render2();
   schedule();
 }
-function trial(id3) {
+async function trial(id3) {
   if (!game || !D.currentCask(game, id3)) return;
   stopClock();
-  if (game.tastingId !== null && game.tastingId !== id3 && !endTaste()) return;
+  if (game.tastingId !== null && game.tastingId !== id3 && !await endTaste()) return;
   warehouseRoom.select(id3);
   room = "warehouse";
   modal = { kind: "inspect", id: id3 };
-  if (act((s) => D.sampleDistillery(s, id3)))
+  if (await act((s) => D.sampleDistillery(s, id3)))
     document.dispatchEvent(new CustomEvent("ambertime:interaction-sfx", { detail: "tasting" }));
 }
 function quoteModal(id3) {
@@ -21818,17 +21865,17 @@ $2("room-nav").addEventListener("click", (e) => {
   if (b) selectRoom(b.dataset.room);
 });
 $2("go-distill").addEventListener("click", () => selectRoom("distill"));
-$2("cask-rack").addEventListener("click", (e) => {
+$2("cask-rack").addEventListener("click", async (e) => {
   const b = e.target.closest("[data-cask-id]");
   if (!b || modal || !D.currentCask(game, Number(b.dataset.caskId))) return;
   stopClock();
-  if (!endTaste()) {
+  if (!await endTaste()) {
     render2();
     return;
   }
   warehouseRoom.select(Number(b.dataset.caskId));
   modal = { kind: "inspect", id: warehouseRoom.selectedId };
-  save();
+  await save();
   render2();
   schedule();
 });
@@ -21927,7 +21974,7 @@ $2("taste-bottle").addEventListener("click", () => quoteModal(warehouseRoom.sele
 $2("open-m0-map").addEventListener("click", () => {
   if (room === "sales" && !modal && game) m0.toggle();
 });
-$2("toggle-time").addEventListener("click", () => {
+$2("toggle-time").addEventListener("click", async () => {
   if (!game || openingClockPending(game) || !preview && !canSave) return;
   placementUI?.cancel();
   if (countdown.active) return;
@@ -21935,7 +21982,7 @@ $2("toggle-time").addEventListener("click", () => {
     runtimeHalted = false;
   } else userPaused = !userPaused;
   if (!userPaused) offerPresentation.continue();
-  save();
+  await save();
   render2();
   schedule();
 });
@@ -22026,7 +22073,7 @@ $2("dialog-body").addEventListener("change", (e) => {
 $2("dialog-body").addEventListener("compositionend", updateBottleDraft);
 $2("dialog-body").addEventListener("input", updateBottleDraft);
 $2("dialog-body").addEventListener("change", updateBottleDraft);
-function handleModal(e) {
+async function handleModal(e) {
   const b = e.target.closest("[data-action]");
   if (!b || b.disabled || !modal) return;
   const a = b.dataset.action, id3 = Number(b.dataset.id), kind2 = modal.kind;
@@ -22046,7 +22093,7 @@ function handleModal(e) {
       render2();
       return;
     }
-    if (placementUI.handle(e)) return;
+    if (await placementUI.handle(e)) return;
   }
   if (kind2 === "quote" && D.needsBrandSetup(game) && a === "brand-next") {
     if (!brandNameError(firstBrandDraft().name)) {
@@ -22112,7 +22159,7 @@ function handleModal(e) {
   }
   if (a === "staff-opportunity-hire" && kind2 === "staff-opportunity" && b.dataset.id === modal.job) {
     const job = modal.job, target = modal.source === "room" ? { kind: job === "distill" ? "staff-panel" : "bottler-panel" } : modal.returnModal ?? null;
-    act(job === "distill" ? D.hireStaff : D.hireBottlingStaff, () => {
+    await act(job === "distill" ? D.hireStaff : D.hireBottlingStaff, () => {
       modal = target;
     });
     return;
@@ -22146,17 +22193,17 @@ function handleModal(e) {
   }
   if (a === "bottling-toggle" && kind2 === "bottler-panel" && D.bottlingStaffStatus(game).hired && D.currentCask(game, id3)) {
     const r = D.bottlingReservation(game, id3);
-    act((s) => r?.status === "active" ? D.bottlingAssignmentMode(s) ? D.cancelBottling(D.endTasting(s), id3) : D.pauseBottling(D.endTasting(s), id3, true) : r?.status === "paused" ? D.pauseBottling(D.endTasting(s), id3, false) : v26DelegateBottling(s, id3), () => {
+    await act((s) => r?.status === "active" ? D.bottlingAssignmentMode(s) ? D.cancelBottling(D.endTasting(s), id3) : D.pauseBottling(D.endTasting(s), id3, true) : r?.status === "paused" ? D.pauseBottling(D.endTasting(s), id3, false) : v26DelegateBottling(s, id3), () => {
       modal.policyNoticeId = null;
     });
     return;
   }
   if (["bottling-pause", "bottling-resume"].includes(a) && kind2 === "bottler-panel" && D.bottlingAssignmentMode(game) && D.bottlingReservation(game, id3)) {
-    act((s) => D.pauseBottling(D.endTasting(s), id3, a === "bottling-pause"));
+    await act((s) => D.pauseBottling(D.endTasting(s), id3, a === "bottling-pause"));
     return;
   }
   if (a === "bottling-cancel" && kind2 === "bottler-panel" && D.bottlingStaffStatus(game).hired && D.bottlingReservation(game, id3)) {
-    act((s) => D.cancelBottling(D.endTasting(s), id3));
+    await act((s) => D.cancelBottling(D.endTasting(s), id3));
     return;
   }
   if (a === "staff-bottle-plan" && kind2 === "bottler-panel" && D.bottlingStaffStatus(game).hired && D.currentCask(game, id3)) {
@@ -22187,7 +22234,7 @@ function handleModal(e) {
   if (a === "bottling-policy-save" && kind2 === "bottler-panel") {
     if (!validPlanDraft(modal.planDraft)) return;
     const draft = { ...modal.planDraft }, returnCaskId = modal.returnCaskId, displayDefaults = Object.fromEntries(["age", "threshold"].filter((key2) => Number.isInteger(draft[key2]) && draft[key2] >= 0 && draft[key2] <= (key2 === "age" ? 1200 : 999)).map((key2) => [key2, draft[key2]])), plan = draft.mode === "age" ? { mode: "age", age: draft.age, count: draft.count } : { mode: "stock", threshold: draft.threshold, count: draft.count };
-    act((s) => D.setBottlingPolicy(s, plan, displayDefaults), () => {
+    await act((s) => D.setBottlingPolicy(s, plan, displayDefaults), () => {
       modal = returnCaskId ? { kind: "inspect", id: returnCaskId } : { kind: "bottler-panel" };
       message("\u4FDD\u5B58\u3057\u307E\u3057\u305F");
     });
@@ -22195,7 +22242,7 @@ function handleModal(e) {
   }
   if (a === "bottling-delegate" && ["inspect", "bottling-plan"].includes(kind2) && D.bottlingStaffStatus(game).hired && D.currentCask(game, id3)) {
     const staffContext = modal.staffContext;
-    act((s) => v26DelegateBottling(s, id3), () => {
+    await act((s) => v26DelegateBottling(s, id3), () => {
       warehouseRoom.select(id3);
       modal = staffContext ? { kind: "bottler-panel" } : { kind: "inspect", id: id3 };
       message("\u4EFB\u305B\u307E\u3057\u305F");
@@ -22203,7 +22250,7 @@ function handleModal(e) {
     return;
   }
   if (["bottling-pause", "bottling-resume", "bottling-cancel"].includes(a) && kind2 === "bottling-plan" && modal.staffContext) {
-    act((s) => a === "bottling-cancel" ? D.cancelBottling(D.endTasting(s), id3) : D.pauseBottling(D.endTasting(s), id3, a === "bottling-pause"), () => {
+    await act((s) => a === "bottling-cancel" ? D.cancelBottling(D.endTasting(s), id3) : D.pauseBottling(D.endTasting(s), id3, a === "bottling-pause"), () => {
       modal = { kind: "bottler-panel" };
       message(a === "bottling-cancel" ? LIVE_MESSAGE.reservationCancelled : a === "bottling-pause" ? LIVE_MESSAGE.reservationPaused : LIVE_MESSAGE.reservationResumed);
     });
@@ -22221,7 +22268,7 @@ function handleModal(e) {
   }
   if (kind2 === "stockist" && ["direct-accept", "direct-decline"].includes(a)) {
     const offer = game.localDistribution?.offers.find((o) => o.id === b.dataset.id && (o.officeId === modal.shopId || o.storeId === modal.shopId) && o.status === "pending");
-    if (offer) act((s) => D.decideLocalDirectOffer(s, offer.id, a === "direct-accept" ? "accepted" : "declined"), () => {
+    if (offer) await act((s) => D.decideLocalDirectOffer(s, offer.id, a === "direct-accept" ? "accepted" : "declined"), () => {
       if (a === "direct-decline" && modal.shopId === offer.storeId) modal = null;
     });
     return;
@@ -22252,7 +22299,7 @@ function handleModal(e) {
   if (["regional-accept", "regional-later", "regional-decline"].includes(a)) {
     if (kind2 !== "shop-offer" || !modal.regional || modal.shopId !== b.dataset.shopId || modal.offerId !== b.dataset.offerId) return;
     const target = { ...modal }, fn = a === "regional-accept" ? D.acceptRegionalOffer : a === "regional-decline" ? D.declineRegionalOffer : D.deferRegionalOffer;
-    act((s) => fn(s, target.shopId, target.offerId), () => {
+    await act((s) => fn(s, target.shopId, target.offerId), () => {
       modal = target.returnModal ?? null;
       message(a === "regional-accept" ? "\u53D6\u6271\u95A2\u4FC2\u304C\u59CB\u307E\u308A\u307E\u3057\u305F\u3002" : a === "regional-decline" ? "\u4ECA\u56DE\u306F\u898B\u9001\u308A\u307E\u3057\u305F\u3002" : "");
     });
@@ -22319,7 +22366,7 @@ function handleModal(e) {
     return;
   }
   if (a === "staff-hire-request" && kind2 === "staff-request") {
-    act((s) => D.hireStaff(D.endTasting(s)), () => message("\u63A1\u7528\u3057\u307E\u3057\u305F"));
+    await act((s) => D.hireStaff(D.endTasting(s)), () => message("\u63A1\u7528\u3057\u307E\u3057\u305F"));
     return;
   }
   if (a === "staff-mode" && kind2 === "staff-request" && ["once", "continuous"].includes(b.dataset.id) && game.staff.hired) {
@@ -22329,7 +22376,7 @@ function handleModal(e) {
   }
   if (a === "staff-confirm" && kind2 === "staff-request" && staffCanRequest()) {
     const sourceId = modal.caskId, mode = modal.requestMode;
-    act((s) => sourceId === null ? D.reserveUsual(D.endTasting(s), mode) : D.reserveStaff(D.endTasting(s), sourceId, mode), () => {
+    await act((s) => sourceId === null ? D.reserveUsual(D.endTasting(s), mode) : D.reserveStaff(D.endTasting(s), sourceId, mode), () => {
       modal = null;
       room = "distill";
       message("\u4F9D\u983C\u3057\u307E\u3057\u305F");
@@ -22370,7 +22417,7 @@ function handleModal(e) {
   }
   if (a === "flavor-card" && kind2 === "flavor-cards") {
     const cards = chooseManualCard(game, b.dataset.group, b.dataset.id);
-    if (cards) act((x) => D.selectFlavorCards(x, cards));
+    if (cards) await act((x) => D.selectFlavorCards(x, cards));
     return;
   }
   if (a === "flavor-start" && kind2 === "flavor-cards") {
@@ -22387,7 +22434,7 @@ function handleModal(e) {
     const before2 = game;
     try {
       const next = D.enableShopDialogue(D.enableAlleyBar(D.enableMarketRules(before2)));
-      if (!saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
+      if (!await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
         render2();
         return;
       }
@@ -22439,7 +22486,7 @@ function handleModal(e) {
     stopClock();
     warehouseRoom.select(id3);
     room = "warehouse";
-    act((s) => D.sampleDistillery(s, id3), () => {
+    await act((s) => D.sampleDistillery(s, id3), () => {
       modal = { kind: "inspect", id: id3, ledgerParent: parent };
     });
     return;
@@ -22601,7 +22648,7 @@ function handleModal(e) {
     return;
   }
   if (a === "generation-handover" && kind2 === "generation-review" && generationState()?.id === id3 && !recallPreview?.scenes.length) {
-    act((s) => D.handoverGeneration(s, id3), () => {
+    await act((s) => D.handoverGeneration(s, id3), () => {
       modal = null;
       runtimeHalted = false;
       room = "distill";
@@ -22647,7 +22694,7 @@ function handleModal(e) {
   }
   if (a === "shop-start-sale" && kind2 === "shop-offer" && modal.shopId === "department" &&
       modal.productId === id3 && game.productsById[id3] && !game.productsById[id3].listed) {
-    act((s) => D.listBottles(s, id3));
+    await act((s) => D.listBottles(s, id3));
     return;
   }
   if (a === "shop-offer-sales" && kind2 === "shop-offer" && modal.shopId === "department") {
@@ -22675,20 +22722,20 @@ function handleModal(e) {
   }
   if (a === "auto-supply-hire" && kind2 === "auto-supply-hire" && autoSupplyStaffStatus(game).canHire) {
     const parent = modal.parent;
-    act((s) => D.hireAutoSupplyStaff(s), () => { modal = parent ?? { kind: "stockists" }; });
+    await act((s) => D.hireAutoSupplyStaff(s), () => { modal = parent ?? { kind: "stockists" }; });
     return;
   }
   if (a === "auto-supply-toggle") {
     const shopId = b.dataset.shopId;
     if (kind2 !== "stockist" || modal.shopId !== shopId || !autoSupplyStaffHired(game) || !autoSupplyManualSource(game, shopId)) return;
     const enabled = !game.autoSupply.choices[shopId];
-    act((s) => D.setAutoSupplyPolicy(s, shopId, enabled));
+    await act((s) => D.setAutoSupplyPolicy(s, shopId, enabled));
     return;
   }
   if (a === "shop-accept" || a === "shop-decline") {
     if (kind2 === "shop-offer") {
       const target = { ...modal }, startedBrandId = game.shop.offer?.brandId;
-      act((s) => (a === "shop-accept" ? D.acceptShop : D.declineShop)(s, target.shopId, target.offerId), () => {
+      await act((s) => (a === "shop-accept" ? D.acceptShop : D.declineShop)(s, target.shopId, target.offerId), () => {
         modal = target.returnModal ?? (target.returnProductId !== null ? { kind: "product", id: target.returnProductId } : null);
         room = "sales";
         if (a === "shop-accept" && ["town-liquor", "supermarket", "bar"].includes(target.shopId)) {
@@ -22710,7 +22757,7 @@ function handleModal(e) {
       const n = Number(b.dataset.count);
       if (modal.shopId !== "department") return;
       const target = { ...modal };
-      act((s) => D.acceptShopDelivery(s, id3, n, target.shopId, target.offerId), () => {
+      await act((s) => D.acceptShopDelivery(s, id3, n, target.shopId, target.offerId), () => {
         modal = target.returnModal ?? (target.returnProductId !== null ? { kind: "product", id: target.returnProductId } : null);
         room = "sales";
       }, () => {
@@ -22721,7 +22768,7 @@ function handleModal(e) {
     return;
   }
   if (a === "department-cancel") {
-    if ((kind2 === "product" && modal.id === id3 || kind2 === "ledger") && D.departmentInterests(game, releaseFor2(id3)?.brandId).some((x) => x.selectionId === b.dataset.selectionId)) act((s) => D.cancelDepartmentInterest(s, b.dataset.selectionId), () => {
+    if ((kind2 === "product" && modal.id === id3 || kind2 === "ledger") && D.departmentInterests(game, releaseFor2(id3)?.brandId).some((x) => x.selectionId === b.dataset.selectionId)) await act((s) => D.cancelDepartmentInterest(s, b.dataset.selectionId), () => {
       deliveryNotice = "\u76F8\u8AC7\u3092\u7D42\u3048\u307E\u3057\u305F\u3002";
     });
     return;
@@ -22733,7 +22780,7 @@ function handleModal(e) {
     if (!p || deliveryCount(p, q) !== n || shopId4 === "department" && b.dataset.selectionId !== q.selectionId) return;
     modal.deliveryCount = null;
     deliveryNotice = "";
-    act((s) => D.deliverShop(s, id3, n, shopId4, shopId4 === "department" ? q.selectionId : void 0), null, () => {
+    await act((s) => D.deliverShop(s, id3, n, shopId4, shopId4 === "department" ? q.selectionId : void 0), null, () => {
       if (shopId4 === "department") deliveryNotice = "\u7FCC\u67085\u672C\u7D0D\u54C1";
       else {
         const receipt = game.shop.deliveries.at(-1);
@@ -22762,7 +22809,7 @@ function handleModal(e) {
   if (a === "choose") {
     const first = game.decisions[0];
     if (kind2 !== "decision" || first?.caskId !== id3 || first.eventId !== b.dataset.event) return;
-    act((s) => D.chooseDistillery(s, id3, b.dataset.choice), () => {
+    await act((s) => D.chooseDistillery(s, id3, b.dataset.choice), () => {
       modal = null;
       message("");
     });
@@ -22780,7 +22827,7 @@ function handleModal(e) {
   }
   if (a === "list") {
     if (kind2 !== "product" || modal.id !== id3 || game.productsById[id3]?.listed) return;
-    act((s) => D.listBottles(s, id3), () => {
+    await act((s) => D.listBottles(s, id3), () => {
       room = "sales";
       selectedProductId = id3;
       modal = null;
@@ -22818,7 +22865,7 @@ function handleModal(e) {
     const firstBottle = D.needsBrandSetup(game), selection = firstBottle ? { ...firstBrandDraft() } : { brandId: 1 };
     quoteState.committing = true;
     updateBottleSelection();
-    const ok2 = act((s) => D.bottleBranded(D.endTasting(s), id3, selection, count3), () => {
+    const ok2 = await act((s) => D.bottleBranded(D.endTasting(s), id3, selection, count3), () => {
       selectedProductId = game.result.productId;
       room = "sales";
       modal = null;
@@ -22835,7 +22882,7 @@ function handleModal(e) {
     return;
   }
 }
-function suspend() {
+async function suspend() {
   if (!sessionActive) {
     if (sessionEntry.busy && !sessionEntry.writing) {
       sessionEntry.cancel();
@@ -22850,8 +22897,9 @@ function suspend() {
   placementUI?.cancel();
   countdown.cancel();
   stopClock();
+  if (versionedStorage.pending) return;
   if (manualDistilling()) userPaused = true;
-  save();
+  await save();
   if (game) render2();
 }
 function resume() {
@@ -22873,10 +22921,11 @@ window.addEventListener("pagehide", () => {
 window.addEventListener("pageshow", (e) => {
   if (e.persisted) resume();
 });
-window.addEventListener("storage", (e) => {
-  if (!preview && (e.key === SAVE_KEY || e.key === previousSaveKey && localStorage.getItem(SAVE_KEY) === null)) {
+function otherTabChanged() {
+  if (!preview) {
     if (!sessionActive) {
       sessionEntry.cancel();
+      entrySnapshot = null;
       entryView = "error";
       entryMessage = "\u5225\u306E\u753B\u9762\u3067\u8A18\u9332\u304C\u5909\u308F\u308A\u307E\u3057\u305F\u3002\u8A18\u9332\u3092\u518D\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
       paintEntry();
@@ -22885,7 +22934,7 @@ window.addEventListener("storage", (e) => {
     saveFailure(Object.assign(Error("\u5225\u306E\u753B\u9762\u3067\u4FDD\u5B58\u304C\u5909\u308F\u308A\u307E\u3057\u305F\u3002"), { code: "conflict" }), "\u5225\u30BF\u30D6");
     if (game) render2();
   }
-});
+}
 var sessionOptions = { restore: D.restoreDistillery, monthMs: PARALLEL_PARAMETERS2.monthMs, stepMs: PARALLEL_PARAMETERS2.distillStepMs };
 function exportRaw(text2, name2 = "ambertime-save.json") {
   const url = URL.createObjectURL(new Blob([text2], { type: "application/json" })), link = document.createElement("a");
@@ -22894,7 +22943,7 @@ function exportRaw(text2, name2 = "ambertime-save.json") {
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1e4);
 }
-function installSession(session, { fresh = false } = {}) {
+async function installSession(session, { fresh = false } = {}) {
   clearEntryDiagnostic();
   offerPresentation.reset();
   sessionEpoch++;
@@ -22976,7 +23025,7 @@ function installSession(session, { fresh = false } = {}) {
   if (D.marketRulesMode(game) && !D.alleyBarMode(game)) {
     try {
       const next = D.enableAlleyBar(game);
-      if (saveCandidate(next)) {
+      if (await saveCandidate(next)) {
         game = next;
       } else barMigrationFailed = true;
     } catch (error) {
@@ -22987,7 +23036,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && D.marketRulesMode(game) && !D.shopDialogueMode(game)) {
     try {
       const next = D.enableShopDialogue(game);
-      if (saveCandidate(next)) {
+      if (await saveCandidate(next)) {
         game = next;
       } else barMigrationFailed = true;
     } catch (error) {
@@ -22998,7 +23047,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && D.marketRulesMode(game) && !D.regionalPartnerMode(game)) {
     try {
       const next = D.enableRegionalPartners(game);
-      if (saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
+      if (await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
         game = next;
       } else barMigrationFailed = true;
     } catch (error) {
@@ -23009,7 +23058,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && D.regionalPartnerMode(game) && !D.regionalDeliveryMode(game)) {
     try {
       const next = D.enableRegionalDeliveries(game);
-      if (saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
+      if (await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
         game = next;
       } else barMigrationFailed = true;
     } catch (error) {
@@ -23020,7 +23069,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && D.regionalDeliveryMode(game) && !D.worldNetworkMode(game)) {
     try {
       const next = D.enableWorldNetwork(game);
-      if (saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
+      if (await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
         game = next;
       } else barMigrationFailed = true;
     } catch (error) {
@@ -23031,7 +23080,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && D.worldNetworkMode(game) && !D.bottlingAssignmentMode(game)) {
     try {
       const next = D.enableBottlingAssignment(game);
-      if (saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
+      if (await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) {
         game = next;
       } else barMigrationFailed = true;
     } catch (error) {
@@ -23042,7 +23091,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && D.bottlingAssignmentMode(game) && !autoSupplyMode(game)) {
     try {
       const next = D.enableAutoSupply(game);
-      if (saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) game = next;
+      if (await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) game = next;
       else barMigrationFailed = true;
     } catch (error) {
       barMigrationFailed = true;
@@ -23052,7 +23101,7 @@ function installSession(session, { fresh = false } = {}) {
   if (!barMigrationFailed && autoSupplyMode(game) && !bottlingScopeMode(game)) {
     try {
       const next = D.enableBottlingScope(game);
-      if (saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) game = next;
+      if (await saveCandidate(next, userPaused, elapsed, commitMarketRulesUpdate)) game = next;
       else barMigrationFailed = true;
     } catch (error) {
       barMigrationFailed = true;
@@ -23131,7 +23180,7 @@ function paintEntry() {
   $2("entry-transfer").hidden = preview || entryView !== "title" || entrySnapshot?.kind !== "empty" || busy;
   $2("entry-confirm-copy").textContent = entrySnapshot?.raw !== null || entrySnapshot?.legacy.length ? "\u4ECA\u306E\u8A18\u9332\u3092\u6D88\u3057\u3066\u3001\u306F\u3058\u3081\u304B\u3089\u904A\u3073\u307E\u3059\u304B\uFF1F" : "\u65B0\u3057\u3044\u84B8\u7559\u6240\u3092\u59CB\u3081\u307E\u3059\u3002";
 }
-function showTitle() {
+async function showTitle() {
   entryOperation = "title-inspect";
   sessionActive = false;
   stopClock();
@@ -23139,17 +23188,25 @@ function showTitle() {
   entryMessage = "";
   entryReturn = null;
   entryIntent = null;
+  entrySnapshot = null;
+  paintEntry();
+  try { await versionedStorage.refresh(); } catch (error) {
+    recordEntryFailure(error);
+    entryMessage = "保存領域を確認できません。再確認してください。";
+    paintEntry();
+    return;
+  }
   if (inspectEntry()) entryMessage = entrySnapshot.kind === "unreadable" ? "\u8AAD\u307F\u8FBC\u3081\u306A\u3044\u8A18\u9332\u304C\u3042\u308A\u307E\u3059\u3002\u5FA9\u65E7\u7528\u306B\u539F\u6587\u3092\u66F8\u304D\u51FA\u305B\u307E\u3059\u3002\u300C\u306F\u3058\u3081\u304B\u3089\u300D\u3067\u306F\u3001\u3053\u306E\u8A18\u9332\u3092\u7F6E\u304D\u63DB\u3048\u307E\u3059\u3002" : entrySnapshot.kind === "legacy" ? "\u4EE5\u524D\u306E\u958B\u767A\u7248\u306E\u8A18\u9332\u304C\u3042\u308A\u307E\u3059\u3002\u539F\u6587\u3092\u6B8B\u3057\u3066\u65B0\u3057\u304F\u59CB\u3081\u3089\u308C\u307E\u3059\u3002" : "";
   protectedRecordExports();
   paintEntry();
 }
-function startNew() {
+async function startNew() {
   if (sessionEntry.busy) return false;
   entryOperation = sessionActive ? "new-menu" : "new-title";
   if (preview) {
     if (!confirm("\u8A66\u904A\u3092\u6700\u521D\u304B\u3089\u3084\u308A\u76F4\u3057\u307E\u3059\u304B\uFF1F")) return false;
     const session = createFreshSession(partner_orders_exports, seed);
-    installSession(session, { fresh: true });
+    await installSession(session, { fresh: true });
     return true;
   }
   if (sessionActive) {
@@ -23220,11 +23277,11 @@ var sessionEntry = createSessionEntry({
     }
     paintEntry();
   },
-  install: (session, { fresh, text: text2, backupKey }) => {
+  install: async (session, { fresh, text: text2, backupKey }) => {
     lastSavedText = text2;
     legacyRecord = null;
     if (backupKey) newGameBackupKey = backupKey;
-    installSession(session, { fresh });
+    await installSession(session, { fresh });
     protectedRecordExports();
     if (fresh) startShadow(session.game);
   }
@@ -23280,7 +23337,7 @@ function rebuildPartnerNamesV35(text) {
   readSession(result, { ...sessionOptions, enabled: true });
   return result;
 }
-function updateLocalSaveNamesV35(entry) {
+async function updateLocalSaveNamesV35(entry) {
   if (!entry || entry.kind !== "current" || typeof entry.raw !== "string") return entry;
   const updated = rebuildPartnerNamesV35(entry.raw);
   if (!updated) return entry;
@@ -23288,11 +23345,13 @@ function updateLocalSaveNamesV35(entry) {
   let h = 2166136261;
   for (let i = 0; i < from.length; i++) h = Math.imul(h ^ from.charCodeAt(i), 16777619);
   const key = SAVE_KEY + ".before-names-v35." + from.length + "." + (h >>> 0).toString(16);
-  const existing = localStorage.getItem(key);
-  if (existing !== null && existing !== from) throw Error("以前のセーブのバックアップが一致しません。更新していません。");
-  if (existing === null) localStorage.setItem(key, from);
-  if (localStorage.getItem(key) !== from) throw Error("以前のセーブを保護できません。更新していません。");
-  writeCandidate(versionedStorage, SAVE_KEY, from, updated);
+  await versionedStorage.commit(from, store => {
+    const existing = store.getItem(key);
+    if (existing !== null && existing !== from) throw Error("以前のセーブのバックアップが一致しません。更新していません。");
+    if (existing === null) store.setItem(key, from);
+    if (store.getItem(key) !== from) throw Error("以前のセーブを保護できません。更新していません。");
+    writeCandidate(store, SAVE_KEY, from, updated);
+  });
   return inspectStartRecord(versionedStorage);
 }
 
@@ -23303,7 +23362,7 @@ async function enterSession(kind2) {
   entryIntent = kind2;
   if (kind2 === "continue") {
     try {
-      entrySnapshot = updateLocalSaveNamesV35(entrySnapshot);
+      entrySnapshot = await updateLocalSaveNamesV35(entrySnapshot);
     } catch (error) {
       // All failed name updates leave the original formal record unchanged.
       entryMessage = "店名を更新できませんでした。元のセーブは残っています。" + (error?.message ?? "");
@@ -23354,8 +23413,8 @@ $2("entry-load-file").addEventListener("change", async (e) => {
     const candidate = JSON.parse(text2).version === 8
       ? sessionText(restored.game, restored.userPaused, restored.elapsed, restored.caskSlots, restored.recentLedger, restored.historyRecord, restored.recallRecord)
       : text2;
-    writeCandidate(versionedStorage, SAVE_KEY, null, candidate);
-    showTitle();
+    await versionedStorage.commit(null, store => writeCandidate(store, SAVE_KEY, null, candidate));
+    await showTitle();
     entryMessage = monthLabel(restored.game.core.month) + "\u306E\u8A18\u9332\u3092\u8AAD\u307F\u8FBC\u307F\u307E\u3057\u305F\u3002\u300C\u3064\u3065\u304D\u304B\u3089\u300D\u3067\u518D\u958B\u3067\u304D\u307E\u3059\u3002";
   } catch (error) {
     if (entryView !== "title") return;
@@ -23409,7 +23468,7 @@ backupExport.hidden = true;
 $2("aux-panel").append(backupExport);
 backupExport.addEventListener("click", () => {
   try {
-    const raw = newGameBackupKey && localStorage.getItem(newGameBackupKey);
+    const raw = newGameBackupKey && versionedStorage.getItem(newGameBackupKey);
     if (typeof raw !== "string") throw Error("\u65B0\u898F\u958B\u59CB\u524D\u306E\u8A18\u9332\u3092\u78BA\u8A8D\u3067\u304D\u307E\u305B\u3093\u3002");
     exportRaw(raw, "ambertime-before-new-game.json");
   } catch (error) {
@@ -23426,8 +23485,8 @@ function protectedRecordExports() {
     summary2.textContent = "\u4FDD\u8B77\u3057\u305F\u8A18\u9332";
     list.append(summary2);
     try {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key2 = localStorage.key(i);
+      for (let i = 0; i < versionedStorage.length; i++) {
+        const key2 = versionedStorage.key(i);
         const legacy = ["sukimastock.local-ambertime.placement-trial.v1", "sukimastock.local-ambertime.wholesale.v20"].includes(key2);
         const isNameBackup = key2?.startsWith(SAVE_KEY + ".before-names-v35.");
         if (!legacy && !isNameBackup && !key2?.startsWith(SAVE_KEY + ".before-market-rules.v1.")) continue;
@@ -23436,7 +23495,7 @@ function protectedRecordExports() {
         button2.textContent = (legacy ? "\u4EE5\u524D\u306E\u958B\u767A\u7248\u306E\u8A18\u9332 " : "\u8A18\u9332 ") + list.childElementCount + "\u3092\u66F8\u304D\u51FA\u3059";
         button2.addEventListener("click", () => {
           try {
-            const raw = localStorage.getItem(key2);
+            const raw = versionedStorage.getItem(key2);
             if (typeof raw !== "string") throw Error("\u4FDD\u8B77\u3057\u305F\u8A18\u9332\u3092\u78BA\u8A8D\u3067\u304D\u307E\u305B\u3093\u3002");
             exportRaw(raw, "ambertime-protected-" + (legacy ? key2.split(".").slice(-2).join("-") : isNameBackup ? "before-names-v35-" + key2.slice((SAVE_KEY + ".before-names-v35.").length) : key2.slice((SAVE_KEY + ".before-market-rules.v1.").length)) + ".json");
           } catch (error) {
@@ -23456,9 +23515,9 @@ $2("recovery-export").addEventListener("click", () => {
   const raw = lastSavedText ?? legacyRecord?.raw;
   if (raw != null) exportRaw(raw);
 });
-$2("retry-save").addEventListener("click", () => {
-  if (!sessionActive) {
-    showTitle();
+$2("retry-save").addEventListener("click", async () => {
+  if (!sessionActive || lastSaveError?.code === "conflict") {
+    await showTitle();
     return;
   }
   if (!game || !isCurrentSession(lastSavedText)) {
@@ -23466,7 +23525,7 @@ $2("retry-save").addEventListener("click", () => {
     return;
   }
   canSave = true;
-  if (save()) {
+  if (await save()) {
     runtimeHalted = false;
     storageNotice("");
     $2("recovery").hidden = true;
@@ -23496,9 +23555,9 @@ async function importRecord(file) {
   }
   if (!sessionActive || epoch !== sessionEpoch || !confirm("\u3053\u306E\u8A18\u9332\u3092\u8AAD\u307F\u8FBC\u307F\u307E\u3059\u304B\uFF1F\u73FE\u5728\u306E\u8A18\u9332\u306F\u7F6E\u304D\u63DB\u308F\u308A\u307E\u3059\u3002") || !sessionActive || epoch !== sessionEpoch) return false;
   try {
-    writeCandidate(versionedStorage, SAVE_KEY, expected, text2);
+    await versionedStorage.commit(expected, store => writeCandidate(store, SAVE_KEY, expected, text2));
     lastSavedText = text2;
-    installSession(session, { fresh: true });
+    await installSession(session, { fresh: true });
     return true;
   } catch (error) {
     saveFailure(error, "\u30D5\u30A1\u30A4\u30EB\u4FDD\u5B58");
@@ -23550,13 +23609,13 @@ async function boot() {
         };
         const record = extraRecords[start] ?? bundled[start] ?? await (await fetch("../../native/" + start + "-start.json")).text();
         const session = readSession(record, { ...sessionOptions, enabled: true });
-        installSession({ ...session, userPaused: true }, { fresh: true });
+        await installSession({ ...session, userPaused: true }, { fresh: true });
         return;
       } else if (query.get("market-fixture") === "established") {
         const fixture = typeof define_LOCAL_MARKET_FIXTURE_default === "object" ? define_LOCAL_MARKET_FIXTURE_default : await (await fetch("./tests/fixtures/placement-established-six.json")).json();
         next = enableMarketRules(enableStoreMarket(enableStage4(restoreDistillery4(fixture.raw))));
       } else next = newNativeGame();
-      installSession({ game: next, userPaused: query.get("market-fixture") === "established", elapsed: 0, caskSlots: initializeCaskSlots(next), recentLedger: initializeLedger(next), historyRecord: query.get("market-fixture") === "established" ? null : initializeHistoryRecord(next), recallRecord: query.get("market-fixture") === "established" ? null : initializeRecall(next) }, { fresh: true });
+      await installSession({ game: next, userPaused: query.get("market-fixture") === "established", elapsed: 0, caskSlots: initializeCaskSlots(next), recentLedger: initializeLedger(next), historyRecord: query.get("market-fixture") === "established" ? null : initializeHistoryRecord(next), recallRecord: query.get("market-fixture") === "established" ? null : initializeRecall(next) }, { fresh: true });
     } catch (error) {
       game = null;
       saveFailure(error, "\u8A66\u904A\u958B\u59CB");
