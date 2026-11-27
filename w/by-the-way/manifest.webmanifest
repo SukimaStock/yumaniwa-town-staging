@@ -1,0 +1,18 @@
+{
+  "name": "By the Way.",
+  "short_name": "By the Way.",
+  "id": "../../?work=by-the-way",
+  "start_url": "../../?work=by-the-way",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#526159",
+  "theme_color": "#526159",
+  "icons": [
+    {
+      "src": "../../assets/works/by-the-way/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

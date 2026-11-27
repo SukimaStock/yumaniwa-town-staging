@@ -61,6 +61,9 @@ window.GHOST_DIALOGUE = {
     },
 
     works: {
+        'by-the-way': [
+            'あの電柱のビラ、どれにした？'
+        ],
         'oden': [
             'その大根、もう出汁がしみたかな。'
         ],

@@ -20,6 +20,11 @@ var WORK_GUIDE_FEATURED = [
 ];
 
 var WORK_GUIDE_META = {
+    "by-the-way": {
+        duration: "ひとつの物語ずつ",
+        moods: ["short", "play"],
+        guideLine: "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。"
+    },
     "oden": {
         duration: "ひと鍋ずつ",
         moods: ["short", "play"],

@@ -21,6 +21,48 @@
 var WORK_SEARCH_META_SCHEMA = 1;
 
 var WORK_SEARCH_META = {
+    "by-the-way": {
+        "schemaType": "VideoGame",
+        "alternateNames": [],
+        "ja": {
+            "pageTitle": "By the Way.｜16×16のワンボタンゲーム｜湯間庭町",
+            "heading": "By the Way.",
+            "metaDescription": "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。",
+            "body": "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。",
+            "shareTitle": "By the Way.｜16×16のワンボタンゲーム｜湯間庭町",
+            "shareDescription": "一枚のビラから、三つの物語へ。16×16ドットのワンボタンゲーム。",
+            "imageAlt": "『By the Way.』のドット文字と、ビラを貼る電柱が並ぶ街角",
+            "genres": [
+                "ワンボタンゲーム"
+            ],
+            "terms": [
+                "By the Way.",
+                "16×16",
+                "ドット絵",
+                "ワンボタン",
+                "ミニゲーム"
+            ]
+        },
+        "en": {
+            "pageTitle": "By the Way. | A 16×16 One-Button Game | Yumaniwa Town",
+            "heading": "By the Way.",
+            "metaDescription": "One flyer leads to three stories. Play ten one-button minigames on a 16×16 pixel screen.",
+            "body": "One flyer leads to three stories. Play ten one-button minigames on a 16×16 pixel screen.",
+            "shareTitle": "By the Way. | A 16×16 One-Button Game | Yumaniwa Town",
+            "shareDescription": "One flyer leads to three stories. Play ten one-button minigames on a 16×16 pixel screen.",
+            "imageAlt": "The By the Way. pixel logo and the street with utility poles for flyers",
+            "genres": [
+                "One-button game"
+            ],
+            "terms": [
+                "By the Way.",
+                "16×16",
+                "pixel art",
+                "one-button game",
+                "minigames"
+            ]
+        }
+    },
     "oden": {
         "schemaType": "VideoGame",
         "ogp": {"file":"ogp.jpg","mime":"image/jpeg","width":1200,"height":630,"version":"20261127-logo"},
