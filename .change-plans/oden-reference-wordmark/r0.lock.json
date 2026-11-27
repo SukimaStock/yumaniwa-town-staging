@@ -1,0 +1,122 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ffb5d0f23d8dfebf0904d8a5c67f0717cafec8bee9ff3cc0cddfd9c9e6a0c977",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "oden-reference-wordmark",
+    "revision": 0,
+    "previousPlanDigest": null,
+    "revisionReason": null,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Correct ODEN staging card and icon using the supplied title screenshot.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "ASSET",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "33771ca6c44bae7705a6beb87cbdd8d22efa9fce",
+    "canonicalSources": [
+      "AGENTS.md",
+      "CHANGE-PLAN.md",
+      "data/work-lifecycle.json",
+      "data/lab-rooms.json",
+      "tools/work-lifecycle.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/oden-reference-wordmark/r0.lock.json",
+      "assets/works/oden/ogp.jpg",
+      "assets/works/oden/icon.png",
+      "data/work-search-meta.js",
+      "w/oden/index.html",
+      "en/w/oden/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "works/**"
+    ],
+    "expectedChanges": [
+      "Use the exact raster wordmark cropped from the user screenshot for the card and install icon.",
+      "Version the share image URL and regenerate both language pages."
+    ],
+    "ownerDecisions": [
+      "2026-11-27 作者指摘「ロゴが違いますね」および添付タイトル画面。"
+    ],
+    "hqDecisions": [
+      "Use existing candidate state and LAB rendering contract."
+    ],
+    "rulesApplied": [
+      "Lock scope before staging edits.",
+      "Preserve deployed game and audio."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Compare cropped shape, aspect and composition; verify the preview and icon served by Pages."
+    ],
+    "impactChecks": [
+      "asset.cache",
+      "asset.file",
+      "asset.rendering",
+      "ghost.runtime",
+      "ghost.work-id",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "search.generated-pages",
+      "search.localized-copy",
+      "search.sitemap",
+      "search.structured-data",
+      "search.validator",
+      "surface.shared",
+      "updates.runtime",
+      "updates.work-id",
+      "work.regression",
+      "work.runtime",
+      "works.analytics-id",
+      "works.direct-route",
+      "works.release-validator",
+      "works.search-share",
+      "works.town-awareness",
+      "works.venue-menu"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging correction.",
+    "outOfScope": [
+      "Production release",
+      "Game and town changes"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and final sharing artwork acceptance."
+    ],
+    "alternativesRejected": [
+      "Migrate to production during preparation"
+    ],
+    "boundaryCases": [
+      "No production instruction supplied",
+      "LAB still links to the playable candidate"
+    ],
+    "testPlan": [
+      "Verify source silhouette and output dimensions, local generator and release checks, staging assets and share pages."
+    ],
+    "problem": "Browser font fallback changed the logo in the staging artwork.",
+    "currentContract": "Lifecycle registry owns the candidate state; the renderer owns LAB output.",
+    "whyExistingIsInsufficient": "Active state denotes exploration, not a selected release candidate.",
+    "design": "Preserve the title screenshot glyph pixels using a proportional resize and retain the existing pot composition.",
+    "migration": "Existing URL and gameplay preserved.",
+    "compatibility": "No game code or shared runtime edits.",
+    "promotionRisk": "Staging-only work."
+  }
+}
