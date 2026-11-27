@@ -290,7 +290,8 @@
     {
       "id": "ambertime",
       "path": "works/ambertime",
-      "status": "active",
+      "status": "candidate",
+      "candidateDecision": "Owner 2026-11-27: Prepare the completed v69 as a Staging release candidate. Production publication requires separate approval.",
       "title": "AmberTime — 時間を育てる蒸留所"
     },
     {
