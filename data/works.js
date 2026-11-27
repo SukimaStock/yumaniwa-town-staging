@@ -25,6 +25,26 @@
 var WORKS = [
     // [WORKS:ADD_NEWEST_HERE]
     {
+        "id": "ambertime",
+        "title": "AmberTime",
+        "venue": "leisure_center",
+        "kind": "game",
+        "status": "open",
+        "launch": "embedded",
+        "entry": "./works/ambertime/index.html",
+        "frameTitle": "AmberTime",
+        "returnLabel": "湯窓レジャーセンター",
+        "frameMode": "soft",
+        "playerLayout": "phone",
+        "playerWidth": 390,
+        "playerHeight": 740,
+        "menuTitle": "AmberTime",
+        "menuCategory": "蒸留所経営ゲーム",
+        "menuDescription": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。",
+        "description": "ウイスキーを蒸留し、樽で育て、町の店へ届ける。何代にもわたって、一つの蒸留所の歴史を紡ぐゲームです。",
+        "emptyText": "蒸留所を開いています。"
+    },
+    {
         "id": "atodama",
         "title": "あとだま",
         "venue": "leisure_center",
