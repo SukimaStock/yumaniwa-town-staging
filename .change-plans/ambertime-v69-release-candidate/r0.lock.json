@@ -1,0 +1,104 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "3bc61e27ef4014717719f94e454a878c18646360272a09ce3e5aef03ead4d2f7",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "0e7f4499ae4bdb5cd28ab4afb60195d381c5e7a7",
+    "changeId": "ambertime-v69-release-candidate",
+    "revision": 0,
+    "change": "Prepare the audited AmberTime v69 release candidate on Staging.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "ASSET",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/formal-idb-storage.mjs",
+      "works/ambertime/formal-idb-commit-boundary.mjs",
+      "data/work-lifecycle.json",
+      "tools/work-lifecycle.cjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/title-barrel.png",
+      "works/ambertime/v69/debug-fixtures.mjs",
+      "works/ambertime/v69/preview-cases-a.js",
+      "works/ambertime/v69/preview-cases-b.js",
+      "works/ambertime/build-release.mjs",
+      "works/ambertime/tests/v69-release-browser.test.mjs",
+      ".change-plans/ambertime-v69-release-candidate/r0.lock.json",
+      "data/work-lifecycle.json",
+      "lab/index.html"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Render exact supplied two-line logo with integer scaling.",
+      "Gate tools by installation and debug opt-in; ship an allowlist without fixtures.",
+      "Verify unchanged formal save paths, ordinary play and sharing readiness.",
+      "Record explicit candidate selection in the staging lifecycle."
+    ],
+    "ownerDecisions": [
+      "Author requested Staging RC with supplied logo; separate permission required for production."
+    ],
+    "hqDecisions": [
+      "Use a positive Staging gate and fixture-free production artifact; preserve the audited save format and simulation."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Exercise normal and debug entries, save and resume across installations and inspect the title layout."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Production, other works, game economics, new features and P2 cosmetics."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Redesigning game mechanics or changing save format."
+    ],
+    "boundaryCases": [
+      "Staging normal with debug URLs on production; isolated install paths; existing game and new player."
+    ],
+    "testPlan": [
+      "Run existing audit regressions and release browser smoke tests, compare release file paths and spot-check Staging delivery."
+    ],
+    "problem": "The player-facing entry still exposes development affordances and the draft title.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "Debug entry points and test assets are bundled with normal play.",
+    "design": "Use installation-aware debug entry, explicit production file selection and exact pixel logo.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
