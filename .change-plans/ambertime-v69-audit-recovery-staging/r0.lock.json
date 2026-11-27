@@ -1,0 +1,95 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "77bafece6d4b9bae7c2b8af746cc3fbb4710fd03c7aa84eb1a95a5f1e582ce22",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "85b5806279a70cf2d3d64c1c71c286382832fb22",
+    "changeId": "ambertime-v69-audit-recovery-staging",
+    "revision": 0,
+    "change": "Integrate the five tested v69 audit fixes into Staging and revalidate the deployed build.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/formal-idb-storage.mjs",
+      "works/ambertime/formal-idb-commit-boundary.mjs"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "works/ambertime/tests/v69-audit-records.test.mjs",
+      "works/ambertime/tests/v69-formal-storage-browser.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Check size on the persisted compact representation; preserve the entire original state and backward-compatible saves.",
+      "Make durable saves use scoped IndexedDB storage, preserving existing Staging records and ensuring an isolated equivalent publication path cannot reset them.",
+      "Advance recall observation and delegated supply exactly once, and derive generation store summaries from actual dated trade relationships."
+    ],
+    "ownerDecisions": [
+      "2026-11-27 user authorized Staging deployment and revalidation of the local candidate. No production deployment."
+    ],
+    "hqDecisions": [
+      "Keep schema compatibility, test with untouched audit files in separate profiles, scope to AmberTime and keep historic backups intact."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Test both real stopping saves across the blocked month, compare restored finance/inventory/identity and transactions, and verify both independent path stores.",
+      "Test transaction failure and concurrent activity, generation reporting and delegated refill observation."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging integration while preserving scoped IndexedDB and legacy backup bytes. Export current progress before any reader downgrade.",
+    "outOfScope": [
+      "Production, other works, game economics, new features and P2 cosmetics."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari and X browser, published environment, and fresh 100-year confirmation until independently observed."
+    ],
+    "alternativesRejected": [
+      "Removing save validation or rewriting historic data.",
+      "Publishing to production before the new Staging verification."
+    ],
+    "boundaryCases": [
+      "Historical supported v8 and v9 records; same-origin different path; tabs competing for same key; transaction failure or interruption; save/replay near a handoff; repeated fills and dealer introductions."
+    ],
+    "testPlan": [
+      "Run focused market, storage and recall tests and check normal UI continuation/restoration using both audit assets.",
+      "Review exact local diff against lock and separate verified desktop tests from pending device/endurance checks."
+    ],
+    "problem": "Ordinary play stops after 32 or 48 years; two deployment paths share data; current saves bypass IDB; supply and generation summaries diverge from actual player actions.",
+    "currentContract": "v69 local session methods contain a compact record, support older saves and assume a coherent post-save operation/game snapshot.",
+    "whyExistingIsInsufficient": "Current cap runs on expanded history, origins share a key, and observer/summary semantics miss real events.",
+    "design": "Limit the actual persistent payload, isolate and safely migrate writes by installation, keep atomic save and recall semantics, and report relationships by their true creation month.",
+    "migration": "Copy legacy staging state through validation and isolate it from the production path. Preserve old raw data for recovery and explicit import.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
