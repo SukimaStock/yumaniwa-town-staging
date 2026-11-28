@@ -1,0 +1,109 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "25f1a5d03f560f660989ec5123cb47240eeec84ca2431e905bfc9a9c195faab8",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "oden-release-record-staging-20261128",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Record the observed ODEN production release evidence and candidate-to-released Lifecycle state; no gameplay or shared runtime changes.",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "Rule / Skill",
+      "Owner Decision",
+      "HQ Review"
+    ],
+    "environment": "staging-production",
+    "baseSha": "6950a477f60891d8873a142bcc18448c8024ac22",
+    "canonicalSources": [
+      "SukimaStock/yumaniwa-town-staging main 6950a477f60891d8873a142bcc18448c8024ac22 (latest; intervening commits are isolated to AmberTime and its Plan Lock)",
+      "Production PR #73 merged at 4829db4d3bcad20b6c371124c9a9ea80e9e79fa7.",
+      "Live Production GitHub Pages HTTP 200 and exact SHA-256 matches for ODEN game HTML, artwork, JA/EN Search pages, install manifest, and sitemap, verified 2026-11-28.",
+      "User 2026-11-28 explicitly authorized preparing and reflecting the completed ODEN work in Production."
+    ],
+    "allowedPaths": [
+      "data/work-lifecycle.json",
+      "lab/index.html",
+      ".change-plans/oden-release-record-staging-20261128/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "main.js",
+      "index.html",
+      "data/works.js",
+      "data/work-search-meta.js",
+      "data/** other than data/work-lifecycle.json",
+      "engine/**",
+      ".github/**",
+      "assets/**",
+      "works/**",
+      "all unrelated changes"
+    ],
+    "expectedChanges": [
+      "After production HTTP 200 and exact-byte evidence is observed, change only ODEN from candidate to released in the repository Lifecycle record.",
+      "Record the explicit productionInstruction and actual production merge/deployment evidence, preserving all other Lifecycle records.",
+      "Regenerate lab/index.html from the updated Lifecycle using the existing generator; do not edit generated HTML manually."
+    ],
+    "ownerDecisions": [
+      "User 2026-11-08 Europe/Skopje in this conversation: おお、すごい！ after playing the completed あとだま Site; followed by 湯間庭町で公開しますので作業を進めてください. This accepts the presented game and authorizes town-publication work, including necessary candidate preparation and production reflection. No exact-SHA physical-device or separate artwork approval is asserted."
+    ],
+    "hqDecisions": [
+      "No new contract or additional user approval is asserted. Full/HQ Review category follows existing risk floor for lifecycle JSON and generated LAB HTML; the work-local evidence record is documentary."
+    ],
+    "rulesApplied": [
+      "AGENTS: existing schemas and menu-only registration; no scene/runtime/Engine changes.",
+      "RELEASE-WORKFLOW: selective staging to production, candidate and explicit publication authority separately recorded.",
+      "EXPRESSION-AUDIT: use concrete game rules and concise copy; no invented intent, subtitle or recommendation placement."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Verify the linked production game, JA/EN Search pages, install manifest, artwork, and sitemap remain available after the Lifecycle update.",
+      "Physical device play, analytics ingestion, and external share handoff remain unverified."
+    ],
+    "impactChecks": [
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this documentary/status record via ordinary PR; keep deployed game unchanged.",
+    "outOfScope": [
+      "Other staging works or whole staging publication",
+      "New shared runtime, Engine, schema, scene placement, service worker or analytics contracts",
+      "SNS/email sending or external Search Console/Plausible configuration"
+    ],
+    "promotion": "Continuation of the user’s explicit 2026-11-28 Production publication instruction; this step records release evidence after observed live delivery and does not authorize unrelated changes.",
+    "unverified": [
+      "Physical iPhone Safari exact-SHA play",
+      "External analytics delivery and share handoff"
+    ],
+    "problem": "ODEN is live on Production but its Lifecycle entry remains candidate until actual post-deploy evidence is recorded.",
+    "currentContract": "The existing Lifecycle contract transitions candidate to released after production delivery evidence, retaining separate productionInstruction and releaseEvidence.",
+    "whyExistingIsInsufficient": "A merge alone is not successful public delivery evidence.",
+    "design": "Make the smallest documentary status update in Lifecycle; regenerate Staging LAB only when applicable.",
+    "alternativesRejected": [
+      "Claim release before Pages/HTTP confirmation",
+      "Change game or shared code while recording evidence"
+    ],
+    "migration": "ODEN lifecycle candidate → released only; no save data migration.",
+    "compatibility": "No runtime, route, search page, asset, town, audio, or save-state change.",
+    "boundaryCases": [
+      "Preserve all other Lifecycle entries.",
+      "Do not claim physical play, analytics, or share handoff success without observing them."
+    ],
+    "testPlan": [
+      "Verify exact Lifecycle diff and valid candidate-to-released transition.",
+      "Run applicable Production Safety Checks and PUMPOKO release-contract tests.",
+      "For Staging, regenerate LAB and verify Lifecycle/LAB consistency.",
+      "Verify public game and search URLs still return exact merged bytes."
+    ],
+    "promotionRisk": "Documentary status reflects that ODEN is publicly delivered; physical-device, analytics, and share checks remain unverified."
+  }
+}

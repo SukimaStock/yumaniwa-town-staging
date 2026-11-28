@@ -603,9 +603,11 @@
     {
       "id": "oden",
       "path": "works/oden",
-      "status": "candidate",
+      "status": "released",
       "candidateDecision": "2026-11-27 作者指示：実際の公開に向けて準備してください。まだ本番環境には移しません。",
-      "title": "ODEN"
+      "title": "ODEN",
+      "productionInstruction": "User 2026-11-28: 「それでは完成！本番環境に反映してください」 and 「本番公開用に整えるということです。」 Production PR #73; the accepted Staging work is now publicly released.",
+      "releaseEvidence": "Production PR #73 merged at 4829db4d3bcad20b6c371124c9a9ea80e9e79fa7 on 2026-11-28. Live GitHub Pages returned HTTP 200 and exact SHA-256 matches to that production tree for works/oden/index.html (da659340be50dd5f992d2cdefab1906fcefde58df1667dfa3497ad733beacae6), icon.png (f7ff4dc41b3363962ddbd0533cb9004b915fe0caf09ef4dc9ce535df7c22e7ad), ogp.jpg (1f05bae80693ca9080b28cb2940f7e4980d2d11018d2cd5652c7037f09cdd8ac), ja Search page (5606efec93abbbd3329f5c5181ad7c82766d8ba38afd2d41d62da171c0f73411), install manifest (9380f5c145536670f5864e8fb2b7d4f9639ae28f3456e10e212e8797ef7655a8), en Search page (ab53259da60a876774082c629c7a7d4b59049ae66e3c1e94631da9560c01da71), and sitemap (657b1a7ac4945539bca05e109e8ba23088c63432c134967d496b6883f518022c). Physical-device play, external analytics, and share handoff remain unverified. Staging source PR #987 merged at 727d6a50f42efa49c1b1ad337a7e0415d6d9152e and Staging Pages deployed successfully."
     },
     {
       "id": "by-the-way",
