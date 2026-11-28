@@ -14,7 +14,7 @@ function loadModel() {
   assert.ok(bundle.includes(boundary));
   vm.runInContext(bundle.replace(boundary, `
     shopName = id => SHOPS4.find(row => row.id === id)?.name ?? id;
-    globalThis.api = {wholesaleCapacity, D: partner_orders_exports,
+    globalThis.api = {wholesaleCapacity, officeReport, mapSceneryProjection, D: partner_orders_exports,
       read: key => readSession(amberTimePreviewCasesB[key], {enabled:true,restore:restoreDistillery4,
         monthMs:PARALLEL_PARAMETERS2.monthMs,stepMs:PARALLEL_PARAMETERS2.distillStepMs}).game};
     return;
@@ -22,7 +22,7 @@ function loadModel() {
   return context.api;
 }
 
-const {D, read, wholesaleCapacity} = loadModel();
+const {D, read, wholesaleCapacity, officeReport, mapSceneryProjection} = loadModel();
 const river = 'trial-region-desk';
 
 test('the approved monthly wholesale formula counts causal regions once and recent deliveries by partner', () => {
@@ -56,6 +56,12 @@ test('a restored river career ships 40 bottles under the shared monthly cap and 
     game = D.assignRegionalProduct(game,{partnerId:river,productId:id,contractId:quote.contractId,allocationId:quote.nextAllocationId,count});
     const prepared = D.regionalDeliveryQuote(game,id,river);
     game = D.deliverRegionalProduct(game,{partnerId:river,productId:id,contractId:quote.contractId,allocationIds:[quote.nextAllocationId],deliveryId:prepared.nextDeliveryId,routeVersion:1});
+    const report = officeReport(game,river);
+    assert.match(report.status,/周辺の町へ出荷中/);
+    assert.match(report.numbers,new RegExp("買取可能 " + (quote.monthlyRemaining-count) + "本"));
+    const truck = mapSceneryProjection(game,4).truck;
+    assert.equal(truck.id,game.localDistribution.lots.at(-1).receiptId);
+    assert.equal(mapSceneryProjection(game,5).truck,null);
     sold += count;
   };
   for (let i=0; i<12 && sold<40; i++) {
@@ -75,6 +81,8 @@ test('a restored river career ships 40 bottles under the shared monthly cap and 
     const next = D.tickDistillery(game,game.core.month,{fundsSales:true});
     assert.equal(next.core.month,game.core.month+1);
     game = next;
+    assert.equal(mapSceneryProjection(game,4).truck,null);
+    assert.doesNotMatch(officeReport(game,river).status,/出荷中/);
   }
   assert.equal(sold,40);
   const history = D.regionalDeliveryHistory(game,river);

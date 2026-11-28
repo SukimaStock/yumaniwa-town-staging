@@ -5112,11 +5112,24 @@ function mapSceneryButterflies(scenery, weatherSeed=1) {
     const a = sceneryLayout(partner, scenery.stage);
     if (!partner.butterfly || !a?.butterfly) return [];
     const [x, y] = a.butterfly;
-    return [`<span class="map-scenery-butterfly" data-scenery-partner="${esc8(partner.id)}" style="left:${x / SIZE * 100}%;top:${y / SIZE * 100}%;width:${8 / SIZE * 100}%;height:${8 / SIZE * 100}%"><svg viewBox="0 0 8 8" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><g class="map-scenery-drift"><g class="map-scenery-wings"><path fill="#eac17c" d="M0 0h2v2H0zM4 0h2v2H4zM0 2h2v2H0zM4 2h2v2H4z"/><path fill="#6e4560" d="M2 0h2v4H2z"/></g></g></svg></span>`];
+    return [`<span class="map-scenery-butterfly" data-scenery-partner="${esc8(partner.id)}" style="left:${x / SIZE * 100}%;top:${y / SIZE * 100}%;width:${8 / SIZE * 100}%;height:${8 / SIZE * 100}%"><svg viewBox="0 0 8 8" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><g class="map-scenery-drift"><g class="map-scenery-wings"><path fill="#eac17c" d="M0 0h2v4H0zM2 2h2v4H2zM6 0h2v4H6z"/><path fill="#6e4560" d="M4 2h2v4H4z"/></g></g></svg></span>`];
   }).join("");
 }
 function syncSceneryLayer(layer, scenery, active2 = true, weatherSeed = 1, smokeActive = false) {
   if (!layer) return;
+  const route = scenery?.truck;
+  const shipment = route?.id ?? "";
+  if (shipment !== (layer.dataset.shipment ?? "")) {
+    layer.querySelector(".map-dispatch")?.remove();
+    if (route) {
+      const [x,y,w,h] = route.bounds;
+      // A near view follows the departure longer. Wide maps show only the depot exit.
+      const distance = scenery.stage === 4 ? 16 : 6;
+      const cell = scenery.stage === 4 ? MAP_CELL : 1;
+      layer.insertAdjacentHTML("beforeend", `<svg class="map-dispatch" aria-hidden="true" viewBox="0 0 144 144" preserveAspectRatio="none"><g transform="translate(${x+w} ${y+h}) scale(${cell})"><g class="map-truck" style="--drive:${distance/cell}px"><path fill="#715748" d="M0 0h4v3H0z"/><path fill="#e7c899" d="M4 1h2v2H4z"/><path fill="#353542" d="M1 3h1v1H1zM4 3h1v1H4z"/></g></g></svg>`);
+    }
+    layer.dataset.shipment = shipment;
+  }
   const key2 = JSON.stringify([scenery?.motionKey??"",mapButterfliesAllowed(scenery?.stage,scenery?.month,weatherSeed)]);
   if (layer.dataset.motionKey !== key2 || layer.dataset.motionStage !== String(scenery?.stage)) {
     // Replace only butterflies. Preserve the live canvases and in-flight effects.
@@ -6209,7 +6222,10 @@ function mapSceneryProjection(game2, stage, projection) {
   });
   const staticKey = JSON.stringify([stage, partners.map((p) => [p.id, p.bounds, p.merchantCategory, p.box, p.flowerStage])]);
   const motionKey = JSON.stringify(partners.map((p) => [p.id, p.butterfly]));
-  const result = { stage, month: now, partners, staticKey, motionKey, key: JSON.stringify([staticKey, motionKey]) };
+  const depot = partners.find(p => p.contracted && WHOLESALE_TERMS[p.id]);
+  const dispatch = depot && officeDispatch(game2, depot.id);
+  const truck = dispatch ? { id: dispatch.receiptId, bounds: depot.bounds } : null;
+  const result = { stage, month: now, partners, truck, staticKey, motionKey, key: JSON.stringify([staticKey, motionKey]) };
   cache.scenes.set(stage, result);
   return result;
 }
@@ -7078,12 +7094,49 @@ function regionalOfferView(game2, offer) {
   if (!partner || partner.tradeMethod !== "player-delivery" || offer.status !== "pending" || offer.regionId !== partner.regionId || !release3 || release3.brandId !== brand?.id) return null;
   return { title: partner.name + "からの申し出", body: "<p>酒を扱いたいとの連絡が届きました。</p>" + (regionalDeliveryMode(game2) ? "" : '<p class="quiet">納品は準備中です。</p>') };
 }
+// A lot records routing within an office's territory, never an individual retail destination.
+function officeDispatch(s, id) {
+  const lots = s.localDistribution?.lots ?? [];
+  for (let i = lots.length - 1; i >= 0; i--) {
+    const lot = lots[i];
+    if (lot.month < s.core.month) break;
+    if (lot.month === s.core.month && lot.officeId === id && lot.counts.some(n => n > 0)) return lot;
+  }
+  return null;
+}
+const officeReports = new WeakMap();
+function officeReport(s, id) {
+  let cache = officeReports.get(s);
+  if (!cache) officeReports.set(s, cache = new Map());
+  if (cache.has(id)) return cache.get(id);
+  const total = s.regionalDeliveries?.totalsByPartner?.[id]?.count ?? 0;
+  const remaining = wholesaleCapacity(s, id).remaining;
+  const area = { "trial-region-desk": "周辺の町", "national-specialist-desk": "国内各地", "overseas-import-desk": "海外の流通圏" }[id];
+  let status = "今月の出荷なし";
+  if (officeDispatch(s, id)) status = area + "へ出荷中";
+  else if (s.localDistribution?.offers?.some(o => o.officeId === id && o.status === "pending")) status = "取扱店から申し出あり";
+  else {
+    const arrivals = s.labConnection?.town?.arrivals ?? [];
+    for (let i = arrivals.length - 1; i >= 0 && arrivals[i].month === s.core.month; i--) {
+      const e = arrivals[i];
+      if (e.channel === "direct") continue;
+      if (s.localDistribution?.lots?.some(l => l.officeId === id && e.cohort === l.receiptId + ":release:" + l.releaseId)) {
+        status = "納品した酒の口コミが到着";
+        break;
+      }
+    }
+  }
+  const report = { numbers: "買取可能 " + remaining + "本　納品累計 " + total + "本",
+    status };
+  cache.set(id, report);
+  return report;
+}
 function regionalPartnerView(game2, partnerId2, contract) {
   const partner = tradingPartner(partnerId2);
   if (!partner || partner.tradeMethod !== "player-delivery" || contract?.partnerId !== partnerId2 || contract.regionId !== partner.regionId) return null;
-  const rows2 = regionalDeliveryMode(game2) ? regionalDeliveryRows(game2, partnerId2) : [];
-  const count3 = rows2.reduce((n, r) => n + r.count, 0);
-  return { title: partner.name, body: "<p>取扱い中</p>" + (regionalDeliveryMode(game2) ? "<p>" + partner.acceptance.minAge + "か月以上 1本から</p>" + (count3 ? "<p>未納品 " + count3 + "本</p>" : "") : '<p class="quiet">納品は準備中です。</p>') };
+  const report = officeReport(game2, partnerId2);
+  return { title: partner.name, body: "<p>" + report.numbers + "</p><p>" + report.status + "</p><p>" + partner.acceptance.minAge + "か月以上 1本から</p>" };
+
 }
 
 // run18/src/ambertime/shop-app.mjs
@@ -9838,8 +9891,9 @@ function createM0Observation({ document: doc, state, room: room2, modal: modal2,
     const partner = projection.partners.find((p) => p.id === selected), detail = selected === "retail" ? projection.retail : mapPartnerDetail(s, selected);
     const title = partner?.name ?? shopNames.get(selected) ?? (STAGES[level2 - 1]?.name ?? STAGES[level2 - 1]?.label ?? STAGES[level2 - 1]);
     const stock = detail?.currentStock, monthly = detail?.monthlySold;
-    const numbers = detail?.regional ? `\u672A\u7D0D\u54C1 ${detail.pendingCount ?? 0}\u672C\u3000\u7D0D\u54C1\u7D2F\u8A08 ${detail.totalDelivered ?? 0}\u672C` : [stock === null || stock === void 0 ? "" : "\u6B8B " + stock + "\u672C", monthly === null || monthly === void 0 ? "" : "\u4ECA\u6708 " + monthly + "\u672C"].filter(Boolean).join("\u3000");
-    const remark = partner?.status === "offer" ? "\u53D6\u6271\u3044\u306E\u7533\u3057\u51FA" : detail?.regional ? "\u9867\u5BA2\u5B9F\u58F2\u306F\u4E0D\u660E" : detail?.remark ?? "";
+    const wholesale = detail?.regional && detail.contracted ? officeReport(s, selected) : null;
+    const numbers = wholesale ? wholesale.numbers : [stock === null || stock === void 0 ? "" : "\u6B8B " + stock + "\u672C", monthly === null || monthly === void 0 ? "" : "\u4ECA\u6708 " + monthly + "\u672C"].filter(Boolean).join("\u3000");
+    const remark = partner?.status === "offer" ? "\u53D6\u6271\u3044\u306E\u7533\u3057\u51FA" : wholesale ? wholesale.status : detail?.remark ?? "";
     const actions = selected ? '<div class="m0-report-actions"><button type="button" data-m0="inspect">' + (partner?.status === "offer" ? "\u7533\u3057\u51FA\u3092\u898B\u308B" : "\u5E97\u60C5\u5831") + "</button>" + (prologueFacts(s).bottled && (selected === "retail" || partner?.canTrade) ? '<button type="button" data-m0="trade">\u8CA9\u58F2\u5BA4\u3078</button>' : "") + "</div>" : "";
     syncRows(partner);
     report.hidden = !selected || partner?.status === "offer";
@@ -20868,7 +20922,8 @@ function mapSalesReport(data, id3) {
     return data.pins.length ? '<section class="map-shop-report" aria-label="店の選択"><p>お店をタップ</p></section>' : '<section class="map-shop-report" aria-label="取扱店"><p>取扱店はまだありません</p></section>';
   }
   const name = button(esc12(p.name) + symbolMarkup("chevronRight"), "map-shop-info", p.id, 'class="map-place-name" aria-label="' + esc12(p.name) + 'の店情報"');
-  const status = p.status === "offer" ? "申し出あり" : p.regional ? "取扱い中" : p.remark || p.statusLabel || p.status;
+  const wholesale = p.regional && p.contracted ? officeReport(game, p.id) : null;
+  const status = p.status === "offer" ? "申し出あり" : wholesale ? wholesale.numbers + "　" + wholesale.status : p.remark || p.statusLabel || p.status;
   return '<section class="map-shop-report" aria-label="' + esc12(p.name) + 'の情報"><h3>' + name + '</h3>' + (status ? '<p>' + esc12(status) + '</p>' : '') + '</section>';
 }
 function closeModal() {

@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ca6e9863f29fd57413c6e2e0c9e2eecd7f56d41c66d4ca571be78f891a431e1d",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "0eb6a6af5b3d96eb6f22f48efdadc7fcd9b8dd2b",
+    "changeId": "ambertime-v69-stage5-map",
+    "revision": 0,
+    "change": "Show real wholesale dispatches and animate local butterflies",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v69-stage5-map/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-wholesale.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Wholesale summaries, regional map movement and butterfly motion"
+    ],
+    "ownerDecisions": [
+      "No speculative store destinations or end customer sales. Retain old allocation controls."
+    ],
+    "hqDecisions": [
+      "Use existing map and shop detail."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Physical iPhone map visibility and touch"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Stage 6, prices, model and production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Automatic reset, injecting capital, automatic scene changes."
+    ],
+    "boundaryCases": [
+      "No dispatch, old lots, hidden stores, reduced motion"
+    ],
+    "testPlan": [
+      "Restored wholesale career, map projection, browser and market regressions"
+    ],
+    "problem": "Wholesale movements and capacity are hard to see on the map.",
+    "currentContract": "Office lots record actual distribution by category within a territory.",
+    "whyExistingIsInsufficient": "The overview reports pending stock and unknown sales.",
+    "design": "Derive current dispatches from recorded office lots. Animate one local departure at the office without identifying candidate stores.",
+    "migration": "No persistence changes.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
