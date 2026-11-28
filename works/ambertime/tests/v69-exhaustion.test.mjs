@@ -109,6 +109,13 @@ test('exhaustion leaves the account book openable and cancelling restart preserv
     await tap('#open-ledger');
     const dialog = page.locator('#action-dialog');
     assert.match(await dialog.innerText(), /仕込み資金/);
+    await tap('[data-action="close-distillery"]');
+    const closing = page.locator('.at-recall-player');
+    await closing.waitFor({state:'visible'});
+    assert.equal(await closing.locator('h2').textContent(), '店をたたむ');
+    await closing.waitFor({state:'hidden',timeout:10000});
+    assert.equal(await dialog.isVisible(), true);
+    assert.equal(await readMain(), before);
     await tap('#ledger-section-shops');
     await tap('#close-dialog');
     await tap('#open-aux-menu');
