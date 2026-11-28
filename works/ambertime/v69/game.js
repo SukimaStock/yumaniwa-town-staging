@@ -18129,6 +18129,12 @@ var RECALL_DEBUG_SCENES = Object.freeze([
 var legacyArt = Object.freeze({ cask:"bottling", bottle:"bottling", counter:"sale", distant:"arrival", street:"arrival", visitor:"visit", distillery:"visit", letter:"inquiry", shop:"delivery", supermarket:"delivery", neutral:"delivery" });
 var STYLES = `
 .at-recall-player{box-sizing:border-box;color:#f0e6c8;background:#19141e;border:0;padding:0;width:min(360px,100vw);max-width:100vw;max-height:calc(100dvh - 16px);margin:auto;overflow:auto;overscroll-behavior:contain;font-family:AmberMisaki,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.5;box-shadow:none}
+#action-dialog[data-recall-preparing=true],#action-dialog[data-recall-preparing=true]::backdrop{opacity:0}
+.at-recall-player[data-intro]{background:transparent}
+.at-recall-player[data-intro]>*{visibility:hidden}
+.at-recall-player[data-intro]::backdrop{animation:recall-curtain var(--recall-fade) linear both;background:#19141e}
+@keyframes recall-curtain{from{opacity:0}to{opacity:1}}
+.at-recall-player nav svg{display:block;margin:auto}
 .at-recall-player::backdrop{background:#19141eee}
 .at-recall-player *{box-sizing:border-box}
 .at-recall-player header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px}
@@ -18162,6 +18168,13 @@ var STYLES = `
 /* The player controls progression; animations only run inside the current cut. */
 .at-recall-player,.at-recall-player *{animation:none!important;transition:none!important}
 `;
+function recallControlIcon(name) {
+  const play = "M2 1h2v2h2v2h2v2H6v2H4v2H2z";
+  const paths = { play, pause: "M2 1h3v10H2zM7 1h3v10H7z",
+    next: play + "M9 1h2v10H9z", previous: play + "M9 1h2v10H9z" };
+  return '<svg width="20" height="20" viewBox="0 0 12 12" aria-hidden="true" focusable="false" shape-rendering="crispEdges"><path fill="currentColor" d="' + paths[name] + '"' +
+    (name === "previous" ? ' transform="translate(12 0) scale(-1 1)"' : '') + '/></svg>';
+}
 function createRecallPlayer({ document: document2, window: window2 = globalThis, scenes = RECALL_DEBUG_SCENES } = {}) {
   if (!document2) throw Error("\u56DE\u60F3\u306E\u30D7\u30EC\u30D3\u30E5\u30FC\u3092\u6E96\u5099\u3067\u304D\u307E\u305B\u3093\u3002");
   const style = document2.createElement("style");
@@ -18183,6 +18196,10 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
   const requestFrame = window2.requestAnimationFrame?.bind(window2) ??
     (callback => window2.setTimeout(() => callback(window2.performance.now()), 32));
   const cancelFrame = window2.cancelAnimationFrame?.bind(window2) ?? window2.clearTimeout.bind(window2);
+  let introTimer = null;
+  const audioPhase = (phase, duration = 0) => document2.dispatchEvent(new window2.CustomEvent('amber-recall-audio', {detail:{phase, duration}}));
+  previous.innerHTML = recallControlIcon('previous');
+  previous.setAttribute('aria-label','前の場面');
   let paused = false, parked = false, frame = null, previousTime = null, elapsed = 0;
   let duration = 0, paintCut = null;
 
@@ -18215,7 +18232,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
   }
   function updateToggle() {
     toggle.disabled = picture.disabled && mode !== "closing";
-    toggle.textContent = paused || toggle.disabled ? '▶' : 'Ⅱ';
+    toggle.innerHTML = recallControlIcon(paused ? 'play' : 'pause');
     toggle.setAttribute('aria-label', toggle.disabled ? '回想の終わり' : paused ? '再開' : '一時停止');
   }
   function startRecallAnimation() {
@@ -18305,7 +18322,10 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     previous.disabled = index === 0;
     picture.disabled = last;
     $3('[data-recall-action="pending"]').hidden = !(last && mode === "handover" && onPending);
-    forward.textContent = last ? mode === "handover" ? "\u6B21\u306E\u4EE3\u3078" : "\u9589\u3058\u308B" : "\u6B21\u3078";
+    const label = last ? (mode === "handover" ? "次の代へ" : "閉じる") : "次の場面";
+    forward.setAttribute("aria-label", label);
+    if (last) forward.textContent = label;
+    else forward.innerHTML = recallControlIcon("next");
     const native = sceneDimensions(view);
     canvas.width = native.width;
     canvas.height = native.height;
@@ -18319,7 +18339,13 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
   }
   function close() {
     stopRecallAnimation();
-    if (dialog.open) dialog.close();
+    window2.clearTimeout(introTimer);
+    dialog.removeAttribute("data-intro");
+    document2.getElementById("action-dialog")?.removeAttribute("data-recall-preparing");
+    if (dialog.open) {
+      dialog.close();
+      audioPhase("end");
+    }
     restoreFocus();
   }
   function moveCut(delta) {
@@ -18359,7 +18385,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     else if (action7 === "next") next();
   });
   dialog.addEventListener("keydown", (event2) => {
-    if (!dialog.open || event2.altKey || event2.ctrlKey || event2.metaKey) return;
+    if (!dialog.open || dialog.hasAttribute("data-intro") || event2.altKey || event2.ctrlKey || event2.metaKey) return;
     if (event2.key === "ArrowLeft") {
       event2.preventDefault();
       moveCut(-1);
@@ -18395,9 +18421,26 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     finishing = false;
     $3("#at-recall-title").textContent = options.title ?? "\u4E8C\u4EE3\u76EE\u306E\u56DE\u60F3";
     returnFocus = document2.activeElement;
-    dialog.showModal();
-    render3();
-    $3("#at-recall-title").focus({ preventScroll: true });
+    const start = () => {
+      dialog.removeAttribute("data-intro");
+      render3();
+      $3("#at-recall-title").focus({ preventScroll: true });
+    };
+    if ((mode === "handover" || mode === "history") && !options.resumeLast) {
+      const fade = window2.matchMedia("(prefers-reduced-motion: reduce)").matches ? 150 : 1100;
+      dialog.setAttribute("data-intro", "");
+      dialog.style.setProperty("--recall-fade", fade + "ms");
+      dialog.showModal();
+      audioPhase("fade", fade);
+      introTimer = window2.setTimeout(() => {
+        audioPhase("quiet");
+        introTimer = window2.setTimeout(start, 350);
+      }, fade);
+    } else {
+      dialog.showModal();
+      audioPhase("quiet");
+      start();
+    }
   }
   return { open, close, isOpen: () => dialog.open };
 }
@@ -19535,24 +19578,27 @@ async function acknowledgeDecisionNotice() {
   try {
     if (target.noticePending) {
       const next = target.kind === "shop-offer" ? (target.regional ? D.noticeRegionalOffer : D.noticeShopOffer)(game, target.shopId, target.offerId) : D.noticeGeneration(game, target.id);
-      if (!await saveCandidate(next)) return;
+      if (!await saveCandidate(next)) { dialog.removeAttribute("data-recall-preparing"); return; }
       game = next;
       target.noticePending = false;
     }
     if (target.preparePending) {
       target.preparePending = false;
       if (pendingRecall) recallPreview = prepareRecall(pendingRecall, game, game.operations.length);
+      if (!recallPreview?.scenes.length) dialog.removeAttribute("data-recall-preparing");
       if (recallPreview?.scenes.length) {
         const expectedGame = game;
         queueMicrotask(() => {
           if (game === expectedGame && modal === target && !recallScenePlayer.isOpen()) {
             render2();
-            openGenerationRecall();
+            dialog.dataset.recallPreparing = "true";
+            if (!openGenerationRecall()) dialog.removeAttribute("data-recall-preparing");
           }
         });
       }
     }
   } catch (error) {
+    dialog.removeAttribute("data-recall-preparing");
     saveFailure(error, "\u91CD\u8981\u9023\u7D61");
   }
 }
@@ -21561,6 +21607,7 @@ function syncModal() {
       if (event2.animationName === "first-bottle-apply-label") complete();
     }, { once: true });
   }
+  dialog.dataset.recallPreparing = String(kind2 === "generation-review" && !!modal.preparePending);
   dialog.dataset.kind = kind2;
   $2("close-dialog").hidden = kind2 === "decision" || kind2 === "generation-review" || kind2 === "first-bottle-complete" || kind2 === "world-map" && modal.source === "unlock";
   if (!dialog.open) {
