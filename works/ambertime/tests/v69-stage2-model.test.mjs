@@ -77,16 +77,31 @@ test('historic formal v8 session and pre-update sales reproduce their original b
   checkReplay(D, live);
 });
 
+function shipOverMonths(api, state, count) {
+  const {D} = api;
+  while (count > 0) {
+    const quantity = Math.min(count, D.regionalDeliveryQuote(state, productId, desk).maxCount);
+    if (quantity) state = ship(api, state, quantity);
+    count -= quantity;
+    if (count > 0) {
+      const next = D.tickDistillery(state, state.core.month);
+      assert.equal(next.core.month, state.core.month + 1);
+      state = next;
+    }
+  }
+  return state;
+}
+
 test('an unanswered invitation leaves bottles free and expires on the sale from five to four', async () => {
   const api = await load(), { D } = api;
   let s = api.offered();
   const offeredId = invitation(s).id;
   assert.equal(D.placementInventory(s, productId).held, 0);
-  assert.equal(D.regionalDeliveryQuote(s, productId, desk).maxCount, 34);
-  s = ship(api, s, 29);
+  assert.equal(D.regionalDeliveryQuote(s, productId, desk).maxCount, 12);
+  s = shipOverMonths(api, s, 29);
   assert.equal(invitation(s).id, offeredId);
   assert.equal(D.placementInventory(s, productId).stock, 5);
-  s = ship(api, s, 1);
+  s = shipOverMonths(api, s, 1);
   assert.equal(D.placementInventory(s, productId).stock, 4);
   assert.equal(invitation(s), undefined);
   assert.equal(s.department.adoptions.length, 0);
@@ -116,7 +131,7 @@ test('the five approved bottles survive manual delivery attempts, automatic repl
   s = D.setAutoSupplyPolicy(s, shop, true);
   s = D.setMarketRetail(s, { productId, count: 1 });
   s = D.setMarketRetail(s, { productId, count: 0 });
-  s = ship(api, s, 27);
+  s = shipOverMonths(api, s, 27);
   const offer = invitation(s), quote = D.shopOfferQuote(s, productId, 'department');
   assert.ok(quote.ok);
   const adoptedBefore = s.department.adoptions.length;
@@ -125,7 +140,7 @@ test('the five approved bottles survive manual delivery attempts, automatic repl
   assert.equal(invitation(s), undefined);
   assert.equal(s.department.interests[0].pendingDelivery.count, 5);
   assert.equal(D.placementInventory(s, productId).held, 5);
-  assert.equal(D.regionalDeliveryQuote(s, productId, desk).maxCount, 2);
+  assert.equal(D.regionalDeliveryQuote(s, productId, desk).available, 2);
   assert.throws(() => ship(api, s, 3));
   assert.throws(() => D.assignStoreProduct(s, { productId, shopId: shop, count: 3 }));
   s = D.restoreDistillery(D.serializeDistillery(s));

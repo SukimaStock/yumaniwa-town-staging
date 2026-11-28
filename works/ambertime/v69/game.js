@@ -2661,9 +2661,47 @@ function regionalDeliveryRows(s, id3) {
   }
   return rows2;
 }
-function regionalDeliveryQuote(s, productId, id3) {
+const WHOLESALE_TERMS = Object.freeze({
+  "trial-region-desk": { base: 12, min: 4, max: 24 },
+  "national-specialist-desk": { base: 16, min: 6, max: 32 },
+  "overseas-import-desk": { base: 8, min: 3, max: 20 }
+});
+function wholesaleCapacity(s, partnerId) {
+  const terms = WHOLESALE_TERMS[partnerId];
+  if (!terms) return null;
+  const month = s.core.month;
+  let purchased = 0, recent = 0;
+  const cohorts = new Set();
+  for (const operation of s.operations) {
+    if (operation.key !== "regional-deliver") continue;
+    const receipt = operation.value.receipt;
+    if (receipt.partnerId !== partnerId) continue;
+    const age = month - receipt.month;
+    if (age === 0) purchased += receipt.count;
+    if (age >= 1 && age <= 3) recent += receipt.count;
+    if (age > 0) cohorts.add(receipt.id + ":release:" + receipt.releaseId);
+  }
+  const events = s.labConnection?.town?.events ?? [];
+  const regions = new Set();
+  if (cohorts.size) {
+    const byId = new Map(events.map(event => [event.id, event]));
+    for (let i = events.length - 1; i >= 0; i--) {
+      const event = events[i];
+      const age = month - event.month;
+      if (age > 6) break;
+      if (age < 1 || !["interest", "share", "inquiry"].includes(event.type)) continue;
+      const source = byId.get(event.sourceId);
+      const arrival = event.type === "inquiry" ? byId.get(source?.sourceId) : source;
+      if (arrival?.type === "arrival" && cohorts.has(arrival.cohort)) regions.add(arrival.to);
+    }
+  }
+  const pressure = Math.floor(Math.max(0, recent - 2 * terms.base) / 4);
+  const limit = Math.min(terms.max, Math.max(terms.min, terms.base + 2 * regions.size - pressure));
+  return { limit, remaining: Math.max(0, limit - purchased) };
+}
+function regionalDeliveryQuote(s, productId, id3, legacyTerms = false, selectedCount = null) {
   const partner = tradingPartner(id3), contract = regionalContract(s, id3), p = s.core.products.find((p2) => p2.id === productId), r = s.releases.find((r2) => r2.productId === productId), inv = placementInventory(s, productId);
-  const row = regionalDeliveryRows(s, id3).find((row2) => row2.productId === productId), count3 = row?.count ?? 0, state = s.regionalDeliveries;
+  const row = regionalDeliveryRows(s, id3).find((row2) => row2.productId === productId), count3 = selectedCount ?? row?.count ?? 0, state = s.regionalDeliveries;
   let reason = "";
   if (!regionalDeliveryMode(s)) reason = "\u5730\u57DF\u3078\u306E\u7D0D\u54C1\u306B\u5BFE\u5FDC\u3057\u305F\u8A18\u9332\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
   else if (!regionalContacts(s).some((c) => c.partnerId === id3) || partner?.tradeMethod !== "player-delivery" || !contract) reason = "\u3053\u306E\u5730\u57DF\u3068\u306E\u53D6\u6271\u95A2\u4FC2\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
@@ -2672,8 +2710,11 @@ function regionalDeliveryQuote(s, productId, id3) {
   else if (p.age < partner.acceptance.minAge) reason = `\u719F\u6210\u304C${partner.acceptance.minAge}\u304B\u6708\u672A\u6E80\u3067\u3059\u3002`;
   else if (partner.acceptance.maxRoughness !== null && p.roughness > partner.acceptance.maxRoughness) reason = "\u3053\u306E\u76F8\u624B\u306E\u53D7\u5165\u6761\u4EF6\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
   else if (s.tastingId !== null || s.trade.offer !== null) reason = "\u5148\u306B\u8A66\u98F2\u30FB\u5378\u58F2\u306E\u7533\u3057\u51FA\u3092\u78BA\u8A8D\u3057\u307E\u3059\u3002";
-  const deliveryReason = reason || (!count3 ? "\u914D\u5206\u3057\u305F\u74F6\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\u3002" : ""), reservationReason = reason || (inv.hand < 1 ? "\u624B\u5143\u306E\u74F6\u3092\u914D\u5206\u3057\u307E\u3059\u3002" : "");
-  return { partnerId: id3, shopId: id3, contractId: contract?.id ?? null, productId, releaseId: r?.id ?? null, ok: !reservationReason, reason: reservationReason, canDeliver: !deliveryReason, deliveryReason, available: inv.hand, maxCount: reservationReason ? 0 : inv.hand, assigned: count3, unitPrice: p && partner ? round5(salePrices(s, productId).standard * partner.price.rate) : 0, allocationIds: row?.allocationIds ?? [], nextAllocationId: state ? "regional-allocation:" + id3 + ":" + (state.allocationSerial + 1) : null, nextDeliveryId: state ? "regional-delivery:" + id3 + ":" + (state.deliverySerial + 1) : null };
+  const capacity = legacyTerms ? null : wholesaleCapacity(s, id3);
+  const remaining = capacity?.remaining ?? Infinity;
+  const full = "今月の買取枠を使い切りました。";
+  const deliveryReason = reason || (count3 > remaining ? (remaining === 0 ? full : "今月の買取枠を超えています。手元へ戻すと、枠に収まる本数を納品できます。") : "") || (!count3 ? "\u914D\u5206\u3057\u305F\u74F6\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\u3002" : ""), reservationReason = reason || (remaining === 0 ? full : "") || (inv.hand < 1 ? "\u624B\u5143\u306E\u74F6\u3092\u914D\u5206\u3057\u307E\u3059\u3002" : "");
+  return { partnerId: id3, shopId: id3, contractId: contract?.id ?? null, productId, releaseId: r?.id ?? null, ok: !reservationReason, reason: reservationReason, canDeliver: !deliveryReason, deliveryReason, available: inv.hand, maxCount: reservationReason ? 0 : Math.min(inv.hand, remaining), monthlyRemaining: capacity?.remaining ?? null, assigned: count3, unitPrice: p && partner ? round5(salePrices(s, productId).standard * (capacity ? 0.85 : partner.price.rate)) : 0, allocationIds: row?.allocationIds ?? [], nextAllocationId: state ? "regional-allocation:" + id3 + ":" + (state.allocationSerial + 1) : null, nextDeliveryId: state ? "regional-delivery:" + id3 + ":" + (state.deliverySerial + 1) : null };
 }
 function prior(s, key2, id3, field) {
   return s.operations.find((o) => o.key === key2 && o.value?.[field] === id3)?.value ?? null;
@@ -2685,7 +2726,7 @@ function regionalDeliveryReceipt(s, id3) {
 function regionalDeliveryHistory(s, id3 = partnerId) {
   return regionalDeliveryMode(s) ? s.operations.filter((o) => o.key === "regional-deliver" && o.value?.receipt?.partnerId === id3).map((o) => structuredClone(o.value.receipt)) : [];
 }
-function reserveRegionalInto(s, value) {
+function reserveRegionalInto(s, value, legacyTerms) {
   const { partnerId: id3, productId, contractId, allocationId, count: count3 } = value ?? {}, state = s.regionalDeliveries;
   assert7(regionalDeliveryMode(s), "\u5730\u57DF\u3078\u306E\u7D0D\u54C1\u3092\u6709\u52B9\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const previous = prior(s, "regional-assign", allocationId, "allocationId");
@@ -2693,7 +2734,7 @@ function reserveRegionalInto(s, value) {
     assert7(["partnerId", "productId", "contractId", "count"].every((k) => previous[k] === value[k]), "\u540C\u3058\u914D\u5206ID\u306E\u5185\u5BB9\u304C\u5909\u308F\u3063\u3066\u3044\u307E\u3059\u3002");
     return false;
   }
-  const q = regionalDeliveryQuote(s, productId, id3);
+  const q = regionalDeliveryQuote(s, productId, id3, legacyTerms);
   assert7(q.ok && q.contractId === contractId, q.reason || "\u5730\u57DF\u5951\u7D04\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   assert7(allocationId === q.nextAllocationId && Number.isInteger(count3) && count3 >= 1 && count3 <= q.maxCount, "\u914D\u5206ID\u3068\u624B\u5143\u306E\u672C\u6570\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const r = s.releases.find((r2) => r2.productId === productId);
@@ -2701,12 +2742,13 @@ function reserveRegionalInto(s, value) {
   state.allocationSerial++;
   return true;
 }
-function selectedAllocations(s, value) {
-  const { partnerId: id3, contractId, productId, allocationIds } = value ?? {}, ids = ordered(allocationIds), q = regionalDeliveryQuote(s, productId, id3);
-  assert7(ids && contractId === q.contractId && regionalContract(s, id3), "\u5730\u57DF\u5951\u7D04\u3068\u914D\u5206\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+function selectedAllocations(s, value, legacyTerms) {
+  const { partnerId: id3, contractId, productId, allocationIds } = value ?? {}, ids = ordered(allocationIds);
+  assert7(ids && contractId === regionalContract(s, id3)?.id && regionalContract(s, id3), "\u5730\u57DF\u5951\u7D04\u3068\u914D\u5206\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const allocations3 = ids.map((id4) => s.regionalDeliveries.allocations.find((a) => a.id === id4));
   assert7(allocations3.every((a) => a && a.partnerId === value.partnerId && a.contractId === contractId && a.productId === productId), "\u3053\u306E\u914D\u5206\u306F\u5909\u66F4\u3055\u308C\u3066\u3044\u307E\u3059\u3002");
-  return { q, allocations: allocations3, count: allocations3.reduce((n, a) => n + a.count, 0) };
+  const count = allocations3.reduce((n, a) => n + a.count, 0);
+  return { q: regionalDeliveryQuote(s, productId, id3, legacyTerms, count), allocations: allocations3, count };
 }
 function returnRegionalInto(s, value) {
   assert7(regionalDeliveryMode(s), "\u5730\u57DF\u3078\u306E\u7D0D\u54C1\u3092\u6709\u52B9\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
@@ -2716,14 +2758,14 @@ function returnRegionalInto(s, value) {
   s.regionalDeliveries.allocations = s.regionalDeliveries.allocations.filter((a) => !value.allocationIds.includes(a.id));
   return true;
 }
-function deliverRegionalInto(s, value) {
+function deliverRegionalInto(s, value, legacyTerms) {
   assert7(regionalDeliveryMode(s), "\u5730\u57DF\u3078\u306E\u7D0D\u54C1\u3092\u6709\u52B9\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const previous = regionalDeliveryReceipt(s, value?.deliveryId);
   if (previous) {
     assert7(previous.partnerId === value.partnerId && previous.contractId === value.contractId && previous.productId === value.productId && sameIds(previous.allocationIds, value.allocationIds), "\u540C\u3058\u7D0D\u54C1ID\u306E\u5185\u5BB9\u304C\u5909\u308F\u3063\u3066\u3044\u307E\u3059\u3002");
     return null;
   }
-  const { q, allocations: allocations3, count: count3 } = selectedAllocations(s, value);
+  const { q, allocations: allocations3, count: count3 } = selectedAllocations(s, value, legacyTerms);
   assert7(q.canDeliver && value.deliveryId === q.nextDeliveryId, q.deliveryReason || "\u7D0D\u54C1ID\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const p = s.core.products.find((p2) => p2.id === value.productId), r = s.releases.find((r2) => r2.productId === value.productId), contract = regionalContract(s, value.partnerId);
   assert7(p.stock >= count3 && count3 >= 1, "\u914D\u5206\u3057\u305F\u672C\u6570\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
@@ -9119,6 +9161,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     const deliveryQuote2 = editing?.regional ? D2.regionalDeliveryQuote(s, editing.productId, editing.shopId) : null;
     const returnPane = editing ? editing.newRegional ? `<section class="market-return" role="group" aria-label="窓口への納品確認">
       <p>${esc7(shops3.find((x) => x.id === editing.shopId)?.name)}へ ${editing.count}本 納品</p>
+      <p>今月の買取残り ${deliveryQuote2?.monthlyRemaining ?? 0}本</p>
       <p>入金 £${(Math.round(editing.count * (deliveryQuote2?.unitPrice ?? 0) * 100) / 100).toFixed(2)}</p>
       <div class="market-buttons">${button2("納品する", "confirm", "deliver", deliveryQuote2?.ok === false ? "disabled" : "")}${button2("やめる", "cancel", "delivery")}</div>
     </section>` : `<section class="market-return" role="group" aria-label="未納品の瓶を扱う">
@@ -9533,7 +9576,8 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
         return;
       }
       if (regional2) {
-        editing = { shopId: shopId4, productId: p.id, count: count3,
+        const count = portionCount(regionalQuote.maxCount, portion2);
+        editing = { shopId: shopId4, productId: p.id, count,
           regional: true, newRegional: true, contractId: regionalQuote.contractId };
         signature = "";
         setEditing(true);
@@ -14648,12 +14692,13 @@ function assignNewBottlingCask(s, caskId) {
   j.operations.pop();
   return j;
 }
-function regionalDeliveryTransaction(s, key2, value, expectedReceipt = null) {
+function regionalDeliveryTransaction(s, key2, value, expectedReceipt = null, legacyTerms = false) {
   assert17(regionalDeliveryMode(s) && !bottleActionBlocked(s), "\u5148\u306B\u8A66\u98F2\u30FB\u5378\u58F2\u306E\u7533\u3057\u51FA\u3092\u78BA\u8A8D\u3057\u307E\u3059\u3002");
-  const j = clone8(s), changed = key2 === "regional-assign" ? reserveRegionalInto(j, value) : key2 === "regional-return" ? returnRegionalInto(j, value) : deliverRegionalInto(j, value);
+  const j = clone8(s), changed = key2 === "regional-assign" ? reserveRegionalInto(j, value, legacyTerms) : key2 === "regional-return" ? returnRegionalInto(j, value) : deliverRegionalInto(j, value, legacyTerms);
   if (!changed) return s;
   assert17(j.operations.length < PARALLEL_PARAMETERS2.maxOperations, "\u5E33\u9762\u304C\u3044\u3063\u3071\u3044\u3067\u3059\u3002");
   const data = { partnerId: value.partnerId, productId: value.productId, contractId: value.contractId };
+  if (!legacyTerms && key2 !== "regional-return") data.wholesaleTerms = 1;
   if (key2 === "regional-assign") Object.assign(data, { allocationId: value.allocationId, count: value.count });
   else Object.assign(data, { allocationIds: value.allocationIds.slice().sort() });
   if (key2 === "regional-deliver") {
@@ -16916,7 +16961,8 @@ function applyOperation(s, o, context) {
     case "regional-return":
     case "regional-deliver":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
-      return regionalDeliveryTransaction(s, o.key, o.value, o.key === "regional-deliver" ? o.value?.receipt : null);
+      assert17(o.value?.wholesaleTerms === undefined || o.value.wholesaleTerms === 1, "卸売の取引条件を確認できません。");
+      return regionalDeliveryTransaction(s, o.key, o.value, o.key === "regional-deliver" ? o.value?.receipt : null, o.value?.wholesaleTerms !== 1);
     case "enable-regional-partners":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
       if (o.value?.tastingId !== null) {

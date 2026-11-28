@@ -1,0 +1,94 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5c298a5b916f2ed0e918d9298498bfd81a0e08f2466b6260e73af92bd2c09ca9",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "727d6a50f42efa49c1b1ad337a7e0415d6d9152e",
+    "changeId": "ambertime-v69-stage3-wholesale",
+    "revision": 0,
+    "change": "Apply approved monthly wholesale capacity and 85 percent price.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-wholesale.test.mjs",
+      ".change-plans/ambertime-v69-stage3-wholesale/r0.lock.json",
+      "works/ambertime/tests/v69-stage2-model.test.mjs",
+      "works/ambertime/tests/v69-stage2-browser.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Partner-wide monthly cap and 85 percent pricing for new receipts",
+      "Version new actions and preserve legacy replay"
+    ],
+    "ownerDecisions": [
+      "Stage 3 approved: 85 percent, partner capacities and bounded recent demand formula"
+    ],
+    "hqDecisions": [
+      "Use existing affordability, inventory and confirmed start flow."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Monthly split deliveries, multichannel career, old saves and live Staging"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Stage 4 onward and production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Automatic reset, injecting capital, automatic scene changes."
+    ],
+    "boundaryCases": [
+      "Temporary low funds, remaining bottles, spirit, processable casks, reserved stock, outstanding receipts, late generation."
+    ],
+    "testPlan": [
+      "Native model, browser regression and historical restores"
+    ],
+    "problem": "Unbounded instant purchases overshadow individual shops.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "General low-funds feedback does not identify a terminal resource state.",
+    "design": "Quote and transaction share the cap. Replay distinguishes terms by operation.",
+    "migration": "No saved data rewrite. Record terms on new wholesale operations.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}

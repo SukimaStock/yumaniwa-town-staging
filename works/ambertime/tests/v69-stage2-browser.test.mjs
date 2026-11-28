@@ -121,11 +121,22 @@ test('department invitation, reservation, settlement and sellout through player 
         assert.doesNotMatch(text,/納品待ち/);
       } else {
         await closeDialogs();
-        await tap('[data-market-release="15"]');
-        await tap('[data-market-portion="all"]');
-        await tap('[data-market-place="trial-region-desk"]');
-        await tap('[data-market-confirm="deliver"]');
-        await page.waitForFunction(() => !document.querySelector('#shop-offer').hasAttribute('data-pending-direct'));
+        for (let month=0; month<8; month++) {
+          await tap('[data-market-release="15"]');
+          await tap('[data-market-portion="all"]');
+          await tap('[data-market-place="trial-region-desk"]');
+          const confirm = page.locator('[data-market-confirm="deliver"]');
+          await confirm.waitFor();
+          assert.match(await page.locator('.market-return').innerText(), /今月の買取残り/);
+          await confirm.tap();
+          await confirm.waitFor({state:'hidden'});
+          if (await page.locator('#shop-offer').getAttribute('data-pending-direct') === null) break;
+          const date = await page.locator('#calendar').innerText();
+          await tap('#toggle-time');
+          await page.waitForFunction(before => document.querySelector('#calendar').innerText !== before, date);
+          await tap('#toggle-time');
+        }
+        assert.equal(await page.locator('#shop-offer').getAttribute('data-pending-direct'),null);
         await tap('#shop-offer');
         assert.equal(await page.locator('[data-action="stockist-open"][data-id="department"]').count(),0);
         await closeDialogs();
