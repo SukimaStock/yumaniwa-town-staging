@@ -101,7 +101,7 @@ test('department invitation, reservation, settlement and sellout through player 
       await page.locator('[data-action="shop-accept-deliver"]').waitFor();
       if (accept) {
         await tap('[data-action="shop-accept-deliver"]');
-        assert.match(await page.locator('#dialog-body').innerText(), /5本確保/);
+        await page.locator('#dialog-body').filter({ hasText: '5本確保' }).waitFor();
         await closeDialogs();
         await ledger();
         await tap('#ledger-shop-department');
