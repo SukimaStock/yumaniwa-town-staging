@@ -1,0 +1,85 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "5b29e2784919cb58fa3bc9ece1d30eeb9049961985ed1f03d80d0c1dc976ef9b",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "oden-grounded-rotation-current",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "change": "Allow grounded quarter-turn rotations to shift down into open bowl spaces for all six ODEN ingredients while preventing obstacle tunneling.",
+    "planLevel": "standard",
+    "classes": [
+      "WORK"
+    ],
+    "authority": [
+      "Standard",
+      "Owner Decision"
+    ],
+    "environment": "staging",
+    "baseSha": "3fc3654f7f118e6e5fba17f04006d3f90110cdfd",
+    "canonicalSources": [
+      "works/oden/index.html",
+      "data/work-lifecycle.json",
+      "CHANGE-PLAN.md",
+      "CHANGE-OPERATIONS.md",
+      "tools/change-risk-policy.cjs"
+    ],
+    "allowedPaths": [
+      ".change-plans/oden-grounded-rotation-current/r0.lock.json",
+      "works/oden/index.html",
+      "works/oden/tests/rotation.test.cjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**",
+      "data/**",
+      "works/oden/assets/**",
+      "works/oden/style.css"
+    ],
+    "expectedChanges": [
+      "Use the approved rotation candidate priority and allow downward candidates only while grounded.",
+      "Require continuity with the pre-rotation piece and reject swept paths through fixed ingredients or bowl boundaries.",
+      "Apply the behavior uniformly to all six ingredient shapes and both rotation directions.",
+      "Add focused regression coverage for rotation, collisions, ghost landing, and lock/turn invariants."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Run the focused ODEN rotation regression suite and trusted PR checks.",
+      "After Staging deploy, verify the flexible gap placement and ordinary grounded/airborne rotations on iPhone Safari."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert only this Staging PR; no save format or other work is changed.",
+    "outOfScope": [
+      "Ingredient artwork or rotation animations",
+      "Board dimensions, inputs, fall speed, lock grace, simmer, turns, row clearing, sound, or layout",
+      "Production repository or deployment"
+    ],
+    "promotion": "Staging only; no Production promotion.",
+    "unverified": [
+      "Author's physical iPhone Safari feel check remains pending until the merged Staging build is operated."
+    ],
+    "ownerDecisions": [
+      "Owner-approved request in this task authorizes this exact behavior, implementation, regression coverage, PR, and safe Staging merge."
+    ],
+    "hqDecisions": [],
+    "rulesApplied": [
+      "ODEN lifecycle is candidate; candidate work edits require the standard Plan Lock / Scope / Risk / Impact route.",
+      "Changes are limited to the ODEN work path and Staging only."
+    ],
+    "testPlan": [
+      "Run node --test works/oden/tests/rotation.test.cjs.",
+      "Run node --check on the extracted OdenModel block and the regression test.",
+      "Run Plan Lock verification, Scope Guard, Risk Gate, Impact Check, and required CI.",
+      "After merge compare the deployed ODEN HTML against the merged source SHA."
+    ]
+  }
+}
