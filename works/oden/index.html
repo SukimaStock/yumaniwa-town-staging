@@ -1114,7 +1114,40 @@ window.OdenScene={broth,plate,steam};
       if (this.over || !this.active || this.pendingRows.length) return false;
       const rot = normalizeRotation(this.active.rot+(dir<0?-1:1));
       const cells = cellsFor(this.active.type,rot);
-      for (const [dx,dy] of [[0,0],[-1,0],[1,0],[-2,0],[2,0],[0,-1],[-1,-1],[1,-1],[0,-2]]) {
+      const grounded = !this.valid(this.active,0,1);
+      const occupied = new Set(this.active.cells.map(c =>
+        (this.active.x+c.u)+','+(this.active.y+c.v)
+      ));
+      const candidates = [[0,0],[-1,0],[1,0]];
+      if (grounded) candidates.push([0,1],[-1,1],[1,1]);
+      candidates.push([-2,0],[2,0],[0,-1],[-1,-1],[1,-1],[0,-2]);
+
+      // Treat a rotation/kick as a short swept movement too. Matching cells by
+      // their stable index prevents a legal endpoint from tunneling through a
+      // fixed ingredient or the bowl wall on the way there.
+      const pathIsClear = (dx,dy) => {
+        const before = new Map(this.active.cells.map(c => [c.index,c]));
+        for (const next of cells) {
+          const prev = before.get(next.index);
+          if (!prev) return false;
+          const x0 = this.active.x+prev.u+.5;
+          const y0 = this.active.y+prev.v+.5;
+          const x1 = this.active.x+dx+next.u+.5;
+          const y1 = this.active.y+dy+next.v+.5;
+          const steps = Math.max(8,Math.ceil(Math.max(Math.abs(x1-x0),Math.abs(y1-y0))*8));
+          for (let i=1;i<steps;i++) {
+            const t=i/steps,x=Math.floor(x0+(x1-x0)*t),y=Math.floor(y0+(y1-y0)*t);
+            if (x<0||x>=W||y>=H||(y>=0&&this.grid[y][x])) return false;
+          }
+        }
+        return true;
+      };
+
+      for (const [dx,dy] of candidates) {
+        if (dy>0 && !cells.some(c => occupied.has(
+          (this.active.x+dx+c.u)+','+(this.active.y+dy+c.v)
+        ))) continue;
+        if (!pathIsClear(dx,dy)) continue;
         if (this.valid(this.active,dx,dy,cells)) {
           this.active.x += dx;
           this.active.y += dy;
