@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e097d6e2bacc7df60a78ef31306722cae741a01b35e9b5a1c7b0c1304f9979b2",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "15b32d35fd86f87831d04fecc0fca12a414a3d95",
+    "changeId": "ambertime-v69-stage2-exhaustion",
+    "revision": 0,
+    "change": "Make complete resource exhaustion understandable while keeping the ledger and voluntary restart available.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-exhaustion.test.mjs",
+      ".change-plans/ambertime-v69-stage2-exhaustion/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Project true exhaustion into the existing player UI.",
+      "Keep the ledger readable and restart explicit and confirmed."
+    ],
+    "ownerDecisions": [
+      "Owner approved item 9. Any closing vignette requires a separate creative decision."
+    ],
+    "hqDecisions": [
+      "Use existing affordability, inventory and confirmed start flow."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Check ledger access, clear stop reason, cancel restart and return."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Stage 3 onward, price/loan policies, production and unapproved vignette."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Automatic reset, injecting capital, automatic scene changes."
+    ],
+    "boundaryCases": [
+      "Temporary low funds, remaining bottles, spirit, processable casks, reserved stock, outstanding receipts, late generation."
+    ],
+    "testPlan": [
+      "Run closure regression and v69 suite, compare historical restoration, verify staging delivery."
+    ],
+    "problem": "After all recovery routes are exhausted the month can stop with no explanation of options.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "General low-funds feedback does not identify a terminal resource state.",
+    "design": "Derive state without changing saved economic history and retain user control of restart.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}

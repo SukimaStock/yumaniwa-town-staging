@@ -18612,7 +18612,7 @@ function prepareDistillation(start) {
   countdown.start((finishCountdown) => act(start, () => distillRoom.clearPrepared(), null, { finishCountdown, paused: false, ...(openingClockPending(game) ? { time: 0 } : {}) }));
 }
 function ordinaryNoticeSafe() {
-  return sessionActive && !!game && !modal && !document.hidden && !runtimeHalted && (preview || canSave) && !marketEditing && !countdown.active && game.tastingId === null && !game.decisions.length && !game.trade.offer && generationState()?.phase !== "review" && $2("storage-notice").hidden && $2("generation-notice").hidden && !m0.isOpen;
+  return sessionActive && !!game && !modal && !document.hidden && !runtimeHalted && !fundsExhausted(game) && (preview || canSave) && !marketEditing && !countdown.active && game.tastingId === null && !game.decisions.length && !game.trade.offer && generationState()?.phase !== "review" && $2("storage-notice").hidden && $2("generation-notice").hidden && !m0.isOpen;
 }
 var prologueSeen=new Set(), prologueDesired=null, prologueSoldBefore=false, prologueSalePending=false;
 function resetPrologue(s,fresh) {
@@ -20042,7 +20042,26 @@ function placementShelfRelease(p) {
 }
 var productSaleState = (p) => placementEnabled ? D.placementInventory(game, p.id).retail > 0 ? "\u81EA\u5BB6\u8CA9\u58F2 " + D.placementInventory(game, p.id).retail + "\u672C" : "\u624B\u5143 " + D.placementInventory(game, p.id).hand + "\u672C" : game.productsById[p.id]?.listed ? "\u8CA9\u58F2\u4E2D" : "\u4FDD\u7BA1\u4E2D";
 var bottleStock = () => game.core.products.reduce((sum3, p) => sum3 + p.stock, 0);
-var hasMonthlyWork = () => game && !openingClockPending(game) && (game.core.casks.length > 0 || game.core.products.some((p) => p.stock > 0) || game.still.phase === "distilling" || D.usualNeedsClock(game) || D.generationNeedsClock(game));
+// Derived at display time so restored careers and historical replay keep their original rules.
+var exhaustedNotice = "売れる酒と次の仕込み資金が尽きました。";
+function fundsExhausted(s) {
+  const active = s.generations?.active;
+  // Let the normal late-career review and handover finish first.
+  if (active && (active.phase !== "working" || s.core.month - active.startedMonth >= GENERATIONS.lateMonths)) return false;
+  if (s.still.phase === "distilling" || s.core.products.some(p => p.stock > 0)) return false;
+  if (s.trade.contracts.length || s.trade.order?.status === "unmet" || s.department?.interests.some(o => o.pendingDelivery)) return false;
+  if (s.core.cash >= canStart2(s).minimum) return false;
+  if (s.core.spirit && s.core.cash >= reserve5(s)) return false;
+  // Older trade agreements can pay for bottling from the shipment itself.
+  const terms = [...(s.trade.offer?.terms ?? []), ...(s.trade.relationship?.terms ?? [])];
+  if (s.trade.order) terms.push(s.trade.order);
+  if (terms.some(term => contractCandidates4(s, term).length)) return false;
+  return !s.core.casks.some(c => {
+    const q = bottleQuote(s.core, c.id);
+    return q.count > 0 && s.core.cash >= (partialMode(s) ? ECONOMY_PARAMETERS.bottlingCost : q.cost);
+  });
+}
+var hasMonthlyWork = () => game && !fundsExhausted(game) && !openingClockPending(game) && (game.core.casks.length > 0 || game.core.products.some((p) => p.stock > 0) || game.still.phase === "distilling" || D.usualNeedsClock(game) || D.generationNeedsClock(game));
 var blocked5 = () => versionedStorage.pending || !sessionActive || !game || openingClockPending(game) || countdown.active || generationState()?.phase === "review" || !preview && !canSave || userPaused || runtimeHalted || heldRange() || manualDistilling() && room !== "distill" || document.hidden || scene2.isDistillCompletion(game.core.spirit?.id) || marketEditing || modal !== null || game.tastingId !== null || game.decisions.length > 0 || game.trade.offer !== null;
 // v24: A store or regional contact becomes available without a separate
 // acceptance chore. Stock remains on hand until the player ships/allocates it.
@@ -20186,7 +20205,7 @@ function schedule(continuing = false) {
   timer = setTimeout(async () => {
     if (token !== generation) return;
     timer = null;
-    if (blocked5()) return;
+    if (blocked5() || fundsExhausted(game)) return;
     try {
       const beforeStep = game;
       let saved = true, completionSaved = false;
@@ -21058,7 +21077,7 @@ function syncModal() {
     actions = button("\u9589\u3058\u308B", "cancel");
   } else if (kind2 === "ledger") {
     title = "\u5E33\u9762";
-    body = ledgerView();
+    body = (fundsExhausted(game) ? '<p class="quiet">' + exhaustedNotice + " これまでの記録を読めます。</p>" : "") + ledgerView();
     actions = button("\u9589\u3058\u308B", "cancel");
   } else if (kind2 === "ledger-recipe" || kind2 === "ledger-cask" || kind2 === "ledger-recipe-comparison") {
     title = kind2 === "ledger-recipe" ? "\u4ED5\u8FBC\u307F" : kind2 === "ledger-cask" ? "\u305F\u308B" : "\u6BD4\u3079\u308B";
@@ -21455,6 +21474,8 @@ function render2() {
   if (!sessionActive) return;
   if (countdown.active && (modal || room !== "distill" || document.hidden)) countdown.cancel();
   if (!game) return;
+  const exhausted = fundsExhausted(game);
+  document.body.dataset.fundsExhausted = String(exhausted);
   mapConnectionMotion.observe(game);
   distillRoom.invalidate(game.still.phase, game.core.lastDistillation);
   $2("settings-source").hidden = true;
@@ -21630,7 +21651,7 @@ function render2() {
   $2("sales-empty").hidden = game.core.products.some((p) => p.stock > 0);
   const last = game.core.lastMonth;
   $2("sales-result").textContent = last ? monthLabel(last.month) + " " + last.bottles + "\u672C\n\u58F2\u4E0A " + money(last.revenue) : "";
-  $2("toggle-time").textContent = !preview && !canSave ? "\u4FDD\u5B58\u5F85\u3061" : userPaused || runtimeHalted || heldRange() ? phase === "distilling" && !atLimit ? "\u84B8\u7559\u3092\u518D\u958B\u3059\u308B" : "\u6642\u9593\u3092\u9032\u3081\u308B" : "\u6642\u9593\u3092\u6B62\u3081\u308B";
+  $2("toggle-time").textContent = exhausted ? "時間は止まりました" : !preview && !canSave ? "\u4FDD\u5B58\u5F85\u3061" : userPaused || runtimeHalted || heldRange() ? phase === "distilling" && !atLimit ? "\u84B8\u7559\u3092\u518D\u958B\u3059\u308B" : "\u6642\u9593\u3092\u9032\u3081\u308B" : "\u6642\u9593\u3092\u6B62\u3081\u308B";
   const clockPending = openingClockPending(game);
   $2("time-controls").hidden = clockPending || tasting2 || !!modal;
   $2("v42-menu-time").hidden = clockPending;
@@ -21639,7 +21660,7 @@ function render2() {
   $2("toggle-speed").textContent = playbackRate === 2 ? "現在 2\u500D" : "現在 1\u500D";
   $2("toggle-speed").setAttribute("aria-label", playbackRate === 2 ? "時間の速度：2倍。押すと1倍にします" : "時間の速度：1倍。押すと2倍にします");
   $2("toggle-speed").setAttribute("aria-pressed", String(playbackRate === 2));
-  $2("time-status").textContent = !preview && !canSave ? "\u4FDD\u5B58\u30A8\u30E9\u30FC\u30FB\u505C\u6B62\u4E2D" : modal || marketEditing ? "\u78BA\u8A8D\u4E2D\u30FB\u505C\u6B62\u4E2D" : tasting2 ? "\u8A66\u98F2\u4E2D\u30FB\u505C\u6B62\u4E2D" : document.hidden ? "\u753B\u9762\u3092\u96E2\u308C\u3066\u505C\u6B62\u4E2D" : runtimeHalted ? "\u8CC7\u91D1\u3092\u6B8B\u3057\u3066\u505C\u6B62\u4E2D" : userPaused || heldRange() ? "\u505C\u6B62\u4E2D" : !hasMonthlyWork() ? "\u505C\u6B62\u4E2D" : playbackRate === 2 ? "2\u500D\u901F\u3067\u9032\u884C\u4E2D" : "\u9032\u884C\u4E2D";
+  $2("time-status").textContent = exhausted ? exhaustedNotice : !preview && !canSave ? "\u4FDD\u5B58\u30A8\u30E9\u30FC\u30FB\u505C\u6B62\u4E2D" : modal || marketEditing ? "\u78BA\u8A8D\u4E2D\u30FB\u505C\u6B62\u4E2D" : tasting2 ? "\u8A66\u98F2\u4E2D\u30FB\u505C\u6B62\u4E2D" : document.hidden ? "\u753B\u9762\u3092\u96E2\u308C\u3066\u505C\u6B62\u4E2D" : runtimeHalted ? "\u8CC7\u91D1\u3092\u6B8B\u3057\u3066\u505C\u6B62\u4E2D" : userPaused || heldRange() ? "\u505C\u6B62\u4E2D" : !hasMonthlyWork() ? "\u505C\u6B62\u4E2D" : playbackRate === 2 ? "2\u500D\u901F\u3067\u9032\u884C\u4E2D" : "\u9032\u884C\u4E2D";
   $2("time-change").textContent = last ? monthLabel(last.month) + " \u7DAD\u6301\u8CBB " + money(last.upkeep) + (last.revenue ? " \xB7 \u58F2\u4E0A " + money(last.revenue) : "") : "";
   $2("records").hidden = true;
   automaticNews.update();
@@ -21687,14 +21708,14 @@ function render2() {
     staffAvailable: !$2("open-staff-panel").hidden,
     phaseSummary: phase === "distilling" && collection.enabled && !collection.fullRange ? "\u4EE5\u524D\u306E\u84B8\u7559\u3092\u7D9A\u3051\u3066\u3044\u307E\u3059\u3002" : !reservation && !start.ok && phase === "ready" ? displayReason(start.reason) : staffWaitReason,
     staffBrief: room === "distill" && (staff.hired || reservation) ? staffBrief : "",
-    notice: !$2("storage-notice").hidden ? $2("storage-notice").textContent : !banner.hidden && !topImportantShown ? banner.textContent : runtimeHalted ? $2("work-notice").textContent : "",
+    notice: !$2("storage-notice").hidden ? $2("storage-notice").textContent : !banner.hidden && !topImportantShown ? banner.textContent : exhausted ? exhaustedNotice : runtimeHalted ? $2("work-notice").textContent : "",
     casks: slotCasks().filter(Boolean).map((c) => ({ id: c.id, slot: caskSlots.indexOf(c.id) + 1, type: c.type, wood: c.wood, name: caskName(c.id).replace(/^たる /, ""), flavorName: c.flavor?.label ?? null, age: ageLabel(c.age), ageMonths: c.age, reservationIcon: reservationSymbol(c.id), cooled: game.notesById[c.id]?.cooled === true, selected: c.id === warehouseRoom.selectedId })),
     products: shelfProducts.slice(shelfStart, shelfStart + 4).map((p) => ({ id: p.id, releaseId: releaseFor2(p.id)?.id ?? null, wood: p.wood, brand: brandFor(p.id), priceTier: releasePriceTier(game, p.id), name: (brandFor(p.id)?.name ?? "AmberTime") + "\n" + releaseTag(p.id).replace(" \xB7 \u305F\u308B No.", " No.").replace(" \xB7 ", " "), state: placementEnabled ? displayProductStock(p) + "\u672C" : displayProductStock(p) + "\u672C \xB7 " + productSaleState(p), releaseDate: placementEnabled ? placementShelfLabel(p) : releaseTag(p.id).split(" \xB7 ")[0], stock: displayProductStock(p), saleState: placementEnabled ? placementShelfRelease(p) : productSaleState(p), selected: p.id === selectedProductId })),
     pageCount: shelfPageCount,
     pageLabel: shelfPage + 1 + " / " + shelfPageCount
   });
   $2("scene-notice").setAttribute("aria-live", D.storeMarketMode(game) && room === "sales" && !modal ? "off" : "polite");
-  marketUI.update({ sessionActive: room === "sales", visible: D.storeMarketMode(game) && room === "sales" && !modal && (preview || canSave), preserveEditing: modal?.kind === "world-map" || !!modal?.mapParent, notice: !$2("storage-notice").hidden ? $2("storage-notice").textContent : !banner.hidden ? banner.textContent : runtimeHalted ? $2("work-notice").textContent : "" });
+  marketUI.update({ sessionActive: room === "sales", visible: D.storeMarketMode(game) && room === "sales" && !modal && (preview || canSave), preserveEditing: modal?.kind === "world-map" || !!modal?.mapParent, notice: !$2("storage-notice").hidden ? $2("storage-notice").textContent : !banner.hidden ? banner.textContent : exhausted ? exhaustedNotice : runtimeHalted ? $2("work-notice").textContent : "" });
   m0.update();
   dialogueNotice.update();
 }
