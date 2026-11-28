@@ -6,15 +6,10 @@
    - iPhoneなど小さいタッチ画面では、上部バーを読み込み直後だけ表示。
      少しすると上へ収納し、作品のための高さを返す。
    - 収納後は左上の小さなタブを押すと、上部バーを再表示できる。
-   - responsive表示の作品は対象外。
+   - 縦長・可変サイズとも作品の領域外にタブを置く。
    ========================================== */
 (function () {
     "use strict";
-
-    var PHONE_LAYOUTS = {
-        "phone-cola": { width: 360, height: 660 },
-        "phone-yakitori": { width: 360, height: 660 }
-    };
 
     var INITIAL_VISIBLE_MS = 2600;
     var REVEAL_VISIBLE_MS = 4200;
@@ -44,11 +39,6 @@
     var hideTimer = null;
 
     function getLayout() {
-        var preset = PHONE_LAYOUTS[playerLayer.dataset.frameMode];
-        if (preset) return preset;
-
-        // 作品データの playerLayout: "phone" を共通条件にする。
-        // DotWeatherなど、softフレームの縦長作品も同じ収納挙動になる。
         if (playerLayer.dataset.playerLayout !== "phone") {
             return null;
         }
@@ -68,11 +58,10 @@
         return hasTouch && shortSide > 0 && shortSide <= 700;
     }
 
-    function isCompactPhoneGame() {
+    function isCompactWork() {
         return (
             playerLayer.classList.contains("visible") &&
-            playerLayer.dataset.playerLayout === "phone" &&
-            !!getLayout() &&
+            !!playerLayer.dataset.mobileFrame &&
             isSmallTouchScreen()
         );
     }
@@ -97,38 +86,62 @@
         frame.style.removeProperty("background");
     }
 
+    // The candidate rectangle is always taken from the original space, before
+    // any tab clearance. This avoids oscillation when ResizeObserver runs again.
+    function fitPhone(layout, width, height, collapsed) {
+        var horizontalPadding = collapsed ? 8 : 24;
+        var verticalPadding = collapsed ? 6 : 24;
+        var scale = Math.min(
+            isSmallTouchScreen() ? 1 : 1.35,
+            Math.max(1, width - horizontalPadding) / layout.width,
+            Math.max(1, height - verticalPadding) / layout.height
+        );
+        return {
+            width: Math.max(1, Math.floor(layout.width * scale)),
+            height: Math.max(1, Math.floor(layout.height * scale))
+        };
+    }
+
+    function reservePeekSpace(layout, collapsed) {
+        var inset = 0;
+        if (collapsed) {
+            var bounds = content.getBoundingClientRect();
+            var player = playerLayer.getBoundingClientRect();
+            var previous = parseFloat(content.style.marginTop) || 0;
+            var top = bounds.top - previous;
+            var height = bounds.height + previous;
+            var size = layout ? fitPhone(layout, bounds.width, height, true) : {width: bounds.width, height: height};
+            var frameLeft = bounds.left + (bounds.width - size.width) / 2;
+            var frameTop = top + (height - size.height) / 2;
+
+            // The computed offsets include safe-area insets even while the
+            // immersive tab is hidden. Revealing it cannot move the work.
+            var tab = window.getComputedStyle(peekTab);
+            var tabRight = player.left + parseFloat(tab.left) + parseFloat(tab.width);
+            var tabBottom = player.top + parseFloat(tab.top) + parseFloat(tab.height);
+            if (frameLeft < tabRight && frameTop < tabBottom) {
+                inset = Math.max(0, Math.ceil(tabBottom + 4 - top));
+            }
+        }
+        content.style.marginTop = inset ? inset + "px" : "";
+    }
+
     function applyPhoneLayout() {
         var layout = getLayout();
 
+        var collapsed = playerLayer.classList.contains("phone-controls-hidden") && isCompactWork();
+        reservePeekSpace(layout, collapsed);
         if (!layout || !playerLayer.classList.contains("visible")) {
             clearPhoneLayout();
             return;
         }
 
-        // 額縁の内側に少し余白を残し、iPhone幅を超える時だけ縮小する。
-        // バーが収納されると content の高さが増え、ここで自動的に少し大きくなる。
-        var horizontalPadding = playerLayer.classList.contains("phone-controls-hidden") ? 8 : 24;
-        var verticalPadding = playerLayer.classList.contains("phone-controls-hidden") ? 6 : 24;
-        var availableWidth = Math.max(1, content.clientWidth - horizontalPadding);
-        var availableHeight = Math.max(1, content.clientHeight - verticalPadding);
-        // iPhoneでは従来どおり等倍まで。
-        // iPad・PCでは余白が大きくなりすぎないよう、表示器だけ最大1.35倍まで拡大する。
-        // iframe内の論理サイズやゲーム側の倍率には触れない。
-        var maxScale = isSmallTouchScreen() ? 1 : 1.35;
-        var scale = Math.min(
-            maxScale,
-            availableWidth / layout.width,
-            availableHeight / layout.height
-        );
-
-        var width = Math.max(1, Math.floor(layout.width * scale));
-        var height = Math.max(1, Math.floor(layout.height * scale));
-
+        var size = fitPhone(layout, content.clientWidth, content.clientHeight, collapsed);
         content.classList.add("phone-layout-active");
         frame.style.position = "relative";
         frame.style.inset = "auto";
-        frame.style.width = width + "px";
-        frame.style.height = height + "px";
+        frame.style.width = size.width + "px";
+        frame.style.height = size.height + "px";
         frame.style.maxWidth = "none";
         frame.style.maxHeight = "none";
         frame.style.flex = "0 0 auto";
@@ -147,32 +160,33 @@
     }
 
     function setControlsHidden(hidden) {
-        if (hidden && !isCompactPhoneGame()) hidden = false;
+        if (hidden && !isCompactWork()) hidden = false;
 
         var nextHidden = !!hidden;
         if (playerLayer.classList.contains("phone-controls-hidden") !== nextHidden) {
             playerLayer.classList.toggle("phone-controls-hidden", nextHidden);
         }
-        peekTab.hidden = !nextHidden;
+        controls.inert = nextHidden;
+        peekTab.hidden = !nextHidden || playerLayer.dataset.mobileFrame === "immersive";
         requestLayoutUpdate();
     }
 
     function scheduleHide(delay) {
         clearHideTimer();
 
-        if (!isCompactPhoneGame() || loading.classList.contains("visible")) {
+        if (!isCompactWork() || loading.classList.contains("visible")) {
             return;
         }
 
         hideTimer = window.setTimeout(function () {
-            if (isCompactPhoneGame() && !loading.classList.contains("visible")) {
+            if (isCompactWork() && !loading.classList.contains("visible")) {
                 setControlsHidden(true);
             }
         }, delay || INITIAL_VISIBLE_MS);
     }
 
     function showControlsForAWhile(delay) {
-        if (!isCompactPhoneGame()) return;
+        if (!isCompactWork()) return;
         setControlsHidden(false);
         scheduleHide(delay || REVEAL_VISIBLE_MS);
     }
@@ -182,7 +196,7 @@
     function resetForNewPlayerState() {
         clearHideTimer();
 
-        if (!isCompactPhoneGame()) {
+        if (!isCompactWork()) {
             setControlsHidden(false);
             return;
         }
@@ -204,11 +218,11 @@
     });
 
     controls.addEventListener("pointerdown", function () {
-        if (isCompactPhoneGame()) clearHideTimer();
+        if (isCompactWork()) clearHideTimer();
     }, { passive: true });
 
     controls.addEventListener("pointerup", function () {
-        if (isCompactPhoneGame()) scheduleHide(REVEAL_VISIBLE_MS);
+        if (isCompactWork()) scheduleHide(REVEAL_VISIBLE_MS);
     }, { passive: true });
 
     // 作品が開いた・閉じた、作品種類が変わった時に初期状態をそろえる。
@@ -264,7 +278,13 @@
         resizeObserver.observe(content);
     }
 
+    var lastSmallTouch = isSmallTouchScreen();
     window.addEventListener("resize", function () {
+        var smallTouch = isSmallTouchScreen();
+        if (smallTouch !== lastSmallTouch) {
+            lastSmallTouch = smallTouch;
+            resetForNewPlayerState();
+        }
         applyPhoneLayout();
     });
 
@@ -277,7 +297,7 @@
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
             clearHideTimer();
-        } else if (isCompactPhoneGame()) {
+        } else if (isCompactWork()) {
             // 戻ってきた時だけ、迷子防止にいったんバーを見せる。
             resetForNewPlayerState();
         }

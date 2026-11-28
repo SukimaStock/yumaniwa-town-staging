@@ -2759,6 +2759,7 @@ function setWorkPlayerLayout(work, playerLayer) {
 
     var layout = getWorkPlayerLayout(work);
     playerLayer.dataset.playerLayout = layout;
+    playerLayer.dataset.mobileFrame = work && work.mobileFrame === "immersive" ? "immersive" : "knob";
 
     // いったん前の作品の表示器設定を消す。
     playerLayer.style.removeProperty("--town-player-render-width");
@@ -7860,6 +7861,7 @@ window.openNoteReader = function(article) {
 
     // 読書室は白い紙面に近い背景を使い、ゲームやらくがきとは見せ方を分ける。
     playerLayer.dataset.frameMode = "reader";
+    delete playerLayer.dataset.mobileFrame;
 
     title.innerText = "読書室";
     frame.title = article.title || "湯間庭新報";
@@ -8083,6 +8085,7 @@ window.closeWorkPlayer = function() {
     if (playerLayer) {
         playerLayer.dataset.frameMode = "standard";
         playerLayer.dataset.playerLayout = "responsive";
+        delete playerLayer.dataset.mobileFrame;
         playerLayer.style.removeProperty("--town-player-render-width");
         playerLayer.style.removeProperty("--town-player-render-height");
         delete playerLayer.dataset.playerWidth;
