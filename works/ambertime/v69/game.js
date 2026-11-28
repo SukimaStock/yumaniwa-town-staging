@@ -2747,7 +2747,9 @@ function selectedAllocations(s, value, legacyTerms) {
   assert7(ids && contractId === regionalContract(s, id3)?.id && regionalContract(s, id3), "\u5730\u57DF\u5951\u7D04\u3068\u914D\u5206\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const allocations3 = ids.map((id4) => s.regionalDeliveries.allocations.find((a) => a.id === id4));
   assert7(allocations3.every((a) => a && a.partnerId === value.partnerId && a.contractId === contractId && a.productId === productId), "\u3053\u306E\u914D\u5206\u306F\u5909\u66F4\u3055\u308C\u3066\u3044\u307E\u3059\u3002");
-  const count = allocations3.reduce((n, a) => n + a.count, 0);
+  const reserved = allocations3.reduce((n, a) => n + a.count, 0);
+  const count = value.supplyCount ?? reserved;
+  if (value.supplyCount !== undefined) assert7(!legacyTerms && value.autoSupply === true && Number.isInteger(count) && count >= 1 && count <= Math.min(5, reserved), "補充の本数を確認してください。");
   return { q: regionalDeliveryQuote(s, productId, id3, legacyTerms, count), allocations: allocations3, count };
 }
 function returnRegionalInto(s, value) {
@@ -2762,7 +2764,7 @@ function deliverRegionalInto(s, value, legacyTerms) {
   assert7(regionalDeliveryMode(s), "\u5730\u57DF\u3078\u306E\u7D0D\u54C1\u3092\u6709\u52B9\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const previous = regionalDeliveryReceipt(s, value?.deliveryId);
   if (previous) {
-    assert7(previous.partnerId === value.partnerId && previous.contractId === value.contractId && previous.productId === value.productId && sameIds(previous.allocationIds, value.allocationIds), "\u540C\u3058\u7D0D\u54C1ID\u306E\u5185\u5BB9\u304C\u5909\u308F\u3063\u3066\u3044\u307E\u3059\u3002");
+    assert7(previous.partnerId === value.partnerId && previous.contractId === value.contractId && previous.productId === value.productId && sameIds(previous.allocationIds, value.allocationIds) && (value.supplyCount === undefined || previous.count === value.supplyCount), "\u540C\u3058\u7D0D\u54C1ID\u306E\u5185\u5BB9\u304C\u5909\u308F\u3063\u3066\u3044\u307E\u3059\u3002");
     return null;
   }
   const { q, allocations: allocations3, count: count3 } = selectedAllocations(s, value, legacyTerms);
@@ -2770,7 +2772,13 @@ function deliverRegionalInto(s, value, legacyTerms) {
   const p = s.core.products.find((p2) => p2.id === value.productId), r = s.releases.find((r2) => r2.productId === value.productId), contract = regionalContract(s, value.partnerId);
   assert7(p.stock >= count3 && count3 >= 1, "\u914D\u5206\u3057\u305F\u672C\u6570\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
   const revenue = round5(q.unitPrice * count3), receipt = { id: value.deliveryId, contractId: contract.id, partnerId: value.partnerId, regionId: contract.regionId, brandId: r.brandId, releaseId: r.id, productId: p.id, month: s.core.month, count: count3, unitPrice: q.unitPrice, revenue, customerSales: null, customerRevenue: null, inquiryEventId: contract.eventId, sourceOfferId: contract.sourceOfferId, allocationIds: allocations3.map((a) => a.id).sort(), operationIndex: s.operations.length, operationKey: "regional-deliver" };
-  s.regionalDeliveries.allocations = s.regionalDeliveries.allocations.filter((a) => !value.allocationIds.includes(a.id));
+  let toDeliver = count3;
+  for (const allocation of allocations3) {
+    const units = Math.min(allocation.count, toDeliver);
+    allocation.count -= units;
+    toDeliver -= units;
+  }
+  s.regionalDeliveries.allocations = s.regionalDeliveries.allocations.filter(a => a.count > 0);
   p.stock -= count3;
   p.sold += count3;
   p.revenue = round5(p.revenue + revenue);
@@ -7086,7 +7094,7 @@ init_trading_partners();
 function roomStaffAccess(room2, { distill: distill3, bottling, supply }) {
   // Same top-row staff control in all three rooms; the sales job is supply.
   if (room2 === "sales") return supply?.unlocked || supply?.hired
-    ? { job: "supply", label: "補充担当者", kind: "supply-staff-panel" } : null;
+    ? { job: "supply", label: "補充担当者", kind: supply.hired ? "supply-staff-panel" : "staff-opportunity" } : null;
   const job = room2 === "distill" ? "distill" : room2 === "warehouse" ? "bottling" : null;
   if (!job) return null;
   const status = job === "distill" ? distill3 : bottling;
@@ -7103,6 +7111,7 @@ init_codea_object_art();
 
 // run18/src/ambertime/staff-encounter-text.mjs
 var STAFF_ENCOUNTER_TEXT = Object.freeze({
+  supply: "お店への補充を手伝います。",
   distill: "\u3053\u3053\u3067\u50CD\u304D\u305F\u3044\u3093\u3067\u3059\u304C\u3002",
   bottling: "\u30D3\u30F3\u8A70\u3081\u306A\u3089\u3001\u304A\u624B\u4F1D\u3044\u3067\u304D\u307E\u3059\u3002"
 });
@@ -7119,7 +7128,7 @@ function staffPortraitCells(kind2) {
     [5, 17, 2, 4, 16],
     [9, 17, 2, 4, 16]
   ];
-  const apron = kind2 === "distill" ? 11 : 19;
+  const apron = kind2 === "distill" ? 11 : kind2 === "supply" ? 9 : 19;
   cells2.push(
     [6, 8, 1, 3, apron],
     [9, 8, 1, 3, apron],
@@ -10903,7 +10912,7 @@ function automaticEvents(before2, after, caskLabel2 = () => "", releaseLabel2 = 
   }
   const beforeStaff = new Set(D.staffOpportunities(before2).map((o) => o.kind));
   for (const opportunity of D.staffOpportunities(after)) {
-    if (!beforeStaff.has(opportunity.kind)) events.push({ id: "staff-invitation:" + opportunity.kind, kind: "message", priority: 2, text: (opportunity.kind === "distill" ? "蒸留担当者" : "ビン詰め担当者") + "から声がかかりました。" });
+    if (!beforeStaff.has(opportunity.kind)) events.push({ id: "staff-invitation:" + opportunity.kind, kind: "message", priority: 2, text: jobName(opportunity.kind) + "から声がかかりました。" });
   }
   const knownDeliveries = new Set((before2.shop?.deliveries ?? []).map((d) => d.id));
   const department = (after.shop?.deliveries ?? []).filter((d) => !knownDeliveries.has(d.id) && d.shopId === "department" && d.month === after.core.month && d.count > 0);
@@ -14704,6 +14713,7 @@ function regionalDeliveryTransaction(s, key2, value, expectedReceipt = null, leg
   if (key2 === "regional-deliver") {
     if (expectedReceipt !== null) assert17(JSON.stringify(changed) === JSON.stringify(expectedReceipt), "\u5730\u57DF\u3078\u306E\u7D0D\u54C1\u8A18\u9332\u304C\u4E00\u81F4\u3057\u307E\u305B\u3093\u3002");
     Object.assign(data, { deliveryId: value.deliveryId, receipt: clone8(changed) });
+    if (value.supplyCount !== undefined) data.supplyCount = value.supplyCount;
     syncRecords4(j);
     syncReleases(j);
     if (worldNetworkMode(j)) {
@@ -14883,26 +14893,33 @@ function autoSupplyLegacyHired(s) {
 function autoSupplyStaffHired(s) {
   return autoSupplyMode(s) && (s.autoSupply.staff?.hired === true || autoSupplyLegacyHired(s));
 }
-function autoSupplyManualShops(s) {
-  const ids = new Set();
+function autoSupplyExperience(s) {
+  const ids = new Set(), months = new Set();
+  // Month actions advance the calendar once. The starting offset is immaterial
+  // when counting distinct months, including histories with an imported origin.
+  let period = 0;
   for (const o of s?.operations ?? []) {
     const v = o.value ?? {};
+    if (o.key === "month") period++;
     if (v.autoSupply) continue;
-    if (o.key === "store-assign" && v.count > 0) ids.add(v.shopId);
-    if (o.key === "local-shelf" && v.count > 0) ids.add(v.shopId);
-    if (o.key === "regional-deliver" && v.receipt?.count > 0) ids.add(v.partnerId);
+    const id = o.key === "regional-deliver" && v.receipt?.count > 0 ? v.partnerId
+      : (o.key === "store-assign" || o.key === "local-shelf") && v.count > 0 ? v.shopId : null;
+    if (id) {
+      ids.add(id);
+      months.add(period);
+    }
   }
-  return ids;
+  return { deliveries: ids.size, deliveryMonths: months.size };
 }
 function autoSupplyStaffStatus(s) {
-  const hired = autoSupplyStaffHired(s), deliveries = autoSupplyManualShops(s).size;
-  const unlocked = autoSupplyMode(s) && deliveries >= 2;
-  return { hired, unlocked, deliveries, hireCost: SUPPLY_STAFF.hireCost,
+  const hired = autoSupplyStaffHired(s), { deliveries, deliveryMonths } = autoSupplyExperience(s);
+  const unlocked = autoSupplyMode(s) && deliveries >= 1;
+  return { hired, unlocked, deliveries, deliveryMonths, hireCost: SUPPLY_STAFF.hireCost,
     salary: SUPPLY_STAFF.salary, canHire: unlocked && !hired && s.core.cash >= SUPPLY_STAFF.hireCost };
 }
 function hireAutoSupplyStaffTransaction(s, value = null) {
   assert17(autoSupplyMode(s) && !autoSupplyStaffHired(s), "補充担当はすでに雇っています。");
-  assert17(autoSupplyStaffStatus(s).canHire, "2店舗に酒を届け、採用費を用意してください。");
+  assert17(autoSupplyStaffStatus(s).canHire, "取引先に酒を届け、採用費を用意してください。");
   const stamp = { month: s.core.month, progress: shopProgress(s) };
   if (value !== null) assert17(JSON.stringify(value) === JSON.stringify(stamp), "採用の記録を確認してください。");
   assert17(s.operations.length < PARALLEL_PARAMETERS2.maxOperations, "帳面がいっぱいです。");
@@ -15377,7 +15394,7 @@ function enableFreeAging(s) {
 var newFreeAgingDistillery = (seed2) => enableFreeAging(newBottlingRolesDistillery(seed2));
 var STAFF_EXPERIENCE = Object.freeze({ version: 1, manualFillThreshold: 8, manualBottleThreshold: 150 });
 var staffExperienceMode = (s) => freeAgingMode(s) && s.staffExperience?.version === STAFF_EXPERIENCE.version;
-var distillerDiscovered = (s) => !!s.staffProgression?.distill.unlocked || staffExperienceMode(s) && s.staffExperience.manualFills >= 6;
+var distillerDiscovered = (s) => !!s.staffProgression?.distill.unlocked || staffExperienceMode(s) && s.staffExperience.manualFills >= 1;
 function enableStaffExperienceWithContext(s, context) {
   if (staffExperienceMode(s)) return s;
   const j = clone8(enableFreeAging(s));
@@ -15514,10 +15531,19 @@ function settleDepartmentDeliveries(j) {
 }
 function bottlingStaffStatus(s) {
   const b = staffProgressionMode(s) ? s.staffProgression.bottling : null, hireMinimum = BOTTLING_STAFF.hireCost + reserve5(s) + BOTTLING_STAFF.salary;
-  const reason = !b ? "\u62C5\u5F53\u8005\u306B\u5BFE\u5FDC\u3057\u305F\u4FDD\u5B58\u3067\u59CB\u3081\u307E\u3059\u3002" : b.hired ? "\u62C5\u5F53\u8005\u306F\u96C7\u7528\u4E2D\u3067\u3059\u3002" : !b.unlocked ? "\u81EA\u5206\u3067\u30D3\u30F3\u8A70\u3081\u3057\u3066\u304B\u3089\u96C7\u3048\u307E\u3059\u3002" : blocked4(s) ? "\u5148\u306B\u4ECA\u306E\u5224\u65AD\u3092\u78BA\u8A8D\u3057\u307E\u3059\u3002" : s.core.cash < hireMinimum ? `\u63A1\u7528\u3068\u30D3\u30F3\u8A70\u3081\u306B \xA3${hireMinimum} \u5FC5\u8981\u3067\u3059\u3002` : "";
-  return { unlocked: !!b?.unlocked, hired: !!b?.hired, hiredMonth: b?.hiredMonth ?? null, canHire: !reason, reason, hireCost: BOTTLING_STAFF.hireCost, salary: BOTTLING_STAFF.salary, hireMinimum };
+  const unlocked = !!b && (b.unlocked || (s.staffExperience?.manualBottles ?? 0) >= 1);
+  const reason = !b ? "\u62C5\u5F53\u8005\u306B\u5BFE\u5FDC\u3057\u305F\u4FDD\u5B58\u3067\u59CB\u3081\u307E\u3059\u3002" : b.hired ? "\u62C5\u5F53\u8005\u306F\u96C7\u7528\u4E2D\u3067\u3059\u3002" : !unlocked ? "\u81EA\u5206\u3067\u30D3\u30F3\u8A70\u3081\u3057\u3066\u304B\u3089\u96C7\u3048\u307E\u3059\u3002" : blocked4(s) ? "\u5148\u306B\u4ECA\u306E\u5224\u65AD\u3092\u78BA\u8A8D\u3057\u307E\u3059\u3002" : s.core.cash < hireMinimum ? `\u63A1\u7528\u3068\u30D3\u30F3\u8A70\u3081\u306B \xA3${hireMinimum} \u5FC5\u8981\u3067\u3059\u3002` : "";
+  return { unlocked, hired: !!b?.hired, hiredMonth: b?.hiredMonth ?? null, canHire: !reason, reason, hireCost: BOTTLING_STAFF.hireCost, salary: BOTTLING_STAFF.salary, hireMinimum };
 }
 function noticeStaffOpportunity(s, kind2) {
+  if (kind2 === "supply") {
+    if (s.autoSupply?.opportunityNoticed) return s;
+    const status = autoSupplyStaffStatus(s);
+    assert17(status.unlocked && !status.hired && (status.deliveries >= 2 || status.deliveryMonths >= 4), "補充の仕事を重ねてから提案を受けます。");
+    const next = clone8(s);
+    next.autoSupply.opportunityNoticed = true;
+    return action6(next, "staff-opportunity-notice", {kind: "supply", progress: shopProgress(s)});
+  }
   assert17(staffProgressionMode(s) && ["distill", "bottling"].includes(kind2), "\u62C5\u5F53\u8005\u3092\u9078\u3073\u307E\u3059\u3002");
   const notice = s.staffProgression[kind2];
   assert17(kind2 === "distill" ? distillerDiscovered(s) : notice.unlocked, "\u5148\u306B\u81EA\u5206\u3067\u4F5C\u696D\u3057\u307E\u3059\u3002");
@@ -15529,7 +15555,21 @@ function noticeStaffOpportunity(s, kind2) {
 }
 function staffOpportunities(s) {
   if (!staffProgressionMode(s)) return [];
-  return ["distill", "bottling"].filter((kind2) => (kind2 === "distill" ? distillerDiscovered(s) : s.staffProgression[kind2].unlocked) && !s.staffProgression[kind2].noticed && !(kind2 === "distill" ? s.staff.hired : s.staffProgression.bottling.hired)).map((kind2) => ({ kind: kind2, ...kind2 === "distill" ? staffStatus(s) : bottlingStaffStatus(s) }));
+  const jobs = [];
+  const progression = s.staffProgression, experience = s.staffExperience;
+  if (!s.staff.hired && !progression.distill.noticed &&
+      (experience ? experience.manualFills >= 6 : progression.distill.unlocked)) {
+    jobs.push({ kind: "distill", ...staffStatus(s) });
+  }
+  if (!progression.bottling.hired && !progression.bottling.noticed &&
+      (experience ? experience.manualBottles >= STAFF_EXPERIENCE.manualBottleThreshold : progression.bottling.unlocked)) {
+    jobs.push({ kind: "bottling", ...bottlingStaffStatus(s) });
+  }
+  if (autoSupplyMode(s) && !s.autoSupply.opportunityNoticed && !autoSupplyStaffHired(s)) {
+    const supply = autoSupplyStaffStatus(s);
+    if (supply.deliveries >= 2 || supply.deliveryMonths >= 4) jobs.push({kind: "supply", ...supply});
+  }
+  return jobs;
 }
 function hireBottlingStaff(s) {
   const q = bottlingStaffStatus(s);
@@ -15581,7 +15621,7 @@ function cancelBottling(s, caskId) {
   j.automation.reservations = j.automation.reservations.filter((x) => x.caskId !== caskId);
   return action6(j, "bottling-cancel", { caskId, progress: shopProgress(s) });
 }
-function automaticRoleBottling(s) {
+function automaticRoleBottling(s, finishRemainders) {
   let j = s;
   j.automation.lastBottlings = [];
   const jobs = [...j.automation.reservations].sort((a, b) => (a.mode === "age" ? 0 : 1) - (b.mode === "age" ? 0 : 1) || a.order - b.order || a.caskId - b.caskId);
@@ -15643,15 +15683,18 @@ function automaticRoleBottling(s) {
     r = j.automation.reservations.find((x) => x.caskId === c.id);
     r.lastMonth = j.core.month;
     r.lastError = null;
-    if (r.mode === "age" || !currentCask(j, c.id)) r.status = "completed";
+    const remainingCask = currentCask(j, c.id);
+    const remaining = remainingCask ? quote(j, c.id).count : 0;
+    const finishTail = finishRemainders && remaining > 0 && remaining < r.count;
+    if (!remainingCask || r.mode === "age" && !finishTail) r.status = "completed";
     if (r.mode === "stock") j.bottlingRoles.lastStockMonth = j.core.month;
     const remainingLitres = currentCask(j, c.id)?.litres ?? j.core.archive.find((x) => x.id === c.id)?.litres ?? 0;
     j.automation.lastBottlings.push({ month: j.core.month, caskId: c.id, productId, releaseId: j.result.releaseId, count: count3, cost, ...staffProgressionMode(j) ? { salary } : {}, mode: r.mode, remainingLitres });
   }
   return j;
 }
-function automaticBottling(s) {
-  if (bottlingRolesMode(s)) return automaticRoleBottling(s);
+function automaticBottling(s, finishRemainders) {
+  if (bottlingRolesMode(s)) return automaticRoleBottling(s, finishRemainders);
   let j = s;
   j.automation.lastBottlings = [];
   for (const old of [...j.automation.reservations]) {
@@ -16856,7 +16899,7 @@ function settle4(s) {
   shipmentJournal(s);
   return s;
 }
-function tickDistillery4(s, expectedMonth = s.core.month, { legacyFunds = false, fundsSales = false } = {}) {
+function tickDistillery4(s, expectedMonth = s.core.month, { legacyFunds = false, fundsSales = false, finishRemainders = true } = {}) {
   assert17(Number.isInteger(expectedMonth) && expectedMonth === s.core.month, "\u6708\u6B21\u51E6\u7406\u306E\u5BFE\u8C61\u6708\u304C\u4E00\u81F4\u3057\u307E\u305B\u3093\u3002");
   if (blocked4(s) || generationMode(s) && s.generations.active.phase === "review") return s;
   const empty2 = s.still.phase === "ready" && !s.core.spirit && !s.core.casks.length && !s.core.products.some((p) => p.stock > 0 && (s.productsById[p.id]?.listed || storeMarketMode(s) && placementInventory(s, p.id).assigned > 0)) && !(monthlyTimingMode(s) && s.department.interests.some((o) => o.pendingDelivery));
@@ -16874,7 +16917,7 @@ function tickDistillery4(s, expectedMonth = s.core.month, { legacyFunds = false,
   for (let i = 0; i < ids.length; i++) j.batchesById[ids[i]].upkeep = round9(j.batchesById[ids[i]].upkeep + (share + (i < cents2 - share * ids.length ? 1 : 0)) / 100);
   syncRecords4(j);
   syncReleases(j);
-  j = monthlyTimingMode(j) ? automaticBottling(summarizeMonthlySales(automaticShipping(settleDepartmentDeliveries(j), orders))) : delegationMode(j) ? automaticShipping(automaticBottling(j)) : settle4(j);
+  j = monthlyTimingMode(j) ? automaticBottling(summarizeMonthlySales(automaticShipping(settleDepartmentDeliveries(j), orders)), finishRemainders) : delegationMode(j) ? automaticShipping(automaticBottling(j, finishRemainders)) : settle4(j);
   const belowReserve = j.core.cash < reserve5(j);
   // A manually resumed, funded sales month may use the bottling reserve. Never
   // borrow against a future sale or change the shop's demand, price or upkeep.
@@ -16894,7 +16937,7 @@ function tickDistillery4(s, expectedMonth = s.core.month, { legacyFunds = false,
     maybeOffer4(j);
     maybeShopOffer(j, monthlyTimingMode(s) ? { ...s, core: { ...s.core, month: j.core.month } } : j);
   }
-  return action6(j, "month", { progress: s.still.phase === "distilling" ? s.still.distillation.progress : null, ...(salesMonth ? { fundsSales: true } : {}) });
+  return action6(j, "month", { progress: s.still.phase === "distilling" ? s.still.distillation.progress : null, ...(salesMonth ? { fundsSales: true } : {}), ...(finishRemainders && j.automation?.lastBottlings?.some(b => b.mode === "age" && j.automation.reservations.some(r => r.caskId === b.caskId && r.status === "active")) ? { finishRemainders: true } : {}) });
 }
 function progress4(s, value) {
   assert17(s.still.distillation?.collectionVersion !== 2 || s.still.distillation.collectStart !== null || value <= 88, "\u63A1\u53D6\u3067\u304D\u308B\u7BC4\u56F2\u3092\u904E\u304E\u3066\u3044\u307E\u3059\u3002");
@@ -17227,7 +17270,7 @@ function applyOperation(s, o, context) {
     case "month":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
       // Old records reproduce the exact reserve guard and forced decision they recorded.
-      return tickDistillery4(s, s.core.month, { legacyFunds: !o.value?.fundsSales, fundsSales: o.value?.fundsSales === true });
+      return tickDistillery4(s, s.core.month, { legacyFunds: !o.value?.fundsSales, fundsSales: o.value?.fundsSales === true, finishRemainders: o.value?.finishRemainders === true });
     case "sample":
       return sampleDistillery5(s, o.value);
     case "choose":
@@ -19146,14 +19189,19 @@ function openStaffRequest(caskId = null) {
   render2();
 }
 var copyFacts = (items) => '<span class="copy-facts">' + items.map(([label, value]) => '<span class="copy-fact"><span class="copy-label">' + esc12(label) + '</span> <span class="copy-value">' + esc12(value) + "</span></span>").join(" ") + "</span>";
-var jobName = (kind2) => kind2 === "distill" ? "\u84B8\u7559\u62C5\u5F53\u8005" : "\u30D3\u30F3\u8A70\u3081\u62C5\u5F53\u8005";
-var jobStatus = (kind2) => kind2 === "distill" ? D.staffStatus(game) : D.bottlingStaffStatus(game);
+var staffJobs = {
+  distill: { name: "蒸留担当者", panel: "staff-panel", unit: "／仕込み", payment: "仕込み開始時に支払い", status: D.staffStatus, hire: D.hireStaff },
+  bottling: { name: "ビン詰め担当者", panel: "bottler-panel", unit: "／回", payment: "ビン詰め時に支払い", status: D.bottlingStaffStatus, hire: D.hireBottlingStaff },
+  supply: { name: "補充担当者", panel: "supply-staff-panel", unit: "／補充のあった月", payment: "複数の店へ補充しても月に一度の支払い", status: autoSupplyStaffStatus, hire: D.hireAutoSupplyStaff }
+};
+var jobName = (kind2) => staffJobs[kind2].name;
+var jobStatus = (kind2) => staffJobs[kind2].status(game);
 function showStaffOpportunity(returnModal = null) {
   if (!game || game.tastingId !== null || game.decisions.length || !preview && !canSave) return false;
   const opportunity = D.staffOpportunities(game)[0];
   if (!opportunity) return false;
   stopClock();
-  modal = { kind: "staff-opportunity", job: opportunity.kind, returnModal, noticePending: true };
+  modal = { kind: "staff-opportunity", job: opportunity.kind, returnModal, encounter: true, noticePending: true };
   return true;
 }
 async function acknowledgeStaffOpportunity() {
@@ -19176,24 +19224,24 @@ function openRoomStaff() {
   countdown.cancel();
   stopClock();
   deliveryNotice = "";
-  modal = access.kind === "staff-opportunity" ? { kind: access.kind, job: access.job, source: "room", returnModal: null, noticePending: D.staffOpportunities(game).some((o) => o.kind === access.job) } : { kind: access.kind };
+  const pending = access.kind === "staff-opportunity" && D.staffOpportunities(game).some((o) => o.kind === access.job);
+  modal = access.kind === "staff-opportunity" ? { kind: access.kind, job: access.job, source: "room", returnModal: null, encounter: pending, noticePending: pending } : { kind: access.kind };
   render2();
 }
 function staffCostView(kind2) {
   const status = jobStatus(kind2);
-  return "<p>" + copyFacts([["\u63A1\u7528\u8CBB", money(status.hireCost)], ["\u7D66\u4E0E", money(status.salary) + (kind2 === "distill" ? "\uFF0F\u4ED5\u8FBC\u307F" : "\uFF0F\u56DE")]]) + '</p><p class="quiet">' + (kind2 === "distill" ? "\u4ED5\u8FBC\u307F\u958B\u59CB\u6642\u306B\u652F\u6255\u3044" : "\u30D3\u30F3\u8A70\u3081\u6642\u306B\u652F\u6255\u3044") + "<br>\u5F85\u6A5F\u4E2D\u306F\u7121\u6599</p>" + (status.canHire || status.hired ? "" : '<p class="quiet">' + esc12(uiText(status.reason)) + "</p>");
+  const job = staffJobs[kind2];
+  const costs = status.hired ? [] : [["採用費", money(status.hireCost)]];
+  costs.push(["給与", money(status.salary) + job.unit]);
+  const reason = status.hired || status.canHire ? "" : '<p class="quiet">' + esc12(uiText(status.reason || "採用費が足りません。")) + "</p>";
+  return "<p>" + copyFacts(costs) + '</p><p class="quiet">' + job.payment + "。待機中は無料</p>" + reason;
 }
 function staffManagerView() {
-  const rows = ["distill", "bottling"].filter((kind2) => jobStatus(kind2).unlocked).map((kind2) => {
-    const status = jobStatus(kind2);
-    return '<section class="staff-job"><h3>' + jobName(kind2) + "</h3>" + (status.hired ? "<p>\u7D66\u4E0E " + money(status.salary) + (kind2 === "distill" ? "\uFF0F\u4ED5\u8FBC\u307F" : "\uFF0F\u56DE") + "</p>" : staffCostView(kind2)) + (status.hired ? button(kind2 === "distill" ? "\u4F9D\u983C" : "\u8A2D\u5B9A", "staff-job-open", kind2) : button("\u63A1\u7528 " + money(status.hireCost), "staff-job-hire", kind2, status.canHire ? "" : "disabled")) + "</section>";
+  return Object.keys(staffJobs).filter((job) => jobStatus(job).unlocked || jobStatus(job).hired).map((job) => {
+    const status = jobStatus(job);
+    return '<section class="staff-job"><h3>' + jobName(job) + "</h3>" + staffCostView(job)
+      + (status.hired ? button("詳細設定", "staff-job-open", job) : button("採用 " + money(status.hireCost), "staff-job-hire", job)) + "</section>";
   }).join("");
-  const supply = autoSupplyStaffStatus(game);
-  if (!supply.unlocked && !supply.hired) return rows;
-  return rows + '<section class="staff-job"><h3>補充担当者</h3>' + (supply.hired
-    ? '<p>給与 ' + money(supply.salary) + '／補充のあった月</p><p class="quiet">店ごとに補充を任せられます。</p>' + button('取扱店を見る', 'auto-supply-stockists')
-    : '<p>採用費 ' + money(supply.hireCost) + '　給与 ' + money(supply.salary) + '／補充のあった月</p>'
-      + button('採用 ' + money(supply.hireCost), 'auto-supply-hire-open', '', supply.canHire ? '' : 'disabled')) + '</section>';
 }
 // v26: ordinary delegation needs only a scope choice, not a required setup form.
 // The existing default is visible before the first opt-in and becomes a formal
@@ -19217,13 +19265,15 @@ function bottlerManagerView() {
     : summary + button("条件を変える", "bottling-policy-edit", "", 'class="v26-detail-button"');
   const casks = game.core.casks.length ? '<div class="staff-casks">' + game.core.casks.map((c) => {
     const r = D.bottlingReservation(game, c.id), active = r?.status === "active";
-    const statusNotice = r?.lastError || (r?.status === "paused" ? "一時停止中" : "");
+    const statusNotice = r?.lastError || (r?.status === "paused" ? "一時停止中" : active ? "待機中（" + policyLabel(r) + "）" : "");
     return '<div class="staff-cask-row"><p>' + esc12(caskName(c.id)) + ' ' + ageLabel(c.age) + '</p>'
       + button('<span class="switch-track" aria-hidden="true"></span><span>' + (active ? "自分で行う" : "任せる") + '</span>',
         "bottling-toggle", c.id, 'role="switch" aria-checked="' + active + '" aria-label="' + esc12(caskName(c.id)) + ' ビン詰めを任せる"')
       + (statusNotice ? '<p class="quiet">' + esc12(statusNotice) + '</p>' : '') + '</div>';
   }).join("") + '</div>' : '<p>たるなし</p>';
-  return '<p class="quiet">給与 ' + money(status.salary) + '／回</p>' + controls + casks;
+  const bottled = (game.automation?.lastBottlings ?? []).filter((entry) => entry.month === game.core.month);
+  const work = bottled.length ? "今月 " + bottled.reduce((total, entry) => total + entry.count, 0) + "本をビン詰め" : "待機中";
+  return staffCostView("bottling") + "<p>" + work + "</p>" + controls + casks;
 }
 function staffRequestView() {
   const q = D.staffQuote(game, modal.caskId === null ? void 0 : modal.caskId), status = D.staffStatus(game);
@@ -20196,18 +20246,19 @@ function applyAutoSupplyBeforeMonth(s) {
     const beforeOpCount = next.operations.length;
     try {
       if (source.kind === "regional") {
-        // Preserve existing reservations and the one-delivery-per-month rule.
+        // A manual delivery consumes capacity but does not use the staff visit.
         const alreadySent = next.operations.some((o) => o.key === "regional-deliver" &&
-          o.value?.receipt?.partnerId === shopId && o.value.receipt.month === next.core.month);
+          o.value?.autoSupply === true && o.value.receipt?.partnerId === shopId && o.value.receipt.month === next.core.month);
         if (alreadySent) continue;
         const rows = D.regionalDeliveryRows(next, shopId).filter((row) => row.count > 0).sort((a, b) => a.productId - b.productId);
         if (rows.length) {
           const row = rows[0], q = D.regionalDeliveryQuote(next, row.productId, shopId);
-          if (!q.canDeliver || !q.allocationIds.length) continue;
+          const count = Math.min(5, row.count, q.monthlyRemaining);
+          if (count < 1 || !q.allocationIds.length) continue;
           next = D.deliverRegionalProduct(next, {
             partnerId: shopId, productId: row.productId, contractId: q.contractId,
             allocationIds: q.allocationIds, deliveryId: q.nextDeliveryId,
-            routeVersion: 1, autoSupply: true
+            supplyCount: count, routeVersion: 1, autoSupply: true
           });
         } else {
           for (const productId of autoSupplyReleaseCandidates(next, source)) {
@@ -20568,7 +20619,7 @@ function openModal(kind2, id3 = null) {
   render2();
 }
 // A shop only offers delegation after its first manual delivery/placement.
-function autoSupplyControls(shopId) {
+function autoSupplyControls(shopId, shopName = "") {
   if (!autoSupplyMode(game)) return "";
   const source = autoSupplyManualSource(game, shopId), kind = autoSupplyKind(game, shopId), enabled = !!game.autoSupply.choices[shopId];
   if (!kind) return "";
@@ -20577,20 +20628,22 @@ function autoSupplyControls(shopId) {
     ? button("補充担当を雇う " + money(SUPPLY_STAFF.hireCost), "auto-supply-hire-open") : "");
   let stateLabel = "自分で補充する設定";
   if (enabled) {
-    if (kind === "regional" && D.regionalDeliveryRows(game, shopId).some((row) => row.count > 0)) stateLabel = "未納品分を優先";
+    if (game.core.cash < SUPPLY_STAFF.salary) stateLabel = "待機中（給与不足）";
+    else if (kind === "regional" && wholesaleCapacity(game, shopId)?.remaining === 0) stateLabel = "待機中（今月の買取枠なし）";
+    else if (kind === "regional" && D.regionalDeliveryRows(game, shopId).some((row) => row.count > 0)) stateLabel = "未納品分を優先";
     else if (kind !== "regional" && autoSupplyShelfCount(game, shopId, kind) > 0) stateLabel = "棚に在庫あり・待機中";
     else {
       const products = autoSupplyReleaseCandidates(game, source);
       const inHand = products.some((pid) => autoSupplyHandCount(game, pid) > 0);
       const canRefill = products.some((pid) => autoSupplyEligibleProduct(game, shopId, kind, pid));
-      stateLabel = canRefill ? "補充待ち（次の月）" : inHand ? "取扱条件に合う瓶なし" : "手元に補充できる瓶なし";
+      stateLabel = canRefill ? "次の月に補充予定" : inHand ? "待機中（取扱条件に合う瓶なし）" : "待機中（手元に補充できる瓶なし）";
     }
   }
   const name = kind === "regional" ? "納品" : "補充";
   const label = enabled ? name + "を自分で行う" : name + "を任せる";
   const setting = enabled ? "補充担当に任せている" : "自分で行う";
   return '<div class="v42-supply-state"><strong>' + esc12(name + "：" + setting) + '</strong><p class="quiet">' + esc12(stateLabel) + '</p></div>' +
-    button(label, "auto-supply-toggle", "", 'data-shop-id="' + esc12(shopId) + '" aria-pressed="' + enabled + '"');
+    button(label, "auto-supply-toggle", "", 'data-shop-id="' + esc12(shopId) + '" role="switch" aria-checked="' + enabled + '" aria-label="' + esc12(shopName + " " + name + "を任せる") + '"');
 }
 function shopOfferTerms(shopId4) {
   if (!D.storeMarketMode(game)) return shopTerms(shopId4);
@@ -21102,28 +21155,22 @@ function syncModal() {
     actions = (!introduction2 && prologueFacts(game).bottled ? button("\u8CA9\u58F2\u5BA4\u3078", "map-sales-room") : "") + button(introduction2 ? "\u3064\u3065\u3051\u308B" : "\u623B\u308B", introduction2 ? "map-continue" : "map-back");
   } else if (kind2 === "supply-staff-panel") {
     title = "補充担当者";
-    const supply = autoSupplyStaffStatus(game);
-    body = supply.hired
-      ? '<p>給与 ' + money(supply.salary) + '／補充のあった月</p><p class="quiet">店ごとに任せるか、自分で届けるかを選べます。</p>' + button('取扱店を見る', 'auto-supply-stockists')
-      : '<p>採用費 ' + money(supply.hireCost) + '　給与 ' + money(supply.salary) + '／補充のあった月</p>' + button('採用する', 'auto-supply-hire-open', '', supply.canHire ? '' : 'disabled');
+    const shops = [...knownStockists(), ...STORE_CANDIDATES, ...knownRegionalPartners().map(({ partner }) => partner)]
+      .filter((shop) => autoSupplyManualSource(game, shop.id));
+    const worked = game.operations.some((operation) => operation.key === "auto-supply-staff-pay" && operation.value.month === game.core.month);
+    body = staffCostView("supply") + "<p>" + (worked ? "今月の補充は完了" : "待機中") + "</p>" + (shops.length ? shops.map((shop) =>
+      '<section class="staff-job"><h3>' + esc12(shop.name) + '</h3>' + autoSupplyControls(shop.id, shop.name) + '</section>').join("")
+      : '<p class="quiet">一度自分で納品した取扱店がここに並びます。</p>');
     actions = button('閉じる', 'cancel');
   } else if (kind2 === "staff-manager") {
     title = "\u62C5\u5F53\u8005";
     body = staffManagerView();
     actions = button("\u9589\u3058\u308B", "cancel");
-  } else if (kind2 === "auto-supply-hire") {
-    title = "補充担当";
-    const status = autoSupplyStaffStatus(game);
-    body = '<p>採用費 ' + money(status.hireCost) + '　給与 ' + money(status.salary) + '／補充のあった月</p>'
-      + '<p class="quiet">雇ったあと、店ごとに補充を任せられます。何も任せずに、自分で届けることもできます。</p>';
-    if (!status.unlocked) body += '<p class="quiet">2店舗に酒を届けると雇えます。</p>';
-    else if (!status.canHire) body += '<p class="quiet">採用費が足りません。</p>';
-    actions = button("採用する", "auto-supply-hire", "", status.canHire ? "" : "disabled") + button("戻る", "auto-supply-hire-back");
   } else if (kind2 === "staff-opportunity") {
     title = jobName(modal.job);
     const status = jobStatus(modal.job);
-    body = staffEncounterMarkup(modal.job) + staffCostView(modal.job);
-    actions = button("\u63A1\u7528\u3059\u308B", "staff-opportunity-hire", modal.job, status.canHire ? "" : "disabled") + button("\u898B\u9001\u308B", "staff-opportunity-later");
+    body = (modal.encounter ? staffEncounterMarkup(modal.job) : "") + staffCostView(modal.job);
+    actions = button("\u63A1\u7528\u3059\u308B", "staff-opportunity-hire", modal.job, status.canHire ? "" : "disabled") + button(modal.encounter ? "見送る" : "戻る", "staff-opportunity-later");
   } else if (kind2 === "bottler-panel") {
     title = "\u30D3\u30F3\u8A70\u3081\u62C5\u5F53\u8005";
     body = bottlerManagerView();
@@ -22103,23 +22150,20 @@ async function handleModal(e) {
     return;
   }
   if (a === "staff-opportunity-hire" && kind2 === "staff-opportunity" && b.dataset.id === modal.job) {
-    const job = modal.job, target = modal.source === "room" ? { kind: job === "distill" ? "staff-panel" : "bottler-panel" } : modal.returnModal ?? null;
-    await act(job === "distill" ? D.hireStaff : D.hireBottlingStaff, () => {
+    const job = modal.job, target = modal.source === "room" ? { kind: staffJobs[job].panel } : modal.returnModal ?? null;
+    await act(staffJobs[job].hire, () => {
       modal = target;
     });
     return;
   }
-  if (a === "staff-job-hire" && kind2 === "staff-manager" && ["distill", "bottling"].includes(b.dataset.id) && jobStatus(b.dataset.id).canHire) {
+  if (a === "staff-job-hire" && kind2 === "staff-manager" && Object.hasOwn(staffJobs, b.dataset.id) && jobStatus(b.dataset.id).unlocked && !jobStatus(b.dataset.id).hired) {
     modal = { kind: "staff-opportunity", job: b.dataset.id, returnModal: modal };
     render2();
     return;
   }
   if (a === "staff-job-open" && kind2 === "staff-manager") {
-    if (b.dataset.id === "distill" && D.staffStatus(game).hired) {
-      modal = { kind: "staff-panel" };
-      render2();
-    } else if (b.dataset.id === "bottling" && D.bottlingStaffStatus(game).hired) {
-      modal = { kind: "bottler-panel" };
+    if (Object.hasOwn(staffJobs, b.dataset.id) && jobStatus(b.dataset.id).hired) {
+      modal = { kind: staffJobs[b.dataset.id].panel };
       render2();
     }
     return;
@@ -22659,28 +22703,13 @@ async function handleModal(e) {
     return;
   }
   if (a === "auto-supply-hire-open" && ["stockist", "stockists", "staff-manager", "supply-staff-panel"].includes(kind2) && autoSupplyStaffStatus(game).unlocked && !autoSupplyStaffHired(game)) {
-    modal = { kind: "auto-supply-hire", parent: modal };
+    modal = { kind: "staff-opportunity", job: "supply", returnModal: modal };
     render2();
-    return;
-  }
-  if (a === "auto-supply-stockists" && ["staff-manager", "supply-staff-panel"].includes(kind2)) {
-    modal = { kind: "stockists" };
-    render2();
-    return;
-  }
-  if (a === "auto-supply-hire-back" && kind2 === "auto-supply-hire") {
-    modal = modal.parent ?? { kind: "stockists" };
-    render2();
-    return;
-  }
-  if (a === "auto-supply-hire" && kind2 === "auto-supply-hire" && autoSupplyStaffStatus(game).canHire) {
-    const parent = modal.parent;
-    await act((s) => D.hireAutoSupplyStaff(s), () => { modal = parent ?? { kind: "stockists" }; });
     return;
   }
   if (a === "auto-supply-toggle") {
     const shopId = b.dataset.shopId;
-    if (kind2 !== "stockist" || modal.shopId !== shopId || !autoSupplyStaffHired(game) || !autoSupplyManualSource(game, shopId)) return;
+    if (!(kind2 === "supply-staff-panel" || kind2 === "stockist" && modal.shopId === shopId) || !autoSupplyStaffHired(game) || !autoSupplyManualSource(game, shopId)) return;
     const enabled = !game.autoSupply.choices[shopId];
     await act((s) => D.setAutoSupplyPolicy(s, shopId, enabled));
     return;
