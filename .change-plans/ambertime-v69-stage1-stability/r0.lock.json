@@ -1,0 +1,93 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a440b748d304a82eb1fbcf5fecbb66c9d3c533e6e84ee64a79f5b29b04961bfc",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "a49c7d6fdd73c6fb687726c39f79c7ab6a76622f",
+    "changeId": "ambertime-v69-stage1-stability",
+    "revision": 0,
+    "change": "Stabilize AmberTime UI and preserve map context on Staging.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-stage1-browser.test.mjs",
+      ".change-plans/ambertime-v69-stage1-stability/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Fix transient window and cursor presentation.",
+      "Pass map and message shelf context to sales.",
+      "Correct generation copy, fresh mash choice and delegate control fit."
+    ],
+    "ownerDecisions": [
+      "Owner authorized phase 1 only and Staging deployment."
+    ],
+    "hqDecisions": [
+      "Keep current save and economics contracts."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Monthly tick, room switches, shelf selection and delegate button on physical Safari."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Phases 2–7, production, other works and economic rules."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Timing delays and replacing the save format."
+    ],
+    "boundaryCases": [
+      "Locked tiers, empty selections, offers, historical choices and repeat visits."
+    ],
+    "testPlan": [
+      "Run v69 browser, save restoration and stage-specific regression checks; verify Pages."
+    ],
+    "problem": "A full generation on device revealed transient windows, a cursor and lost sales context.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "Current navigation promotes the tier and loses the intended store.",
+    "design": "Apply scoped changes to the v69 entry and UI handlers; preserve historical replay.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
