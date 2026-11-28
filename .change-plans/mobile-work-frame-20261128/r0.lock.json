@@ -1,0 +1,103 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "a875953882ea32d46b74ea18e7246a243ef682365d77375d7d76d1e5444b83ba",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "8e96948898b03f98ed2df1bf1d7204de8592d12f",
+    "changeId": "mobile-work-frame-20261128",
+    "revision": 0,
+    "change": "Keep mobile town navigation outside each work and define reusable frame policy",
+    "planLevel": "full",
+    "classes": [
+      "SYSTEM",
+      "WORK",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "data/works.js",
+      "phone-layout.js",
+      "dotweather-peek-on-tap.js",
+      "style.css",
+      "main.js",
+      "index.html"
+    ],
+    "allowedPaths": [
+      ".change-plans/mobile-work-frame-20261128/r0.lock.json",
+      "main.js",
+      "data/works.js",
+      "phone-layout.js",
+      "dotweather-peek-on-tap.js",
+      "style.css",
+      "index.html",
+      "OPERATIONS.md",
+      "tests/test-mobile-work-frame.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "engine/**",
+      "works/**",
+      ".github/**",
+      "tools/**"
+    ],
+    "expectedChanges": [
+      "Mobile frame behavior, metadata, recurring registration procedure, regression tests, affected cache revisions."
+    ],
+    "ownerDecisions": [
+      "User approved complete hiding for DotWeather and SteamClock, a separate accessible knob for all other works, and persistent registration rules."
+    ],
+    "hqDecisions": [
+      "Shared frame computes available bounds, stores opted-in idle hiding per work and defaults new works to visible knob; use registered aspect ratio."
+    ],
+    "staticChecks": [
+      "syntax, static regression and plan scope"
+    ],
+    "manualChecks": [
+      "iOS Safari safe area, zoom and orientation with browser chrome"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression",
+      "runtime.shared",
+      "site.root-layout",
+      "runtime.cache",
+      "content.consistency"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this staging PR.",
+    "outOfScope": [
+      "production, work-internal runtime and saved games"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical Safari and device-specific insets."
+    ],
+    "alternativesRejected": [
+      "Permanently reserving a strip where adequate margins already exist."
+    ],
+    "boundaryCases": [
+      "Short portrait, landscape, compact touch versus tablets, immersive reveal, responsive work and reader"
+    ],
+    "testPlan": [
+      "All registered works at multiple viewports, collapse and reopen, uniform scaling, immersive reveal and no geometry change."
+    ],
+    "problem": "The collapsed knob can overlap the touch surface or the mobile bar stays expanded.",
+    "currentContract": "The player embeds every town work and supplies navigation back to the town.",
+    "whyExistingIsInsufficient": "Device size and frame presets can override intended layout and overlap interactive pixels.",
+    "design": "Per-work idle policy, geometry-aware safe area fitting and uniform scaling.",
+    "migration": "No storage change.",
+    "compatibility": "Keep URLs, work controls, reader, desktop layouts and existing loading behavior.",
+    "promotionRisk": "Staging only."
+  }
+}
