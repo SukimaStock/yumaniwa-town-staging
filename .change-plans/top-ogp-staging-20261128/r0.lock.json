@@ -1,0 +1,97 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "4c82582ce4672aef91b7a6ca36641fec031bb90f1aaf1669f7cd100faf279fc5",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "changeId": "top-ogp-staging-20261128",
+    "revision": 0,
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "798ae2ca7d9754703f9e126113d6f6a55c2d9e47",
+    "change": "Replace the town homepage social image with the supplied JPEG",
+    "planLevel": "full",
+    "classes": [
+      "CONTENT",
+      "ASSET",
+      "SYSTEM"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "OPERATIONS.md",
+      "index.html",
+      "assets/ogp/yumaniwa-town.jpg",
+      "User-supplied original 1200x630 JPEG, SHA256 60c9825dbd4abbf3006c90bddf3e06acf96034df2132b9763e1073a7304cca82"
+    ],
+    "allowedPaths": [
+      ".change-plans/top-ogp-staging-20261128/r0.lock.json",
+      "index.html",
+      "assets/ogp/yumaniwa-town.jpg"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "works/**",
+      "w/**",
+      "en/**",
+      "tools/**",
+      ".github/**",
+      "data/**",
+      "main.js",
+      "style.css",
+      "phone-layout.js"
+    ],
+    "expectedChanges": [
+      "Replace root card image byte-for-byte and refresh the three image URLs and the two image alt labels in the homepage metadata."
+    ],
+    "ownerDecisions": [
+      "Use the user's supplied original image for the public town homepage."
+    ],
+    "hqDecisions": [
+      "Preserve existing Open Graph and Twitter card metadata contract and environment-specific root files."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Physical social preview and platform-specific caches may be stale."
+    ],
+    "impactChecks": [
+      "surface.shared",
+      "runtime.regression",
+      "asset.file",
+      "asset.rendering",
+      "asset.cache"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert this isolated PR to recover the prior image and metadata.",
+    "outOfScope": [
+      "Mobile frame work, individual work cards and gameplay, town UI, metadata generator, third-party cache invalidation"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Actual third-party unfurl time"
+    ],
+    "alternativesRejected": [
+      "Rebuild the homepage from staging in production."
+    ],
+    "boundaryCases": [
+      "Open Graph secure URL and Twitter card agree; cache-busting path works for external crawlers."
+    ],
+    "testPlan": [
+      "JPEG MIME dimensions and input SHA256, three matching absolute image URLs and alt values, semantically minimal head diff, safety CI and live image bytes.",
+      "Image dimensions, MIME and five-line HTML comparison are custom verification outside the trusted registered static checks."
+    ],
+    "problem": "The existing town homepage social card needs the author's new image.",
+    "currentContract": "Existing public canonical town JPG is 1200 by 630.",
+    "whyExistingIsInsufficient": "The current image differs from the supplied design.",
+    "design": "Keep the JPG path and MIME; use its new content digest as the image URL query version.",
+    "migration": "No state migration.",
+    "compatibility": "Keep current root metadata other than image link versions and descriptions; preserve production canonical URL.",
+    "promotionRisk": "Isolation at root HTML and image only."
+  }
+}
