@@ -10475,6 +10475,7 @@ var StartCountdown = class {
     return this.value !== null;
   }
   cancel() {
+    if (this.value === 0) return false; // Only the in-flight start can settle this state.
     ++this.token;
     if (this.timer !== null) this.clearTimer(this.timer);
     this.timer = null;
@@ -10496,9 +10497,14 @@ var StartCountdown = class {
         return;
       }
       if (this.value === 1) {
-        this.value = null;
-        this.onChange(null);
-        if (token === this.token) onComplete();
+        // Zero hides the numeral but keeps the lever down while the start is saved.
+        this.value = 0;
+        this.onChange(0);
+        if (token === this.token) onComplete(() => {
+          if (token !== this.token || !this.active) return;
+          this.value = null;
+          this.onChange(null);
+        });
         return;
       }
       this.value--;
@@ -18521,7 +18527,7 @@ function prepareDistillation(start) {
   if (countdown.active || !game || document.hidden || room !== "distill" || !D.canStart(game).ok || modal && modal.kind !== "flavor-cards") return;
   stopClock();
   modal = null;
-  countdown.start(() => act(start, () => distillRoom.clearPrepared(), null, { paused: false, ...(openingClockPending(game) ? { time: 0 } : {}) }));
+  countdown.start((finishCountdown) => act(start, () => distillRoom.clearPrepared(), null, { finishCountdown, paused: false, ...(openingClockPending(game) ? { time: 0 } : {}) }));
 }
 function ordinaryNoticeSafe() {
   return sessionActive && !!game && !modal && !document.hidden && !runtimeHalted && (preview || canSave) && !marketEditing && !countdown.active && game.tastingId === null && !game.decisions.length && !game.trade.offer && generationState()?.phase !== "review" && $2("storage-notice").hidden && $2("generation-notice").hidden && !m0.isOpen;
@@ -20184,12 +20190,18 @@ function schedule(continuing = false) {
 }
 async function act(fn, after, afterSave, options) {
   const paused = options?.paused ?? userPaused, time = options?.time ?? elapsed;
-  if (!sessionActive || !game || !preview && !canSave) return false;
-  countdown.cancel();
+  const finishCountdown = options?.finishCountdown;
+  if (!sessionActive || !game || !preview && !canSave) {
+    finishCountdown?.();
+    return false;
+  }
+  if (!finishCountdown) countdown.cancel();
   stopClock();
   try {
     const before2 = game, next = fn(before2);
-    if (!await saveCandidate(next, paused, time)) {
+    const saved = await saveCandidate(next, paused, time);
+    finishCountdown?.();
+    if (!saved) {
       render2();
       schedule();
       return false;
@@ -20206,6 +20218,7 @@ async function act(fn, after, afterSave, options) {
     schedule();
     return true;
   } catch (e) {
+    finishCountdown?.();
     restoreCommitted();
     storageNotice(e.message);
     render2();

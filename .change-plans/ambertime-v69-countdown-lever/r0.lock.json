@@ -1,0 +1,92 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "86edf2f9dfed3618070de412d9053c9bbe266becfa811287095d34e64c11eb40",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "28b10af97bb23e32f116972b7f0951cb72cec0e4",
+    "changeId": "ambertime-v69-countdown-lever",
+    "revision": 0,
+    "change": "Keep the manual lever down between countdown expiry and the committed start.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-countdown-browser.test.mjs",
+      ".change-plans/ambertime-v69-countdown-lever/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Represent the start transition until its save settles.",
+      "Cover frame-level countdown and lever state with formal storage."
+    ],
+    "ownerDecisions": [
+      "Owner identified a raised lever frame immediately after countdown in phase 1 Safari footage."
+    ],
+    "hqDecisions": [
+      "Keep current save and economics contracts."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Watch the lever and recipe panel across the last countdown frame on physical iPhone Safari."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Phases 2–7, production, other works and economic rules."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "A timeout to hide the lever or prematurely advancing the saved state."
+    ],
+    "boundaryCases": [
+      "Successful start, cancellation, delayed save and failed save."
+    ],
+    "testPlan": [
+      "Use Chromium per-frame measurements, existing formal save and entry tests, and verify Pages bytes."
+    ],
+    "problem": "The countdown finishes before the formal distillation start becomes visible.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "A render while IndexedDB commits briefly projects the prepared controls.",
+    "design": "Bridge countdown and committed start within the transient UI state; preserve cancellation and save failure behavior.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
