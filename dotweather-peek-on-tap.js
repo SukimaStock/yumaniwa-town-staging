@@ -13,28 +13,18 @@
     "use strict";
 
     var REVEAL_MS = 2500;
-    var IMMERSIVE_WORK_IDS = {
-        dotweather: true,
-        steamclock: true
-    };
-
     var playerLayer = document.getElementById("work-player");
     var frame = document.getElementById("work-player-frame");
     var peekTab = document.getElementById("work-player-peek-tab");
 
     if (!playerLayer || !frame || !peekTab) return;
 
-    var boundCanvas = null;
+    var boundDocument = null;
     var hideTimer = null;
 
-    function frameLooksLikeImmersiveWork() {
-        var src = String(frame.getAttribute("src") || frame.src || "");
-        return /\/works\/(?:dotweather|steamclock)\//i.test(src);
-    }
-
     function isImmersiveWorkActive() {
-        if (!playerLayer.classList.contains("visible")) return false;
-        return !!IMMERSIVE_WORK_IDS[window.currentWorkId] || frameLooksLikeImmersiveWork();
+        return playerLayer.classList.contains("visible") &&
+            playerLayer.dataset.mobileFrame === "immersive";
     }
 
     function isHeaderCollapsed() {
@@ -67,51 +57,43 @@
         }, REVEAL_MS);
     }
 
-    function onCanvasPointerUp() {
-        revealPeekBriefly();
+    function unbindDocument() {
+        if (!boundDocument) return;
+        boundDocument.removeEventListener("pointerup", revealPeekBriefly, true);
+        boundDocument = null;
     }
 
-    function unbindCanvas() {
-        if (!boundCanvas) return;
-        boundCanvas.removeEventListener("pointerup", onCanvasPointerUp, false);
-        boundCanvas = null;
-    }
-
-    function bindCanvas() {
-        unbindCanvas();
+    function bindDocument() {
+        unbindDocument();
         if (!isImmersiveWorkActive()) return;
 
         try {
             var doc = frame.contentDocument;
-            var canvas = doc && doc.getElementById("gameCanvas");
-            if (!canvas) return;
+            if (!doc) return;
 
-            boundCanvas = canvas;
-            boundCanvas.addEventListener("pointerup", onCanvasPointerUp, false);
+            boundDocument = doc;
+            boundDocument.addEventListener("pointerup", revealPeekBriefly, true);
         } catch (error) {
-            boundCanvas = null;
+            boundDocument = null;
         }
     }
 
     function sync() {
         if (!isImmersiveWorkActive()) {
             clearHideTimer();
-            unbindCanvas();
+            unbindDocument();
             return;
         }
 
+        if (!boundDocument) bindDocument();
         if (isHeaderCollapsed()) {
-            // phone-layout.js shows the peek tab automatically when it collapses.
-            // Immersive works override that idle state: keep it hidden until a tap.
-            hidePeek();
+            if (boundDocument) hidePeek();
+            else peekTab.hidden = false;
         } else {
             clearHideTimer();
             peekTab.hidden = true;
         }
 
-        if (!boundCanvas) {
-            bindCanvas();
-        }
     }
 
     var playerObserver = new MutationObserver(function () {
@@ -119,12 +101,12 @@
     });
     playerObserver.observe(playerLayer, {
         attributes: true,
-        attributeFilter: ["class", "data-frame-mode", "data-player-layout"]
+        attributeFilter: ["class", "data-mobile-frame"]
     });
 
     frame.addEventListener("load", function () {
         window.requestAnimationFrame(function () {
-            bindCanvas();
+            bindDocument();
             sync();
         });
     });

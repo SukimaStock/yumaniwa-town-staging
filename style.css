@@ -661,7 +661,7 @@ textarea {
 }
 
 
-/* スマホの縦長ゲームだけは、最初に店名バーを見せた後で収納する。
+/* スマホの作品では、最初に店名バーを見せた後で収納する。
    収納中はバーが占めていた高さも返すので、ゲーム本体を少し大きくできる。 */
 #work-player-peek-tab {
     position: absolute;
@@ -694,21 +694,35 @@ textarea {
     opacity: 0.56;
 }
 
+@keyframes town-hold-peek-tab {
+    from, to { --town-peek-display: none; }
+}
+
 @media (max-width: 700px), (max-height: 700px) {
-    #work-player[data-player-layout="phone"] #work-player-controls {
+    #work-player[data-mobile-frame] {
+        --town-bar-slide-duration: 260ms;
+    }
+
+    /* Keep the tab out of hit testing until the sliding header and iframe settle.
+       Animate the parent so a later immersive tap reveals the tab immediately. */
+    #work-player[data-mobile-frame].phone-controls-hidden {
+        animation: town-hold-peek-tab calc(var(--town-bar-slide-duration) + 32ms);
+    }
+
+    #work-player[data-mobile-frame] #work-player-controls {
         min-height: 0;
         height: calc(env(safe-area-inset-top) + 56px);
         overflow: hidden;
         transition:
-            height 260ms ease,
-            padding 260ms ease,
+            height var(--town-bar-slide-duration) ease,
+            padding var(--town-bar-slide-duration) ease,
             opacity 180ms ease,
             border-color 180ms ease,
-            transform 260ms ease;
+            transform var(--town-bar-slide-duration) ease;
         will-change: height, transform;
     }
 
-    #work-player[data-player-layout="phone"].phone-controls-hidden #work-player-controls {
+    #work-player[data-mobile-frame].phone-controls-hidden #work-player-controls {
         height: 0;
         padding-top: 0;
         padding-bottom: 0;
@@ -718,13 +732,13 @@ textarea {
         pointer-events: none;
     }
 
-    #work-player[data-player-layout="phone"].phone-controls-hidden #work-player-content {
+    #work-player[data-mobile-frame].phone-controls-hidden #work-player-content {
         padding-top: 0;
         padding-bottom: 0;
     }
 
-    #work-player[data-player-layout="phone"].phone-controls-hidden #work-player-peek-tab:not([hidden]) {
-        display: inline-flex;
+    #work-player[data-mobile-frame].phone-controls-hidden #work-player-peek-tab:not([hidden]) {
+        display: var(--town-peek-display, inline-flex);
     }
 }
 

@@ -257,6 +257,7 @@ var WORKS = [
 
     {
         id: "steamclock",
+        mobileFrame: "immersive",
         title: "SteamClock",
         venue: "leisure_center",
         kind: "work",
@@ -282,6 +283,7 @@ var WORKS = [
 
     {
         id: "dotweather",
+        mobileFrame: "immersive",
         title: "DotWeather",
         venue: "leisure_center",
         kind: "work",

@@ -625,6 +625,9 @@ Restore-Hunks: {"index.html":[12]}
    itchは最終upload番号と通常紹介URLを別に記録する。externalはHTTPS URL。
 3. Deskで `data/works.js` へ登録する。完成済みfolderがある場合は「雛形から作る」をOFF。
    title/menuTitle/frameTitleは用途の違いを保つ。launch・frameModeを明示し、phoneは幅高さを指定。
+   **スマホの湯間庭フレーム**：町内で開く作品は、読み込み後に上部バーが自動収納される。ゲーム・操作する作品は `mobileFrame` を省略し、作品の外にノブを残す。Diorama Calendarの月送りや雨の日の窓の指描きのように、画面タップ自体が作品の操作ならこちらを使う。
+   鑑賞中は町のUIをすべて隠したい同一オリジンの作品には、`data/works.js` の作品項目に `mobileFrame: "immersive"` を指定する。DotWeather・SteamClockが該当する。作品のタップでノブが一時表示され、ノブから町のバーを開ける。
+   `playerLayout` は表示寸法の設定。固定比率の作品には `playerWidth`・`playerHeight` に作品本来の寸法を登録し、ノブ用の余白は町側で確保する。
 4. **menu-only:** 既存施設の一覧はworksから生成される。画像・Editor・collisionを追加する必要はない。
    **physical:** Owner承認済み配置にobject→prop→trigger→workIdを接続する。
    新画像が必要な時だけFactory→Cleaner→WORLD OBJECT台帳へ。
@@ -637,6 +640,7 @@ Restore-Hunks: {"index.html":[12]}
    physicalなら `--physical <id>`。FAIL/HQを記録し、外部確認待ちを残す。
 8. 新作の町内導線・直リンク・mobile/PC主操作・戻る・再入場、通常再訪を確認。
    同じlaunch/frameの既存作品1件、対象施設の出入り1経路を最小回帰とする。
+   スマホは小型縦画面（例 375×667）、余白のある縦画面（390×844）、横画面（844×390）で確認する。ノブのタップ範囲が作品に重ならず、既存の余白で足りる場合は作品が移動・縮小せず、固定比率の画面が歪まないことを見る。完全収納作品ではタップでノブを呼び出しても絵が動かず、ノブ→バー→町へ戻れることも試す。
    追加のConditionalはRelease Manualで選ぶ。
 9. Status・差分・Commit/Pushを確認。production候補の作成・公開は許可された別工程として
    `RELEASE-WORKFLOW.md` へ渡す。
