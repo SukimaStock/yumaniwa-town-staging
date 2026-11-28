@@ -10912,7 +10912,7 @@ function automaticEvents(before2, after, caskLabel2 = () => "", releaseLabel2 = 
   }
   const beforeStaff = new Set(D.staffOpportunities(before2).map((o) => o.kind));
   for (const opportunity of D.staffOpportunities(after)) {
-    if (!beforeStaff.has(opportunity.kind)) events.push({ id: "staff-invitation:" + opportunity.kind, kind: "message", priority: 2, text: (opportunity.kind === "distill" ? "蒸留担当者" : "ビン詰め担当者") + "から声がかかりました。" });
+    if (!beforeStaff.has(opportunity.kind)) events.push({ id: "staff-invitation:" + opportunity.kind, kind: "message", priority: 2, text: jobName(opportunity.kind) + "から声がかかりました。" });
   }
   const knownDeliveries = new Set((before2.shop?.deliveries ?? []).map((d) => d.id));
   const department = (after.shop?.deliveries ?? []).filter((d) => !knownDeliveries.has(d.id) && d.shopId === "department" && d.month === after.core.month && d.count > 0);
