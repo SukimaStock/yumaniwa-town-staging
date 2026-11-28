@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "cc9782fc321d43154dbd95f8279e7e20ce7be2011b3b581c1c71205819686cbd",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "3fc3654f7f118e6e5fba17f04006d3f90110cdfd",
+    "changeId": "ambertime-v69-stage2-closing-scene",
+    "revision": 0,
+    "change": "Play a voluntary closing scene in the existing recall player.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-exhaustion.test.mjs",
+      ".change-plans/ambertime-v69-stage2-closing-scene/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Add a ledger action for exhausted careers and return to the same ledger after playback."
+    ],
+    "ownerDecisions": [
+      "Use the existing recall system for the voluntary closing scene."
+    ],
+    "hqDecisions": [
+      "Use existing affordability, inventory and confirmed start flow."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Exhausted ledger to closing scene and back, existing generation recall, iPhone Safari."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Stage 3 onward, changes to economy, saves or generation handover, production."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Automatic reset, injecting capital, automatic scene changes."
+    ],
+    "boundaryCases": [
+      "Temporary low funds, remaining bottles, spirit, processable casks, reserved stock, outstanding receipts, late generation."
+    ],
+    "testPlan": [
+      "Run closure regression and v69 suite, compare historical restoration, verify staging delivery."
+    ],
+    "problem": "The exhausted career needs a voluntary closing scene.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "General low-funds feedback does not identify a terminal resource state.",
+    "design": "Reuse the existing recall player, quiet distillery art and an in-memory closing cut.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}

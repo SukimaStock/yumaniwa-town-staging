@@ -18063,6 +18063,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     previousTime = now;
     if (elapsed >= duration) {
       if (index < playing.length - 1) moveCut(1);
+      else if (mode === "closing") close();
       else paintCut(duration);
       return;
     }
@@ -18070,7 +18071,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     scheduleFrame();
   }
   function updateToggle() {
-    toggle.disabled = picture.disabled;
+    toggle.disabled = picture.disabled && mode !== "closing";
     toggle.textContent = paused || toggle.disabled ? '▶' : 'Ⅱ';
     toggle.setAttribute('aria-label', toggle.disabled ? '回想の終わり' : paused ? '再開' : '一時停止');
   }
@@ -18096,6 +18097,15 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
       if (!reduced || changed) {
         const ms = reduced ? 1999 : Math.min(1999, rest / durations[beat] * 1999);
         drawScene(ctx,{...view,...clip,art:clip.art||view.art},ms);
+        if (mode === "closing" && clip.lightsOut) {
+          ctx.fillStyle = "#10101ddd";
+          ctx.fillRect(0, 0, 32, 32);
+          ctx.fillStyle = "#242838";
+          ctx.fillRect(24, 4, 6, 6);
+          ctx.fillStyle = "#b59262";
+          ctx.fillRect(25, 7, 1, 1);
+          ctx.fillRect(28, 6, 1, 1);
+        }
         if(clip.shopId){
           ctx.fillStyle=clip.shopId==='supermarket'?'#90aa91':clip.shopId==='bar'?'#ad7d64':'#c3a06a';
           ctx.fillRect(5,6,clip.shopId==='supermarket'?22:clip.shopId==='bar'?6:14,2);
@@ -18229,7 +18239,7 @@ function createRecallPlayer({ document: document2, window: window2 = globalThis,
     if (dialog.open) return;
     const values = options.scenes ?? scenes, nextMode = options.mode ?? "debug";
     if (!Array.isArray(values) || values.length === 0 || values.some((v) => typeof v?.date !== "string" || typeof v?.sentence !== "string" || typeof v?.scene !== "string")) throw Error("\u56DE\u60F3\u306E\u5834\u9762\u3092\u8AAD\u307F\u53D6\u308C\u307E\u305B\u3093\u3002");
-    if (!["debug", "handover", "history"].includes(nextMode) || nextMode === "handover" && typeof options.onComplete !== "function") throw Error("\u56DE\u60F3\u306E\u64CD\u4F5C\u3092\u78BA\u8A8D\u3067\u304D\u307E\u305B\u3093\u3002");
+    if (!["debug", "handover", "history", "closing"].includes(nextMode) || nextMode === "handover" && typeof options.onComplete !== "function") throw Error("\u56DE\u60F3\u306E\u64CD\u4F5C\u3092\u78BA\u8A8D\u3067\u304D\u307E\u305B\u3093\u3002");
     playing = values.map((v) => ({ date: v.date, sentence: v.sentence, scene: v.scene,
       art: typeof v.art === "string" ? v.art : legacyArt[v.scene] ?? "neutral",
       beats:Array.isArray(v.beats)?v.beats:null, silent:v.silent===true,
@@ -21078,7 +21088,7 @@ function syncModal() {
   } else if (kind2 === "ledger") {
     title = "\u5E33\u9762";
     body = (fundsExhausted(game) ? '<p class="quiet">' + exhaustedNotice + " これまでの記録を読めます。</p>" : "") + ledgerView();
-    actions = button("\u9589\u3058\u308B", "cancel");
+    actions = (fundsExhausted(game) ? button("店をたたむ", "close-distillery") : "") + button("\u9589\u3058\u308B", "cancel");
   } else if (kind2 === "ledger-recipe" || kind2 === "ledger-cask" || kind2 === "ledger-recipe-comparison") {
     title = kind2 === "ledger-recipe" ? "\u4ED5\u8FBC\u307F" : kind2 === "ledger-cask" ? "\u305F\u308B" : "\u6BD4\u3079\u308B";
     body = kind2 === "ledger-recipe" ? ledgerRecipeDetail() : kind2 === "ledger-cask" ? ledgerCaskDetail() : ledgerRecipeComparison();
@@ -21955,6 +21965,17 @@ async function handleModal(e) {
   const b = e.target.closest("[data-action]");
   if (!b || b.disabled || !modal) return;
   const a = b.dataset.action, id3 = Number(b.dataset.id), kind2 = modal.kind;
+  if (kind2 === "ledger" && a === "close-distillery" && fundsExhausted(game)) {
+    recallScenePlayer.open({
+      mode: "closing",
+      title: "店をたたむ",
+      scenes: [{
+        date: monthLabel(game.core.month), sentence: "", scene: "quiet", art: "quiet", silent: true, holdMs: 0,
+        beats: [{ durationMs: 1100 }, { durationMs: 2000, lightsOut: true }]
+      }]
+    });
+    return;
+  }
   if (placementEnabled && kind2 === "product" && a.startsWith("placement-")) {
     if (a === "placement-close") {
       closeModal();
