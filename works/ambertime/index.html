@@ -1886,7 +1886,7 @@ body :is([contenteditable=""],[contenteditable="true"],[contenteditable="plainte
 </dialog>
 
 <noscript>JavaScriptを有効にしてください。</noscript>
-<script src="./v69/game.js?rev=stage5-map-1"></script>
+<script src="./v69/game.js?rev=stage6-recall-1"></script>
 <!-- Original 48 kHz stereo PCM WAV used by the successful iPhone loop player. -->
 <script type="text/plain" id="amber-bgm-wav" data-src="./v69/bgm.wav"></script>
 
@@ -1948,7 +1948,8 @@ body :is([contenteditable=""],[contenteditable="true"],[contenteditable="plainte
   const activeSources = new Set(), timers = new Set();
   let lastScheduled = null; // read-only regression diagnostics, if requested in the URL
   const active = () => document.body.dataset.entry === 'false' && !document.hidden;
-  const musicAllowed = () => active() && bgmOn && bgmVolume > 0;
+  let recallActive = false;
+  const musicAllowed = () => !recallActive && active() && bgmOn && bgmVolume > 0;
   const effectsAllowed = () => active() && sfxOn && sfxVolume > 0;
   const gainValue = () => Math.pow(bgmVolume / 100, 1.1);
   function store(key, on, volume) {
@@ -2057,6 +2058,21 @@ body :is([contenteditable=""],[contenteditable="true"],[contenteditable="plainte
     });
   }
 
+  document.addEventListener('amber-recall-audio', ({detail}) => {
+    recallActive = detail.phase !== 'end';
+    musicVersion++;
+    if (detail.phase === 'fade' && musicSrc) {
+      const gain = musicGain.gain, now = ctx.currentTime;
+      gain.cancelScheduledValues(now);
+      gain.setValueAtTime(gain.value, now);
+      gain.linearRampToValueAtTime(0, now + detail.duration / 1000);
+    } else if (recallActive) stopMusic();
+    else {
+      if (musicGain) musicGain.gain.cancelScheduledValues(ctx.currentTime);
+      updateBgmVolume();
+      startMusicWhenReady();
+    }
+  });
   function getBuffer(id) {
     if (decoded.has(id)) return Promise.resolve(decoded.get(id));
     if (inFlight.has(id)) return inFlight.get(id);

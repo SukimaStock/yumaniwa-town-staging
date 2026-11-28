@@ -1,0 +1,91 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "e8fe7931cbca3f86c1ef726ecb83e826c396ad5064573d30e6f3714987685f09",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "db41bf1b8d8bee4edc0756fc88fed0b1c72e900d",
+    "changeId": "ambertime-v69-stage6-recall",
+    "revision": 0,
+    "change": "Fade into generational recall and clarify playback controls",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      ".change-plans/ambertime-v69-stage6-recall/r0.lock.json",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-recall-browser.test.mjs"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Recall entrance, music lifecycle, chapter controls"
+    ],
+    "ownerDecisions": [
+      "Preserve automatic playback, final explicit succession and existing scenes."
+    ],
+    "hqDecisions": [
+      "Use the existing player and audio graph."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "iPhone speaker, mute and accessibility"
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Stage 7 and production"
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "Automatic reset, injecting capital, automatic scene changes."
+    ],
+    "boundaryCases": [
+      "Muted audio, hidden page, archive playback, business closure, final handover"
+    ],
+    "testPlan": [
+      "Browser recall transition, sound lifecycle, historical save and existing v69 tests"
+    ],
+    "problem": "Recall starts abruptly and previous scene looks like a return to the game.",
+    "currentContract": "Existing player controls sequence and handover; Web Audio owns one looping source.",
+    "whyExistingIsInsufficient": "Neither system coordinates music with recall.",
+    "design": "Gate playback on a visual entrance and quiet interval, preserve one music source and use accessible pixel icons.",
+    "migration": "No storage changes.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
