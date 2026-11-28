@@ -1341,8 +1341,15 @@ html[data-scenery-hidden=true] .map-scenery-butterflies .map-scenery-drift,html[
 /* v58: a single foreground event takes precedence over incidental butterflies. */
 .map-scenery-butterflies[data-connection-active="true"] .map-scenery-butterfly,.map-scenery-butterflies[data-focus-motion="wildlife"] .map-scenery-butterfly{visibility:hidden}
 .map-scenery-butterflies[data-connection-active="true"] .map-scenery-butterfly *,.map-scenery-butterflies[data-focus-motion="wildlife"] .map-scenery-butterfly *{animation-play-state:paused!important}
-@keyframes map-scenery-drift{from{transform:translate(0,0)}to{transform:translate(2px,2px)}}
-@keyframes map-scenery-wings{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.5)}}
+@keyframes map-scenery-drift{0%,100%{transform:translate(0,0)}18%{transform:translate(2px,-2px)}32%{transform:translate(2px,-4px)}58%{transform:translate(-4px,-2px)}78%{transform:translate(-2px,2px)}}
+@keyframes map-scenery-wings{0%,64%,100%{transform:scaleX(1)}32%,80%{transform:scaleX(.5)}}
+.map-scenery-wings{transform-origin:4px 4px;animation-duration:480ms}
+.map-dispatch{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;shape-rendering:crispEdges}
+.map-truck{animation:map-truck-drive 3s steps(8,end) both;animation-play-state:paused}
+[data-active=true]>.map-dispatch .map-truck{animation-play-state:running}
+@keyframes map-truck-drive{0%{transform:translateX(0)}90%,100%{transform:translateX(var(--drive))}0%,90%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.map-dispatch,.map-scenery-butterfly{display:none}}
+
 @media(prefers-reduced-motion:reduce){.map-scenery-drift,.map-scenery-wings{animation:none!important;transform:none!important}}
 
 /* A supplemented scope is a caption in the existing icon footprint, never a
@@ -1879,7 +1886,7 @@ body :is([contenteditable=""],[contenteditable="true"],[contenteditable="plainte
 </dialog>
 
 <noscript>JavaScriptを有効にしてください。</noscript>
-<script src="./v69/game.js?rev=stage4-staff-1"></script>
+<script src="./v69/game.js?rev=stage5-map-1"></script>
 <!-- Original 48 kHz stereo PCM WAV used by the successful iPhone loop player. -->
 <script type="text/plain" id="amber-bgm-wav" data-src="./v69/bgm.wav"></script>
 
