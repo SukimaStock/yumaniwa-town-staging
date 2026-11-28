@@ -8949,6 +8949,18 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     const row = [...pane.querySelectorAll("[data-market-shop]")].find((el) => el.dataset.marketShop === anchor2.id);
     if (row) pane.scrollTop += row.getBoundingClientRect().top - pane.getBoundingClientRect().top - anchor2.offset;
   }
+  let revealShop = null;
+  function revealRequestedShop() {
+    if (!revealShop) return;
+    const row = all("[data-market-shop]").find(el => el.dataset.marketShop === revealShop);
+    revealShop = null;
+    const pane = row?.closest(".market-partners");
+    if (!pane) return; // The distillery's own shelf is fixed above the list.
+    const item = row.getBoundingClientRect(), clip = pane.getBoundingClientRect();
+    if (item.top < clip.top) pane.scrollTop += item.top - clip.top;
+    else if (item.bottom > clip.bottom) pane.scrollTop += Math.min(item.top - clip.top, item.bottom - clip.bottom);
+    rememberPosition();
+  }
   function shelfTarget(row) {
     const shelf = row?.closest(".market-stock-list,.market-hand-list");
     if (!shelf) return null;
@@ -9011,6 +9023,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     needsOrder = true;
     modalFocus = null;
     anchor2 = null;
+    revealShop = null;
     clearTimeout(scrollTimer);
     scrolling = false;
     selected = null;
@@ -9090,6 +9103,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
         restoreFocus(modalFocus);
         modalFocus = null;
       }
+      revealRequestedShop();
       return;
     }
     const focused = activeKey() ?? modalFocus;
@@ -9121,6 +9135,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     root2.scrollTop = 0;
     restorePosition();
     restoreFocus(focused);
+    revealRequestedShop();
   }
   function animate(element, frames, options) {
     if (!element?.animate || reduced.matches || doc.hidden || !visible) return Promise.resolve();
@@ -9577,7 +9592,7 @@ function createMarketUI({ document: doc, model: D2, state, art, icon: icon2 = ""
     cancel();
     geometry();
   }).observe(sceneRoot, { attributes: true, attributeFilter: ["data-viewport"] });
-  return { update, consume, cancel, reset: reset2, diagnostics: () => ({ visible, selected, portion: portion2, order: [...order2], anchor: anchor2 ? { ...anchor2 } : null, editing: editing ? { ...editing } : null, motions: motions.size, scrollTasks: scrollTasks.size, feedback: feedback.map((x) => ({ ...x })) }) };
+  return { update, consume, cancel, requestShopReveal(id) { revealShop = id; }, reset: reset2, diagnostics: () => ({ visible, selected, portion: portion2, order: [...order2], anchor: anchor2 ? { ...anchor2 } : null, editing: editing ? { ...editing } : null, motions: motions.size, scrollTasks: scrollTasks.size, feedback: feedback.map((x) => ({ ...x })) }) };
 }
 
 // run18/src/ambertime/m0-observation.mjs
@@ -11043,7 +11058,7 @@ var NOTIFICATION_MOTION = Object.freeze({ ambient: "ambient", news: "news", oper
 function noticePresentation(events) {
   const item = Array.isArray(events) && events.length === 1 ? events[0] : null;
   if (item?.kind === "prologue") return {motion:"prologue",heading:""};
-  if (item?.kind === "message" && item.id?.startsWith("daily-display:")) return { motion: "ambient", heading: item.sourceLabel ?? "\u84B8\u7559\u6240\u306E\u3072\u3068\u3053\u3068" };
+  if (item?.kind === "message" && item.id?.startsWith("daily-display:")) return { motion: "ambient", heading: item.sourceLabel ?? "\u84B8\u7559\u6240のつぶやき" };
   if (item?.id?.startsWith("world-display:")) return { motion: "news", heading: "\u753A\u306E\u77E5\u3089\u305B" };
   return { motion: "operation", heading: "" };
 }
@@ -11906,7 +11921,6 @@ var CanvasScene = class {
     this.frame = 0;
     this.pressed = null;
     this.fontSettled = false;
-    this.selectionTimer = null;
     this.hintTimer = null;
     this.motionTimer = null;
     this.motion = new RoomMotion();
@@ -12172,7 +12186,7 @@ var CanvasScene = class {
     if (!preserveCompletion) this.finishDistillCompletion();
     if (this.frame) cancelAnimationFrame(this.frame);
     this.frame = 0;
-    for (const key2 of ["hintTimer", "selectionTimer", "motionTimer"]) {
+    for (const key2 of ["hintTimer", "motionTimer"]) {
       clearTimeout(this[key2]);
       this[key2] = null;
     }
@@ -12222,7 +12236,7 @@ var CanvasScene = class {
   drawWorld() {
     const c = this.worldCtx, v = this.view, l = this.layout;
     const items = v.room === "warehouse" ? v.casks : v.room === "sales" && !v.marketMode ? v.products : [];
-    const key2 = JSON.stringify([v.room, l, items, v.inspectId, this.reducedMotion.matches, v.room === "sales" && items.some((item) => item.selected) ? Math.floor(performance.now() / 900) % 2 : 0, this.arrival, v.room === "distill" ? [v.collection, v.phase, v.tools, this.toolGesture?.leverStep, this.toolPaintX, this.toolArrowBright, this.toolArrowOffset, this.toolPaintLeverStep, this.completionStep ?? 0] : null]);
+    const key2 = JSON.stringify([v.room, l, items, v.inspectId, this.reducedMotion.matches, this.arrival, v.room === "distill" ? [v.collection, v.phase, v.tools, this.toolGesture?.leverStep, this.toolPaintX, this.toolArrowBright, this.toolArrowOffset, this.toolPaintLeverStep, this.completionStep ?? 0] : null]);
     if (key2 === this.worldKey) return;
     this.worldKey = key2;
     c.clearRect(0, 0, 120, 214);
@@ -12275,13 +12289,6 @@ var CanvasScene = class {
         if (!pos) return;
         const image = sprite(v.room === "warehouse" ? codeaCask(item.type, item.ageMonths) : item.brand ? brandArt(item.wood, item.brand, item.priceTier) : bottleArt(item.wood, item.priceTier));
         const x = Math.round((pos.x + pos.w / 2) / 3 - image.width / 2), y = pos.base / 3 - image.contentBottom;
-        if (item.selected && v.room !== "warehouse") {
-          c.save();
-          c.globalAlpha = this.reducedMotion.matches || Math.floor(performance.now() / 900) % 2 === 0 ? 1 : 0.35;
-          c.fillStyle = ink;
-          for (let row = 0; row < 4; row++) c.fillRect(Math.round((pos.x + pos.w / 2) / 3) - 3 + row, y - 7 + row, 7 - row * 2, 1);
-          c.restore();
-        }
         const arrival = this.arrival, identity2 = v.room === "warehouse" ? item.id : item.releaseId, belongs = arrival.room === v.room && arrival.ids.includes(identity2);
         if (!(belongs && arrival.blinkId === identity2 && arrival.hidden)) c.drawImage(image, x, y);
         if (belongs && arrival.staticIds.includes(identity2)) {
@@ -12877,8 +12884,6 @@ var CanvasScene = class {
     c.restore();
     clearTimeout(this.hintTimer);
     if (hintEligible) this.hintTimer = setTimeout(() => this.queue(), idle < 12e3 ? 12e3 - idle : 1200 - (idle - 12e3) % 1200);
-    clearTimeout(this.selectionTimer);
-    if (visible && view.room === "sales" && !this.reducedMotion.matches && items.some((item) => item.selected)) this.selectionTimer = setTimeout(() => this.queue(), 900 - performance.now() % 900);
     clearTimeout(this.motionTimer);
     const delays = [this.stillAtmosphere?.nextMs, this.arrival.nextMs, this.warehouseMouse?.nextMs, this.salesShelfGlint?.nextMs, tools?.glassArrowBlink && !this.reducedMotion.matches ? 900 - performance.now() % 900 : null, this.toolGuideMoving ? 120 : null, this.toolReturning ? 30 : null, this.toolSliding ? 16 : null, completionNext].filter((n) => Number.isFinite(n) && n > 0);
     if (delays.length && visible) this.motionTimer = setTimeout(() => {
@@ -14388,13 +14393,14 @@ function action6(s, key2, value) {
   return s;
 }
 var stage4Mode = (s) => s?.labConnection?.version === 1;
-function enableStage4(s) {
+function enableStage4(s, initialFerment = "long") {
   if (stage4Mode(s)) return s;
   const j = clone8(endTasting(enableBrandIdentity(enableStaffExperience(s))));
-  j.labConnection = { version: 1, cards: { malt: "plain", ferment: "long" }, town: createTown(j.seed, j.core.month), receiptMonth: j.core.month, deliveryId: j.shop.deliveries.at(-1)?.id ?? 0 };
-  return action6(j, "enable-stage4", { progress: shopProgress(s) });
+  j.labConnection = { version: 1, cards: { malt: "plain", ferment: initialFerment }, town: createTown(j.seed, j.core.month), receiptMonth: j.core.month, deliveryId: j.shop.deliveries.at(-1)?.id ?? 0 };
+  // Older logs omit initialFerment and must reproduce their original long fermentation.
+  return action6(j, "enable-stage4", { progress: shopProgress(s), ...(initialFerment === "short" ? { initialFerment } : {}) });
 }
-var newConnectedDistillery = (seed2) => enableStage4(newBrandIdentityDistillery(seed2));
+var newConnectedDistillery = (seed2) => enableStage4(newBrandIdentityDistillery(seed2), "short");
 function enablePlacement(s) {
   if (placementMode(s)) return s;
   assert17(stage4Mode(s) && s.core.month === 0 && s.still.phase === "ready" && !s.core.spirit && !s.core.casks.length && !s.core.products.length && !s.releases.length && !s.shop.relations.length && !s.shop.deliveries.length && s.origin === null && !s.trade.relationship && !s.trade.order && !s.trade.contracts.length && !s.trade.offer && !s.shop.offer, "\u65B0\u3057\u3044\u8A66\u904A\u3067\u914D\u5206\u3092\u59CB\u3081\u307E\u3059\u3002");
@@ -16901,7 +16907,7 @@ function applyOperation(s, o, context) {
       return allocateProductTransaction(s, o.value);
     case "enable-stage4":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
-      return enableStage4(s);
+      return enableStage4(s, o.value?.initialFerment === "short" ? "short" : "long");
     case "flavor-cards":
       return selectFlavorCards(s, o.value);
     case "collect-start":
@@ -18586,12 +18592,13 @@ var automaticNews = scopedNotices({
       el.textContent = visibleText;
       if (noticeTarget(entries)) appendNoticeChevron(el);
       el.hidden = false;
+      scene2.positionAutomaticNews(el, $2("automatic-news-close"));
       el.style.animation = "none";
       void el.offsetWidth;
       el.style.removeProperty("animation");
     }
     queueMicrotask(() => {
-      if (game) render2();
+      if (game && !modal && !versionedStorage.pending) render2();
     });
   },
   hide: () => {
@@ -18601,7 +18608,7 @@ var automaticNews = scopedNotices({
     dialogueElement.hidden = true;
     dialogueElement.innerHTML = "";
     queueMicrotask(() => {
-      if (game) render2();
+      if (game && !modal && !versionedStorage.pending) render2();
     });
   }
 });
@@ -18633,7 +18640,9 @@ function noticeTarget(events) {
     if (Number.isInteger(caskId) && D.currentCask(game, caskId)) return { kind: "cask", id: caskId };
     const shopId4 = e.shopId ?? e.entry?.shopId;
     if (shopId4) {
-      for (let stage = 1; stage <= MAP_BROWSE_MAX; stage++) if (mapPartnerProjection(game, stage).pins.some((p) => p.id === shopId4)) return { kind: "shop", id: shopId4, stage };
+      const preferred = room === "sales" && !m0.isOpen ? currentSalesStage() : currentMapBrowse().stage;
+      const stages = [preferred, ...Array.from({ length: mapViewMax() }, (_, i) => i + 1)];
+      for (const stage of stages) if (mapPartnerProjection(game, stage).pins.some(p => p.id === shopId4)) return { kind: "shop", id: shopId4, stage };
     }
   }
   return null;
@@ -18655,7 +18664,7 @@ function activateNotice() {
     return;
   }
   setMapBrowse({ ...currentMapBrowse(), stage: target.stage, selectedShop: target.id });
-  resetSalesStage();
+  adoptMapSalesView();
   room = "sales";
   m0.close();
   inspectMapPartner(target.id);
@@ -18777,14 +18786,12 @@ function tradeStagesForSales(state) {
   if (cached) return cached;
   const tradable = new Set(availableMarketShops(state)
     .filter((shop) => shop.id !== "retail").map((shop) => shop.id));
-  const stages = [];
+  const stages = [1]; // The distillery always has its own retail shelf.
   for (let stage = 2; stage <= MAP_BROWSE_MAX; stage++) {
     if (mapPartnerProjection(state, stage).pins.some((pin) => tradable.has(pin.id) && pin.canTrade)) {
       stages.push(stage);
     }
   }
-  // Before the first partner, only the distillery's own sales are possible.
-  if (!stages.length) stages.push(1);
   salesTradeStagesCache.set(state, stages);
   return stages;
 }
@@ -18798,6 +18805,15 @@ function resetSalesStage() {
   // The user can still step down to smaller trading areas in the sales room.
   const allowed = tradeStagesForSales(game);
   salesStage = allowed[allowed.length - 1];
+}
+function adoptMapSalesView() {
+  const view = currentMapBrowse();
+  const stages = tradeStagesForSales(game);
+  salesStage = stages.filter(stage => stage <= view.stage).at(-1) ?? 1;
+  const selected = salesStage === view.stage || view.selectedShop === "retail" ? view.selectedShop : null;
+  const scope = marketPartnerScopeForMap(game, { stage: salesStage, selectedShop: selected }, availableMarketShops(game));
+  markMapReturnHighlight(scope.selectedShop);
+  marketUI.requestShopReveal(scope.selectedShop);
 }
 function openDailyMap() {
   if (!game || modal || $2("open-world-map").disabled) return;
@@ -18834,8 +18850,7 @@ function tradeMapPartner(id3) {
     inspectMapPartner(id3);
     return;
   }
-  markMapReturnHighlight(id3);
-  resetSalesStage();
+  adoptMapSalesView();
   m0.close();
   modal = null;
   room = "sales";
@@ -20150,7 +20165,7 @@ function schedule(continuing = false) {
         const notices = automaticEvents(beforeStep, game, caskName, (id3) => soldOutLabel(game, id3, beforeStep));
         const advancedMonth = game.core.month === beforeStep.core.month + 1;
         const dailyAllowed = advancedMonth && !notices.some((e) => e.id.startsWith("town:")) && dialogueProjection.read(game)?.month !== game.core.month && !game.shop.offer && !game.trade.offer && !game.decisions.length;
-        const visibleMessages = addDailyEvent(notices, beforeStep, game, { allow: dailyAllowed }).map((e) => e.kind === "ambient" ? { ...e, sourceLabel: generationName(generationState()?.id ?? 1) + "\u306E\u3072\u3068\u3053\u3068" } : e);
+        const visibleMessages = addDailyEvent(notices, beforeStep, game, { allow: dailyAllowed }).map((e) => e.kind === "ambient" ? { ...e, sourceLabel: generationName(generationState()?.id ?? 1) + "のつぶやき" } : e);
         automaticNews.push(visibleMessages);
         noteMapReach();
         marketUI.consume(beforeStep, game);
@@ -20354,7 +20369,10 @@ async function selectRoom(next) {
     return;
   }
   if (next === "distill") shownFillSpiritId = null;
-  if (next === "sales" && room !== "sales") resetSalesStage();
+  if (next === "sales" && m0.isOpen) {
+    adoptMapSalesView();
+    m0.close();
+  } else if (next === "sales" && room !== "sales") resetSalesStage();
   room = next;
   offerPresentation.continue();
   if (m0.mode === "full") m0.setMode("half");
@@ -20635,7 +20653,7 @@ function closeModal() {
   }
   if (modal?.kind === "world-map" && modal.source === "direct") {
     rememberMapBrowse();
-    if (room === "sales") resetSalesStage();
+    if (room === "sales") adoptMapSalesView();
     modal = null;
     render2();
     schedule();
@@ -20645,7 +20663,7 @@ function closeModal() {
   placementUI?.reset();
   if (modal?.kind === "world-map") {
     if (modal.source === "unlock") worldMapStage = currentMapBrowse().stage;
-    if (room === "sales") resetSalesStage();
+    if (room === "sales") adoptMapSalesView();
     const fromMenu = modal.source === "menu";
     modal = fromMenu ? modal.parent ?? { kind: "aux-panel" } : null;
     render2();
@@ -20811,6 +20829,23 @@ function vaultPanels() {
     if (n.closest("#action-dialog")) $2("panel-vault").append(n);
   }
 }
+function dismissDialog(dialog) {
+  modal = null;
+  $2("dialog-context").hidden = true;
+  $2("dialog-context").textContent = "";
+  vaultPanels();
+  if (dialog.open) {
+    const origin = modalReturnFocus, reference = modalReturnObject;
+    dialog.close();
+    queueMicrotask(() => {
+      if (dialog.open) return;
+      const object3 = reference ? document.querySelector("[" + reference.attribute + '="' + CSS.escape(reference.id) + '"]') : null;
+      const available = (n) => n?.isConnected && n.getClientRects().length && !n.disabled;
+      const target = available(origin) ? origin : available(object3) ? object3 : $2("room-nav").querySelector('[aria-pressed="true"]');
+      target?.focus({ preventScroll: true });
+    });
+  }
+}
 function syncModal() {
   installSceneryMotion(document);
   if (modal?.kind !== "world-map") {
@@ -20846,23 +20881,9 @@ function syncModal() {
     modal = { kind: "fill" };
   }
   if (!modal && !scene2.isDistillCompletion(game.core.spirit?.id)) showInitialMapNotice();
-  if (!modal) {
-    $2("dialog-context").hidden=true;$2("dialog-context").textContent="";
-    vaultPanels();
-    if (dialog.open) {
-      const origin = modalReturnFocus, reference = modalReturnObject;
-      dialog.close();
-      queueMicrotask(() => {
-        if (dialog.open) return;
-        const object3 = reference ? document.querySelector("[" + reference.attribute + '="' + CSS.escape(reference.id) + '"]') : null;
-        const available = (n) => n?.isConnected && n.getClientRects().length && !n.disabled;
-        const target = available(origin) ? origin : available(object3) ? object3 : $2("room-nav").querySelector('[aria-pressed="true"]');
-        target?.focus({ preventScroll: true });
-      });
-    }
-    return;
-  }
+  if (!modal) return dismissDialog(dialog);
   const { kind: kind2, id: id3 } = modal, c = D.currentCask(game, id3);
+  if (["inspect", "quote", "bottling-plan"].includes(kind2) && !c || kind2 === "fill" && (!game.core.spirit || game.still.phase !== "filling")) return dismissDialog(dialog);
   let title = "", body = "", actions = "";
   if (kind2 === "flavor-cards") {
     title = "\u4ED5\u8FBC\u307F";
@@ -20957,8 +20978,7 @@ function syncModal() {
   } else if (kind2 === "generation-notice" || kind2 === "generation-review") {
     const g = generationState();
     if (!g || g.id !== id3 || g.phase === "working") {
-      modal = null;
-      return;
+      return dismissDialog(dialog);
     }
     title = generationName(g.id) + (kind2 === "generation-review" ? "" : "\u306E\u6700\u5F8C\u306E\u4ED5\u8FBC\u307F");
     body = kind2 === "generation-review" ? generationReview2(g) : "<p>" + monthLabel(g.fixedMonth) + "<br>" + esc12(generationCauseText(g)) + "</p><p>\u305F\u308B\u8A70\u3081\u671F\u9650 " + monthLabel(g.fixedMonth + 12) + "<br>\u672A\u5B8C\u6210\u306E\u539F\u9152\u3082\u5F15\u304D\u3064\u304E</p>" + (game.usual.reservation?.status === "queued" ? '<p class="quiet">' + (game.usual.reservation.mode ? "\u7E70\u308A\u8FD4\u3057\u4F9D\u983C\u306F\u5F15\u304D\u3064\u304E\u6642\u306B\u7D42\u4E86" : "\u4ED5\u8FBC\u307F\u4E88\u7D04\u306F\u6B21\u306E\u4EE3\u3078\u5F15\u304D\u3064\u304E") + "</p>" : "");
@@ -21052,8 +21072,7 @@ function syncModal() {
   } else if (kind2 === "shop-offer") {
     const offer = game.shop.offer, brand = game.brands.find((b) => b.id === offer?.brandId);
     if (!offer || !brand) {
-      modal = null;
-      return;
+      return dismissDialog(dialog);
     }
     const department = offer.shopId === "department";
     title = shopName(offer.shopId) + "からの申し出";
@@ -21063,9 +21082,7 @@ function syncModal() {
   } else if (kind2 === "decision") {
     const d = game.decisions[0];
     if (!d) {
-      modal = null;
-      if (dialog.open) dialog.close();
-      return;
+      return dismissDialog(dialog);
     }
     modal.id = d.caskId;
     const source = D.currentCask(game, d.caskId), pending = d.pending, copy16 = agingEventText(pending, source, game.notesById[d.caskId]);
@@ -21106,8 +21123,7 @@ function syncModal() {
   } else if (kind2 === "first-bottle-complete") {
     const brand = game.brands.find((item) => item.id === modal.brandId);
     if (!brand) {
-      modal = null;
-      return;
+      return dismissDialog(dialog);
     }
     title = "\u6700\u521D\u306E\u4E00\u672C";
     body = firstBottleCompletion(brand, modal.productId, releasePriceTier(game, modal.productId), { esc: esc12 }, !!modal.ceremonyStarted, releaseFor2(modal.productId)?.profile);
@@ -21119,8 +21135,7 @@ function syncModal() {
   } else if (kind2 === "product" && D.storeMarketMode(game)) {
     const p = game.core.products.find((x) => x.id === id3), r = releaseFor2(id3), meta = game.productsById[id3];
     if (!p || !r || !meta) {
-      modal = null;
-      return;
+      return dismissDialog(dialog);
     }
     const inv = D.storeMarketInventory(game, id3), entry = ledgerData().entries.find((e) => e.releaseId === r.id);
     title = (brandFor(id3)?.name ?? "AmberTime") + " 第" + placementReleaseNumber(p) + "回";
@@ -21132,9 +21147,7 @@ function syncModal() {
   } else if (kind2 === "product") {
     const p = game.core.products.find((x) => x.id === id3), meta = game.productsById[id3];
     if (!p) {
-      modal = null;
-      render2();
-      return;
+      return dismissDialog(dialog);
     }
     const record = game.records.find((r) => r.productId === id3);
     title = (brandFor(id3)?.name ?? record?.name ?? "\u3053\u306E\u4E00\u672C") + (releaseTag(id3) ? " " + releaseTag(id3) : "");
@@ -21965,8 +21978,10 @@ async function handleModal(e) {
   }
   if (kind2 === "stockist" && (a === "regional-trade" && modal.regional && D.regionalContract(game, modal.shopId) || a === "shop-shelf" && !modal.regional && (game.shop.relations.some((r) => r.shopId === modal.shopId && r.status !== "declined") || game.localDistribution?.offers.some((o) => o.storeId === modal.shopId && o.status === "accepted")))) {
     const partnerId2 = modal.shopId;
-    for (let stage = 1; stage <= MAP_BROWSE_MAX; stage++) {
-      if (!mapPartnerProjection(game, stage).pins.some((p) => p.id === partnerId2)) continue;
+    // A town shop may appear on both the neighborhood and town maps.
+    const preferred = currentMapBrowse().stage;
+    for (const stage of new Set([preferred, ...tradeStagesForSales(game)])) {
+      if (!mapPartnerProjection(game, stage).pins.some((p) => p.id === partnerId2 && p.canTrade)) continue;
       setMapBrowse({ ...currentMapBrowse(), stage, selectedShop: partnerId2 });
       tradeMapPartner(partnerId2);
       break;
@@ -23339,8 +23354,7 @@ var m0 = createM0Observation({ document, state: () => game, model: D, room: () =
   if (game) render2();
 }, onInspect: (id3) => inspectMapPartner(id3), onTrade: tradeMapPartner, onModeChange: (active2) => {
   if (m0WasOpen && !active2 && game && room === "sales") {
-    if (!modal) markMapReturnHighlight(currentMapBrowse().selectedShop);
-    resetSalesStage();
+    if (!modal) adoptMapSalesView();
   }
   m0WasOpen = active2;
   $2("open-world-map").setAttribute("aria-pressed", String(active2));
