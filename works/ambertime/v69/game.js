@@ -6031,8 +6031,10 @@ function mapPartnerDetail(game2, id3) {
   if (partner.mapScale === "town") {
     const detail = mapShopDetail(game2, id3), relations = (game2?.shop?.relations ?? []).filter((r) => (r.shopId ?? "town-liquor") === id3 && r.status !== "declined" && r.startedMonth <= game2.core.month);
     const offer2 = nativeOffers(game2).find((o) => (o.shopId ?? "town-liquor") === id3);
+    if (id3 === "department" && !detail && !offer2 && !departmentInterests(game2).length) return null;
     if (!detail && !relations.length && !offer2) return null;
-    return { ...detail ?? { id: id3, name: partner.name, currentStock: null, totalSold: null, recentSold: null, totalDelivered: 0, recentDelivered: 0, products: [], remark: "" }, shortName: partner.shortName, partnerId: id3, offer: offer2 ? { ...offer2 } : null, contracted: !!detail || relations.length > 0, canTrade: partner.tradeMethod === "store-shelf" && relations.length > 0, status: detail?.status ?? (relations.length ? "\u53D6\u6271\u958B\u59CB" : "\u7533\u3057\u51FA\u3042\u308A"), tradeMethod: partner.tradeMethod };
+    const reservation = id3 === "department" && departmentInterests(game2).some(interest => interest.pendingDelivery);
+    return { ...detail ?? { id: id3, name: partner.name, currentStock: null, totalSold: null, recentSold: null, totalDelivered: 0, recentDelivered: 0, products: [], remark: "" }, shortName: partner.shortName, partnerId: id3, offer: offer2 ? { ...offer2 } : null, contracted: !!detail || relations.length > 0, canTrade: partner.tradeMethod === "store-shelf" && relations.length > 0, ...(reservation ? { remark: "5本確保・翌月納品" } : {}), status: reservation ? "5本確保・翌月納品" : detail?.status ?? (relations.length ? "\u53D6\u6271\u958B\u59CB" : "\u7533\u3057\u51FA\u3042\u308A"), tradeMethod: partner.tradeMethod };
   }
   if (!regionalContacts(game2).some((p) => p.id === id3)) return null;
   const contract = regionalContract(game2, id3), offer = regionalOffers(game2).find((o) => o.partnerId === id3);
@@ -6049,7 +6051,7 @@ function mapPartnerProjection(game2, stage) {
     const box = bounds[p.id], detail = mapPartnerDetail(game2, p.id);
     if (!box || !detail) return [];
     const delivered = detail.regional ? detail.totalDelivered : detail.historicalDelivered ?? (detail.mode === "delivery" ? detail.totalDelivered : 0);
-    const [x, y, w, h] = box, status = detail.contracted ? delivered > 0 ? "delivered" : "contract" : "offer";
+    const [x, y, w, h] = box, status = p.id === "department" && detail.offer ? "offer" : detail.contracted ? delivered > 0 ? "delivered" : "contract" : "offer";
     return [{ ...detail, id: p.id, name: p.name, shortName: p.shortName, kind: p.kind, regionId: p.regionId, mapScale: p.mapScale, status, statusLabel: detail.status, canTrade: detail.canTrade, bounds: [...box], x: x + w / 2, y: y + h / 2, detail, activity: { contractId: detail.contractId ?? null, cumulativeDelivered: delivered ?? 0, pendingCount: detail.pendingCount ?? 0, recentDelivered: detail.regional ? detail.recentDelivered ?? 0 : Math.max(0, (detail.recentDelivered ?? 0) - (detail.recentSold ?? 0)), latestMonth: detail.latestMonth ?? null, recentLimit: detail.regional ? 8 : null, recentWindow: detail.regional ? "retained-receipts" : "12-months", customerSales: detail.regional ? null : detail.totalSold ?? null } }];
   });
   for (const store of STORE_CANDIDATES.filter((c) => c.stage === stage)) {
@@ -10941,7 +10943,7 @@ function prologueHint(s, room, prepared, soldPending, seen) {
   if(s.still.phase==="ready")return {key:"opening",text:monthLabel(0)+"、ずっと夢だった蒸留所を開いた。まずは原酒を造ってみよう。",hold:true};
   return null;
 }
-function scopedNotices({ room: room2, safe, show, hide, setTimer = setTimeout, clearTimer = clearTimeout, now = () => performance.now(), eligible = () => true, expired = () => false }) {
+function scopedNotices({ room: room2, safe, show, hide, setTimer = setTimeout, clearTimer = clearTimeout, now = () => performance.now(), eligible = () => true, expired = () => false, eventCurrent = () => true }) {
   let current = null, timer2 = null, serial = 0, epoch = 0;
   const pending = /* @__PURE__ */ new Map(), seen = /* @__PURE__ */ new Set();
   const stats = { received: 0, displayed: 0, discarded: 0, interrupted: 0 };
@@ -10966,14 +10968,19 @@ function scopedNotices({ room: room2, safe, show, hide, setTimer = setTimeout, c
     pending.set(k, n);
   }
   function update() {
-    for (const [k,n] of pending) if(expired(n)) { pending.delete(k); stats.discarded++; }
-    if (current && (!allowed(current) || expired(current))) {
+    for (const [k,n] of pending) {
+      if (n.events.some(e => !eventCurrent(e))) n.events = n.events.filter(eventCurrent);
+      if (!n.events.length || expired(n)) { pending.delete(k); stats.discarded++; }
+    }
+    const changed = current?.events.some(e => !eventCurrent(e));
+    if (current && (changed || !allowed(current) || expired(current))) {
       const old = current, visible = now() - old.started;
       stop();
       stats.interrupted++;
       old.remaining = Math.max(0, (old.remaining ?? old.duration) - visible);
       old.resuming = true;
-      if (old.remaining > 0 && !expired(old)) retain2(old);
+      if (changed) old.events = old.events.filter(eventCurrent);
+      if (old.events.length && old.remaining > 0 && !expired(old)) retain2(old);
       else stats.discarded++;
     }
     if (current) return;
@@ -12924,7 +12931,7 @@ __export(partner_orders_exports, {
   USUAL_BATCH: () => USUAL_BATCH,
   acceptOffer: () => acceptOffer4,
   acceptRegionalOffer: () => acceptRegionalOffer,
-  acceptShop: () => acceptShop,
+  acceptShop: () => acceptCurrentShopOffer,
   acceptShopDelivery: () => acceptShopDelivery,
   adoptPlacement: () => adoptPlacement,
   alleyBarMode: () => alleyBarMode2,
@@ -12974,6 +12981,7 @@ __export(partner_orders_exports, {
   deliverRegionalProduct: () => deliverRegionalProduct,
   deliverShop: () => deliverShop,
   departmentAdoptions: () => departmentAdoptions,
+  expireDepartmentOffers: () => expireDepartmentOffers,
   departmentInterests: () => departmentInterests,
   departmentMode: () => departmentMode,
   departmentStatus: () => departmentStatus,
@@ -13148,7 +13156,7 @@ __export(partner_orders_exports, {
   storeMarketMode: () => storeMarketMode,
   storeMarketQuote: () => storeMarketQuote,
   storeMarketRows: () => storeMarketRows,
-  tickDistillery: () => tickDistillery4,
+  tickDistillery: () => tickWithDepartmentStock,
   upkeep: () => upkeep2,
   usualNeedsClock: () => usualNeedsClock,
   usualQuote: () => usualQuote,
@@ -14675,7 +14683,7 @@ function checkedRegionalDelivery(s, key2, value) {
 }
 var assignRegionalProduct = (s, value) => checkedRegionalDelivery(s, "regional-assign", value);
 var returnRegionalProduct = (s, value) => checkedRegionalDelivery(s, "regional-return", value);
-var deliverRegionalProduct = (s, value) => checkedRegionalDelivery(s, "regional-deliver", value);
+var deliverRegionalProduct = (s, value) => recordDepartmentExpiry(s, checkedRegionalDelivery(s, "regional-deliver", value));
 function localShelfTransaction(s, { shopId: shopId4, productId, count: count3, index, autoSupply = false }) {
   const previous = s.operations[index];
   if (previous) {
@@ -15383,6 +15391,45 @@ function salesEligible(s, productId, month = s.core.month) {
   const p = s.core.products.find((p2) => p2.id === productId), meta = s.productsById[productId];
   return !!p && !!meta?.listed && (!monthlyTimingMode(s) || p.bottledMonth < month && meta.listedMonth < month);
 }
+// Bottles still on returnable shelves or earmarked for an undelivered wholesale lot
+// can be brought back. Only completed sales and binding reservations consume them.
+function expiredDepartmentOfferIds(s) {
+  if (!monthlyTimingMode(s) || !s.shop) return [];
+  const undecided = s.department.interests.filter(o => !o.pendingDelivery);
+  return [s.shop.offer, ...s.shop.pendingOffers, ...undecided].filter(o => {
+    if (o?.shopId !== "department") return false;
+    const release = s.releases.find(r => r.id === o.sourceReleaseId);
+    const product = release && s.core.products.find(p => p.id === release.productId);
+    return !product || product.stock - heldDepartmentCount(s, product.id) < DEPARTMENT.quantity;
+  }).map(o => o.id);
+}
+function removeDepartmentOffers(s, ids) {
+  s.shop.pendingOffers = s.shop.pendingOffers.filter(o => !ids.includes(o.id));
+  s.department.interests = s.department.interests.filter(o => o.pendingDelivery || !ids.includes(o.id));
+  if (s.shop.offer && ids.includes(s.shop.offer.id)) nextStockistOffer(s);
+}
+function recordDepartmentExpiry(before, next) {
+  if (next === before) return next;
+  const ids = expiredDepartmentOfferIds(next);
+  if (ids.length) {
+    removeDepartmentOffers(next, ids);
+    next.operations.at(-1).expiredDepartmentOffers = ids;
+  }
+  return next;
+}
+function tickWithDepartmentStock(s, ...args) {
+  return recordDepartmentExpiry(s, tickDistillery4(s, ...args));
+}
+// A stale invitation in a previously verified save may already be impossible.
+function expireDepartmentOffers(s) {
+  const ids = expiredDepartmentOfferIds(s);
+  if (!ids.length) return s;
+  assert17(s.operations.length < PARALLEL_PARAMETERS2.maxOperations, "帳面がいっぱいです。");
+  const next = clone8(s);
+  removeDepartmentOffers(next, ids);
+  next.operations.push({ key: "department-expire", value: { ids, progress: shopProgress(s) } });
+  return next;
+}
 function pendingDepartmentCount(s) {
   return monthlyTimingMode(s) ? s.department.interests.filter((o) => o.pendingDelivery).length : 0;
 }
@@ -15884,6 +15931,14 @@ function acceptShopInto(s) {
   const o = s.shop.offer;
   s.shop.relations.push({ shopId: SHOP.id, name: SHOP.name, brandId: o.brandId, startedMonth: s.core.month });
   s.shop.offer = null;
+}
+function acceptCurrentShopOffer(s, shopId, offerId) {
+  if (shopId === "department" && monthlyTimingMode(s)) {
+    const offer = stockistOffer(s, shopId, offerId);
+    const source = s.releases.find(r => r.id === offer.sourceReleaseId);
+    return acceptShopDelivery(s, source?.productId, DEPARTMENT.quantity, shopId, offerId);
+  }
+  return acceptShop(s, shopId, offerId);
 }
 function acceptShop(s, shopId4, offerId) {
   if (stockistsMode(s)) {
@@ -16415,6 +16470,14 @@ function sampleDistillery5(s, id3) {
 }
 function chooseDistillery5(s, id3, key2) {
   assert17(!s.trade.offer, "\u7533\u3057\u51FA\u3092\u78BA\u8A8D\u3057\u307E\u3059\u3002");
+  if (key2 === "review-funds") {
+    assert17(s.tastingId === null && s.decisions[0]?.eventId === "funds" && s.decisions[0].caskId === id3, "資金の通知を確認してください。");
+    const j = clone8(s);
+    j.notesById[id3].pending = null;
+    j.notesById[id3].phase = "watching";
+    rebuild4(j);
+    return action6(j, "choose", { id: id3, key: key2 });
+  }
   if (s.notesById[id3]?.pending?.id === "order-unmet") return resolveUnmet(s, id3, key2);
   return chooseDistillery(s, id3, key2);
 }
@@ -16748,11 +16811,12 @@ function settle4(s) {
   shipmentJournal(s);
   return s;
 }
-function tickDistillery4(s, expectedMonth = s.core.month) {
+function tickDistillery4(s, expectedMonth = s.core.month, { legacyFunds = false, fundsSales = false } = {}) {
   assert17(Number.isInteger(expectedMonth) && expectedMonth === s.core.month, "\u6708\u6B21\u51E6\u7406\u306E\u5BFE\u8C61\u6708\u304C\u4E00\u81F4\u3057\u307E\u305B\u3093\u3002");
   if (blocked4(s) || generationMode(s) && s.generations.active.phase === "review") return s;
   const empty2 = s.still.phase === "ready" && !s.core.spirit && !s.core.casks.length && !s.core.products.some((p) => p.stock > 0 && (s.productsById[p.id]?.listed || storeMarketMode(s) && placementInventory(s, p.id).assigned > 0)) && !(monthlyTimingMode(s) && s.department.interests.some((o) => o.pendingDelivery));
-  if (empty2 && s.core.cash - upkeep2(s) < canStart6(s).minimum) return generationStalled(s);
+  const hasBottles = !legacyFunds && s.core.products.some(product => product.stock > 0);
+  if (empty2 && s.core.cash - upkeep2(s) < canStart6(s).minimum) return hasBottles ? s : generationStalled(s);
   const timing = monthlyTimingMode(s) ? { eligibleProductIds: s.core.products.filter((p) => salesEligible(s, p.id, expectedMonth + 1)).map((p) => p.id), heldCounts: Object.fromEntries(s.core.products.map((p) => [p.id, placementMode(s) ? p.stock - Math.min(placementInventory(s, p.id).retail, Math.max(0, p.stock - heldDepartmentCount(s, p.id))) : heldDepartmentCount(s, p.id)])) } : void 0;
   const orders = shopDemandMode(s) && !storeMarketMode(s) ? normalShopOrders(s, expectedMonth + 1, s.shopDemand.mode) : void 0;
   let j = economicMonthly(s, expectedMonth, reputationMode(s) ? retailReputationFactors(s) : null, timing);
@@ -16766,7 +16830,15 @@ function tickDistillery4(s, expectedMonth = s.core.month) {
   syncRecords4(j);
   syncReleases(j);
   j = monthlyTimingMode(j) ? automaticBottling(summarizeMonthlySales(automaticShipping(settleDepartmentDeliveries(j), orders))) : delegationMode(j) ? automaticShipping(automaticBottling(j)) : settle4(j);
-  if (j.core.cash < reserve5(j)) {
+  const belowReserve = j.core.cash < reserve5(j);
+  // A manually resumed, funded sales month may use the bottling reserve. Never
+  // borrow against a future sale or change the shop's demand, price or upkeep.
+  const salesMonth = belowReserve && fundsSales && j.core.cash >= 0 && hasBottles && s.core.products.some(p => {
+    const inv = placementInventory(s, p.id);
+    return inv.retail > 0 || inv.held > 0 || Object.values(inv.shops ?? {}).some(count => count > 0);
+  });
+  if (belowReserve && !salesMonth) {
+    if (!legacyFunds && (hasBottles || !generationMode(s) || s.generations.active.phase !== "last-batch" && s.core.month - s.generations.active.startedMonth < GENERATIONS.lateMonths)) return s;
     if (generationMode(s) && s.generations.active.phase === "last-batch" || generationMode(s) && s.core.month - s.generations.active.startedMonth >= GENERATIONS.lateMonths) return generationStalled(s);
     j = clone8(s);
     if (!j.core.casks.length) return s;
@@ -16777,7 +16849,7 @@ function tickDistillery4(s, expectedMonth = s.core.month) {
     maybeOffer4(j);
     maybeShopOffer(j, monthlyTimingMode(s) ? { ...s, core: { ...s.core, month: j.core.month } } : j);
   }
-  return action6(j, "month", { progress: s.still.phase === "distilling" ? s.still.distillation.progress : null });
+  return action6(j, "month", { progress: s.still.phase === "distilling" ? s.still.distillation.progress : null, ...(salesMonth ? { fundsSales: true } : {}) });
 }
 function progress4(s, value) {
   assert17(s.still.distillation?.collectionVersion !== 2 || s.still.distillation.collectStart !== null || value <= 88, "\u63A1\u53D6\u3067\u304D\u308B\u7BC4\u56F2\u3092\u904E\u304E\u3066\u3044\u307E\u3059\u3002");
@@ -16945,6 +17017,10 @@ function applyOperation(s, o, context) {
     case "enable-shop-demand":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
       return enableShopDemand(s, o.value?.mode);
+    case "department-expire":
+      if (o.value.progress !== null) s = progress4(s, o.value.progress);
+      assert17(JSON.stringify(expiredDepartmentOfferIds(s)) === JSON.stringify(o.value.ids) && o.value.ids.length > 0, "申し出の在庫記録が一致しません。");
+      return expireDepartmentOffers(s);
     case "department-queue":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
       return deliverShop(s, o.value?.productId, o.value?.count, o.value?.shopId, o.value?.selectionId);
@@ -17019,7 +17095,7 @@ function applyOperation(s, o, context) {
       return handoverGeneration(s, o.value?.id);
     case "generation-stalled":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
-      return tickDistillery4(s);
+      return tickDistillery4(s, s.core.month, { legacyFunds: true });
     case "enable-bottle-storage":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
       return enableBottleStorage(s);
@@ -17104,7 +17180,8 @@ function applyOperation(s, o, context) {
       return fillBarrel5(s, o.value);
     case "month":
       if (o.value?.progress !== null) s = progress4(s, o.value?.progress);
-      return tickDistillery4(s);
+      // Old records reproduce the exact reserve guard and forced decision they recorded.
+      return tickDistillery4(s, s.core.month, { legacyFunds: !o.value?.fundsSales, fundsSales: o.value?.fundsSales === true });
     case "sample":
       return sampleDistillery5(s, o.value);
     case "choose":
@@ -17203,6 +17280,10 @@ function apply4(s, o, context, index) {
   replayCloneDepth++;
   try {
     j = applyOperation(s, o, context);
+    if (Object.hasOwn(o, "expiredDepartmentOffers")) {
+      assert17(o.key === "month" || o.key === "regional-deliver" || o.key === "generation-stalled", "申し出の在庫記録が不正です。");
+      recordDepartmentExpiry(s, j);
+    }
   } finally {
     replayCloneDepth--;
   }
@@ -18427,6 +18508,7 @@ var room = "distill";
 var selectedProductId = null;
 var userPaused = false;
 var runtimeHalted = false;
+var approvedSalesMonth = null;
 var modal = null;
 var timer = null;
 var generation = 0;
@@ -18568,6 +18650,8 @@ function appendNoticeChevron(element) {
 var automaticNews = scopedNotices({
   room: () => room,
   safe: ordinaryNoticeSafe,
+  eventCurrent: e => !e.id.startsWith("shop-invitation:department:") ||
+    !!game && shopOffers().some(o => o.shopId === "department" && e.id === "shop-invitation:department:" + o.id),
   expired: (n) => {
     if(n.kind==="prologue")return n.events[0].id!=="prologue:"+prologueDesired || (n.events[0].id==="prologue:sold" && game?.core.month>n.events[0].month+1);
     if(n.kind!=="ambient" || !game) return false;
@@ -19536,7 +19620,8 @@ function ledgerShops() {
     shopLedgerProjection = [...records.values()];
     shopLedgerSnapshot = game;
   }
-  return shopLedgerProjection.filter((s) => s.established);
+  return shopLedgerProjection.filter(s => s.established || s.id === "department" &&
+    (s.interests.length > 0 || shopOffers().some(o => o.shopId === s.id)));
 }
 var shopStartLabel = (s) => s.id === "department" ? "\u95A2\u4FC2\u958B\u59CB" : "\u53D6\u6271\u958B\u59CB";
 function ledgerShopList() {
@@ -19565,7 +19650,8 @@ function ledgerShopDetail() {
     ]) + '</article>';
   }
   let out = '<article class="ledger-shop-detail"><h3>' + esc12(s.name) + "</h3>" + copyFacts([[shopStartLabel(s), s.related ? known2(s.startedMonth, monthLabel) : s.deliveries.length ? "\u8A18\u9332\u306A\u3057" : "\u672A\u53D6\u6271\u3044"], ...s.deliveries.length ? [["\u7D0D\u54C1\u8A08", known2(s.count, (n) => n + "\u672C")], ["\u5165\u91D1", known2(s.revenue, unit4)], ["\u521D\u56DE\u7D0D\u54C1", known2(s.firstMonth, monthLabel)], ["\u76F4\u8FD1\u7D0D\u54C1", known2(s.lastMonth, monthLabel)]] : []]);
-  if (s.id === "department") out += '<p class="quiet">\u95A2\u4FC2\u958B\u59CB\u306F\u76F8\u8AC7\u53D7\u4ED8\u306E\u6708\u3002</p>' + s.interests.map((i) => "<p>" + (i.status === "pending" ? "\u627F\u8A8D\u30FB\u7FCC\u6708\u7D0D\u54C1\u5F85\u3061<br>" + esc12(known2(i.approvedMonth, monthLabel)) + " \u627F\u8A8D \xB7 " + esc12(known2(i.dueMonth, monthLabel)) + " \u7D0D\u54C1\u4E88\u5B9A" : "\u76F8\u8AC7\u4E2D") + "</p>").join("");
+  if (s.id === "department" && shopOffers().some(o => o.shopId === s.id)) out += "<p>特選5本の申し出</p>";
+  if (s.id === "department" && s.related) out += '<p class="quiet">\u95A2\u4FC2\u958B\u59CB\u306F\u76F8\u8AC7\u53D7\u4ED8\u306E\u6708\u3002</p>' + s.interests.map((i) => "<p>" + (i.status === "pending" ? "\u627F\u8A8D\u30FB\u7FCC\u6708\u7D0D\u54C1\u5F85\u3061<br>" + esc12(known2(i.approvedMonth, monthLabel)) + " \u627F\u8A8D \xB7 " + esc12(known2(i.dueMonth, monthLabel)) + " \u7D0D\u54C1\u4E88\u5B9A" : "\u76F8\u8AC7\u4E2D") + "</p>").join("");
   out += s.deliveries.length ? ledgerPaged(s.deliveries, (d) => '<details class="shop-history"><summary>' + esc12(known2(d.month, monthLabel)) + " \xB7 " + esc12(known2(d.count, (n) => n + "\u672C")) + (d.kind === "adoption" ? " \xB7 \u7279\u9078\u7D0D\u54C1" : " \xB7 \u7D0D\u54C1") + "</summary><p>" + esc12(d.kind === "adoption" ? (d.projectName ?? "\u7279\u9078\u30A6\u30A4\u30B9\u30AD\u30FC") + "\u306B\u63A1\u7528\u30FB\u7D0D\u54C1" : "\u7D0D\u54C1") + "<br>\u5165\u91D1 " + esc12(known2(d.revenue, unit4)) + "</p>" + (d.releaseKey ? button("\u767A\u58F2" + (d.releaseId !== null ? " #" + d.releaseId : ""), "ledger-release", d.releaseKey, 'id="ledger-delivery-' + esc12(d.key) + '"') : '<p class="quiet">\u767A\u58F2\u306E\u8A18\u9332\u306A\u3057</p>') + "</details>") : "<p>\u5B9F\u7D0D\u54C1\u306E\u8A18\u9332\u306A\u3057</p>";
   return out + "</article>";
 }
@@ -20133,26 +20219,28 @@ function schedule(continuing = false) {
         const recallBeforeSupply = pendingRecall;
         const prepared = applyAutoSupplyBeforeMonth(game);
         let progressed;
-        try { progressed = D.tickDistillery(prepared, expectedMonth); }
+        try { progressed = D.tickDistillery(prepared, expectedMonth, { fundsSales: approvedSalesMonth === expectedMonth }); }
         catch (error) {
           if (prepared === game) throw error;
           pendingRecall = recallBeforeSupply;
           console.warn("補充を行わず月を進めます:", error?.message ?? error);
-          progressed = D.tickDistillery(game, expectedMonth);
+          progressed = D.tickDistillery(game, expectedMonth, { fundsSales: approvedSalesMonth === expectedMonth });
         }
         // If the month could not advance, do not commit delegated moves.
         if (progressed.core.month === before2 && prepared !== beforeMonth) {
           pendingRecall = recallBeforeSupply;
-          progressed = D.tickDistillery(beforeMonth, expectedMonth);
+          progressed = D.tickDistillery(beforeMonth, expectedMonth, { fundsSales: approvedSalesMonth === expectedMonth });
         }
         game = progressed;
         // Apply only after a successful month transition. Older saves retain
         // their historic operations; only new operations are appended here.
         if (game.core.month === before2 + 1) game = autoWelcomeConnections(game);
         elapsed = 0;
-        if (game.core.month === before2 && !game.decisions.length && generationState()?.phase !== "review") {
+        approvedSalesMonth = null;
+        if (!game.decisions.length && generationState()?.phase !== "review" && (game.core.month === before2 || game.core.cash < reserve5(game))) {
           runtimeHalted = true;
-          message("\u8CC7\u91D1\u3092\u6B8B\u3057\u3066\u505C\u6B62\u3057\u3066\u3044\u307E\u3059\u3002\u305F\u308B\u8A70\u3081\u3084\u8CA9\u58F2\u3092\u78BA\u304B\u3081\u3089\u308C\u307E\u3059\u3002");
+          userPaused = true;
+          message("資金が少なくなりました。時間を止めています。");
         }
         saved = await save();
         if (!saved) {
@@ -20486,10 +20574,13 @@ function knownStockists() {
     if (SHOPS4.some((s) => s.id === id3)) seen.add(id3);
   }
   if (D.departmentInterests(game).length || D.departmentAdoptions(game).length) seen.add("department");
+  else if (!shopOffers().some(o => o.shopId === "department") && !game.shop.deliveries.some(d => d.shopId === "department")) seen.delete("department");
   return SHOPS4.filter((s) => seen.has(s.id));
 }
 function stockistProducts(shopId4) {
-  return game.releases.filter((r) => D.shopBrandStats(game, r.brandId, shopId4) || shopId4 === "department" && D.departmentInterests(game, r.brandId).length).map((r) => ({ r, p: game.core.products.find((p) => p.id === r.productId), q: placementEnabled && shopId4 === "town-liquor" ? D.placementQuote(game, r.productId, { retail: 0 }) : D.shopQuote(game, r.productId, shopId4) })).filter((x) => x.p?.stock > 0).reverse();
+  return game.releases.filter(r => shopId4 === "department"
+    ? D.departmentInterests(game, r.brandId).some(i => !i.pendingDelivery && i.sourceReleaseId === r.id)
+    : D.shopBrandStats(game, r.brandId, shopId4)).map((r) => ({ r, p: game.core.products.find((p) => p.id === r.productId), q: placementEnabled && shopId4 === "town-liquor" ? D.placementQuote(game, r.productId, { retail: 0 }) : D.shopQuote(game, r.productId, shopId4) })).filter((x) => x.p?.stock > 0).reverse();
 }
 function stockistStatus(shopId4) {
   if (D.storeMarketMode(game) && shopId4 !== "department") return game.shop.relations.some((r) => r.shopId === shopId4) ? "\u8CA9\u58F2\u67A0" : shopOffers().some((o) => o.shopId === shopId4) ? "\u7533\u3057\u51FA\u3042\u308A" : "\u53D6\u6271\u524D";
@@ -20549,11 +20640,16 @@ function departmentOfferInventory(offer) {
     button("販売室で確認", "shop-offer-sales", p.id);
 }
 function departmentDestination(p, release3, invitation) {
-  const interests = D.departmentInterests(game, release3?.brandId), interest = interests[0], adoptions = D.departmentAdoptions(game, release3?.brandId), adopted = adoptions.some((a) => a.releaseId === release3?.id), q = D.shopQuote(game, p.id, "department");
+  const interest = D.departmentInterests(game, release3?.brandId).find(i =>
+    i.pendingDelivery ? i.pendingDelivery.productId === p.id : i.sourceReleaseId === release3?.id), adoptions = D.departmentAdoptions(game, release3?.brandId), adopted = adoptions.some((a) => a.releaseId === release3?.id), q = D.shopQuote(game, p.id, "department");
   let body = '<section class="sales-destination shop-delivery" data-destination="department"><h3>' + esc12(shopName("department")) + '</h3><p class="quiet">' + esc12(shopTerms("department")) + "</p>";
   if (interest) {
     const pending = interest.pendingDelivery;
-    body += pending ? "<p>" + releaseTag(pending.productId) + " \xB7 \u7FCC\u67085\u672C\u7D0D\u54C1</p>" : "<p>\u7FCC\u67085\u672C\u7D0D\u54C1</p><p>5\u672C " + unit4(q.unitPrice) + "/\u672C</p>" + (q.ok ? deliveryButtons(p, q, "shop-deliver") : '<p class="quiet">' + esc12(displayReason(q.reason)) + "</p>");
+    body += pending ? "<p>" + releaseTag(pending.productId) + " \xB7 \u7FCC\u67085\u672C\u7D0D\u54C1</p>" : "<p>特選5本の相談</p><p>5本 " + unit4(q.unitPrice) + "/\u672C</p>" + (q.ok ? deliveryButtons(p, q, "shop-deliver") : '<p class="quiet">' + esc12(displayReason(q.reason)) + "</p>");
+    if (!pending && !game.productsById[p.id]?.listed)
+      body += button("販売を始める", "list", p.id);
+    else if (!pending && !q.ok && D.storeMarketMode(game) && D.storeMarketInventory(game, p.id).hand < 5)
+      body += "<p>店に置いた瓶を販売室で手元に戻せます。</p>";
     body += button(pending ? "\u53D6\u6D88" : "\u76F8\u8AC7\u3092\u7D42\u3048\u308B", "department-cancel", p.id, 'data-selection-id="' + esc12(interest.selectionId) + '"');
   } else if (invitation) body += button("\u76F8\u8AC7", "shop-open-offer", "", offerTarget(invitation));
   else body += "<p>" + (adopted ? "\u4ECA\u56DE\u306E\u4F01\u753B\u306F\u5B8C\u4E86" : adoptions.length ? "\u904E\u53BB\u306B\u63A1\u7528\u5B9F\u7E3E\u3042\u308A" : "\u7533\u3057\u51FA\u5F85\u3061") + "</p><p>5\u672C " + unit4(q.unitPrice) + '/\u672C</p><p class="quiet">' + esc12(displayReason(q.reason) ?? shopTerms("department")) + "</p>";
@@ -20715,7 +20811,15 @@ function closeModal() {
       return;
     }
   }
-  if (modal?.kind === "decision") return;
+  if (modal?.kind === "decision") {
+    const first = game.decisions[0];
+    if (first?.eventId === "funds") act(s => D.chooseDistillery(s, first.caskId, "review-funds"), () => {
+      modal = null;
+      message("資金が少なくなりました。時間を止めています。");
+      runtimeHalted = true;
+    }, null, { paused: true });
+    return;
+  }
   modal = modal?.kind === "shop-offer" && modal.returnProductId !== null ? { kind: "product", id: modal.returnProductId } : null;
   render2();
   schedule();
@@ -21061,7 +21165,17 @@ function syncModal() {
     const remark = modal.greeting && ["town-liquor", "supermarket", "bar"].includes(modal.shopId) ? { key: "approved", text: modal.shopId === "bar" ? "\u3067\u306F\u3001\u4F55\u672C\u304B\u7F6E\u3044\u3066\u307F\u307E\u3057\u3087\u3046\u3002" : LIVE_MESSAGE.shopGreeting } : displayRead("remarks", game, shopRemark(game, modal.shopId), { shopId: modal.shopId, brandId: 1 });
     body = (latestDialogue || '<p class="shop-remark" data-remark-key="' + esc12(remark.key) + '">\u300C' + esc12(remark.text) + "\u300D</p>") + (deliveryNotice ? '<p class="delivery-confirmation" role="status">' + esc12(deliveryNotice) + "</p>" : "") + offers.map((o) => button(o.shopId === "department" ? "\u76F8\u8AC7" : "\u7533\u3057\u51FA", "stockist-offer", o.id, offerTarget(o))).join("");
     body += shopStartedMarkup();
-    body += modal.shopId !== "department" ? "<p>" + (placementEnabled && modal.shopId === "town-liquor" ? "\u81EA\u5206\u3067\u5C4A\u3051\u308B" : game.shop.relations.some((r) => (r.shopId ?? "town-liquor") === modal.shopId) ? "\u81EA\u52D5\u767A\u9001" : "\u53D6\u6271\u958B\u59CB\u5F8C\u306F\u81EA\u52D5\u767A\u9001") + " \xB7 \u6708" + SHOPS4.find((s) => s.id === modal.shopId).monthlyLimit + "\u672C\u307E\u3067</p>" : items.length ? '<div class="stockist-list">' + items.map(({ p, r, q }) => button(esc12(brandFor(p.id)?.name ?? "\u30A6\u30A4\u30B9\u30AD\u30FC") + "<small>" + releaseTag(p.id) + " \xB7 " + esc12(releaseSource(p.id)) + "<br>\u5728\u5EAB " + p.stock + "\u672C<br>\u8CB7\u53D6 " + unit4(q.unitPrice) + "/\u672C" + (q.ok ? "" : "<br>" + esc12(displayReason(q.reason))) + "</small>", "stockist-product", p.id, q.ok ? "" : "disabled")).join("") + "</div>" : '<p>\u73FE\u5728\u306F\u7D0D\u54C1\u4E0D\u53EF</p><p class="quiet">' + (modal.shopId === "department" && !D.departmentInterests(game).length ? "\u9650\u5B9A\u53D6\u6271\u3044\u306E\u76F8\u8AC7\u304C\u5FC5\u8981" : "\u7D0D\u54C1\u3067\u304D\u308B\u5728\u5EAB\u306A\u3057") + "</p>";
+    const departmentContacts = modal.shopId === "department" ? D.departmentInterests(game) : [];
+    const reservations = departmentContacts.filter(i => i.pendingDelivery);
+    for (const { pendingDelivery: d } of reservations) {
+      body += "<p>" + esc12(releaseTag(d.productId)) + "　" + d.count + "本確保<br>" + esc12(monthLabel(d.dueMonth)) + " 納品予定</p>";
+    }
+    if (modal.shopId !== "department" || departmentContacts.some(i => !i.pendingDelivery) || !offers.length && !reservations.length && !D.departmentAdoptions(game).length)
+      body += modal.shopId !== "department" ? "<p>" + (placementEnabled && modal.shopId === "town-liquor" ? "\u81EA\u5206\u3067\u5C4A\u3051\u308B" : game.shop.relations.some((r) => (r.shopId ?? "town-liquor") === modal.shopId) ? "\u81EA\u52D5\u767A\u9001" : "\u53D6\u6271\u958B\u59CB\u5F8C\u306F\u81EA\u52D5\u767A\u9001") + " \xB7 \u6708" + SHOPS4.find((s) => s.id === modal.shopId).monthlyLimit + "\u672C\u307E\u3067</p>" : items.length ? '<div class="stockist-list">' + items.map(({ p, r, q }) => button(esc12(brandFor(p.id)?.name ?? "\u30A6\u30A4\u30B9\u30AD\u30FC") + "<small>" + releaseTag(p.id) + " \xB7 " + esc12(releaseSource(p.id)) + "<br>\u5728\u5EAB " + p.stock + "\u672C<br>\u8CB7\u53D6 " + unit4(q.unitPrice) + "/\u672C" + (q.ok ? "" : "<br>" + esc12(displayReason(q.reason))) + "</small>", q.ok ? "stockist-product" : "department-product", p.id)).join("") + "</div>" : '<p>\u73FE\u5728\u306F\u7D0D\u54C1\u4E0D\u53EF</p><p class="quiet">' + (modal.shopId === "department" && !D.departmentInterests(game).length ? "\u9650\u5B9A\u53D6\u6271\u3044\u306E\u76F8\u8AC7\u304C\u5FC5\u8981" : "\u7D0D\u54C1\u3067\u304D\u308B\u5728\u5EAB\u306A\u3057") + "</p>";
+    if (modal.shopId === "department" && !departmentContacts.length && !offers.length && D.departmentAdoptions(game).length) {
+      const last = D.departmentAdoptions(game).at(-1);
+      body += "<p>" + esc12(monthLabel(last.month)) + "　" + last.count + "本納品済み</p>";
+    }
     body += shopOrderMarkup(game, modal.shopId, { monthLabel, minQuantity: SHOPS4.find((s) => s.id === modal.shopId)?.minQuantity });
     if (placementEnabled && modal.shopId === "town-liquor") body += '<div class="stockist-list">' + items.map(({ p, q }) => button(esc12(brandFor(p.id)?.name ?? "\u30A6\u30A4\u30B9\u30AD\u30FC") + "<small>" + releaseTag(p.id) + " \xB7 " + ageLabel(p.age) + "<br>" + D.placementInventory(game, p.id).available + "\u672C" + (q.ok ? "" : "<br>" + esc12(displayReason(q.reason))) + "</small>", "stockist-product", p.id, q.ok ? "" : "disabled")).join("") + "</div>";
     // The partner is already established; in this single-brand game, a brand card would repeat the known name.
@@ -21084,7 +21198,7 @@ function syncModal() {
     actions = button("つながる", "regional-accept", "", target) + button("閉じる", "regional-later", "", target);
   } else if (kind2 === "shop-offer") {
     const offer = game.shop.offer, brand = game.brands.find((b) => b.id === offer?.brandId);
-    if (!offer || !brand) {
+    if (!offer || !brand || offer.id !== modal.offerId || offer.shopId !== modal.shopId) {
       return dismissDialog(dialog);
     }
     const department = offer.shopId === "department";
@@ -21105,8 +21219,13 @@ function syncModal() {
       const fallback = D.orderFallbackTerms(game);
       body += "<p>\u901A\u5E38\u5378\u58F2 " + unit4(fallback.unitPrice) + "/\u672C \u30D3\u30F3\u8A70\u3081\u8CBB " + unit4(fallback.bottlingFee) + '/\u672C</p><p class="quiet">\u81EA\u5206\u3067\u8CA9\u58F2\u3059\u308B\u5834\u5408\u3001\u719F\u6210\u3092\u7D9A\u3051\u3089\u308C\u307E\u3059\u3002</p>';
     }
-    actions = D.contractFor(game, d.caskId) && d.eventId === "funds" ? button("\u5951\u7D04\u3092\u89E3\u9664\u3057\u3066\u30D3\u30F3\u8A70\u3081", "cancel-contract", d.caskId) : pending.options.map((o) => button(esc12(o.id === "bottle" ? "\u30D3\u30F3\u8A70\u3081" : uiText(o.label)) + (o.hint && o.id !== "cool" ? "<small>" + esc12(uiText(o.hint)) + "</small>" : ""), o.id === "bottle" ? "quote" : "choose", d.caskId, 'data-choice="' + esc12(o.id) + '" data-event="' + esc12(d.eventId) + '"')).join("");
+    actions = pending.options.map((o) => button(esc12(o.id === "bottle" ? "\u30D3\u30F3\u8A70\u3081" : uiText(o.label)) + (o.hint && o.id !== "cool" ? "<small>" + esc12(uiText(o.hint)) + "</small>" : ""), o.id === "bottle" ? "quote" : "choose", d.caskId, 'data-choice="' + esc12(o.id) + '" data-event="' + esc12(d.eventId) + '"')).join("");
     actions += button("\u8A66\u3059", "trial", d.caskId);
+    if (d.eventId === "funds") {
+      title = "資金が少なくなりました";
+      body = "<p>所持金 " + money(game.core.cash) + " · 維持費 " + money(upkeep2(game)) + "/月</p><p>時間を止めています。</p>";
+      actions = button("閉じる", "cancel");
+    }
   } else if (kind2 === "fill") {
     modal.fillType ??= D.operationDefaults(game).caskType;
     const profile4 = spiritProfile(game.core.spirit), tint2 = game.core.spirit?.flavor?.version === 1 ? glassColor2(game.core.spirit.flavor.profile).color : null, choices = ["refill", "bourbon"].map((type) => {
@@ -21154,8 +21273,11 @@ function syncModal() {
     title = (brandFor(id3)?.name ?? "AmberTime") + " 第" + placementReleaseNumber(p) + "回";
     body = '<div class="product-overview"><div class="modal-bottle">' + productArt(p) + "</div><p>" + ageLabel(p.age) + " 手元 " + inv.hand + "本</p></div>";
     body += '<details><summary>酒の記録</summary>' + flavorTypeView3(r.profile) + (entry ? button("元の記録", "ledger-release", entry.key) : "") + releaseComparisonButton(r) + '</details>';
-    const invitation = shopOffers().find((x) => x.brandId === r.brandId && x.shopId === "department");
-    if (D.departmentInterests(game, r.brandId).length || D.departmentAdoptions(game, r.brandId).length || invitation) body += departmentDestination(p, r, invitation);
+    const invitation = shopOffers().find(o => o.shopId === "department" && o.sourceReleaseId === r.id);
+    const interest = D.departmentInterests(game, r.brandId).some(i =>
+      i.pendingDelivery ? i.pendingDelivery.productId === p.id : i.sourceReleaseId === r.id);
+    if (interest) modal.destination = "department";
+    if (interest || D.departmentAdoptions(game, r.brandId).some(a => a.releaseId === r.id) || invitation) body += departmentDestination(p, r, invitation);
     actions = button("閉じる", "cancel");
   } else if (kind2 === "product") {
     const p = game.core.products.find((x) => x.id === id3), meta = game.productsById[id3];
@@ -21713,7 +21835,9 @@ $2("toggle-time").addEventListener("click", async () => {
   if (countdown.active) return;
   if (runtimeHalted) {
     runtimeHalted = false;
+    userPaused = false;
   } else userPaused = !userPaused;
+  approvedSalesMonth = userPaused ? null : game.core.month;
   if (!userPaused) offerPresentation.continue();
   await save();
   render2();
@@ -22055,6 +22179,12 @@ async function handleModal(e) {
   if (a === "stockist-back" && kind2 === "stockist-delivery") {
     modal = { kind: "stockist", shopId: modal.shopId };
     deliveryNotice = "";
+    render2();
+    return;
+  }
+  if (a === "department-product" && kind2 === "stockist" && modal.shopId === "department" &&
+      stockistProducts("department").some(x => x.p.id === id3)) {
+    modal = { kind: "product", id: id3, destination: "department" };
     render2();
     return;
   }
@@ -22496,8 +22626,8 @@ async function handleModal(e) {
         modal = target.returnModal ?? (target.returnProductId !== null ? { kind: "product", id: target.returnProductId } : null);
         room = "sales";
       }, () => {
-        deliveryNotice = "\u7FCC\u67085\u672C\u7D0D\u54C1";
-        message(target.returnModal || target.returnProductId !== null ? "" : deliveryNotice);
+        deliveryNotice = "";
+        message(target.returnModal || target.returnProductId !== null ? "" : "翌月5本納品");
       });
     }
     return;
@@ -22725,6 +22855,7 @@ async function installSession(session, { fresh = false } = {}) {
   runtimeHalted = false;
   lastSaveError = null;
   distillRoom.reset();
+  approvedSalesMonth = null;
   scene2.resetMotion();
   marketUI.reset();
   m0.reset();
@@ -22842,6 +22973,16 @@ async function installSession(session, { fresh = false } = {}) {
     } catch (error) {
       barMigrationFailed = true;
       saveFailure(error, "担当者の設定の更新");
+    }
+  }
+  if (!barMigrationFailed && expiredDepartmentOfferIds(game).length) {
+    try {
+      const next = D.expireDepartmentOffers(game);
+      if (await saveCandidate(next)) game = next;
+      else barMigrationFailed = true;
+    } catch (error) {
+      barMigrationFailed = true;
+      saveFailure(error, "デパートの申し出の確認");
     }
   }
   $2("game").hidden = false;

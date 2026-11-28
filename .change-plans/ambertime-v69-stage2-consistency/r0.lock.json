@@ -1,0 +1,96 @@
+{
+  "schema": "yumaniwa-change-plan-lock/0.2",
+  "planDigest": "ea3ab56ec702ef1f0d3e0cbb9516ba8565b6046d645c48f070d3579feca0d6c1",
+  "plan": {
+    "schema": "yumaniwa-change-plan/0.2",
+    "status": "READY",
+    "repository": "SukimaStock/yumaniwa-town-staging",
+    "environment": "staging",
+    "baseSha": "3c20cde75fdc1408aafa90c67a3a3c3958053736",
+    "changeId": "ambertime-v69-stage2-consistency",
+    "revision": 0,
+    "change": "Resolve low-funds sales access and department offer inventory consistency on Staging.",
+    "planLevel": "full",
+    "classes": [
+      "WORK",
+      "SYSTEM",
+      "CONTENT"
+    ],
+    "authority": [
+      "Standard",
+      "HQ Review",
+      "Owner Decision"
+    ],
+    "canonicalSources": [
+      "AGENTS.md",
+      "works/ambertime/AGENTS.md",
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/v69/formal-storage.mjs",
+      "data/work-lifecycle.json"
+    ],
+    "allowedPaths": [
+      "works/ambertime/index.html",
+      "works/ambertime/v69/game.js",
+      "works/ambertime/tests/v69-stage2-model.test.mjs",
+      "works/ambertime/tests/v69-stage2-browser.test.mjs",
+      "works/ambertime/tests/v69-stage2-funds.test.mjs",
+      ".change-plans/ambertime-v69-stage2-consistency/r0.lock.json"
+    ],
+    "conditionalPaths": [],
+    "forbiddenPaths": [
+      "tools/**",
+      ".github/**",
+      "engine/**"
+    ],
+    "expectedChanges": [
+      "Let players recover by selling stock or choosing other affordable operations.",
+      "Retire unfulfillable offers, protect accepted stock through settlement, align projections.",
+      "Exercise historical replay, formal save, and native player paths."
+    ],
+    "ownerDecisions": [
+      "Owner confirmed the stage 1 lever improvement and authorized stage 2 on Staging.",
+      "No new economic rescue without a decision."
+    ],
+    "hqDecisions": [
+      "Use existing funds warnings, inventory, contracts, transactions and replay boundaries."
+    ],
+    "staticChecks": [
+      "node-syntax"
+    ],
+    "manualChecks": [
+      "Recover from a shortage in sales; inspect 5-bottle project across map, ledger and sales."
+    ],
+    "impactChecks": [
+      "work.runtime",
+      "work.regression",
+      "risk.high-risk-review",
+      "runtime.regression"
+    ],
+    "impactExclusions": [],
+    "rollback": "Revert the Staging PR; existing records retain their format.",
+    "outOfScope": [
+      "Stage 3 onward, new rescue economics, other works, production."
+    ],
+    "promotion": "none",
+    "unverified": [
+      "Physical iPhone Safari interaction, device audio and background recovery."
+    ],
+    "alternativesRejected": [
+      "A loan system, altering past transactions, new pricing, substitute releases or offer expiry dates."
+    ],
+    "boundaryCases": [
+      "No liquid assets, stock on shelves, old offers and old operations, same-brand releases, partial stock and staff refill."
+    ],
+    "testPlan": [
+      "Exercise baseline and fixed state; preserve historical records across resume; test native market controls, targeted UI, scope/risk/impact and served assets."
+    ],
+    "problem": "A funds decision may lock players out of selling and a department offer may outlive its release stock.",
+    "currentContract": "Audited v69 gameplay and formal IndexedDB persistence are complete.",
+    "whyExistingIsInsufficient": "Handlers and projections need consistent cash and inventory availability and reservation boundaries.",
+    "design": "Keep live funds recovery and department offer evaluation consistent across player, automated transactions and presentation; keep old replay behavior.",
+    "migration": "No saved data migration or deletion.",
+    "compatibility": "Preserve stored barrel IDs, balance, PCG state, delivered counts, release and recall history, generation handoff and formal supported imports.",
+    "promotionRisk": "Staging only. Public production release requires separate approval."
+  }
+}
